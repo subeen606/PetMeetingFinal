@@ -146,16 +146,21 @@ public class loginController {
 	@RequestMapping (value="loginAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public int loginAf(MemberDto mem, HttpServletRequest req, Model model) {
 		int num;
-		MemberDto user = memService.loginCheck(mem);		
+		MemberDto user = memService.loginCheck(mem);
+		
+		
 		if(user == null) {
 			num = 0; // "가입되지 않은 계정";
 		}
 		else if( user != null && user.getReportcount() >= 10 ) {
 			num = 1; // "활동이 정지된 계정";
+		}else if( user.getAuth() == 8 ) {
+			num = 4;
 		}
 		else {
 			num = 2; // "가입되어 있는 계정";\
 		}
+		
 		boolean leaveCheck = memService.leaveMemCheck(mem.getEmail());
 		
 		if(leaveCheck) {
