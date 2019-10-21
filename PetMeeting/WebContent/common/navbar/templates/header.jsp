@@ -32,7 +32,7 @@
 <c:if test="${login eq null}">
 	<script type="text/javascript">
 		alert("세션이 종료되었습니다. 다시 로그인 하세요");
-		location.href="main.do";
+		location.href="login.do";
 	</script>
 </c:if>
  <!--::header part start::-->
