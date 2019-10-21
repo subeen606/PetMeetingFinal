@@ -204,6 +204,10 @@ $(function() {
 						console.log("탈퇴한회원");
 						alert("해당 계정은 탈퇴한 계정입니다.");
 					}
+					if( num == 4 ) {
+						console.log("관리자계정.");
+						location.href="adminMain.do";
+					}
 				},fail : function(error) {
 					alert(JSON.stringify(error));
 				}
