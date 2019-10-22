@@ -204,22 +204,25 @@ document.addEventListener('DOMContentLoaded', function() {
 									            <div class="content">
 									          			<div id='calendar'></div>
 									        
-            </div>
-        </li>
-    </ul>
-</div>
+			            </div>
+			        </li>
+			    </ul>
+			</div>
 									
 								</div>
 							</div>
 							<div class="left-box">
-									<table border="1">
+									 <label for="flwer-play-activity">팔로워의 최신 소모임</label>
+									 <div class="flwer-activity">
+									<table id="flwer-play-activity">
 									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
-									<col width="20%"><col width="60%"><col width="20%">
+									<col width="15%"><col width="55%"><col width="25%">
 									<c:if test="${ empty flwerAllPlayList }">
 									<tr>
 										<td>이번주의 팔로워 글이 없습니다.</td>
 									</tr>
 									</c:if>
+									<jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 									<c:if test="${ not empty flwerAllPlayList }">
 										<tr>
 										<th>팔로워</th>
@@ -227,24 +230,64 @@ document.addEventListener('DOMContentLoaded', function() {
 										<th>모임 예정일</th>
 										</tr>
 										<c:forEach items="${flwerAllPlayList }" var="play" varStatus="i">
+											<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
 											<tr>
 											<td>
-												<img src="${play.myprofile_img }">
+												<img src="${play.myprofile_img }" class="list-profileimg">
 												<br>
 												${play.nickname }
 											</td>
 											
-											<td>
+											<td align="left">
 												${play.sort }
 												<br>
 												${play.category }&nbsp;${play.title }
 											</td>
 											
-											<td>${play.pdate }</td>
+											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
 											</tr>
 										</c:forEach>
 									</c:if>
 									</table>
+									</div>
+									
+									 <label for="flwer-play-activity">팔로워의 최신 게시글</label>
+									 <div class="flwer-activity">
+									<table id="flwer-free-activity">
+									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
+									<col width="15%"><col width="55%"><col width="25%">
+									<c:if test="${ empty flwerFreeList }">
+									<tr>
+										<td>이번주의 팔로워 글이 없습니다.</td>
+									</tr>
+									</c:if>
+									<c:if test="${ not empty flwerFreeList }">
+										<tr>
+										<th>팔로워</th>
+										<th>게시글 정보</th>
+										<th>작성일</th>
+										</tr>
+										<c:forEach items="${flwerFreeList }" var="free" varStatus="i">
+											<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
+											<tr>
+											<td>
+												<img src="${free.myprofile_img }" class="list-profileimg">
+												<br>
+												${free.nickname }
+											</td>
+											
+											<td align="left">
+												${free.sort }
+												<br>
+												${free.category }&nbsp;${free.title }
+											</td>
+											
+											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
+											</tr>
+										</c:forEach>
+									</c:if>
+									</table>
+									</div>
 							</div>
 					</div>
 				</div>

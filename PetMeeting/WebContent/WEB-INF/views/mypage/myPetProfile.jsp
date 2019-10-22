@@ -21,7 +21,7 @@
   <!-- Main -->
 	<div id="main">
 		<div class="inner">
-			<h2>나의 펫프로필</h2>
+			<h2>나의 펫 프로필</h2>
 			<hr>							
 			<section class="main-container">
 				<div class="container-fluid">

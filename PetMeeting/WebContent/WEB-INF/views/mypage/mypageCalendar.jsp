@@ -58,7 +58,19 @@
 			<%
 			 }
 			 %>
-			displayEventTime:false
+			displayEventTime:false,
+			eventClick: function(info) {
+				var pdate = info.event.start;
+				var today = new Date();
+				if(today.getTime()>pdate.getTime()){
+					alert("마감된 소모임입니다.");					
+				}
+				else{
+					var seq = info.event.id;
+					location.href="detailPlay.do?seq="+seq;
+					
+				}
+			}
 	});
 		calendar.render();
 	});
@@ -91,9 +103,11 @@
 </div>	
 <script type="text/javascript">
 $(document).ready(function() {
-	 $.noConflict();
 	$(".fc-left").append(
 			"<font>참여</font><div id='join-color'></div><font>모집</font><div id='make-color'></div>");
+	
+
+	
 });
 
 </script>

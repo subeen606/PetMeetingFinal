@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.FUpUtil;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -28,7 +29,6 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
-import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
@@ -587,14 +587,6 @@ public class MypageController {
 			
 			List<MypageFollowListParam> flwerAllPlayList = mypageService.getRecentFollowersPlay(user.getEmail());
 			List<MypageFollowListParam> flwerFreeList = mypageService.getRecentFollowersFree(user.getEmail());
- 			
-			 for (MypageFollowListParam mypageFollowListParam : flwerAllPlayList) {
-				  SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-				  Date playDate = pdate.parse(mypageFollowListParam.getPdate()); 		
-				  SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-				  mypageFollowListParam.setPdate(ppdate.format(playDate));
-			  }
-			
 			
 			  model.addAttribute("flwerAllPlayList", flwerAllPlayList);
 			  model.addAttribute("flwerFreeList", flwerFreeList);
@@ -890,12 +882,12 @@ public class MypageController {
 			if(!joinlist.isEmpty()){
 				
 				for (PlayboardDto pdto : joinlist) {
-					jsonData += "{title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
+					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
 				}
 			}
 			if(!makelist.isEmpty()){
 				for (PlayboardDto pdto : makelist) {
-					jsonData += "{title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
+					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
 				}		
 			}
 			if(jsonData.equals("[")){
@@ -906,6 +898,7 @@ public class MypageController {
 				jsonData += "]";		
 			}
 
+			System.out.println("jsonData체크" + jsonData);
 			
 			model.addAttribute("myjoinlist", joinlist);
 			model.addAttribute("mymakelist", makelist);
@@ -966,19 +959,9 @@ public class MypageController {
 			
 			 MemberDto member = (MemberDto)req.getSession().getAttribute("login");
 			 listparam.setEmail(member.getEmail());
-			 List<MypageFundingParam> fundinglist = mypageService.getMyFundingList(listparam);
+			 List<FundingDto> fundinglist = mypageService.getMyFundingList(listparam);
 			
-			 for (MypageFundingParam fundingparam : fundinglist) {
-					
-					 SimpleDateFormat fdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-						Date startDate = fdate.parse(fundingparam.getSdate()); 
-						Date endDate = fdate.parse(fundingparam.getSdate()); 
-						
-						SimpleDateFormat ffdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-						fundingparam.setSdate(ffdate.format(startDate));
-						fundingparam.setEdate(ffdate.format(endDate));
-						
-			}
+			
 			 model.addAttribute("fundinglist", fundinglist);
 			 model.addAttribute("listparam", listparam);
 			 
