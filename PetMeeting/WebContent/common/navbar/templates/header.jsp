@@ -9,7 +9,7 @@
  	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/bootstrap.min.css">
@@ -29,12 +29,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
 </head>
 <body>
-<c:if test="${login eq null}">
-	<script type="text/javascript">
-		alert("세션이 종료되었습니다. 다시 로그인 하세요");
-		location.href="main.do";
-	</script>
-</c:if>
  <!--::header part start::-->
     <header class="header_area">
         <div class="sub_header">
@@ -117,7 +111,7 @@
     
     <!-- jquery plugins here-->
     <!-- jquery -->
-   <%--  <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script> --%>
+    <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script>
     <!-- popper js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>
     <!-- bootstrap js -->
@@ -132,5 +126,81 @@
     <script src="${pageContext.request.contextPath}/common/navbar/js/owl.carousel.min.js"></script>
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/custom.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function () {
+		  Notification.requestPermission(function (status) {
+		    // This allows to use Notification.permission with Chrome/Safari
+		    //alert("status"+status);
+		    if (Notification.permission !== status) {
+		      Notification.permission = status;
+		    }
+		  });
+	
+	$.ajax({
+		 type:"POST",
+		 url:"mypagemsgpush.do",
+		 async: false,
+		 success:function(data){
+			 var split_res=data.split('/');
+			 var count=split_res[1];
+ 			if(count!='-1'){
+				$(".nowmymsg").val(count);				
+			}			
+		  },error:function(){
+			  alert("실패!");
+		  }
+	   });
+       
+		// var notification = new Notification("새 쪽지가 등록 되었습니다");
+    function noti() {	   	
+		$.ajax({
+			 type:"POST",
+			 url:"mypagemsgpush.do",
+			 async: false,
+			 success:function(data){
+						 
+				 var split_res=data.split('/');
+				 var email=split_res[0];
+				 var count=split_res[1];
+				 
+				//alert("이메일"+email);
+				 //alert("카운트"+count);
+				 				 
+				 if(count!='-1'){
+					 					 
+					 if($(".nowmymsg").val()<count){
+							
+					    var options={
+					        icon:"https://img.icons8.com/cotton/2x/topic-push-notification.png",
+					    	body:"새 쪽지가 도착 하였습니다. ",
+					    	onclick:"alert('d');"
+					    }				    		
+					Notification.requestPermission().then(function(result) {
+										
+				      if(result=='denied'){
+				      alert(email+"님으로 부터 쪽지가 왔습니다");	
+				  }else{
+						var notification = new Notification(email+"님으로 부터 쪽지가 왔습니다",options);
+					    notification.onclick =function (){
+					       location.href="myrevmsg.do?recordCountPerPage=10";
+					    }										  
+				  }								 
+			});						 
+						$(".nowmymsg").val(count);
+					}else{
+						//alert(data);
+					}					
+				}				 
+				 
+			  },error:function(){
+				  alert("실패!");
+			  }
+		   });
+	}	
+	 setInterval(noti,2000);	 	
+});
+	
+</script>
 </body>
 </html>

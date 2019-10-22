@@ -3,16 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%!public String dot3(String msg){
-	String str = "";
-	if(msg.length() >= 17){
-		str = msg.substring(0,15);	// 0에서 9까지
-		str += "...";
-	}else{
-		str = msg.trim();
-	}
-	return str;
-}%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,36 +17,13 @@
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.js'></script>
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.js'></script>
 <%
-	//Data를 넣기 위해 json 생성
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
 	List<PlayboardDto> makelist = (List<PlayboardDto>) request.getAttribute("mymakeList");
-	String jsonData = "[";
-	if(!joinlist.isEmpty()){
-		
-		for (PlayboardDto pdto : joinlist) {
-	jsonData += "{title:'" + dot3(pdto.getTitle()) + "', start:'" + pdto.getPdate() + "', backgroundColor:'#ff9c3d' },";
-		}
-	}
-	if(!makelist.isEmpty()){
-		for (PlayboardDto pdto : makelist) {
-	jsonData += "{title:'" + dot3(pdto.getTitle()) + "', start:'" + pdto.getPdate() + "', backgroundColor:'#ffe7c1' },";
-		}		
-	}
-	if(jsonData.equals("[")){
-		jsonData = "";			
-	}
-	else{
-		jsonData = jsonData.substring(0, jsonData.lastIndexOf(","));
-		jsonData += "]";		
-	}
-
-
-	System.out.println("jsonData" + jsonData);
-	//calendar에서 불러주기 위한 json data
-	request.setAttribute("jsonData", jsonData);
+	String jsonData = (String)request.getAttribute("jsonData");
 %>
 
 <script>
+var jsonData = 
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -70,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		  <%
 			if(!jsonData.equals("")){	
 			%>
-			events : <%=request.getAttribute("jsonData")%>,
+			events : <%=jsonData%>,
 			<%
 			 }
 			 %>
@@ -84,7 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <body class="is-preload">
-	<jsp:include page="../main.jsp" flush="false" />
+
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+  
 <!-- Wrapper -->
 <div id="wrapper">
 
