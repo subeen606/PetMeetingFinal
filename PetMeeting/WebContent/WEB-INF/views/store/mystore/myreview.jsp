@@ -114,7 +114,7 @@ ul.tab-menu li{
 	width: 150px;
 	height: 100%;
 	text-align: center;
-	color: #2a7d6b;
+	color: #555555;
 	font-size: 18px;
 	padding-top: 10px;
 }
