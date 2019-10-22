@@ -96,8 +96,13 @@ public class AdminDaoImpl implements AdminDao {
 	}
 	
 	@Override
-	public void insertLeaveMember(List<ReportDto> leaveMemberList) {
-		sqlSession.insert(namespace + "insertLeaveMember", leaveMemberList);
+	public void pauseMember(String email) {
+		sqlSession.update(namespace + "pauseMember", email);
+	}
+
+	@Override
+	public void cancelPauseMember(String email) {
+		sqlSession.update(namespace+"cancelPauseMember", email);
 	}
 
 	@Override

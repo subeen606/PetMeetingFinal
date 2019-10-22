@@ -9,7 +9,7 @@
  	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	
     <link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/bootstrap.min.css">
@@ -112,7 +112,7 @@
     
     <!-- jquery plugins here-->
     <!-- jquery -->
-   <%--  <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script> --%>
+  	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- popper js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>
     <!-- bootstrap js -->

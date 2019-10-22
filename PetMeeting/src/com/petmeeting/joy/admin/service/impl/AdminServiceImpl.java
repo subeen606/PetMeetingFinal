@@ -176,10 +176,15 @@ public class AdminServiceImpl implements AdminService {
 	
 	/* 관리자에 의한 활동 중지 */
 	@Override
-	public void insertLeaveMember(List<ReportDto> leaveMemberList) {
-		adminDao.insertLeaveMember(leaveMemberList);
+	public void pauseMember(String email) {
+		adminDao.pauseMember(email);
 	}
-	
+	/* 활동중지 해제 */
+	@Override
+	public void cancelPauseMember(String email) {
+		adminDao.cancelPauseMember(email);
+	}
+
 	/* 회원 신고 내역 뽑기 */
 	@Override
 	public List<ReportDto> getMemberReportReason(String email) {

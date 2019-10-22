@@ -12,7 +12,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css">
+	<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css?after"> --%>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/memberList.css?after">
 
 </head>
@@ -34,6 +34,7 @@
 			<input type="hidden" name="currPage" value="${searchBean.currPage }">
 				<select name="sortingType">
 					<option value="전체">전체보기</option>
+					<option value="활중">활동 중지 회원</option>
 					<option value="신고">신고된 회원</option>
 				</select>
 				
@@ -56,16 +57,22 @@
 				</div>
 			</form>
 			
-			<form id="leaveMemberFrm" action="adminLeaveMember.do" method="post">
+			<form id="leaveMemberFrm" action="adminPauseMember.do" method="post">
 			<table class="boardTable">
-					<col width="5%"><col width="23%"><col width="23%"><col width="10%"><col width="10%"><col width="10%"><col width="14%">
+					<col width="4%"><col width="20%"><col width="20%"><col width="10%"><col width="9%"><col width="10%"><col width="15%">
 					<thead>
 						<tr>
-							<th><input type="checkbox" name="allmem"></th><th>E-Mail</th><th>닉네임</th><th>등급</th><th>신고 수</th><th>활동중지 여부</th><th>회원정보 보기</th>
+							<th><input type="checkbox" name="allmem"></th><th>E-Mail</th><th>닉네임</th><th>등급</th><th>신고 수</th><th>회원 상태</th><th>회원정보 보기</th>
 						</tr>
 					</thead>
 					
 					<tbody>
+						<c:if test="${empty memberList && not empty searchBean }">
+							<tr>
+								<td colspan="7" align="center">검색결과 없음</td>
+							</tr>
+						</c:if>
+						
 						<c:forEach items="${memberList }" var="memList" varStatus="i">
 							<tr <c:if test="${memList.reportcount > 0 }">style="background-color: #fff5f2;"</c:if>>
 								<td align="center"><input type="checkbox" name="memcheck" value="${memList.email }"></td>							
@@ -79,8 +86,11 @@
 									${memList.reportcount }</font>
 								</td>
 								<td align="center">
+									<c:if test="${memList.auth eq 4 }">
+										<font class="badMem" email="${memList.email }" title="활동중지 해제를 원하시면 클릭하세요">활동중지</font>
+									</c:if>
 									<c:if test="${memList.leavememberCheck eq true }">
-										<font class="leaveMem">활동중지</font>
+										<font class="leaveMem">회원탈퇴</font>
 									</c:if>
 								</td>
 								<td align="center"><button type="button" class="infoBtn" email="${memList.email }"></button></td>
@@ -119,6 +129,10 @@ $(function () {
 		$("select[name='grade']").val("${searchBean.grade }").attr("selected", "selected");
 	}
 	$("select[name='search_category']").val("${searchBean.search_category }").attr("selected", "selected");
+	
+	if("${searchBean.search_txt }" != ""){
+		$("input[name='search_txt']").val("${searchBean.search_txt }");
+	}
 	
 	/* 정렬 */
 	$("select[name='sortingType']").on("change", function () {
@@ -162,34 +176,44 @@ $(function () {
 		}
 	});
 	
+	/* 활동중지 */
 	$("#leaveBtn").click(function () {
-		var check = confirm("선택하신 회원들을 활동중지 하시겠습니까?");
-		if(check){
-			$("#leaveMemberFrm").submit();
-		}else{
-			return false;
-		}
+		var checklen = $("input:checkbox[name='memcheck']:checked").length;
+		var check = "";
 		
+		if(checklen == 0){
+			alert("활동중지 할 회원을 선택하세요!");
+		}else{
+			if(checklen == 1){
+				check = confirm("선택하신 회원을 활동중지 하시겠습니까?");
+			}else{
+				check = confirm("선택하신 회원들을 활동중지 하시겠습니까?");
+			}		
+			if(check){
+				$("#leaveMemberFrm").submit();
+			}else{
+				return false;
+			}
+		}
 	});
 	
+	/* 회원정보 상세보기 */
 	$(".infoBtn").click(function () {		
 		var option = "width = 700, height = 800, top = 100, left = 300, location = no, resizeable = no";
 		window.open("adminMemberDetail.do?email="+$(this).attr("email"), "memberDetail", option);
 	});
 	
+	/* 활동중지 해제 */
+	$(".badMem").click(function () {
+		var check = confirm("활동중지를 해제하시겠습니까?");
+		if(check){
+			location.href = "adminCancelPauseMember.do?email=" + $(this).attr("email");
+		}
+		
+	});
+	
 });
 
-/* 선택 여부 확인 */
-function memCheck() {	
-	var checklen = $("input:checkbox[name='memcheck']:checked").length;
-	if(checklen == 0 ){
-		alert("활동중지할 회원을 선택해 주세요");
-		return false;
-	}
-	else {		
-		return true;
-	}
-}
 
 /* 페이징 함수 */
 function goPage( pageNumber ) {

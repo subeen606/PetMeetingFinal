@@ -7,26 +7,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>PetMeeting : 쪽지 쓰기</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/mypage_resources/mypage_h/msgbox/msgbox_style.css">
-
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/mypage_h/msgbox/msgbox_style.css">
 
 </head>
 <body>
 <form id="frm">
 <input type="hidden" name="from_email" value="${login.email }">
+<input type="hidden" name="to_email" value="${msg.to_email }">
 	<div class="check-section">
-		<img src="./mypage_resources/mypage_s/images/urgent.png"
-			class="container-icon"><font><b>중요</b></font>&nbsp;<input
-			type="checkbox" name="important" id="_important" value="0">
+		<img src="./mypage_resources/mypage_s/images/urgent.png" class="container-icon"><font><b>중요</b></font>&nbsp;
+		<input type="checkbox" name="important" id="_important" value="0">
 	</div>
-
-
 
 	<div class="input-area">
 		<font id="recipient"><b>받는사람</b>&nbsp;</font>${msg.nickname} <font></font>
-		<input type="hidden" name="nickname" >
+		<input type="hidden" name="nickname" value="${msg.nickname}">
 	
 		<br><br>
 		<textarea id="_content" name="content" ></textarea>
@@ -66,7 +61,6 @@ $(document).ready(function(){
 	//답장 버튼 0 보내기 버튼 1
 	$("#sendBtn").on("click",function(){
 	
-		
 		var content = $("textarea[name='content']").val();
 	
 		if(content == null || content == ""){
@@ -75,11 +69,10 @@ $(document).ready(function(){
 			$("textarea[name='content']").focus();
 		}
 		else{
-			 $("#frm").attr("action", "writemsgAf.do").submit();
+			$("#frm").attr("action", "writemsgAf.do").submit();
 			alert("쪽지를 성공적으로 보냈습니다");
-			self.close(); 
-		
-	}
+			self.close(); 		
+		}
 		
 	});
 });

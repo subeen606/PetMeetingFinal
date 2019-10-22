@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Pet Meeting</title>
+<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
 </head>
 
 
