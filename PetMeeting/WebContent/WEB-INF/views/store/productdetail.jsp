@@ -72,8 +72,8 @@
 }
 #product-totalprice {
 	font-size: 20px;
-	font-weight: 500;
-	color: #2a7d6b;
+	font-weight: 600;
+	color: #333;
 	margin-bottom: 20px;
 	width: 60%;
 	border-radius: 10px;
@@ -92,7 +92,7 @@
 	border-top: 1px solid #999;
 	z-index: 1;
 }
-.s-text h2 {
+.s-text h3 {
 	margin: 30px 0;
 }
 
@@ -162,7 +162,7 @@
 		ProductBean pbean = (ProductBean)request.getAttribute("pbean");
 		%>
 		<div class="s-text" style="margin: 0 auto;">
-			<h2>Product Detail</h2>
+			<h3>Product Detail</h3>
 		</div>
 		<div id="product-order">
 			<div id="product-img">

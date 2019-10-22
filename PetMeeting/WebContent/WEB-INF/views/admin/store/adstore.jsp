@@ -20,6 +20,9 @@ div.todaySales {
 	margin: 50px 0;
 	border-radius: 10px;
 }
+div#monthly-sales, div#product-Top5 {
+	margin-bottom: 100px;
+}
 </style>
 </head>
 <body>
@@ -105,7 +108,7 @@ Highcharts.chart('product-Top5', {
         text: '판매량 상위 5개 제품'
     },
     xAxis: {
-        type: '상품명'
+        type: 'category'
     },
     yAxis: {
         title: {
@@ -116,9 +119,17 @@ Highcharts.chart('product-Top5', {
     legend: {
         enabled: false
     },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+            }
+        }
+    },
     series: [
         {
-            name: "Browsers",
+            name: "Sales",
             colorByPoint: true,
             data: ${jsonTop5 }
         }

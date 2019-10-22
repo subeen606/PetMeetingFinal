@@ -403,13 +403,6 @@ div.review-writerscore-star-orange{
 	
 	<script type="text/javascript">
 	$(function () {
-		$("td a").mouseover(function () {
-			$(this).parent().parent().css("background-color", "#e0f0ee");
-		});
-		
-		$("td a").mouseleave(function () {
-			$(this).parent().parent().css("background-color", "#ffffff");
-		});
 		
 		var writer_score_node = $(".review-writerscore-star-orange");
 		for (var i = 0; i < writer_score_node.length; i++) {
@@ -417,10 +410,6 @@ div.review-writerscore-star-orange{
 		//	alert(writer_score);
 			writer_score_node.eq(i).css("width", (18*writer_score)+"px");
 		}	
-		
-		$("#review-btn").click(function () {
-			
-		});
 		
 	});
 	</script>
