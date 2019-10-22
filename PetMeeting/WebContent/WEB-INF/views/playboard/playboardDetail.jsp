@@ -26,7 +26,12 @@
    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
    </header>
 <!-- Header part end-->
-
+<c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+</c:if>
 <div class="container">
 	<div class="makerBtns">
 		<c:if test="${login.email eq detail.email }">

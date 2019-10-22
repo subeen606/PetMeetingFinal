@@ -34,7 +34,13 @@
 	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
 </header>
 <!-- Header part end-->
-    
+<c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+</c:if>
+   
 <!-- 글쓰기 폼 -->
 <form id="boardUpdateFrm" action="" method="post" enctype="multipart/form-data">
 <input type="hidden" name="email" value="${detail.email }">

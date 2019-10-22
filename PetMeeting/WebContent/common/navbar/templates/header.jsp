@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
 </head>
 <body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 60ab503789ec580cb5dcfa11e35825aac5c70a4c
  <!--::header part start::-->
     <header class="header_area">
         <div class="sub_header">
