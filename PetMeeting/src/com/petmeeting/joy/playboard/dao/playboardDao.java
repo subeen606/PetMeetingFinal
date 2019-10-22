@@ -3,6 +3,7 @@ package com.petmeeting.joy.playboard.dao;
 import java.util.List;
 
 import com.petmeeting.joy.admin.model.ReportDto;
+import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
@@ -78,6 +79,8 @@ public interface playboardDao {
 	
 	public void insertMemberReport(ReportDto rdto);
 	public void plusMemberReportCount(ReportDto rdto);
-
+	
+	public void insertFollow(MypageFollowDto followDto);
+	public int followingCheck(MypageFollowDto followDto);
 
 }

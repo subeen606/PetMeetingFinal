@@ -819,8 +819,8 @@ $(function () {
 	
 	// 리뷰 이미지 클릭 시 모달 띄우기
 	$(document).on("click", ".review-list-content-wrap img", function () {
-	//	alert($(this).parent().children().length);
-	//	alert($(this).attr("pos"));
+// 		alert($(this).parent().children().length);
+// 		alert($(this).attr("pos"));
 	
 		var images = $(this).parent().children();
 		

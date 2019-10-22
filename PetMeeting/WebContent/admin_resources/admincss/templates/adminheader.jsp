@@ -18,7 +18,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
@@ -27,7 +28,7 @@
     <!-- animate CSS -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/store_resources/css/animate.css?after">
 	<!-- custom CSS -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css?after">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css">
 
 </head>
 
@@ -42,48 +43,54 @@
                     </li>
                     <li class="menu-title">게시판</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>소모임 게시판</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-paw"></i>소모임 게시판</a>
                         <ul class="sub-menu children dropdown-menu">                            
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="adminPlayboardList.do">소모임 관리</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#none">Badges</a></li>
+                        	<li><i class="fas fa-edit"></i><a href="adminPlayboardList.do">소모임 관리</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>후원 게시판</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-donate"></i>후원 게시판</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="adminFundingList.do">후원 관리</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                            <li><i class="fas fa-edit"></i><a href="adminFundingList.do">후원 관리</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>자유 게시판</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-table"></i>자유 게시판</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">자유게시판 관리</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                            <li><i class="menu-icon fas fa-edit"></i><a href="forms-basic.html">자유게시판 관리</a></li>
                         </ul>
                     </li>
                     <li class="menu-title">굿즈샵</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>굿즈샵</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-store"></i>상품</a>
                         <ul class="sub-menu children dropdown-menu">
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="adstore.do">매출 관리</a></li>
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="adproductlist.do">상품 관리</a></li>
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="adorderlist.do">주문 관리</a></li>
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="adrefundlist.do">반품/교환 관리</a></li>
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="adquestionlist.do">문의글 관리</a></li>
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="adreviewlist.do">리뷰글 관리</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#none">Badges</a></li>
+                        	<li><i class="fas fa-cart-plus"></i><a href="adproductadd.do">상품 등록</a></li>
+                        	<li><i class="fas fa-plus-square"></i><a href="adproductoption.do">상품 옵션 등록</a></li>
+                        	<li><i class="fas fa-tags"></i><a href="adproductlist.do">상품 관리</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-boxes"></i>주문</a>
+                        <ul class="sub-menu children dropdown-menu">
+                        	<li><i class="fas fa-chart-line"></i><a href="adstore.do">매출 관리</a></li>
+                        	<li><i class="fas fa-receipt"></i><a href="adorderlist.do">주문 관리</a></li>
+                        	<li><i class="fas fa-retweet"></i><a href="adrefundlist.do">반품/교환 관리</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-table"></i>게시글</a>
+                        <ul class="sub-menu children dropdown-menu">
+                        	<li><i class="fa fa-question"></i><a href="adquestionlist.do">문의글 관리</a></li>
+                        	<li><i class="fa fa-star"></i><a href="adreviewlist.do">리뷰글 관리</a></li>
                         </ul>
                     </li>
 
 					<li class="menu-title">관리자</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                        <i class="menu-icon fa fa-glass"></i>회원 관리</a>
+                        <i class="menu-icon fas fa-user-cog"></i>회원 관리</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="adminMemberList.do">회원 목록</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                            <li><i class="menu-icon fas fa-users"></i><a href="adminMemberList.do">회원 목록</a></li>
                         </ul>
                     </li>
                 </ul>

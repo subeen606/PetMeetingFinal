@@ -111,7 +111,11 @@
     
     <!-- jquery plugins here-->
     <!-- jquery -->
+
     <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script>
+
+   	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <!-- popper js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>
     <!-- bootstrap js -->

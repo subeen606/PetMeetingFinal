@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.login.model.MemberDto;
+import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.playboard.Util.DateUtil;
 import com.petmeeting.joy.playboard.Util.PlayboardUtil;
 import com.petmeeting.joy.playboard.model.MsgDto;
@@ -531,7 +532,7 @@ public class PlayboardController {
 	}
 	*/
 	
-
+	// 멤버 신고
 	@RequestMapping(value="memberReport.do", method={RequestMethod.GET,RequestMethod.POST})
 	public String memberReport() {
 		return "playboard/report";
@@ -566,8 +567,7 @@ public class PlayboardController {
 		return "redirect:/detailPlay.do";
 	}
 	
-	// Q&A 답변 작성
-	
+	// Q&A 답변 작성	
 	@RequestMapping(value="insertQnAReply.do", method={RequestMethod.GET,RequestMethod.POST})
 	public String insertQnAReply(PlayboardQnADto qna, RedirectAttributes redirectAttr) {
 		System.out.println(qna.toString());
@@ -576,12 +576,31 @@ public class PlayboardController {
 		return "redirect:/detailPlay.do";
 	}
 	
-	
+	/*
 	//채팅..?
 	@RequestMapping(value="chatting.do", method={RequestMethod.GET,RequestMethod.POST})
 	public String chatting() {
 		return "playboard/chat";
 	}
-
+	*/
+	
+	// 드롭다운 팔로우하기
+	@ResponseBody
+	@RequestMapping(value="follow.do", method={RequestMethod.GET,RequestMethod.POST})
+	public String followingCheck(String folloing_email, HttpServletRequest req) {
+		System.out.println("folloing_email : " + folloing_email);
+		
+		MypageFollowDto followDto = new MypageFollowDto(((MemberDto)req.getSession().getAttribute("login")).getEmail(), folloing_email);
+		System.out.println("followDto : " + followDto.toString());
+		
+		int count = pService.followingCheck(followDto);
+		if(count > 0) {
+			return "no";
+		}else {
+			pService.insertFollow(followDto);
+			return "okay";
+		}
+		
+	}
 	
 }

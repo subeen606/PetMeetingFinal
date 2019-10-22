@@ -6,18 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Pet Meeting - 회원정보</title>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-<link rel="icon"
-	href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/admin_resources/css/memberDetail.css">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	
+	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/memberDetail.css">
 </head>
 <body>
 	<div class="maintitle">
@@ -31,10 +28,15 @@
 		<col width="63%">
 		<tr>
 			<th>이메일(닉네임)</th>
-			<td colspan="2">${detail.email }(${detail.nickname })<img
-				src="./admin_resources/img/${detail.grade_name }_icon.png"
-				width="50px" style="vertical-align: middle"
-				title="회원등급: ${detail.grade_name }">
+			<td colspan="2">
+				${detail.email }(${detail.nickname })<img src="./admin_resources/img/${detail.grade_name }_icon.png" width="50px" style="vertical-align: middle" title="회원등급: ${detail.grade_name }">
+				<c:if test="${detail.leavememberCheck eq true }">
+					<font class="leaveMem">회원탈퇴</font>
+				</c:if>
+				<c:if test="${detail.auth eq 4 }">
+					<font class="badMem">활동중지</font>
+				</c:if>
+				
 			</td>
 		</tr>
 
@@ -101,7 +103,7 @@
 									<img class="profilePic" alt="" src="./admin_resources/img/user.png">
 								</c:if> 
 								<c:if test="${not empty detail.myProfile.myprofile_img }">
-									<img class="profilePic" src="./admin_resources/img/ppp.jpg">
+									<img class="profilePic" src="./upload/${detail.myProfile.myprofile_img }">
 								</c:if>
 							</td>
 							<td class="addr-td">나이</td>
@@ -139,7 +141,7 @@
 									<img class="profilePic" alt="" src="./admin_resources/img/user.png">
 								</c:if> 
 								<c:if test="${not empty detail.petProfile.petprofile_img }">
-									<img class="profilePic" alt="" src="./admin_resources/img/petprofilepic.png">
+									<img class="profilePic" alt="" src="./upload/${detail.petProfile.petprofile_img }">
 								</c:if>
 								<br>
 								이름: ${detail.petProfile.petname }<br>
