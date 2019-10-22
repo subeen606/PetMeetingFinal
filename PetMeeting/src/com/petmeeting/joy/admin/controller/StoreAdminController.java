@@ -405,6 +405,20 @@ public class StoreAdminController {
 		return "admin/store/adorderlist";
 	}
 	
+	@RequestMapping(value = "adorderdetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adorderdetail(Model model, OrderInfoDto oiDto) {
+		
+		List<OrderInfoDto> mylist = orderService.getOrderDetailList(oiDto);
+		System.out.println(mylist.toString());
+		int usepoint = orderService.getUse_Point(oiDto);
+		
+		model.addAttribute("mylist", mylist);
+		model.addAttribute("usepoint", usepoint);
+				
+	
+		return "admin/store/adorderdetail";
+	}
+	
 	
 	@RequestMapping(value = "adrefundlist.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adrefundlist(Model model, OrderParam param) {
@@ -460,7 +474,6 @@ public class StoreAdminController {
 		System.out.println("------------------------------------ adcancelpay 들왔다! ");
 
 	}
-	
 	
 		
 	@RequestMapping(value = "adproductdetail.do", method = {RequestMethod.GET, RequestMethod.POST})

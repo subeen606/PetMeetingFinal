@@ -33,6 +33,16 @@
 	<!-- 우리가 추가한 css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/store_resources/css/custom.css">
 <style type="text/css">
+caption {
+	caption-side: top;
+	text-align: left;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.orderInfo td{
+text-align: left;
+}
 
 </style>
 </head>
@@ -127,14 +137,12 @@
 				<div class="sub-title">
 					<h3>상세 주문 내역</h3>
 				</div>
-
 				<div class="info-wrap"
 					style="padding: 20px 10px; margin-top: 40px; background: #EDEDED; border-radius: 5px">
 					<c:forEach items="${mylist }" var="olist" begin="0" end="0">
 						<h3>주문번호 : ${olist.ordernumber }</h3>
 						<br>
-						<p>- 이러저러한 문구</p>
-						<p>- 이러이러한 문구</p>
+						<p><b>동일한 주문번호로 조회한 상품들만 볼 수 있는 상세페이지입니다.</b></p>
 					</c:forEach>
 				</div>
 				<div class="sub-content">
@@ -218,6 +226,37 @@
 							</tr>
 						</tbody>
 					</table>
+					<br><br><br>
+
+					<c:forEach items="${mylist }" var="list" varStatus="vs" begin="0" end="0">
+					<table class="orderInfo" border="1" >
+					<caption>배송 정보</caption>
+					<col width="170"><col width="800">
+						<tr>
+							<th>수령인 명</th>
+							<td>${list.rname }</td>
+						</tr>
+						<tr>
+							<th>수령인 연락처</th>
+							<td><fmt:formatNumber var="phone" value="${list.rphone }" pattern="###,####,####" />
+								0<c:out value="${fn:replace(phone, ',', '-')}" />
+							</td>
+						</tr>
+						<tr>
+							<th>배송정보</th>
+							<td>${list.raddress } ${list.raddress_detail } </td>
+						</tr>
+						<tr>
+							<th>추가 배송 메시지</th>
+							<td>
+								${list.require }
+							</td>
+						</tr>
+					</table>
+					</c:forEach>
+					
+					<br><br><br><br>
+					
 				</div>
 			</div>
 		</div>

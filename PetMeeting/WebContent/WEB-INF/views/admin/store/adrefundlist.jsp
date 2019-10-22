@@ -10,6 +10,9 @@
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 	 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css">
+	
+	<!-- Image Slider -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style type="text/css">
 .boardTable td{
 text-align: center;
@@ -25,6 +28,44 @@ text-align: left;
 .content-order-product{
 color: #818181; 
 }
+
+/* Modal Css */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%; /* Full height */
+	overflow: hidden; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 10% auto; /* 10% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+ 	width: 50%; /* Could be more or less, depending on screen size */  
+}
+/* The Close Button */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	float: right;
+}
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
 </style>
 </head>
 <body>
@@ -132,8 +173,8 @@ color: #818181;
 									</div>
 									<div class="content-refund-reason-for-detail texts" id="detail_reason">${list.reason_detail }</div>
 									<div class="content-refund-img texts">
-									<c:forTokens items="${list.filename }" delims="-" var="file">
-										<img alt="이미지없음" src="${pageContext.request.contextPath }/upload/${file}" width="100px" height="100px">
+									<c:forTokens items="${list.filename }" delims="-" var="file" varStatus="vs">
+										<img alt="이미지없음" src="${pageContext.request.contextPath }/upload/${file}" width="100px" height="100px" pos=${vs.index }>
 									</c:forTokens>
 									</div>
 								</td>
@@ -156,8 +197,36 @@ color: #818181;
 		</div>
 	</div>
 	
+		<!-- Image Slider Modal -->
+	<div id="slider-modal" class="modal">
+		<div class="modal-content" style="background-color: rgba(0,0,0,0.0); border: 0; width: 35%">
+			<div>
+				<span class="close" style="color: #fff">&times;</span>
+			</div>
+			<div id="wrapper">
+				<div id="slider-wrap">
+					<ul id="slider">
+					</ul>
+					<!--controls-->
+					<div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
+					<div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
+					<div id="counter"></div>
+					
+					<div id="pagination-wrap">
+					  <ul>
+					  </ul>
+					</div>
+					<!--controls-->  
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Image Slider Modal -->
+	
 <script type="text/javascript">
 
+$(function () {
+	
 var sort_category = "${param.sorting_category}";
 var s_keyword = "${param.s_keyword}";
 var search_category = "${param.search_category}";
@@ -213,25 +282,8 @@ $(".refund_detail").click(function() {
 		$(this).parent().next(".refund-detail").css("display", "table-row");
 	
 });
-/* 
-// 반품대기 상태에 커서 올릴때의 이벤트
-$(".status-refund").hover(function () {
-	$(this).css("color", "#B50000");
-	$(this).html("반품");
-}, function () {
-	$(this).css("color", "#000000");
-	$(this).html("반품대기");
-});
 
-//교환대기 상태에 커서 올릴때의 이벤트
-$(".status-change").hover(function () {
-	$(this).css("color", "#B50000");
-	$(this).html("교환");
-}, function () {
-	$(this).css("color", "#000000");
-	$(this).html("교환대기");
-});
- */
+
 $(".status-refund").click(function () {
 	var ordernumber = $(this).attr("ordernumber");
 	var totalprice = $("#totalprice").val();
@@ -249,14 +301,12 @@ $(".status-refund").click(function () {
 	      "merchant_uid" : ordernumber, // 주문번호
 	      "amount": totalprice // 환불금액
 	    }),
-	    dataType : "json",
-	    success: function () {
-		alert("suc ; " );
-		
-	}, error: function () {
-		alert("err");
-	},
-   }); 
+	    dataType : "json"
+	   }).done(function(result) { // 환불 성공시 로직 
+		   alert("환불 성공");
+	   }).fail(function(error) { // 환불 실패시 로직
+		   alert("환불 실패");
+	   });
 	
 });
 
@@ -272,6 +322,126 @@ function goPage( type, pageNumber ) {
 	$("#_pageNumber").val(pageNumber);
 	$("#search-form").attr("action", "adrefundlist.do").submit();
 };
+
+
+
+// 리뷰 이미지 클릭 시 모달 띄우기
+$(document).on("click", ".content-refund-img img", function () {
+// 	alert($(this).parent().children().length);
+// 	alert($(this).attr("pos"));
+
+	var images = $(this).parent().children();
+	
+	for (var i = 0; i < images.length; i++) {
+// 		alert(images.eq(i).attr("src"));
+		var html = "<li><img alt='이미지없음' src='" + images.eq(i).attr("src") + "'></li>"
+		
+		$("#slider").append(html);
+	}
+	
+	//current position
+	var pos = parseInt($(this).attr("pos"));
+	//number of slides
+	var totalSlides = $('#slider').children().length;
+	//get the slide width
+	var sliderWidth = $('#slider-wrap').width();
+	
+    /*****************
+    BUILD THE SLIDER
+   *****************/
+   //set width to be 'x' times the number of slides
+   $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+   $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));
+   //next slide
+   $('#next').click(function(){
+       slideRight();
+   });
+   
+   //previous slide
+   $('#previous').click(function(){
+       slideLeft();
+   });
+   
+   /*************************
+    //*> OPTIONAL SETTINGS
+   ************************/
+   //for each slide 
+   $.each($('#slider-wrap ul li'), function() { 
+      //create a pagination
+      var li = document.createElement('li');
+      $('#pagination-wrap ul').append(li);    
+   });
+   
+   //counter
+   countSlides(pos, totalSlides);
+   
+   //pagination
+   pagination(pos);
+
+   /***********
+	SLIDE LEFT
+	************/
+	function slideLeft(){
+	   pos--;
+	   if(pos==-1){ pos = totalSlides-1; }
+	   $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));    
+	   
+	   //*> optional
+	   countSlides(pos, totalSlides);
+	   pagination(pos);
+	}
+	
+	
+	/************
+	SLIDE RIGHT
+	*************/
+	function slideRight(){
+		pos++;
+		if(pos==totalSlides){ pos = 0; }
+		$('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+		
+		//*> optional 
+		countSlides(pos, totalSlides);
+		pagination(pos);
+	}
+	  
+	$("#slider-modal").css("display", "block");
+});
+
+//모달창 닫기
+$(".close").on("click", function () {
+	// 모달 끄고
+	$(".modal").css("display", "none");
+	
+	// 슬라이더 초기화
+	$("#slider").children().remove();
+	$("#pagination-wrap ul").children().remove();
+	$('#slider-wrap ul#slider').css('left', 0);$
+});
+
+
+
+//hide/show controls/btns when hover
+//pause automatic slide when hover
+$('#slider-wrap').hover(
+  function(){ $(this).addClass('active') }, 
+  function(){ $(this).removeClass('active') }
+);
+
+
+	
+});
+
+
+
+// Slider page option
+function countSlides(pos, totalSlides){
+   $('#counter').html(pos+1 + ' / ' + totalSlides);
+}
+function pagination(pos){
+   $('#pagination-wrap ul li').removeClass('active');
+   $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+}
 
 </script>
 
