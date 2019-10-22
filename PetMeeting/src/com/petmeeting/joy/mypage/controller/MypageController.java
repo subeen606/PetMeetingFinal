@@ -327,12 +327,12 @@ public class MypageController {
 	  
 	  
 	  
-	 //메세지 보내는 컨트롤러
+	  //메세지 보내는 컨트롤러
 	 @RequestMapping(value = "mypageFollowreplymsg.do", method = { RequestMethod.GET, RequestMethod.POST })
-		public String mypageFollowreplymsg(MypageMsgDto msgdto, Model model) {
+		public String mypageFollowreplymsg(MypageMsgDto msgdto,Model model) {
 
 			System.out.println("답장 WWWddd하러 갑니다");
-			System.out.println("msgdto : "+msgdto.toString());
+			System.out.println("msgdto"+msgdto.toString());
               
 			model.addAttribute("msg", msgdto);
 			
@@ -1091,7 +1091,7 @@ public class MypageController {
 		public String writeMsg(MypageFollowListParam flwparam, Model model, HttpServletRequest req) {
 
 			System.out.println("쪽지 보내러 갑니다");
-			
+
 			return "mypage/mypageNewMsg";
 		}
 		
@@ -1131,6 +1131,8 @@ public class MypageController {
 			}
 		
 			model.addAttribute("recordCountPerPage", 10);
+			
+			
 
 			return "redirect:/myrevmsg.do";
 		}

@@ -255,7 +255,7 @@ $(function () {
 			datatype: 'json',
 			success: function (data) {
 				//alert("성공");				
-				var str = "";
+				 var str = "";
 				$.each(data, function(idx, val) {
 					var date = new Date(val.pdate);
 					var day = "";

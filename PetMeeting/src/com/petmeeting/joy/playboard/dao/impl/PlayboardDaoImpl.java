@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.petmeeting.joy.admin.model.ReportDto;
-import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.playboard.dao.playboardDao;
 import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
@@ -237,16 +236,6 @@ public class PlayboardDaoImpl implements playboardDao{
 	@Override
 	public void plusMemberReportCount(ReportDto rdto) {
 		sqlSession.update(namespace+"plusMemberReportCount", rdto);
-	}
-
-	@Override
-	public void insertFollow(MypageFollowDto followDto) {
-		sqlSession.insert(namespace+"insertFollow", followDto);
-	}
-
-	@Override
-	public int followingCheck(MypageFollowDto followDto) {
-		return sqlSession.selectOne(namespace+"followingCheck", followDto);
 	}
 
 

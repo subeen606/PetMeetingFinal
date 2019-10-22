@@ -479,7 +479,7 @@ public class mypageServiceImpl implements mypageService {
 					playDate2 =  pdate.parse(mypageFollowListParam2.getPdate()); 
 					int result = playDate1.compareTo(playDate2);
 					
-					//System.out.println( j +"result의 결과 몇번 :" + result + mypageFollowListParam1.toString() + mypageFollowListParam2.toString());
+					System.out.println( j +"result의 결과 몇번 :" + result + mypageFollowListParam1.toString() + mypageFollowListParam2.toString());
 					
 					if(result == 1) {
 						flwerAllPlayList.set(j, mypageFollowListParam2);

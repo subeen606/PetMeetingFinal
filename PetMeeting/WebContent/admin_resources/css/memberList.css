@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-.badMem{
-	color: #fff;
-	background-color: #d49935;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 .leaveMem{
 	color: #fff;
@@ -14,7 +7,6 @@
     padding: 5px;
     border-radius: 5px;
 }
-
 .boardTable tbody tr:hover{
 	background-color: #008c9e0f;
 }
@@ -24,7 +16,7 @@
 	background-color: rgba(255,255,255,0);
 	background-image: url("/PetMeeting/admin_resources/img/memberinfoBtn.png");
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: 100%;
 	background-position: center;
 	width: 20px;
 	height: 20px;
@@ -46,7 +38,7 @@
     outline: none;
     cursor: pointer;
     color: white;
-   /*  width: 50px; */
+    width: 50px;
     height: 35px;
     border-radius: 0.5em;
     background-color: #47c9da;
@@ -56,11 +48,9 @@
 	border: none;
     outline: none;
 	color: #fff;
-	background-color: #d49935;
-	font-size: 17px;
+	background-color: #b90707;
     padding: 5px;
     border-radius: 0.5em;
     width: 80px;
     height: 35px;
-    margin-top: 10px;
 }
