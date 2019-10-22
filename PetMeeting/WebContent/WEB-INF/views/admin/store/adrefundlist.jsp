@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- 	 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>jQuery CDN - -->
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+	 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css">
 <style type="text/css">
 .boardTable td{
@@ -21,6 +21,9 @@ display: none;
 
 .texts{
 text-align: left;
+}
+.content-order-product{
+color: #818181; 
 }
 </style>
 </head>
@@ -83,14 +86,15 @@ text-align: left;
 						<c:forEach items="${rlist }" var="list" varStatus="vs">
 							<tr>
 								<td>${vs.count }</td>
-								<td class="refund_detail">${list.ordernumber }</td>
+								<td class="refund_detail" rseq="${list.refund_seq }">${list.ordernumber }</td>
 								<td>${list.ordername }</td>
 								<td><fmt:formatDate value="${list.refund_date }" pattern="yyyy-MM-dd" /></td>
 								<td>${list.rname }</td>
 								<td>${list.refund_select }</td>
 								<td>
 									<c:if test="${list.status eq 1 }">
-										<span class="status-change" onclick="cancelPay()" style="cursor: pointer;" ordernumber="${list.ordernumber }">반품대기</span>
+										<%-- <span class="status-refund" style="cursor: pointer;" ordernumber="${list.ordernumber }">반품대기</span> --%>
+										반품대기
 									</c:if>
 									<c:if test="${list.status eq 2 }">
 										반품진행
@@ -99,7 +103,8 @@ text-align: left;
 										반품완료
 									</c:if>
 									<c:if test="${list.status eq 4 }">
-										반품대기
+										<%-- <span class="status-change"  style="cursor: pointer;" orderno="${list.ordernumber }">교환대기</span> --%>
+										교환대기
 									</c:if>
 									<c:if test="${list.status eq 5 }">
 										교환진행
@@ -113,16 +118,19 @@ text-align: left;
 							<tr class="refund-detail">
 								<td colspan="1"></td>
 								<td colspan="6">
-									<div class="content-refund-for-reason texts">
-										<span class="category" style="width: 120px;">반품/교환 사유</span>${list.reason }	
-<%-- 										<span class="status-change" style="padding-left: 50px;">${list.refund_select } 완료</span> --%>
+									<div class="content-refund-for-reason texts" >
+										<span class="category" style="width: 120px;">반품/교환 사유</span>${list.reason }	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+										<c:if test="${list.status eq 1 }">
+											<span class="status-refund" style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }" detail="${list.reason_detail }">반품진행</span>
+										</c:if>
+										<c:if test="${list.status eq 4 }">
+										<span class="status-change"  style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }">교환진행</span>
+										</c:if>
 									</div>
-									<div class="content-order-product texts">
-<%-- 										<c:forEach items="${olist }" var="olist"> --%>
-<%-- 											- ${olist.productname } [OPTION] ${olist.psize }/${olist.pcolor } <br> --%>
-<%-- 										</c:forEach> --%>
+									<div class="content-order-product texts" style="padding-left: 25px;">
+											
 									</div>
-									<div class="content-refund-reason-for-detail texts">${list.reason_detail }</div>
+									<div class="content-refund-reason-for-detail texts" id="detail_reason">${list.reason_detail }</div>
 									<div class="content-refund-img texts">
 									<c:forTokens items="${list.filename }" delims="-" var="file">
 										<img alt="이미지없음" src="${pageContext.request.contextPath }/upload/${file}" width="100px" height="100px">
@@ -150,39 +158,121 @@ text-align: left;
 	
 <script type="text/javascript">
 
+var sort_category = "${param.sorting_category}";
+var s_keyword = "${param.s_keyword}";
+var search_category = "${param.search_category}";
+var pageNumber = "${param.pageNumber}";
+
+//정렬값 유지
+$("select[name='sorting_category']").val(sort_category);
+
+// 검색 카테고리가 선택되어있을 시 값 유지
+if(search_category != ''){
+	$("#search_keyword").val(s_keyword);
+	$("#search-category").val(search_category);
+}
+
+// 정렬 카테고리 값 변경시
+$("select[name='sorting_category'").change(function() {
+	$("#search-form").attr("action", "adrefundlist.do").submit();	
+})
+
+// 검색시
+$("#search_btn").click(function() {
+	$("#search-form").attr("action", "adrefundlist.do").submit();	
+})
+
 // 주문번호 클릭시 반품 사유 디테일 
 $(".refund_detail").click(function() {
+	var seq = $(this).attr("rseq");
 	$(".refund-detail").css("display", "none");
-	$(this).parent().next(".refund-detail").css("display", "table-row");
+	
+	// 반품한 상품, 개수 가져옴
+	$.ajax({
+		url : "adrefundproduct.do",
+		type: "POST",
+		data: {"seq" : seq},
+		success: function (data) {
+			var htm = "";
+			var sum = 0;
+			$.each(data, function(i, val) {
+				
+				sum += val.price;
+				
+				htm += "-" + val.productname + "  [OPTION]" + val.psize + "/" + val.pcolor + "     " + val.quantity + "개 <br>";
+				htm += "<input type='hidden' id='totalprice' value=''>";
+			});
+				$(".content-order-product").html(htm);
+				$("#totalprice").val(sum);
+		},
+		error: function () {
+			alert("err");
+		}
+		
+	})
+		$(this).parent().next(".refund-detail").css("display", "table-row");
+	
+});
+/* 
+// 반품대기 상태에 커서 올릴때의 이벤트
+$(".status-refund").hover(function () {
+	$(this).css("color", "#B50000");
+	$(this).html("반품");
+}, function () {
+	$(this).css("color", "#000000");
+	$(this).html("반품대기");
 });
 
-
-
-/* function cancelPay() {
-    jQuery.ajax({
-      "url": "http://www.myservice.com/payments/cancel",
-      "type": "POST",
-      "contentType": "application/json",
-      "data": JSON.stringify({
-        "merchant_uid": "mid_" + new Date().getTime(), // 주문번호
-        "cancel_request_amount": 2000, // 환불금액
-        "reason": "테스트 결제 환불" // 환불사유
-        "refund_holder": "홍길동", // [가상계좌 환불시 필수입력] 환불 가상계좌 예금주
-        "refund_bank": "88"  // [가상계좌 환불시 필수입력] 환불 가상계좌 은행코드(ex. KG이니시스의 경우 신한은행은 88번)
-        "refund_account": "56211105948400" // [가상계좌 환불시 필수입력] 환불 가상계좌 번호
-      }),
-      "dataType": "json"
-    });
-  }
+//교환대기 상태에 커서 올릴때의 이벤트
+$(".status-change").hover(function () {
+	$(this).css("color", "#B50000");
+	$(this).html("교환");
+}, function () {
+	$(this).css("color", "#000000");
+	$(this).html("교환대기");
+});
  */
+$(".status-refund").click(function () {
+	var ordernumber = $(this).attr("ordernumber");
+	var totalprice = $("#totalprice").val();
+	var detail = $(this).attr("detail");
+	
+// 	alert("order" + ordernumber);
+// 	alert("tp " + totalprice);
+// 	alert("detail " + detail);
+	
+		$.ajax({
+	    url : "adcancelpay.do",
+	    type : "POST",
+	    data : JSON.stringify({
+    	  "reason": detail,
+	      "merchant_uid" : ordernumber, // 주문번호
+	      "amount": totalprice // 환불금액
+	    }),
+	    dataType : "json",
+	    success: function () {
+		alert("suc ; " );
+		
+	}, error: function () {
+		alert("err");
+	},
+   }); 
+	
+});
 
+ $(".status-change").click(function () {
+		var ordernumber = $(this).attr("ordernumber");
+		var totalprice = $("#totalprice").val();
+		alert("order" + ordernumber);
+		alert("tp " + totalprice);
+ });
 
 // 페이징 함수
 function goPage( type, pageNumber ) {
 	$("#_pageNumber").val(pageNumber);
 	$("#search-form").attr("action", "adrefundlist.do").submit();
-}
- 
+};
+
 </script>
 
 </body>
