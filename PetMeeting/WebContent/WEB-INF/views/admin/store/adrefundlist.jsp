@@ -307,6 +307,20 @@ $(".status-refund").click(function () {
 	   }).fail(function(error) { // 환불 실패시 로직
 		   alert("환불 실패");
 	   });
+	$.ajax({
+       url : "adcancelpay.do",
+       type : "POST",
+       data : JSON.stringify({
+         "reason": detail,
+         "merchant_uid" : ordernumber, // 주문번호
+         "amount": totalprice // 환불금액
+       }),
+       dataType : "json"
+   }).done(function(result) { // 환불 성공시 로직 
+       alert("환불 성공");
+   }).fail(function(error) { // 환불 실패시 로직
+     alert("환불 실패");
+   });
 	
 });
 

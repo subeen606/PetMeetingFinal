@@ -252,6 +252,16 @@ span.category{
 	text-align: center;
 	width: 40px;
 }
+span.category2 {
+	width: 100px;
+	padding: 10px 0;
+	background: #008c9e;
+	display: inline-block;
+	font-weight: bold;
+	border-radius: 3px;
+	text-align: center;
+	color: #fff;
+}
 div.texts {
 	padding: 5px 0;
 }

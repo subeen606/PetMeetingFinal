@@ -73,7 +73,7 @@ span.soldout{
 	background: #fff;
 }
 
-b {
+.s-text b {
 	font-size: 17px;
 }
 </style>

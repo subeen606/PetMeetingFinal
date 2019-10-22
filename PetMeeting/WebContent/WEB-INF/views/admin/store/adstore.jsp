@@ -15,7 +15,7 @@ div.todaySales {
 	text-align: center;
 	font-size: 30px;
 	font-weight: 600;
-	background: #ffb7b7;
+	background: #f0f0f0;
 	padding: 20px 0;
 	margin: 50px 0;
 	border-radius: 10px;
@@ -102,10 +102,10 @@ Highcharts.chart('product-Top5', {
         type: 'column'
     },
     title: {
-        text: '인기 제품 TOP5'
+        text: '최고매출 상품 TOP5'
     },
     subtitle: {
-        text: '판매량 상위 5개 제품'
+        text: '매출 상위 5개 상품'
     },
     xAxis: {
         type: 'category'
