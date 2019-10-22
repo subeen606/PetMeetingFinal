@@ -11,7 +11,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/playboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/bootstrap.min.css?after">
@@ -255,7 +255,7 @@ $(function () {
 			datatype: 'json',
 			success: function (data) {
 				//alert("성공");				
-				 var str = "";
+				var str = "";
 				$.each(data, function(idx, val) {
 					var date = new Date(val.pdate);
 					var day = "";

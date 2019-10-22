@@ -54,16 +54,6 @@
 	background-color: #008c9e;
 }
 
-
-#myProfile-th{
-	cursor: pointer;
-}
-#petProfile-th{
-	cursor: pointer;
-}
-
-
-
 .profilePic{
 	width: 140px; height: 140px;
     object-fit: cover;
@@ -89,4 +79,19 @@
 }
 .petProfileTable tr:last-child{
 	border: none;
+}
+
+.badMem{
+	color: #fff;
+	background-color: #d49935;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.leaveMem{
+	color: #fff;
+	background-color: #b90707;
+    padding: 5px;
+    border-radius: 5px;
 }
