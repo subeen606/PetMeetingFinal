@@ -93,7 +93,8 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fas fa-users"></i><a href="adminMemberList.do">회원 목록</a></li>
                         </ul>
-                    </li>
+                        <a href="noticeList.do"><i class="menu-icon fa fa-laptop"></i>notice</a>
+					</li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

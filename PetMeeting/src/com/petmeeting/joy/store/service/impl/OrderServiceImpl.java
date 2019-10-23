@@ -301,5 +301,10 @@ public class OrderServiceImpl implements OrderService {
 		
 		return json;
 	}
+
+	@Override
+	public void updateRefundComplete(int refund_seq) {
+		orderDao.updateRefundComplete(refund_seq);
+	}
 	
 }
