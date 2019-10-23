@@ -16,7 +16,9 @@
 
 <body>
 
-<jsp:include page="../main.jsp" flush="false" />
+ <header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+    </header>
 <div id="wrapper">
 
   <!-- Main -->

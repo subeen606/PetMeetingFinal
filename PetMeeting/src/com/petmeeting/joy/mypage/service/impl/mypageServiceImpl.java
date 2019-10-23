@@ -10,6 +10,7 @@ import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.dao.mypageDao;
@@ -24,9 +25,12 @@ import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
+import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
 import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
+import com.petmeeting.joy.mypage.model.PointHistoryDto;
 import com.petmeeting.joy.mypage.service.mypageService;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
@@ -260,11 +264,19 @@ public class mypageServiceImpl implements mypageService {
 		return mypageDao.mypageplayboardlike(param);
 	}
 	
+     @Override
+	  public List<FreeboardDto> mypagefreeboardlike(MypagemylikefreeboardDto param) {
+		return mypageDao.mypagefreeboardlike(param);
+	}
 
+	
+	
+	
 	// 유정/////////////////
 
 	/* ======================== 유정 ======================= */
 
+	
 	// 로그인 유저 정보 가져오기
 	@Override
 	public MemberDto getUser(String email) {
@@ -381,7 +393,22 @@ public class mypageServiceImpl implements mypageService {
 
 		return dto;
 	}
-
+	
+	// 포인트내역 리스트 총개수
+	@Override
+	public int getAllPointList(MypagePointListParam pageingparam) {
+		return mypageDao.getAllPointList(pageingparam);
+	}
+	
+	// 포인트내역 페이징된 리스트
+	@Override
+	public List<PointHistoryDto> getPointHIstoryList(MypagePointListParam pageingparam) {
+		return mypageDao.getPointHIstoryList(pageingparam);
+	}
+	
+	
+	
+	
 	@Override
 	public int getMyWritingCount(String email) {
 		int sum = 0;

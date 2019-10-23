@@ -2,6 +2,7 @@ package com.petmeeting.joy.mypage.service;
 
 import java.util.List;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -15,9 +16,12 @@ import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
+import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
 import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
+import com.petmeeting.joy.mypage.model.PointHistoryDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
 
@@ -57,6 +61,9 @@ public interface mypageService {
 	
 	public List<PlayboardDto> mypageplayboardlike(MypagemylikeDto param);
 	
+	
+	public List<FreeboardDto> mypagefreeboardlike(MypagemylikefreeboardDto param);
+	
 	//유정////////
 	
 	
@@ -90,6 +97,13 @@ public interface mypageService {
 	
 	// 로그인유저 펫프로필 가져오기
 	public MyPetProfileDto getLoginUserPetProfile(String email);
+	
+	
+	
+	// 포인트내역리스트 총수
+	public int getAllPointList(MypagePointListParam pageingparam);
+	// 페이징된 포인트내역 리스트
+	public List<PointHistoryDto> getPointHIstoryList(MypagePointListParam pageingparam );
 	
 	
 	

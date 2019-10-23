@@ -12,6 +12,22 @@ body {/* ???????? */
 	font-style: normal; 
 }
 
+.pointlist_table{
+	text-align: center;
+	width: 100%;
+	
+}
+.pointlist_table tr {
+	background-color: rgba(241,238,235,0.6);
+    height: 40px;
+    border-bottom: 0.5px solid #ececec;
+}
+.pointlist_table td.savepoint{
+	color: #97bf3a;
+}
+.pointlist_table td.usepoint{
+	color: #d82f2f;
+}
 .right-box{
 	width:50%;
 	float:left;
@@ -224,4 +240,5 @@ body {/* ???????? */
 .flwer-activity{
 	display: grid;
     text-align: center;
+    min-height: 400px;
 }
