@@ -206,7 +206,7 @@ INSERT INTO PM_REFUND(SEQ, EMAIL, ORDER_SEQ, REFUND_SELECT, REASON, REASON_DETAI
 VALUES(PM_REFUND_SEQ.NEXTVAL, #{email}, #{order_seq}, #{refund_select}, #{reason}, #{reason_detail}, #{filename}, SYSDATE)
 </insert>
  
-<!-- 반품일 때 status = 1, 교환일 때 status = 3 -->
+<!-- 반품일 때 status = 1, 교환일 때 status = 4 -->
 <update id="updateStatus" parameterType="com.petmeeting.joy.store.model.OrderDto">
 UPDATE PM_ORDER SET 
 <if test="refund_select == '반품'">
@@ -415,4 +415,10 @@ WHERE D.ORDERNUMBER = O.ORDERNUMBER
 GROUP BY PRODUCTNAME)
 WHERE RNUM BETWEEN 1 AND 5
 </select>
+
+<!-- 반품완료 업데이트 -->
+<update id="updateRefundComplete" parameterType="java.lang.Integer">
+UPDATE PM_ORDER SET STATUS = 3
+WHERE REFUND_SEQ = #{refund_seq}
+</update> 
 </mapper>

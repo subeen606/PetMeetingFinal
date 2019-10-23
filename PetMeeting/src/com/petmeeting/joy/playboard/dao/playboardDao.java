@@ -20,6 +20,7 @@ public interface playboardDao {
 	
 	public void insertPoint(PlayboardDto pdto);
 	public void plusPoint(PlayboardDto pdto);
+	public void insertPointHistory(PlayboardDto pdto);
 	
 	public List<PlayboardDto> getPlayboardList(PlayboardSearchBean search);
 	

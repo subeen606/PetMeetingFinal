@@ -65,8 +65,8 @@ public class MypageController {
 		
 		return "mypage/mypageHome";
 	}
-	
 	*/
+	
 	@RequestMapping(value = "mypagePhoneCheck.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String mypagePhoneCheck() {
 		

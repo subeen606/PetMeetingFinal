@@ -66,6 +66,16 @@ div.review-writerscore-star-orange{
 	height: 18px;
 	background: url("store_resources/images/star-active2.png");
 }
+#tracking-btn{
+	width: 100px;
+    height: 30px;
+    background: #e0e0e0;
+    border: none;
+    font-weight: bold;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
 </style>
 
 </head>
@@ -89,10 +99,14 @@ div.review-writerscore-star-orange{
 						
 						<div class="s-navi-bottom">
 	                        <div class="s-logo">
-	                        	<img alt="이미지없음" src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogo.png" width="auto" height="30px"
+	                        	<img alt="이미지없음" src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogostore.png" width="auto" height="30px"
 	                        		onclick="location.href='productlist.do'">
 	                        </div>
+	                        
 	                        <div class="s-mymenu">
+								<div class="s-mymenu-petmain">
+									<img alt="이미지없음" src="${pageContext.request.contextPath}/store_resources/images/home.png" width="30px" height="30px" onclick="location.href='main.do'">&nbsp;&nbsp;&nbsp;
+								</div>
 								<div class="s-mymenu-mystore">
 									<img alt="이미지없음" src="${pageContext.request.contextPath}/store_resources/images/user.png" width="30px" height="30px" onclick="location.href='mystore.do'">&nbsp;&nbsp;&nbsp;
 								</div>
@@ -174,7 +188,7 @@ div.review-writerscore-star-orange{
 					<div class="delivery-info">
 						<div class="delivery-img">
 							<img alt="" src="${pageContext.request.contextPath}/store_resources/images/delivery-ing.png">
-							<p>배송중</p>
+<!-- 							<p>배송중</p> -->
 						</div>
 						<div class="delivery-count">
 							${dcount }
@@ -229,7 +243,7 @@ div.review-writerscore-star-orange{
 											</c:if>
 											<c:if test="${oi.status == 1 }">
 											배송중<br>
-											<button type="button" id="tracking-btn">배송추적</button>
+											<button type="button" id="tracking-btn" onclick="showPopup()">배송추적</button>
 											</c:if>
 											<c:if test="${oi.status == 2 }">
 											배송완료
@@ -412,6 +426,14 @@ div.review-writerscore-star-orange{
 		}	
 		
 	});
+	
+	// 배송추적 팝업창
+	function showPopup(){
+		
+		window.open("mytracking.do", "a", "width=400, height=300, left=100, top=50"); 
+		
+		
+	}
 	</script>
 </body>
 </html>

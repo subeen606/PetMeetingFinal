@@ -1,33 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <meta charset="UTF-8">
 <title>PetMeeting</title>
-
+	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
 </head>
 <body>
- <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script>
+
+
   <!--::header part start::-->
-    <header class="header_area">
-    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
-    </header>
-    <!-- Header part end-->
-
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>    
+  <!-- Header part end-->
+    
+    
+    
+   
+    <!-- banner part start -->
+    <section class="banner_part">
+     
+           
+			
+		
+    </section>
+     
+     
+    
+     
+     
+    <!--::footer part start::-->    
+    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+    <!-- footer part end-->
+    
 <script type="text/javascript">
-
 $(document).ready(function () {
-		  Notification.requestPermission(function (status) {
-		    // This allows to use Notification.permission with Chrome/Safari
-		    //alert("status"+status);
-		    if (Notification.permission !== status) {
-		      Notification.permission = status;
-		    }
-		  });
+	 Notification.requestPermission(function (status) {
+	   // This allows to use Notification.permission with Chrome/Safari
+	   //alert("status"+status);
+	   if (Notification.permission !== status) {
+	     Notification.permission = status;
+	   }
+	 });
 	
 	$.ajax({
 		 type:"POST",
@@ -93,9 +110,7 @@ $(document).ready(function () {
 	 setInterval(noti,2000);	 	
 });
 	
-	
-	
-
 </script>
+
 </body>
 </html>
