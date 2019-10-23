@@ -30,6 +30,11 @@
 		SET TOTALPOINT=TOTALPOINT+50, POINT=POINT+50
 		WHERE EMAIL=#{email}
 	</update>
+	<!-- 포인트 적립 내역 생성 -->
+	<insert id="insertPointHistory" parameterType="com.petmeeting.joy.playboard.model.PlayboardDto">
+		INSERT INTO PM_POINT_HISTORY(EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, USEDTYPE) 
+		VALUES(#{email}, '글작성 포인트', 50, (SELECT POINT FROM PM_MEMBER WHERE EMAIL=#{email}), SYSDATE, 0)
+	</insert>
 	
 	<!-- 포인트 증가여부 판단 -->
 	<select id="checkPoint" resultType="java.lang.Integer">
