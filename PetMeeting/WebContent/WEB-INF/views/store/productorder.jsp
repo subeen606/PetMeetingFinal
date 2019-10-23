@@ -515,13 +515,10 @@ $('#allPoint').on("click", function () {
 	if($("input:checkbox[id='allPoint']").is(":checked") == true){	// 전체 사용이 체크되면
 		
 		if(price_total + 2500 < point && total_p == 0){		// 바로주문하기일 떄
-			alert("if");
 			$("#usepoint").val(price_total + 2500);
 		}else if(total_p + 2500 < point && total_p != 0){	// 카트 주문일 때
-			alert("else if")
 			$("#usepoint").val(total_p + 2500);	// 상품가격보다 포인트가 더 많으면 상품가격만큼만 사용함
 		}else{
-			alert("else");
 			$("#usepoint").val(point);		
 		}
 	}else{

@@ -66,6 +66,16 @@ div.review-writerscore-star-orange{
 	height: 18px;
 	background: url("store_resources/images/star-active2.png");
 }
+#tracking-btn{
+	width: 100px;
+    height: 30px;
+    background: #e0e0e0;
+    border: none;
+    font-weight: bold;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
 </style>
 
 </head>
@@ -229,7 +239,7 @@ div.review-writerscore-star-orange{
 											</c:if>
 											<c:if test="${oi.status == 1 }">
 											배송중<br>
-											<button type="button" id="tracking-btn">배송추적</button>
+											<button type="button" id="tracking-btn" onclick="showPopup()">배송추적</button>
 											</c:if>
 											<c:if test="${oi.status == 2 }">
 											배송완료
@@ -412,6 +422,14 @@ div.review-writerscore-star-orange{
 		}	
 		
 	});
+	
+	// 배송추적 팝업창
+	function showPopup(){
+		
+		window.open("mytracking.do", "a", "width=400, height=300, left=100, top=50"); 
+		
+		
+	}
 	</script>
 </body>
 </html>

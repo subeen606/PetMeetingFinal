@@ -109,7 +109,7 @@
 				<table border="1">
 					<colgroup>
 						<col width="70px"><col width="120px"><col width="300px">
-						<col width="100px"><col width="150px"><col width="150px">
+						<col width="120px"><col width="150px"><col width="150px">
 					</colgroup>
 					<thead>
 						<tr>

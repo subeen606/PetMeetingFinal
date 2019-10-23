@@ -173,12 +173,19 @@ th, td {
 
 /* total price div */
 .total {
+/* 	font-size: 30px; */
+/* 	text-align: center; */
+/* 	padding: 80px 0; */
+/* 	margin: 50px 0; */
+/* 	background: #eee; */
+/* 	border-radius: 20px; */
 	font-size: 30px;
 	text-align: center;
 	padding: 80px 0;
-	margin: 50px 0;
+	margin: 50px 120px;
 	background: #eee;
 	border-radius: 20px;
+	width: 870px;
 }
 .total-price{
 	color: #c80000;
@@ -202,7 +209,9 @@ th, td {
 	margin-bottom: 20px;
 	border-bottom: 1px solid #999;
 	border-top: 1px solid #999;
+	position: sticky;
 }
+
 
 #menu-tab {
 	list-style: none;

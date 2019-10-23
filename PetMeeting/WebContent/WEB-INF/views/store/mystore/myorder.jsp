@@ -50,7 +50,15 @@ form{
 	text-align: left;
 }
 
-
+#tracking-btn{
+	width: 100px;
+    height: 30px;
+    background: #e0e0e0;
+    border: none;
+    font-weight: bold;
+    border-radius: 7px;
+    font-size: 12px;
+}
 </style>
 	<!-- datepicker -->
 	<script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script>
@@ -264,8 +272,8 @@ form{
 									<button type="button" class="s-btn" name="cancel" id="cancelBtn" value="${list.ordernumber }">주문 취소</button>
 									</c:if>
 									<c:if test="${list.status == 1 }">
-									배송중<br>
-									<button type="button" id="tracking-btn">배송추적</button>
+									<font color="#01b700" style="font-weight: bold">배송중</font>
+									<button type="button" id="tracking-btn" onclick="showPopup()">배송추적</button>
 									</c:if>
 									<c:if test="${list.status == 2 }">
 									<font color="#E5433E" style="font-weight: bold">배송완료</font>
@@ -329,7 +337,6 @@ form{
 	</footer>
 	<!-- Footer part end -->
 	
-	<!-- jquery plugins here-->
     <!-- popper js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>
     <!-- bootstrap js -->
@@ -461,11 +468,16 @@ $(".s-btn").on("click", function () {
 	}else{
 		return false;
 	}
-	
 });
 
+// 배송추적 팝업창
+function showPopup(){
 	
-
+	window.open("mytracking.do", "a", "width=400, height=300, left=100, top=50"); 
+	
+	
+}
+	
 
 </script>
 </body>
