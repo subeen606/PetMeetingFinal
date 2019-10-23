@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.FUpUtil;
@@ -36,6 +38,7 @@ import com.petmeeting.joy.mypage.model.MypageMsgParam;
 import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
 import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
 import com.petmeeting.joy.mypage.model.PointHistoryDto;
 import com.petmeeting.joy.mypage.service.mypageService;
@@ -561,16 +564,25 @@ public class MypageController {
 		
 		//나의 좋아요 게시글
 				@RequestMapping(value = "mypageboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
-				 public String mypageboardlike(MypagemylikeDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+				 public String mypageboardlike(MypagemylikefreeboardDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
 					
 					
 					System.out.println("나의 좋아요  게시글");
 				     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
 				     param.setEmail(member.getEmail()); 
 				  
+				     System.out.println("나의 좋아요 게시글 테스트 중"+param.toString());
 				     
+				     List<FreeboardDto> list=mypageService.mypagefreeboardlike(param);
+		
+				     System.out.println(list.size());
+		  for(int i=0;i<list.size();i++) {
+		  System.out.println("list테스트 "+i+list.get(i)); 
+		  }
+		 
+				     model.addAttribute("list", list);
 				     
-				     return "mypage/mypageboardlike";
+				     return "mypage/mypagemyfreeboardlike";
 				}
 				
 				

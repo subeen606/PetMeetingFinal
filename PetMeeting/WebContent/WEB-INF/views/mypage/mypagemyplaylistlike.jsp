@@ -20,8 +20,9 @@
 /* List<PlayboardDto>list=(List)request.getAttribute("list"); */
 //System.out.println("체크중임"+list.get(0));
 %>
-
-<jsp:include page="../main.jsp" flush="false" />
+<header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+</header>
 <div id="wrapper">
 
   <!-- Main -->
@@ -70,9 +71,9 @@
                </div>
              </section>
 		  </c:if>
+		
 		  <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 		  <c:forEach items="${myattendList }" var="attend" varStatus="i">
-				<jsp:setProperty property="date1" name="dateUtil" value="${attend.pdate }"/>
 				<jsp:setProperty property="date2" name="dateUtil" value="${attend.pdate }"/>
 				<jsp:setProperty property="date3" name="dateUtil" value="${attend.edate }"/>
 				<jsp:setProperty property="location" name="dateUtil" value="${attend.location }"/>
@@ -88,7 +89,7 @@
                     <div class="right-content">
                       <h3>[${attend.category}] ${attend.title }</h3>
                       <div>
-                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<jsp:getProperty property="dateString1" name="dateUtil"/><span id="expired-attend${i.index }" class="expired"></span>
+                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<jsp:getProperty property="dateString2" name="dateUtil"/><span id="expired-attend${i.index }" class="expired"></span>
                       </div>
                       <div>
                 	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="simpleLoc" name="dateUtil"/></font>
@@ -164,8 +165,9 @@ function playboarddetail(e) {
 		
 		var nowpage=$(".nowpage").val();
 		var totalsize=$(".totallist").val();
-
+		
 		 if(totalsize<=5){
+		
 	    	 $("#js-btn-wrap").hide();
 	    }
 		
@@ -177,7 +179,7 @@ function playboarddetail(e) {
 		
 		
 		
-		var today = new Date();
+		
 		
 		<%
 		List<PlayboardDto> attendlist = (List<PlayboardDto>)request.getAttribute("myattendList"); 
@@ -188,14 +190,11 @@ function playboarddetail(e) {
 			
 			var people = $("#checkExpired-attend<%=i%>").attr("people");
 			var personcount =  $("#checkExpired-attend<%=i%>").attr("personcount");
-			var edate =  new Date($("#checkExpired-attend<%=i%>").attr("edate"));
-			var today = new Date();
+			var edate =  $("#checkExpired-attend<%=i%>").attr("isEnd");
 			
 			
-			
-			if(edate.getTime()<=today.getTime() || people == personcount){
-			
-				$("#expired-attend<%=i%>").text('  마감 ');	
+			if(edate == 0 || people == personcount){
+				$("#expired-attend<%=i%>").text("  마감 ");	
 			}
 		<%	
 		}

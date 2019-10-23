@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								</div>
 							</div>
 							<div class="left-box">
-									 <label for="flwer-play-activity">팔로워의 최신 소모임</label>
+									 <label for="flwer-play-activity">나의 구독하는 사람 최신 소모임</label>
 									 <div class="flwer-activity">
 									<table id="flwer-play-activity">
 									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									<jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 									<c:if test="${ not empty flwerAllPlayList }">
 										<tr>
-										<th>팔로워</th>
+										<th>팔로잉</th>
 										<th>소모임 정보</th>
 										<th>모임 예정일</th>
 										</tr>
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									</table>
 									</div>
 									
-									 <label for="flwer-play-activity">팔로워의 최신 게시글</label>
+									 <label for="flwer-play-activity">나의 구독하는 사람 최신 게시글</label>
 									 <div class="flwer-activity">
 									<table id="flwer-free-activity">
 									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
