@@ -11,7 +11,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/playboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/bootstrap.min.css?after">
@@ -24,7 +24,13 @@
     	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
     </header>
     <!-- Header part end-->
-    
+    <c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+	
+	</c:if>
     <div class="mainTitle">
         <div class="container">
             <div class="row align-content-center">
@@ -114,7 +120,7 @@
 	                    <div class="play-items">
 	                        <div class="play-img set-bg">                           
 	                           <c:if test="${pList.reportcount >= 3 }">
-	                           	<a class="reportAnchor"><img src="${pageContext.request.contextPath}/playboard_resources/img/reportmark.png" width="100%" height="250px"></a>
+	                           	<a class="reportAnchor"><img class="thumbnail-img" src="${pageContext.request.contextPath}/playboard_resources/img/reportmark.png"></a>
 	                           </c:if>
 	                           
 	                           <c:if test="${pList.reportcount < 3 }">
@@ -153,7 +159,11 @@
      </c:if>
     
     </div>
-
+    
+    
+<!--::footer part start::--> 
+	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+<!-- footer part end-->
 
 <script type="text/javascript">
 $(function () {
@@ -171,24 +181,12 @@ $(function () {
 		alert("신고로 인해 관리자가 심사 중인 게시글 입니다.");
 	});
 
-/*
-	
-	$(".titleAnchor").on("click", function () {		
-		if("${login.email }" == ""){
-			alert("로그인을 하셔야 글을 보실 수 있습니다.");
-			location.href="login.do";
-		}else{
-			location.href="detailPlay.do?seq="+$(this).attr("seq");
-		}
-	});
-*/	
 	if("${searchBean.playCategory }" == ""){
 		$("select[name='playCategory']").val("선택").attr("selected", "selected");
 	}else{
 		$("select[name='playCategory']").val("${searchBean.playCategory }").attr("selected", "selected");
 	}
-	
-	
+		
 	$("select[name='searchCategory']").val("${searchBean.searchCategory }").attr("selected", "selected");
 	$("input[name='searchText']").val("${searchBean.searchText }");
 	$("select[name='sortingType']").val("${searchBean.sortingType }").attr("selected", "selected");
@@ -249,7 +247,7 @@ $(function () {
 			datatype: 'json',
 			success: function (data) {
 				//alert("성공");				
-				 var str = "";
+				var str = "";
 				$.each(data, function(idx, val) {
 					var date = new Date(val.pdate);
 					var day = "";
@@ -301,7 +299,7 @@ $(function () {
 					str += "</div>";
 				});
 				
-				$(".row").last().append(str);
+				$(".playboardContainer .row").last().append(str);
 				if(parseInt($("input[name='endRow']").val()) == ${totoalRowCount }){
 					$("#loadmore").hide();
 				}

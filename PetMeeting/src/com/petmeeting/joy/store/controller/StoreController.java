@@ -19,24 +19,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.petmeeting.joy.login.model.MemberDto;
+import com.petmeeting.joy.login.service.MemberService;
+import com.petmeeting.joy.store.model.CartDto;
 import com.petmeeting.joy.store.model.OrderBean;
 import com.petmeeting.joy.store.model.OrderDto;
 import com.petmeeting.joy.store.model.OrderInfoDto;
 import com.petmeeting.joy.store.model.OrderParam;
-import com.petmeeting.joy.login.model.MemberDto;
-import com.petmeeting.joy.login.service.MemberService;
-import com.petmeeting.joy.store.model.CartDto;
 import com.petmeeting.joy.store.model.ProductBean;
 import com.petmeeting.joy.store.model.ProductDto;
 import com.petmeeting.joy.store.model.ProductOptionDto;
 import com.petmeeting.joy.store.model.ProductParam;
 import com.petmeeting.joy.store.model.QnaBean;
 import com.petmeeting.joy.store.model.QnaParam;
-import com.petmeeting.joy.store.model.ReviewParam;
 import com.petmeeting.joy.store.model.QuestionDto;
 import com.petmeeting.joy.store.model.RefundDto;
 import com.petmeeting.joy.store.model.ReviewBean;
 import com.petmeeting.joy.store.model.ReviewDto;
+import com.petmeeting.joy.store.model.ReviewParam;
 import com.petmeeting.joy.store.service.OrderService;
 import com.petmeeting.joy.store.service.ProductService;
 import com.petmeeting.joy.store.service.QnaService;
@@ -607,6 +607,7 @@ public class StoreController {
 		}
 		
 		List<OrderInfoDto> mylist = orderService.getOrderDetailList(oiDto);
+
 		int usepoint = orderService.getUse_Point(oiDto);
 		
 		model.addAttribute("mylist", mylist);

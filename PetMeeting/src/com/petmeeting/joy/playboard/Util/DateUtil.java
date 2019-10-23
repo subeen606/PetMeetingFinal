@@ -19,7 +19,7 @@ public class DateUtil {
 		c.setTime(mydate);
 		Calendar t=Calendar.getInstance();
 		//오늘이 마지막날 보다 큰가?
-		return Integer.parseInt(StringCal(t))>Integer.parseInt(StringCal(c));
+		return Integer.parseInt(StringCal(t))>=Integer.parseInt(StringCal(c));
 	}
 	//칼렌더를 20120807형식으로 만들기
 	public static String StringCal(Calendar dd){

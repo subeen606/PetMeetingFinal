@@ -45,13 +45,14 @@ button {
     background-color: transparent;
 	display: inline-block;
 	padding: 8px 20px;
-	color:  #ff9c3d;
+	color:  #ff9c3d!important;
 	border: 2px solid  #ff9c3d;
 	transition: all 0.5s;
+	cursor:pointer;
 }
 .primary-button a:hover,
 button:hover {
-	color: #fff;
+	color: #fff!important;
 	background-color: #ff9c3d;
 }
 
@@ -60,8 +61,8 @@ button:hover {
 	height:30px;
 }
 .mysize{
-	width:500px;
-	height:auto;
+	width:auto;
+	max-height:250px;
 }
 .col-md-6{
 	width:500px!important;
@@ -129,6 +130,7 @@ select{
     color: red;
 
 }
+
 .js-load {
     display: none;
 }
@@ -142,10 +144,10 @@ select{
     display: block;
 }
 .btn-wrap{
-	border-bottom:0.5px #e6e6e6 solid;
-	color:darkgray;
-	text-align:center;
-	padding:20px;
+   border-bottom:0.5px #e6e6e6 solid;
+   color:darkgray;
+   text-align:center;
+   padding:20px;
 -webkit-transition-property:color, background; 
 -webkit-transition-duration: 0.5s, 0.5s; 
 -webkit-transition-timing-function: linear, ease-in;
@@ -155,14 +157,4 @@ select{
 background-color:#e6e6e6;
 color:black;
 opacity:0.6;
-}
-a.moreBtn{
- text-decoration:none;
-}
-.empty-playlist{
-	min-height: 280px;
-    width: 90%;
-    text-align: center;
-    font-weight: 1000;
-}
 }

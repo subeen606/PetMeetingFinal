@@ -18,7 +18,9 @@
 MemberDto member=(MemberDto) request.getSession().getAttribute("login");
 %>
 <body>
-<jsp:include page="../main.jsp" flush="false" />
+ <header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+    </header>
 <div id="wrapper">
 
   <!-- Main -->
@@ -72,8 +74,7 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
                       <div>
                      	 <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="dateString1" name="dateUtil"/> ~ <jsp:getProperty property="dateString2" name="dateUtil"/></font><span id="expired-attend${i.index }" class="expired"></span>
 
-                         <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="dateString1" name="dateUtil"/> ~ <jsp:getProperty property="dateString2" name="dateUtil"/></font><span id="expired-attend${i.index }" class="expired"></span>
-
+                  
                       </div>
                       <div>
                          <img src="./mypage_resources/mypage_s/images/like.png" class="playicon">&nbsp;&nbsp;<font>${fund.likecount }</font>                      
@@ -82,11 +83,7 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
                        <img src="./mypage_resources/mypage_s/images/angels.png" class="playicon">&nbsp;&nbsp;<font>${fund.personcount}명의 후원</font>
                       </div>
                       <div id="checkExpired-fund${i.index }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>" current_price="${fund.current_price }" max_price="${fund.max_price }">
-                         <img src="./mypage_resources/mypage_s/images/fundprice.png" class="playicon">&nbsp;&nbsp;<font>${fund.current_price } / ${fund.max_price }&nbsp;원&nbsp;( 나의 후원금 : ${fund.donation }&nbsp;원 )</font>
-                      </div>
-
-                      <div id="checkExpired-fund${i.index }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>" current_price="${fund.current_price }" max_price="${fund.max_price }">
-                     	 <img src="./mypage_resources/mypage_s/images/fundprice.png" class="playicon">&nbsp;&nbsp;<font>${fund.current_price } / ${fund.max_price }&nbsp;원&nbsp;( 나의 후원금 : ${fund.donation }&nbsp;원 )</font>
+                         <img src="./mypage_resources/mypage_s/images/fundprice.png" class="playicon">&nbsp;&nbsp;<font>${fund.current_price } / ${fund.max_price }&nbsp;원&nbsp;</font>
                       </div>
 
                       <div class="primary-button">

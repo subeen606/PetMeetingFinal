@@ -137,6 +137,51 @@ WHERE to_EMAIL=#{email}
 AND READCHECK='0' ))
 </select>
 
+<select id="mypagefundinglike" parameterType="com.petmeeting.joy.mypage.model.MypagemylikeDto"
+resultType="com.petmeeting.joy.funding.model.FundingDto">
+SELECT * FROM PM_FUNDINGBOARD WHERE SEQ IN
+(SELECT BOARD_SEQ FROM PM_BOARD_LIKE WHERE  BOARD_CODE='FUND' AND
+EMAIL= #{email})
+<if test="keyword != null and keyword !='' ">
+AND TITLE LIKE '%'||#{keyword}||'%' 
+</if>
+</select>
+
+
+<select id="mypageplayboardlike" parameterType="com.petmeeting.joy.mypage.model.MypagemylikeDto"
+resultType="com.petmeeting.joy.playboard.model.PlayboardDto">
+SELECT SEQ, BOARD_CODE, TITLE, CONTENT,
+FILENAME, LOCATION, LOCATION_DETAIL, CATEGORY,
+PRICE, PEOPLE, PERSONCOUNT, READCOUNT, LIKECOUNT, 
+REPORTCOUNT, PDATE, EDATE, REGDATE, DEL FROM PM_PLAYBOARD 
+WHERE SEQ IN (SELECT BOARD_SEQ FROM PM_BOARD_LIKE WHERE  BOARD_CODE='PLAY' AND
+EMAIL= #{email} )
+<if test="category != '모임 유형' and category != null and category !=''" > AND CATEGORY LIKE '%'||#{category}||'%' </if>
+<if test="selection != null and selection !='' and keyword != null and keyword !='' ">
+<if test="selection == '제목'"> AND TITLE LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '장소'">AND LOCATION LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '일시'">AND TO_CHAR(PDATE, 'YYYY-MM-DD') LIKE '%'||#{keyword}||'%' </if>
+</if>
+AND DEL=0
+ORDER BY PDATE DESC
+</select>
+
+
+<!-- 내가 좋아하는 자유게시판 글 -->
+<select id="mypagefreeboardlike" parameterType="com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto"
+resultType="com.petmeeting.joy.freeboard.model.FreeboardDto">
+SELECT * FROM PM_FREEBOARD WHERE SEQ IN
+(SELECT BOARD_SEQ FROM PM_BOARD_LIKE WHERE  BOARD_CODE !='FUND' AND BOARD_CODE !='PLAY' AND
+EMAIL= #{email})
+<if test="board_code != '게시판 유형' and board_code != null and board_code !=''" >AND BOARD_CODE LIKE '%'||#{board_code}||'%'</if>
+<if test="category != '분류 유형' and category != null and category !=''" > AND CATEGORY LIKE '%'||#{category}||'%' </if>
+<if test="selection != '선택' and selection != null and selection !='' and keyword != null and keyword !='' ">
+<if test="selection == '제목'"> AND TITLE LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '이메일'">AND EMAIL LIKE '%'||#{keyword}||'%' </if>
+</if>
+AND  DEL=0
+</select>
+
 
 <!-- 유정    ==========================================   -->
 <select id="checkMemberLeave" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -270,6 +315,21 @@ INSERT INTO PM_POINT_HISTORY(EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, US
 VALUES(#{email }, '펫 등록 지급포인트 ', 1000, (SELECT POINT FROM PM_MEMBER WHERE EMAIL=#{email }),SYSDATE, 0)
 </insert>
 
+<!-- 포인트내역 리스트 -->
+<select id="getPointHIstoryList" parameterType="com.petmeeting.joy.mypage.model.MypagePointListParam" resultType="com.petmeeting.joy.mypage.model.PointHistoryDto">
+SELECT RNUM, EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, USEDTYPE
+FROM (SELECT ROW_NUMBER()OVER(ORDER BY REGDATE DESC) AS RNUM, EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, USEDTYPE
+		FROM PM_POINT_HISTORY
+			WHERE EMAIL=#{email }
+				ORDER BY REGDATE DESC)
+WHERE RNUM BETWEEN #{start} AND #{end}
+</select>
+
+<!-- 포인트 총 내역 -->
+<select id="getAllPointList" parameterType="com.petmeeting.joy.mypage.model.MypagePointListParam" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*),0) FROM PM_POINT_HISTORY WHERE EMAIL=#{email}
+</select>
+
 
 
 
@@ -310,7 +370,7 @@ ORDER BY PDATE DESC
 </select>
  
 
-<select id="getMyFundingList" parameterType="com.petmeeting.joy.mypage.model.MypageListParam" resultType="com.petmeeting.joy.mypage.model.MypageFundingParam" >
+<select id="getMyFundingList" parameterType="com.petmeeting.joy.mypage.model.MypageListParam" resultType="com.petmeeting.joy.funding.model.FundingDto" >
 SELECT  a.*, b.DONATION
 FROM PM_FUNDINGBOARD a, (SELECT FUNDING_SEQ, DONATION FROM PM_FUNDINGMEM WHERE EMAIL=#{email}) b
 WHERE a.SEQ = b.FUNDING_SEQ

@@ -31,7 +31,12 @@
 </head>
 
 <body>
-
+<c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+</c:if>
 
 	<!-- Sidebar -->
  <div id="sidebar">
@@ -43,7 +48,7 @@
 		
 		<img alt=""
 			src="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/images/profile.png"
-			class="myprofileimg">
+			class="mysidebar_myprofileimg">
 		
 		<img alt=""
 			src="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/images/petprofile.png"
@@ -57,7 +62,7 @@
 		<c:if test="${userProfile.myprofile_img ne null}">
 			<script>
 				var myprofileimg = '<c:out value="${myimg }"/>';							
-				$(".myprofileimg").attr("src", "upload/" + myprofileimg);
+				$(".mysidebar_myprofileimg").attr("src", "upload/" + myprofileimg);
 			</script>
 		</c:if>
 			
@@ -65,7 +70,7 @@
 		<c:if test="${fn:contains(myimg,'http')}">
 			<script>
 				var myprofileimg = '<c:out value="${myimg}"/>';
-				$(".myprofileimg").attr("src", myprofileimg);
+				$(".mysidebar_myprofileimg").attr("src", myprofileimg);
 			</script>
 		</c:if>
 				
@@ -100,8 +105,11 @@
 		<c:if test="${userProfile.myintro ne null }">
 			<c:set var="myintro" value="${userProfile.myintro }"/>
 			<script>
+				
 				var myintro = '<c:out value="${myintro}"/>';
-				$(".userintro").text(myintro);
+				myintro = myintro.split('&lt;br/&gt;').join("<br>");
+				$(".userintro").html( myintro );
+				
 			</script>
 		</c:if>
 		</div>
@@ -135,6 +143,14 @@
 		
 		
 		<!-- 현아 part 1  -->
+		<li><span class="opener">나의 좋아요</span>
+			<ul>
+				<li><a href="mypagefundinglike.do">나의 후원</a></li>
+				<li><a href="mypageplayboardlike.do">나의 소모임</a></li>
+				<li><a href="mypageboardlike.do">나의 게시글</a></li>
+			</ul></li>
+		
+		
 		<li><a href="mypagefollow.do">나의 구독</a></li>
 	
 		<!-- 현아 part 2 -->	
@@ -169,10 +185,9 @@ $(document).ready(function(){
 		},
 		error:function(request,status,error){
 	        alert("code:"+request.status + "message:"+request.responseText+"error:"+error);
-	     
 		}
-
 	});
+	
 	/* 팔로워/팔로잉의 수  */
 	$.ajax({
 		type : "post",

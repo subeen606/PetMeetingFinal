@@ -13,54 +13,22 @@ SELECT * FROM(SELECT ROW_NUMBER()OVER(ORDER BY REGDATE DESC)AS RNUM,
 				PERSONCOUNT, LIKECOUNT, READCOUNT, SDATE, EDATE, REGDATE
 				FROM PM_FUNDINGBOARD
 			WHERE 1=1	
-<if test="ing_end !=null and ing_end !=''">
-	
-	<!-- 전체진행일때 -->
-	<if test="ing_end == '_update'">
-		<if test="keyword != null and keyword !=''">
-		AND TITLE LIKE '%'||#{keyword}||'%'
-		</if>
-		<if test="categorys != null and categorys !=''">
-			<if test="categorys == '_like'">
-			ORDER BY LIKECOUNT DESC
-			</if>
-			<if test="categorys == '_join'">
-			ORDER BY PERSONCOUNT DESC
-			</if>
-		</if>
+
+<if test="categorys != null and categorys !=''">
+
+	<if test="categorys == '_update' ">
+	AND TITLE LIKE '%'||#{keyword}||'%'
+	ORDER BY REGDATE DESC
 	</if>
 	
-	<!-- 진행중인 후원만 -->
-	<if test="ing_end == '_ing'">
-		AND EDATE <![CDATA[>=]]> SYSDATE
-		AND	CURRENT_PRICE <![CDATA[<]]> MAX_PRICE
-		<if test="keyword != null and keyword !=''">
-		AND TITLE LIKE '%'||#{keyword}||'%'
-		</if>
-		<if test="categorys != null and categorys !=''">
-			<if test="categorys == '_like'">
-			ORDER BY LIKECOUNT DESC
-			</if>
-			<if test="categorys == '_join'">
-			ORDER BY PERSONCOUNT DESC
-			</if>
-		</if>
+	<if test="categorys == '_like' ">
+	AND TITLE LIKE '%'||#{keyword}||'%'
+	ORDER BY LIKECOUNT DESC
 	</if>
 	
-	<!-- 마감된 후원만 -->
-	<if test="ing_end == '_end'">
-		AND ( EDATE <![CDATA[<]]> SYSDATE OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE )
-		<if test="keyword != null and keyword !=''">
-		AND TITLE LIKE '%'||#{keyword}||'%'
-		</if>
-		<if test="categorys != null and categorys !=''">
-			<if test="categorys == '_like'">
-			ORDER BY LIKECOUNT DESC
-			</if>
-			<if test="categorys == '_join'">
-			ORDER BY PERSONCOUNT DESC
-			</if>
-		</if>
+	<if test="categorys == '_join' ">
+	AND TITLE LIKE '%'||#{keyword}||'%'
+	ORDER BY PERSONCOUNT DESC
 	</if>
 </if>
 )A

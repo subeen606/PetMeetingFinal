@@ -30,6 +30,11 @@
 		SET TOTALPOINT=TOTALPOINT+50, POINT=POINT+50
 		WHERE EMAIL=#{email}
 	</update>
+	<!-- 포인트 적립 내역 생성 -->
+	<insert id="insertPointHistory" parameterType="com.petmeeting.joy.playboard.model.PlayboardDto">
+		INSERT INTO PM_POINT_HISTORY(EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, USEDTYPE) 
+		VALUES(#{email}, '글작성 포인트', 50, (SELECT POINT FROM PM_MEMBER WHERE EMAIL=#{email}), SYSDATE, 0)
+	</insert>
 	
 	<!-- 포인트 증가여부 판단 -->
 	<select id="checkPoint" resultType="java.lang.Integer">
@@ -431,5 +436,18 @@
 		SET REPORTCOUNT = REPORTCOUNT+1
 		WHERE EMAIL=#{bad_email}
 	</update>
+	
+	<!-- 멤버 팔로우 -->
+	<insert id="insertFollow" parameterType="com.petmeeting.joy.mypage.model.MypageFollowDto">
+		INSERT INTO PM_FOLLOW
+		VALUES(PM_FOLLOW_SEQ.NEXTVAL, #{myemail}, #{folloing_email})
+	</insert>
+	
+	<!-- 팔로우 중인지 체크 -->
+	<select id="followingCheck" parameterType="com.petmeeting.joy.mypage.model.MypageFollowDto" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM PM_FOLLOW
+		WHERE MYEMAIL=#{myemail} AND FOLLOING_EMAIL=#{folloing_email}
+	</select>
 	
 </mapper>

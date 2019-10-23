@@ -9,11 +9,15 @@
  <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
     
 	<!-- datepicker -->
+<<<<<<< HEAD
+	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">	
+=======
 	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">
-	<script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
+	
+>>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
 
 	<!-- 도로명 주소 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -34,7 +38,13 @@
 	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
 </header>
 <!-- Header part end-->
-    
+<c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+</c:if>
+
 <!-- 글쓰기 폼 -->
 <form id="boardWriteFrm" action="" method="post" enctype="multipart/form-data">
 <input type="hidden" name="email" value="${login.email }">
@@ -169,7 +179,15 @@
     	</div>   
     </div>
 </form>
+<<<<<<< HEAD
+   <!--::footer part start::--> 
+    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+    <!-- footer part end-->
+    
+=======
 
+>>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
+<script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
 <script type="text/javascript">
 $(function () {
 	var today = new Date();
