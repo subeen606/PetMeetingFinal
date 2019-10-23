@@ -72,11 +72,12 @@
 				<jsp:setProperty property="date2" name="dateUtil" value="${attend.pdate }"/>
 				<jsp:setProperty property="date3" name="dateUtil" value="${attend.edate }"/>
 				<jsp:setProperty property="location" name="dateUtil" value="${attend.location }"/>
+               <div id="section1${i.index}">
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-4">
-                      <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
+                      <img src="/PetMeeting/playboardUpload/${attend.filename }"" alt="" class="mysize">
               <!--     <img src="${attend.filename }" alt=""> -->  
                   </div>
                   <div class="col-md-4">
@@ -105,9 +106,12 @@
             </section>
 
 			<hr>
-          
+          </div>
              </c:forEach>
-            <div id="js-btn-wrap" class="btn-wrap"><a href="javascript:;" class="moreBtn" style="color:#23527c">LOAD MORE</a> </div>
+             <input type="hidden" class="nowpage1" value="5" >
+			 <input type="hidden" class="totallist1" value="${myattendList.size()}">
+			 <div id="js-btn-wrap1" onclick="moreBtn(1)" class="btn-wrap"><a href="javascript:;" class="moreBtn" style="color:#23527c">LOAD MORE</a> </div>
+        
             </div>
             
             <div class="make">
@@ -127,11 +131,12 @@
 		  	<jsp:setProperty property="date2" name="dateUtil" value="${make.pdate }"/>
 				<jsp:setProperty property="date3" name="dateUtil" value="${make.edate }"/>
 			<jsp:setProperty property="location" name="dateUtil" value="${make.location }"/>
+             <div id="section2${i.index}">
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-4">
-                      <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
+                      <img src="/PetMeeting/playboardUpload/${make.filename }" alt="" class="mysize">
               <!--     <img src="${make.filename }" alt=""> -->  
                   </div>
                   <div class="col-md-4">
@@ -160,9 +165,11 @@
             </section>
 
 			<hr>
-          
-             </c:forEach>
-             
+          	</div>
+             </c:forEach>        
+			 <input type="hidden" class="nowpage2" value="5" >
+			 <input type="hidden" class="totallist2" value="${mymakeList.size()}">
+			 <div id="js-btn-wrap2" onclick="moreBtn(2)" class="btn-wrap"><a href="javascript:;" class="moreBtn" style="color:#23527c">LOAD MORE</a> </div>
             </div>
 		</div>
 	</div>
@@ -170,20 +177,75 @@
 </div>	
 <script src="./mypage_resources/mypage_s/datepicker/datepicker.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	var play = $("#_play").val();
+
+function moreBtn(e) {
 	
+	
+	 var nowpage1=$(".nowpage"+e).val();
+	 $(".nowpage"+e).val( Number(nowpage1)+5);     
+	 var nowpage2=$(".nowpage"+e).val();
+	 
+	 for(var i=0 ; i<nowpage2; i++){
+		 $("#section"+e+""+i).fadeIn(2000);
+	 }
+	 var offset = $("#section"+e+""+nowpage1).offset();
+     $('html, body').animate({scrollTop : offset.top}, 400);
+
+
+	
+	 
+	 if(Number(nowpage2)>=$(".totallist"+e).val()) {
+		 $("#js-btn-wrap"+e).hide();
+	 }
+	
+}
+
+
+	  
+$(document).ready(function(){
+
+	    var nowpage1=$(".nowpage1").val();
+		var totalsize1=$(".totallist1").val();
+		 if(totalsize1<=5){
+		
+			 $("#js-btn-wrap1").hide();
+	    }
+		
+		for(var i = Number(nowpage1) ; i<totalsize1 ; i++){
+			
+			$("#section1"+i).hide();
+		} 
+
+		   var nowpage2=$(".nowpage2").val();
+			var totalsize2=$(".totallist2").val();
+			 if(totalsize2<=5){
+			
+				 $("#js-btn-wrap2").hide();
+		    }
+			
+			for(var i = Number(nowpage2) ; i<totalsize2 ; i++){
+				
+				$("#section2"+i).hide();
+			} 
+
+		
+	var play = $("#_play").val();
 	if(play == "attend"){
 		$(".make").hide();
 		$("#attend-tap").css("background-color","rgb(241,238,235,0.6)");
 		$("#make-tap").css("background-color","white");
+   	
+	
 	}	
 	else if(play == "make"){
 		$(".attend").hide();
 		$("#make-tap").css("background-color","rgb(241,238,235,0.6)");
 		$("#attend-tap").css("background-color","white");
+	   
+	
+	
 	}
-	<%List<PlayboardDto> attendlist = (List<PlayboardDto>)request.getAttribute("myattendList"); 
+<%List<PlayboardDto> attendlist = (List<PlayboardDto>)request.getAttribute("myattendList"); 
 	List<PlayboardDto> makelist = (List<PlayboardDto>)request.getAttribute("mymakeList");%>
 	
 	
@@ -230,13 +292,22 @@ $(document).ready(function(){
 		
 		
 	});
-	
+
 	$("#attend-tap").on("click",function(){
 		$(this).css("background-color","rgb(241,238,235,0.6)");
 		$("#make-tap").css("background-color","white");
 		$(".attend").show();
 		$(".make").hide();
 		$("#_play").val("attend");
+		$(".nowpage1").val(5);
+		for(var i = 4 ; i<totalsize1 ; i++){
+			
+			$("#section1"+i).hide();
+		} 
+		if(totalsize1>=5){
+			 $("#js-btn-wrap1").show();
+		}
+		
 	});
 	
 	$("#make-tap").on("click",function(){
@@ -245,6 +316,16 @@ $(document).ready(function(){
 		$(".make").show();
 		$(".attend").hide();
 		$("#_play").val("make");
+		$(".nowpage2").val(5);
+        for(var i = 4 ; i<totalsize2 ; i++){
+			
+			$("#section2"+i).hide();
+		} 
+           if(totalsize2>=5){
+			 $("#js-btn-wrap2").show();
+		}
+           
+		
 	});
 
 	$("#searchBtn").on("click", function(){
@@ -265,13 +346,13 @@ $(document).ready(function(){
 	});
 	
 	 load('#_attend', '5');
-	 $("#js-btn-wrap .moreBtn").on("click", function () {
+/* 	 $("#js-btn-wrap .moreBtn").on("click", function () {
 	        load('#_attend', '5', '#js-btn-wrap');
 	 });
-	    
+	     */
 	
 });
-
+/* 
 function load(id, cnt, btn) {
     var girls_list = id + " .js-load:not(.active)";
     var girls_length = $(girls_list).length;
@@ -285,7 +366,7 @@ function load(id, cnt, btn) {
     }
     $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
 }
-
+ */
 </script>
 </body>
 </html>

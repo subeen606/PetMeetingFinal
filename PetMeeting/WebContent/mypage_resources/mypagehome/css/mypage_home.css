@@ -240,4 +240,5 @@ body {/* ???????? */
 .flwer-activity{
 	display: grid;
     text-align: center;
+    min-height: 400px;
 }
