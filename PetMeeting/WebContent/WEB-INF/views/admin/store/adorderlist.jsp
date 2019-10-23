@@ -98,7 +98,7 @@ text-align: center;
 							<tr>
 								<td colspan="6">
 								<jsp:include page="/WEB-INF/views/store/mystore/paging.jsp" flush="false">
-										<jsp:param name="" value="type" />
+										<jsp:param name="type" value="" />
 										<jsp:param name="pageNumber" value="${pageNumber }" />
 										<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
 										<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
