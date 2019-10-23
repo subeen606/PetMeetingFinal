@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.FUpUtil;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -34,6 +35,7 @@ import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+import com.petmeeting.joy.mypage.model.MypagemylikeDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
 import com.petmeeting.joy.mypage.service.mypageService;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
@@ -512,7 +514,44 @@ public class MypageController {
 		}
 		
 		
+		//나의 좋아요 후원 
+		@RequestMapping(value = "mypagefundinglike.do", method = { RequestMethod.GET, RequestMethod.POST })
+		 public String mypagefundinglike(MypagemylikeDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+			System.out.println("나의 좋아요 펀딩 부분");
+			  MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+			  param.setEmail(member.getEmail()); 
+			  System.out.println("좋아요 부분 확인중"+param.toString());
+			  
+			  
+			  List<FundingDto> list=mypageService.mypagefundinglike(param);
+			  for(int i=0;i<list.size();i++) {
+				  System.out.println("펀딩!"+list.get(i));
+			  }
+			  
+			  
+			  model.addAttribute("fundinglist", list);
+			  
+			  
+			  return "mypage/mypagemyfundinglike";
+		}
+
 		
+		//나의 좋아요 소모임
+		@RequestMapping(value = "mypageplayboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
+		 public String mypageplayboardlike(MypagemylikeDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+			
+			
+			System.out.println("나의 좋아요  소모임");
+		     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+		     param.setEmail(member.getEmail()); 
+		     
+		     List<PlayboardDto> list=mypageService.mypageplayboardlike(param);
+		     
+		     model.addAttribute("list", list);
+		     
+		     
+		     return "mypage/mypagemyplaylistlike";
+		}
 		
 		
 	 

@@ -2,6 +2,7 @@ package com.petmeeting.joy.mypage.service;
 
 import java.util.List;
 
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
 import com.petmeeting.joy.mypage.model.MyPetProfileDto;
@@ -16,6 +17,7 @@ import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+import com.petmeeting.joy.mypage.model.MypagemylikeDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
@@ -52,7 +54,9 @@ public interface mypageService {
 	
 	public Mypagewebpush mypagemsgpush(String email);
 	
-
+	public List<FundingDto> mypagefundinglike(MypagemylikeDto param);
+	
+	public List<PlayboardDto> mypageplayboardlike(MypagemylikeDto param);
 	
 	//유정////////
 	

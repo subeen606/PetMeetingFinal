@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.dao.mypageDao;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -21,6 +22,7 @@ import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+import com.petmeeting.joy.mypage.model.MypagemylikeDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
 @Repository
@@ -131,12 +133,22 @@ public class mypageDaoImpl implements mypageDao {
 	}
 	
 	
+	@Override
+	public List<FundingDto> mypagefundinglike(MypagemylikeDto param) {
+		return sqlSession.selectList(ns+"mypagefundinglike",param);
+	}
 	
+	@Override
+	public List<PlayboardDto> mypageplayboardlike(MypagemylikeDto param) {
+		return sqlSession.selectList(ns+"mypageplayboardlike", param);
+	}
+
 	///////////////////////////////////////////유정
 
-
+    
 
 	
+
 
 	@Override
 	public MemberDto getUser(String email) {
@@ -144,6 +156,7 @@ public class mypageDaoImpl implements mypageDao {
 		return user;
 	}
 	
+
 	// 로그인유저 profile 정보가져오기
 	@Override
 	public MyProfileDto getLoginUserProfile(String email) {
