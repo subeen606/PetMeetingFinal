@@ -89,7 +89,7 @@
                     <div class="right-content">
                       <h3>[${attend.category}] ${attend.title }</h3>
                       <div>
-                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<jsp:getProperty property="dateString1" name="dateUtil"/><span id="expired-attend${i.index }" class="expired"></span>
+                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<jsp:getProperty property="dateString2" name="dateUtil"/><span id="expired-attend${i.index }" class="expired"></span>
                       </div>
                       <div>
                 	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="simpleLoc" name="dateUtil"/></font>
