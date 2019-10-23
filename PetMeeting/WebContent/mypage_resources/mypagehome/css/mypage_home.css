@@ -12,11 +12,28 @@ body {/* ???????? */
 	font-style: normal; 
 }
 
+.pointlist_table{
+	text-align: center;
+	width: 100%;
+	
+}
+.pointlist_table tr {
+	background-color: rgba(241,238,235,0.6);
+    height: 40px;
+    border-bottom: 0.5px solid #ececec;
+}
+.pointlist_table td.savepoint{
+	color: #97bf3a;
+}
+.pointlist_table td.usepoint{
+	color: #d82f2f;
+}
 .right-box{
 	width:50%;
 	float:left;
 }
 .left-box{
+	font-size:12px;
 	margin-top: 4px;
 	display:inline;
 	width:49%;
@@ -29,6 +46,11 @@ body {/* ???????? */
     margin-bottom: 20px;
     overflow: hidden;
   	animation: fade-in-top 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.list-profileimg{
+	width:50px;
+	height:50px;
+	border-radius: 50%;
 }
 .member-card{
 	margin-top: 4px;
@@ -189,4 +211,34 @@ body {/* ???????? */
 
 .vertical [type=radio]:checked ~ label ~ .content, .vertical [type=checkbox]:checked ~ label ~ .content {
    height: 500px;
-}	
+}
+
+.left-box label{
+	display: block;
+    font-size: 16px;
+    line-height: 16px;
+	background: #2b2b2b;
+    color: #FFF;
+    border-radius: 0.6em;
+    padding:10px;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+}
+.flwer-activity td{
+	border-color: 0.5px solid #ddd;
+}
+.flwer-activity:hover tr{
+	background-color: rgba(245, 245, 245, 0.7);
+}
+.flwer-activity th{
+	background-color: #eee;
+}
+.flwer-activity{
+	display: grid;
+    text-align: center;
+    min-height: 400px;
+}

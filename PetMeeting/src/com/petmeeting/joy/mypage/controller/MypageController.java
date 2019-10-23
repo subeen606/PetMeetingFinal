@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.FUpUtil;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -28,14 +31,19 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
-import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
+import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
+import com.petmeeting.joy.mypage.model.PointHistoryDto;
 import com.petmeeting.joy.mypage.service.mypageService;
+import com.petmeeting.joy.mypage.util.MypageDateUtil;
+import com.petmeeting.joy.playboard.Util.PlayboardUtil;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.util.SendSMS;
 
@@ -57,8 +65,8 @@ public class MypageController {
 		
 		return "mypage/mypageHome";
 	}
-	
 	*/
+	
 	@RequestMapping(value = "mypagePhoneCheck.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String mypagePhoneCheck() {
 		
@@ -512,88 +520,225 @@ public class MypageController {
 		}
 		
 		
+		//나의 좋아요 후원 
+		@RequestMapping(value = "mypagefundinglike.do", method = { RequestMethod.GET, RequestMethod.POST })
+		 public String mypagefundinglike(MypagemylikeDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+			System.out.println("나의 좋아요 펀딩 부분");
+			  MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+			  param.setEmail(member.getEmail()); 
+			  System.out.println("좋아요 부분 확인중"+param.toString());
+			  
+			  
+			  List<FundingDto> list=mypageService.mypagefundinglike(param);
+			  for(int i=0;i<list.size();i++) {
+				  System.out.println("펀딩!"+list.get(i));
+			  }
+			  
+			  
+			  model.addAttribute("fundinglist", list);
+			  
+			  
+			  return "mypage/mypagemyfundinglike";
+		}
+
 		
+		//나의 좋아요 소모임
+		@RequestMapping(value = "mypageplayboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
+		 public String mypageplayboardlike(MypagemylikeDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+			
+			
+			System.out.println("나의 좋아요  소모임");
+		     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+		     param.setEmail(member.getEmail()); 
+		     
+		     List<PlayboardDto> list=mypageService.mypageplayboardlike(param);
+		     
+		     model.addAttribute("myattendList", list);
+		     
+		     
+		     return "mypage/mypagemyplaylistlike";
+		}
 		
 		
 	 
+		
+		//나의 좋아요 게시글
+				@RequestMapping(value = "mypageboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
+				 public String mypageboardlike(MypagemylikefreeboardDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+					
+					
+					System.out.println("나의 좋아요  게시글");
+				     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+				     param.setEmail(member.getEmail()); 
+				  
+				     System.out.println("나의 좋아요 게시글 테스트 중"+param.toString());
+				     
+				     List<FreeboardDto> list=mypageService.mypagefreeboardlike(param);
+		
+				     System.out.println(list.size());
+		  for(int i=0;i<list.size();i++) {
+		  System.out.println("list테스트 "+i+list.get(i)); 
+		  }
+		 
+				     model.addAttribute("list", list);
+				     
+				     return "mypage/mypagemyfreeboardlike";
+				}
+				
+				
 	 
 	  
 	  ////////////////////////////////////////////////////////////////////////////////////////////
 	  
 	  //유정
-
-		// 마이페이지 메인홈화면으로 이동
-		@RequestMapping(value = "mypagehome.do", method= {RequestMethod.GET, RequestMethod.POST})
-		public String mypagehome(HttpServletRequest req, Model model) throws Exception{
-			System.out.println("mypagehome.do ---------------------------");
-			//TODO
-			MemberDto user = (MemberDto)req.getSession().getAttribute("login");
-			System.out.println("loginsession = " + user);
-			MyGradeDto gdto = mypageService.getUserGrade( user );
+	   // 마이페이지 메인홈화면으로 이동
+      @RequestMapping(value = "mypagehome.do", method= {RequestMethod.GET, RequestMethod.POST})
+      public String mypagehome(MypagePointListParam pparam, HttpServletRequest req, Model model) throws Exception{
+         System.out.println("mypagehome.do ---------------------------");
+         //TODO
+         MemberDto user = (MemberDto)req.getSession().getAttribute("login");
+         System.out.println("loginsession = " + user);
+         MyGradeDto gdto = mypageService.getUserGrade( user );
+         
+         ////////////////////////////////////////////////////////rightbox를 위한 부분 
+           MypageListParam listparam = new MypageListParam();
+           listparam.setEmail(user.getEmail());
+           
+           //나의 이번주 참여, 모집 모임 리스트
+           List<PlayboardDto> myattendList = mypageService.getJoinPlayList(listparam); 
+           List<PlayboardDto> mymakeList = mypageService.getMakePlayList(listparam);
+           
+           String jsonData = "[";
+            if(!myattendList.isEmpty()){
+               
+               for (PlayboardDto pdto : myattendList) {
+            jsonData += "{title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
+               }
+            }
+            if(!myattendList.isEmpty()){
+               for (PlayboardDto pdto : myattendList) {
+            jsonData += "{title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
+               }      
+            }
+            if(jsonData.equals("[")){
+               jsonData = "";         
+            }
+            else{
+               jsonData = jsonData.substring(0, jsonData.lastIndexOf(","));
+               jsonData += "]";      
+            }
+           
+           //작성한 글, 댓글 수 가져오기
+           int writingCount = mypageService.getMyWritingCount(user.getEmail());
+           int commentCount = mypageService.getMyCommentCount(user.getEmail());
+           
+           
+           //나의 팔로워의 이번주 행보
+           
+           
+           model.addAttribute("writingCount", writingCount);
+           model.addAttribute("commentCount", commentCount);
+           model.addAttribute("myattendList", myattendList);
+           model.addAttribute("mymakeList", mymakeList);
+           model.addAttribute("jsonData", jsonData);
+         
+         if(gdto!=null) {
+            System.out.println("mypagehome.do>>> 로그인유저의 등급정보 : "+ gdto.toString() );
+            model.addAttribute("userGrade", gdto);
+            
+         }
+         
+         
+         
+         ///////////////////////////////////////////////////////////leftbox
+         
+         List<MypageFollowListParam> flwerAllPlayList = mypageService.getRecentFollowersPlay(user.getEmail());
+         List<MypageFollowListParam> flwerFreeList = mypageService.getRecentFollowersFree(user.getEmail());
+         
+           model.addAttribute("flwerAllPlayList", flwerAllPlayList);
+           model.addAttribute("flwerFreeList", flwerFreeList);
+         
+         //TODO  유정추가 1022 ---------------------------------------------------------------------------------
+			// 로그인 유저의 정보 가지고 가기(현재 포인트반영)
+			MemberDto userdto = mypageService.getUser( user.getEmail() );
+			model.addAttribute("userdto",userdto);
 			
-			////////////////////////////////////////////////////////rightbox를 위한 부분 
-			  MypageListParam listparam = new MypageListParam();
-			  listparam.setEmail(user.getEmail());
-			  
-			  //나의 이번주 참여, 모집 모임 리스트
-			  List<PlayboardDto> myattendList = mypageService.getJoinPlayList(listparam); 
-			  List<PlayboardDto> mymakeList = mypageService.getMakePlayList(listparam);
-		/*
-		 * for (PlayboardDto playBoardDto : myattendList) {
-		 * System.out.println("play 참여 리스트  : "+ playBoardDto.toString());
-		 * SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); Date
-		 * playDate = pdate.parse(playBoardDto.getPdate()); SimpleDateFormat ppdate =
-		 * new SimpleDateFormat("yyyy-MM-dd");
-		 * playBoardDto.setPdate(ppdate.format(playDate)); }
-		 * 
-		 * for (PlayboardDto playBoardDto : mymakeList) {
-		 * System.out.println("play 참여 리스트  : "+ playBoardDto.toString());
-		 * SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); Date
-		 * playDate = pdate.parse(playBoardDto.getPdate()); SimpleDateFormat ppdate =
-		 * new SimpleDateFormat("yyyy-MM-dd");
-		 * playBoardDto.setPdate(ppdate.format(playDate)); }
-		 */
-			  //작성한 글, 댓글 수 가져오기
-			  int writingCount = mypageService.getMyWritingCount(user.getEmail());
-			  int commentCount = mypageService.getMyCommentCount(user.getEmail());
-			  
-			  
-			  //나의 팔로워의 이번주 행보
-			  
-			  
-			  model.addAttribute("writingCount", writingCount);
-			  model.addAttribute("commentCount", commentCount);
-			  model.addAttribute("myattendList", myattendList);
-			  model.addAttribute("mymakeList", mymakeList);
-			  
+			// paging
+			pparam.setEmail(user.getEmail());
+			System.out.println("들어온 pparam : " + pparam.toString());
 			
-			if(gdto!=null) {
-				System.out.println("mypagehome.do>>> 로그인유저의 등급정보 : "+ gdto.toString() );
-				model.addAttribute("userGrade", gdto);
-				
+			int page = pparam.getPageNumber(); // 클릭한 페이지 넘버 0, 1, 2, 3, 4... 	초기페이지이동시 0	
+			int start = page * pparam.getRecordCountPerPage() + 1; // 1 11 21	초기페이지이동시 1	
+			int end = (page + 1) * pparam.getRecordCountPerPage(); // 10 20 30	초기페이지이동시 10
+			
+			pparam.setStart(start);
+			pparam.setEnd(end);
+			
+			MypagePointListParam pageingparam = new MypagePointListParam(user.getEmail(), 0, pparam.getRecordCountPerPage(),start, end);
+			
+			System.out.println("다시 db로 보낼 param = " + pageingparam.toString());
+			
+			// 총  포인트 내역 수
+			int totalRecordCount = mypageService.getAllPointList(pageingparam);
+			// 포인트내역 리스트
+			List<PointHistoryDto> pointlist = mypageService.getPointHIstoryList( pageingparam );
+			
+			for (PointHistoryDto poindto : pointlist) {
+				System.out.println(poindto.toString());
 			}
-			
-			
-			
-			///////////////////////////////////////////////////////////leftbox
-			
-			List<MypageFollowListParam> flwerAllPlayList = mypageService.getRecentFollowersPlay(user.getEmail());
-			List<MypageFollowListParam> flwerFreeList = mypageService.getRecentFollowersFree(user.getEmail());
- 			
-			 for (MypageFollowListParam mypageFollowListParam : flwerAllPlayList) {
-				  SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-				  Date playDate = pdate.parse(mypageFollowListParam.getPdate()); 		
-				  SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-				  mypageFollowListParam.setPdate(ppdate.format(playDate));
-			  }
-			
-			
-			  model.addAttribute("flwerAllPlayList", flwerAllPlayList);
-			  model.addAttribute("flwerFreeList", flwerFreeList);
-			
-			return "mypage/mypageHome";
-		}
+
+			model.addAttribute("pageNumber", page);
+			model.addAttribute("pageCountPerScreen", 10);	//10개씩 단위
+			model.addAttribute("recordCountPerPage", pparam.getRecordCountPerPage());	// 표현할 한 페이지의 글 수
+			model.addAttribute("totalRecordCount", totalRecordCount);	//전체글수
+			model.addAttribute("pparam", pparam);
+			model.addAttribute("pointlist", pointlist); 
+           
+           
+         return "mypage/mypageHome";
+      }
 		
+		// 마이페이지 메인홈화면으로 이동
+		@RequestMapping(value = "mypagehomePointHistoryList.do", method= {RequestMethod.GET, RequestMethod.POST})
+		public String mypagehomePointHistoryList(MypagePointListParam frmdata, HttpServletRequest req, Model model) throws Exception{
+			
+			System.out.println("mypagehomePointHistoryList.do ---------------------------");
+			MemberDto user = (MemberDto)req.getSession().getAttribute("login");
+			// paging
+			frmdata.setEmail(user.getEmail());
+			
+			
+			System.out.println("들어온 pparam : " + frmdata.toString());
+			
+			int page = frmdata.getPageNumber(); // 클릭한 페이지 넘버 0, 1, 2, 3, 4... 	초기페이지이동시 0	
+			int start = page * frmdata.getRecordCountPerPage() + 1; // 1 11 21	초기페이지이동시 1	
+			int end = (page + 1) * frmdata.getRecordCountPerPage(); // 10 20 30	초기페이지이동시 10
+			
+			frmdata.setStart(start);
+			frmdata.setEnd(end);
+			
+			MypagePointListParam pageingparam = new MypagePointListParam(frmdata.getEmail(), 0, frmdata.getRecordCountPerPage(),start, end);
+			
+			System.out.println("다시 db로 보낼 param = " + pageingparam.toString());
+			
+			// 총  포인트 내역 수
+			int totalRecordCount = mypageService.getAllPointList(pageingparam);
+			// 포인트내역 리스트
+			List<PointHistoryDto> pointlist = mypageService.getPointHIstoryList( pageingparam );
+			
+			for (PointHistoryDto poindto : pointlist) {
+				System.out.println(poindto.toString());
+			}
+	
+			model.addAttribute("pageNumber", page);
+			model.addAttribute("pageCountPerScreen", 10);	//10개씩 단위
+			model.addAttribute("recordCountPerPage", frmdata.getRecordCountPerPage());	// 표현할 한 페이지의 글 수
+			model.addAttribute("totalRecordCount", totalRecordCount);	//전체글수
+			model.addAttribute("pparam", frmdata);
+			model.addAttribute("pointlist", pointlist); 
+			
+			return "mypage/mypagePointlistPaging";
+		}	
 		
 		
 		
@@ -686,15 +831,15 @@ public class MypageController {
 			else {				
 				// 1. 사진 업로드 경로 설정
 				// 톰캣경로
-				String fupload = req.getServletContext().getRealPath("/upload");					
-				System.out.println("파일 업로드 경로 fupload == " + fupload);
+				String uploadfolder = req.getServletContext().getRealPath("/upload");					
+				System.out.println("파일 업로드 경로 uploadfolder == " + uploadfolder);
 				
 				// 2. file 명 변경
 				// 기존 파일명 가져와서 지우기
 				String oldfilename = petdto.getPetprofile_img(); //기존 가지고 있던 프로필이미지 파일명
 				// 기존파일 있으면
 				if(oldfilename != null) {
-					boolean b =  FUpUtil.delOldFile(fupload, oldfilename);
+					boolean b =  FUpUtil.delOldFile(uploadfolder, oldfilename);
 				    System.out.println("기존파일 지우기 결과 == " +  b);
 				}
 				String filecase = "_petprofileImg";
@@ -703,7 +848,7 @@ public class MypageController {
 				// 3. 업로드 (DB저장)
 				petdto.setPetprofile_img(newfilename);	
 				
-				String fullpath = fupload + "/" + newfilename;
+				String fullpath = uploadfolder + "/" + newfilename;
 				System.out.println("fullpath == " + fullpath);
 				
 				File file = new File(fullpath);
@@ -758,12 +903,20 @@ public class MypageController {
 		// 프로필 닉네임 수정시 닉네임체크		
 		@ResponseBody
 		@RequestMapping(value = "nicknameCheck.do", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
-		public boolean nicknameCheck( MyProfileParam paramdto) {
+		public String nicknameCheck( MyProfileParam paramdto ) {
 			System.out.println("nicknameCheck.do --------------------------------");
-			System.out.println("nickname = " + paramdto.getNickname());
-			boolean result = true;
 			
-			return result;
+			String nickname = paramdto.getNickname();
+			System.out.println("유저가 입력한 닉네임 : "+ nickname);
+			
+			MemberDto memdto = mypageService.checkNicknameExist( nickname );
+			
+			if(memdto == null) {
+				return "사용 가능한 닉네임 입니다.";
+			}else {
+				return "이미 존재하는 닉네임 입니다.";
+			}
+			
 		}
 		
 		// 프로필수정
@@ -791,9 +944,9 @@ public class MypageController {
 			// 업로드한 파일 있음
 			else {
 				// 1. 프로필 사진 업로드 경로 설정
-				// 톰캣경로
-				String fupload = req.getServletContext().getRealPath("/upload");					
-				System.out.println("파일 업로드 경로 fupload == " + fupload);
+				// 절대경로
+				String uploadfolder = req.getServletContext().getRealPath("/upload");					
+				System.out.println("파일 업로드 경로 uploadfolder == " + uploadfolder);
 						
 				// 2. file 명 변경
 				
@@ -802,7 +955,7 @@ public class MypageController {
 				
 				// 기존파일 있으면
 				if(oldfilename != null) {
-					boolean b =  FUpUtil.delOldFile(fupload, oldfilename);
+					boolean b =  FUpUtil.delOldFile(uploadfolder, oldfilename);
 				    System.out.println("기존파일 지우기 결과 == " +  b);
 				}
 				
@@ -812,7 +965,7 @@ public class MypageController {
 				// 3. 업로드 (DB저장)
 				paramdto.setMyprofile_img(newfilename);
 				
-				String fullpath = fupload + "/" + newfilename;
+				String fullpath = uploadfolder + "/" + newfilename;
 				System.out.println("fullpath == " + fullpath);
 				
 				File file = new File(fullpath);
@@ -861,6 +1014,7 @@ public class MypageController {
 				
 				return "";
 			}
+			
 			return "프로필 업데이트에 실패하였습니다...";
 		}
 
@@ -874,12 +1028,36 @@ public class MypageController {
 			System.out.println("로그인한 당신 " + user.toString());
 			MypageListParam listparam = new MypageListParam();
 			listparam.setEmail(user.getEmail());
+			
 			List<PlayboardDto> joinlist = mypageService.getJoinPlayList(listparam);
 			List<PlayboardDto> makelist = mypageService.getMakePlayList(listparam);
 			
+
+			String jsonData = "[";
+			if(!joinlist.isEmpty()){
+				
+				for (PlayboardDto pdto : joinlist) {
+					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
+				}
+			}
+			if(!makelist.isEmpty()){
+				for (PlayboardDto pdto : makelist) {
+					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
+				}		
+			}
+			if(jsonData.equals("[")){
+				jsonData = "";			
+			}
+			else{
+				jsonData = jsonData.substring(0, jsonData.lastIndexOf(","));
+				jsonData += "]";		
+			}
+
+			System.out.println("jsonData체크" + jsonData);
+			
 			model.addAttribute("myjoinlist", joinlist);
 			model.addAttribute("mymakelist", makelist);
-			
+			 model.addAttribute("jsonData", jsonData);
 			return "mypage/mypageCalendar";
 		}
 
@@ -909,6 +1087,7 @@ public class MypageController {
 				 listparam.setSelection("");
 				 
 				 mymakeList = mypageService.getMakePlayList(listparam);
+			
 			}else if(listparam.getPlay().equals("make")) {
 				
 				 mymakeList = mypageService.getMakePlayList(listparam);
@@ -920,43 +1099,7 @@ public class MypageController {
 				 myattendList= mypageService.getJoinPlayList(listparam);
 
 			}
-		/*
-		 * for (PlayboardDto playBoardDto : mymakeList) {
-		 * System.out.println("play 모집 리스트  : "+ playBoardDto.toString());
-		 * 
-		 * SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); Date
-		 * playDate = playBoardDto.getPdate();
-		 * 
-		 * SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-		 * System.out.println("요일 확인 좀 합시다 " + playDate.getDay()); String week = null;
-		 * switch(playDate.getDay()) { case 0: week = " (일)"; break; case 1: week =
-		 * " (월)"; break; case 2: week = " (화)"; break; case 3: week = " (수)"; break;
-		 * case 4: week = " (목)"; break; case 5: week = " (금)"; break; case 6: week =
-		 * " (토)"; break; } week = ppdate.format(playDate) + week;
-		 * System.out.println(week); playBoardDto.setPdate(week);
-		 * 
-		 * String locSplit[] = playBoardDto.getLocation().split(" ");
-		 * playBoardDto.setLocation(locSplit[0]+" "+locSplit[1]);
-		 * 
-		 * 
-		 * }
-		 * 
-		 * for (PlayboardDto playBoardDto : myattendList) {
-		 * System.out.println("play 참여 리스트  : "+ playBoardDto.toString());
-		 * SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); Date
-		 * playDate = pdate.parse(playBoardDto.getPdate());
-		 * 
-		 * SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-		 * 
-		 * String week = null; switch(playDate.getDay()) { case 0: week = " (일)"; break;
-		 * case 1: week = " (월)"; break; case 2: week = " (화)"; break; case 3: week =
-		 * " (수)"; break; case 4: week = " (목)"; break; case 5: week = " (금)"; break;
-		 * case 6: week = " (토)"; break; } week = ppdate.format(playDate) + week;
-		 * playBoardDto.setPdate(week);
-		 * 
-		 * String locSplit[] = playBoardDto.getLocation().split(" ");
-		 * playBoardDto.setLocation(locSplit[0]+" "+locSplit[1]); }
-		 */
+		
 			 model.addAttribute("myattendList", myattendList);
 			 model.addAttribute("mymakeList", mymakeList);
 			 model.addAttribute("listparam", listparam);
@@ -971,19 +1114,9 @@ public class MypageController {
 			
 			 MemberDto member = (MemberDto)req.getSession().getAttribute("login");
 			 listparam.setEmail(member.getEmail());
-			 List<MypageFundingParam> fundinglist = mypageService.getMyFundingList(listparam);
+			 List<FundingDto> fundinglist = mypageService.getMyFundingList(listparam);
 			
-			 for (MypageFundingParam fundingparam : fundinglist) {
-					
-					 SimpleDateFormat fdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-						Date startDate = fdate.parse(fundingparam.getSdate()); 
-						Date endDate = fdate.parse(fundingparam.getSdate()); 
-						
-						SimpleDateFormat ffdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-						fundingparam.setSdate(ffdate.format(startDate));
-						fundingparam.setEdate(ffdate.format(endDate));
-						
-			}
+			
 			 model.addAttribute("fundinglist", fundinglist);
 			 model.addAttribute("listparam", listparam);
 			 
@@ -1000,6 +1133,7 @@ public class MypageController {
 
 			MemberDto user = (MemberDto) req.getSession().getAttribute("login");
 			System.out.println("로그인한 당신 " + user.toString());
+			
 			sparam.setEmail(user.getEmail());
 			System.out.println("들여온 값 : " + sparam.toString());
 

@@ -19,6 +19,8 @@ import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
 public interface AdminDao {
+	
+	
 	/*playboard*/
 	public List<PlayboardDto> getAllPlayboardList(PlayboardSearchBean search);
 	public int getPlayboardTotalRowCount(PlayboardSearchBean search);
@@ -46,7 +48,8 @@ public interface AdminDao {
 	
 	public AdminMemberDto getMemberDetail(String email);
 	
-	public void insertLeaveMember(List<ReportDto> leaveMemberList);
+	public void pauseMember(String email);
+	public void cancelPauseMember(String email);
 	
 	public int leaveMemberCheck(String email);
 	public int memberProfileCheck(String email);

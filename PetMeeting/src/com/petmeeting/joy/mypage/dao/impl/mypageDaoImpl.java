@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.dao.mypageDao;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -15,12 +17,15 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
-import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
+import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+import com.petmeeting.joy.mypage.model.PointHistoryDto;
+import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
 @Repository
@@ -45,7 +50,6 @@ public class mypageDaoImpl implements mypageDao {
 
 	@Override
 	public MypageFollowDto myFollolistnickname(MypageFollowDto emaildto) {
-		
 		return sqlSession.selectOne(ns+"myFollolistnickname", emaildto);
 	}
 
@@ -110,7 +114,7 @@ public class mypageDaoImpl implements mypageDao {
 	}
 	
 	//나의 구독하는 사람과 멤버와 펫의 프로필 보여주기 위함
-		@Override
+	@Override
 	public Mypagememandpet mypageprofilememandpet(String email) {
 	
 		return sqlSession.selectOne(ns+"mypageprofilememandpet", email);
@@ -131,19 +135,39 @@ public class mypageDaoImpl implements mypageDao {
 	}
 	
 	
+	@Override
+	public List<FundingDto> mypagefundinglike(MypagemylikeDto param) {
+		return sqlSession.selectList(ns+"mypagefundinglike",param);
+	}
 	
+	@Override
+	public List<PlayboardDto> mypageplayboardlike(MypagemylikeDto param) {
+		return sqlSession.selectList(ns+"mypageplayboardlike", param);
+	}
+	
+	
+	
+	@Override
+	public List<FreeboardDto> mypagefreeboardlike(MypagemylikefreeboardDto param) {	
+		return sqlSession.selectList(ns+"mypagefreeboardlike", param);
+	}
+
+
 	///////////////////////////////////////////유정
 
-
+    
 
 	
 
+
+	
 	@Override
 	public MemberDto getUser(String email) {
 		MemberDto user = sqlSession.selectOne(ns + "getUser", email);	
 		return user;
 	}
 	
+
 	// 로그인유저 profile 정보가져오기
 	@Override
 	public MyProfileDto getLoginUserProfile(String email) {
@@ -233,7 +257,15 @@ public class mypageDaoImpl implements mypageDao {
 		return dto;
 	}
 	
-	
+	@Override
+	public int getAllPointList(MypagePointListParam pageingparam) {
+		return sqlSession.selectOne(ns+"getAllPointList", pageingparam);
+	}
+	@Override
+	public List<PointHistoryDto> getPointHIstoryList(MypagePointListParam pageingparam) {
+		//List<PointHistoryDto> list = 
+		return sqlSession.selectList(ns+"getPointHIstoryList", pageingparam);
+	}
 	
 	
 	
@@ -298,7 +330,7 @@ public class mypageDaoImpl implements mypageDao {
 		return sqlSession.selectList(ns+"getMakePlayList", listparam);
 	}
 
-	public List<MypageFundingParam> getMyFundingList(MypageListParam listparam){
+	public List<FundingDto> getMyFundingList(MypageListParam listparam){
 		return sqlSession.selectList(ns+"getMyFundingList", listparam);
 	}
 

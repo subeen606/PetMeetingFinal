@@ -2,6 +2,8 @@ package com.petmeeting.joy.mypage.service;
 
 import java.util.List;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
 import com.petmeeting.joy.mypage.model.MyPetProfileDto;
@@ -10,13 +12,16 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
-import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
+import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
+import com.petmeeting.joy.mypage.model.PointHistoryDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
 
@@ -52,7 +57,12 @@ public interface mypageService {
 	
 	public Mypagewebpush mypagemsgpush(String email);
 	
-
+	public List<FundingDto> mypagefundinglike(MypagemylikeDto param);
+	
+	public List<PlayboardDto> mypageplayboardlike(MypagemylikeDto param);
+	
+	
+	public List<FreeboardDto> mypagefreeboardlike(MypagemylikefreeboardDto param);
 	
 	//유정////////
 	
@@ -90,6 +100,13 @@ public interface mypageService {
 	
 	
 	
+	// 포인트내역리스트 총수
+	public int getAllPointList(MypagePointListParam pageingparam);
+	// 페이징된 포인트내역 리스트
+	public List<PointHistoryDto> getPointHIstoryList(MypagePointListParam pageingparam );
+	
+	
+	
 	public int getMyWritingCount(String email);
 
 	public int getMyCommentCount(String email);
@@ -111,7 +128,7 @@ public interface mypageService {
 
 	public List<PlayboardDto> getMakePlayList(MypageListParam listparam);
 	
-	public List<MypageFundingParam> getMyFundingList(MypageListParam listparam);
+	public List<FundingDto> getMyFundingList(MypageListParam listparam);
 	
 	public List<MypageMsgDto> getRevMsgList(MypageMsgParam sparam);
 	
