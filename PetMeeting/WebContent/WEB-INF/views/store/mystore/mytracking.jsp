@@ -20,12 +20,9 @@
 				<select id="company">
 						<!---->
 						<option value="" selected="" disabled="" style="color: #ccc" data-v-72b15ce9="">택배사</option>
-						<option data-v-72b15ce9="" value="de.dhl">DHL</option>
-						<option data-v-72b15ce9="" value="kr.chunilps">천일택배</option>
 						<option data-v-72b15ce9="" value="kr.cjlogistics">CJ대한통운</option>
 						<option data-v-72b15ce9="" value="kr.cupost">CU 편의점택배</option>
-						<option data-v-72b15ce9="" value="kr.cvsnet">GS Postbox
-							택배</option>
+						<option data-v-72b15ce9="" value="kr.cvsnet">GS Postbox택배</option>
 						<option data-v-72b15ce9="" value="kr.epost">우체국 택배</option>
 						<option data-v-72b15ce9="" value="kr.hanjin">한진택배</option>
 						<option data-v-72b15ce9="" value="kr.kdexp">경동택배</option>
