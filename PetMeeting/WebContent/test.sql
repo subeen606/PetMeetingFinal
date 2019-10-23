@@ -1,7 +1,7 @@
 /*-----  test ----- */
-SELECT * FROM PM_MEMBER WHERE EMAIL='jinyj714@naver.com';
- 
-SELECT * FROM PM_MYPROFILE WHERE EMAIL='jinyj714@naver.com';
+SELECT * FROM PM_MEMBER WHERE EMAIL='wow@wow.com';
+
+SELECT * FROM PM_MYPROFILE WHERE EMAIL='www';
 
 INSERT INTO PM_MYPROFILE(EMAIL, MYPROFILE_IMG, MYAGE, MYSEX, MYINTRO) 
 VALUES((SELECT EMAIL FROM PM_MEMBER WHERE EMAIL='www'), NULL, NULL, NULL, '등록된 소개가 없습니다')
@@ -143,11 +143,7 @@ VALUES('321', '펫등록포인트', 1000,(SELECT POINT FROM PM_MEMBER WHERE EMAI
 
 -- 후원결제 하고 결제내역 저장시 결제한 포인트만큼 point-usedpoint 한 값을 저장후 실행되어야함
 INSERT INTO PM_POINT_HISTORY(EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, USEDTYPE) 
-VALUES('email들어가야해오', '후원 제목 파람들어오면 넣고..추가해야하는게 복잡하다면 그냥 후원포인트 라고만 넣어주세오', 결제에사용한포인트, (SELECT POINT FROM PM_MEMBER WHERE EMAIL='email들어가야해오'), SYSDATE, 1);
-
-UPDATE PM_MEMBER
-SET POINT = POINT - 200
-WHERE EMAIL='zzz'
+VALUES('email들어가야해오', '포인트타이틀', 결제에사용한포인트, (SELECT POINT FROM PM_MEMBER WHERE EMAIL='email들어가야해오'), SYSDATE, 1);
 
 -- 유저의 전체 포인트사용내역을 최신순으로 뽑기(페이징 같이 진행되어야함..)
 SELECT ROW_NUMBER()OVER(ORDER BY REGDATE DESC) AS RNUM, EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, USEDTYPE

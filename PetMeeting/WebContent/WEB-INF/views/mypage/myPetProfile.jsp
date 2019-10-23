@@ -72,7 +72,7 @@
                            <div class="mypageHomebox_1">
                               <div class="input_row">
                                     <p class="input_title">펫 나이</p>
-                                 <span><input name="petage" type="text" size="6px" value="${userProfile.myage==0? '':userProfile.myage }" >&nbsp;&nbsp;세</span>
+                                 <span><input name="petage" type="text" size="6px" value="${mypet.petage==0? '':mypet.petage }" >&nbsp;&nbsp;세</span>
                                  <span><p class="petalert_age displayis" >정말이세요..?</p></span>
                               </div>                  
                            </div>
@@ -126,27 +126,27 @@
                      
                            <div class="mypageHomebox_1">
                               <div class="input_row">
-                                 <p class="input_title">펫 프로필 이미지</p>         
-                                 <div class="input_content">                        
+                                 <p class="input_title">펫 프로필 이미지</p>
+                                 <div class="input_content">                    
                                     <img id="img_preView" class="img_preView" alt="이미지없음" src="./mypage_resources/mypage_j/images/petprofile_icon.png" align="center"/>
                                                                                                 
                                     <!-- 프로필세션의 프로필이미지 있는경우 -->
                                     <!-- 들어온 프로필 변수-->                                 
-                                    <c:set var="myimg" value="${userProfile.myprofile_img}"/>
+                                    <c:set var="petimg" value="${mypet.petprofile_img}"/>
                                     
                                     <!-- 프로필 이미지파일 있는경우 -->
-                                    <c:if test="${userProfile.myprofile_img ne null}">
+                                    <c:if test="${mypet.petprofile_img ne null}">
                                        <script>
-                                          var myprofileimg = '<c:out value="${myimg }"/>';                     
-                                          $(".img_preView").attr("src", "upload/" + myprofileimg);
+                                          var petprofile_img = '<c:out value="${petimg }"/>';                     
+                                          $(".img_preView").attr("src", "upload/" + petprofile_img);
                                        </script>
                                     </c:if>
                                     
                                     <!-- 주소형식 이미지의 경우(카카오프로필의 경우) -->                                 
-                                    <c:if test="${fn:contains(myimg,'http')}">
+                                    <c:if test="${fn:contains(petimg,'http')}">
                                        <script>
-                                          var myprofileimg = '<c:out value="${myimg}"/>';
-                                          $(".img_preView").attr("src", myprofileimg);
+                                          var petprofile_img = '<c:out value="${petimg}"/>';
+                                          $(".img_preView").attr("src", petprofile_img);
                                        </script>
                                     </c:if>
                                     
@@ -188,7 +188,7 @@
             <div class="mypageHomebox_1">
                            <div class="input_row">
                               <button class="profile_Btn displayis" id="myProfile_insertBtn">프로필 등록하기</button>
-                              <button class="profile_Btn displayis" id="myProfile_updateSubBtn">프로필 수정완료</button>                  
+                              <button class="profile_Btn displayis" id="petProfile_updateSubBtn">프로필 수정완료</button>                  
                            </div>
                         </div>
          </section>
@@ -246,20 +246,6 @@ function typeChange( value ) {
 
 $(document).ready(function(){
    $(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
-    $('input[type="checkbox"]').bind('click',function() {
-          $('input[type="checkbox"]').not(this).prop("checked", false);
-    });
-   
-   var gender = $("#gender").val();
-   
-   if(gender == 0){
-      $("#female").prop("checked",true);
-   }
-   else{
-      $("#male").prop("checked",true);
-   }
-   
-   
    
    $.ajax({
       url : "checkpetprofile.do",
@@ -374,8 +360,9 @@ function readURL(input) {
 
 // 펫 프로필 등록 submit
 $('#petProfile_insertBtn').on("click",function(){
-   alert("등록버튼 click");
-   
+	var inrtoval = $('textarea').val();
+	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	$('textarea').val(inrtoval);
    // Get form
    var petProfileForm = $("#_petProfileForm")[0];
    //alert("petProfileForm = " + petProfileForm);
@@ -409,6 +396,10 @@ $('#petProfile_insertBtn').on("click",function(){
 
 // 펫프로필 수정 submit
 $('#petProfile_updateSubBtn').on("click",function(){
+	var inrtoval = $('textarea').val();
+	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	$('textarea').val(inrtoval);
+	
    var petProfileForm = $("#_petProfileForm")[0];
    var data = new FormData(petProfileForm);
   

@@ -105,8 +105,11 @@
 		<c:if test="${userProfile.myintro ne null }">
 			<c:set var="myintro" value="${userProfile.myintro }"/>
 			<script>
+				
 				var myintro = '<c:out value="${myintro}"/>';
-				$(".userintro").text(myintro);
+				myintro = myintro.split('&lt;br/&gt;').join("<br>");
+				$(".userintro").html( myintro );
+				
 			</script>
 		</c:if>
 		</div>

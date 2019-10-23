@@ -130,6 +130,10 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	 
+	var comintro = $('textarea').val();
+	comintro = comintro.split('<br/>').join("\r\n");
+	$('textarea').val(comintro);
 	
 	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
 	//$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
@@ -146,6 +150,12 @@ $(document).ready(function(){
 	if($("input[name=myage]").val() == 0){
 		$("input[name=myage]").val("");
 	}
+	
+	
+	
+	
+	
+	
 	
 	$.ajax({
 		url : "checkprofile.do",
@@ -187,6 +197,9 @@ function readURL(input) {
 
 // 프로필 등록 js
 $('#myProfile_insertBtn').on("click",function(){
+	var inrtoval = $('textarea').val();
+	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	$('textarea').val(inrtoval);
 	
 	var profileForm = $("#_profileForm")[0];
 	var data = new FormData(profileForm);
@@ -228,6 +241,11 @@ $('#myProfile_updateBtn').on("click",function(){
 // 프로필 수정 submit
 $('#myProfile_updateSubBtn').on("click",function(){
 
+	var inrtoval = $('textarea').val();
+	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	$('textarea').val(inrtoval);
+	
+	
 	var profileForm = $("#_profileForm")[0];
 	var data = new FormData(profileForm);
 	
