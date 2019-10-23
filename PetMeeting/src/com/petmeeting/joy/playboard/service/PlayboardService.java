@@ -3,7 +3,6 @@ package com.petmeeting.joy.playboard.service;
 import java.util.List;
 
 import com.petmeeting.joy.admin.model.ReportDto;
-import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
@@ -61,8 +60,4 @@ public interface PlayboardService {
 	public void insertPlayboardQnAReply(PlayboardQnADto qna);
 	
 	public void reportMember(ReportDto rdto);
-	
-	public void insertFollow(MypageFollowDto followDto);
-	
-	public int followingCheck(MypageFollowDto followDto);
 }

@@ -73,10 +73,7 @@ text-align: center;
 							<c:forEach items="${olist }" var="list" varStatus="vs">
 								<tr>
 									<td>${vs.count }</td>
-									<%-- <td>${list.ordernumber }</td> --%>
-									<td>
-										<a href="adorderdetail.do?ordernumber=${list.ordernumber }" style="color: black;">${list.ordernumber }</a>
-									</td>
+									<td>${list.ordernumber }</td>
 									<td>${list.ordername }</td>
 									<td><fmt:formatDate value="${list.orderdate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 									<td>${list.rname }</td>
@@ -121,6 +118,8 @@ $(function () {
 	var search_category = "${param.search_category}";
 	var pageNumber = "${param.pageNumber}";
 
+	// 페이지 유지
+	$("#_pageNumber").val(pageNumber);
 	
 	// 정렬값 유지
 	$("select[name='sorting_category']").val(sort_category);

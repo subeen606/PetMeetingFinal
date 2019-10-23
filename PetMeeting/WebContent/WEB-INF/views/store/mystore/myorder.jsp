@@ -109,6 +109,11 @@ form{
 	    </div>
 	</header>
 	<!-- Header part end--> 
+<<<<<<< HEAD
+	
+=======
+		
+>>>>>>> 827ab091020319de0e995974562b1ffa262af933
 	<!-- Content part start -->
 	<div class="container s-container">
 		<div class="mystore-sidebar">

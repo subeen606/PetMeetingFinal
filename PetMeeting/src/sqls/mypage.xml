@@ -310,7 +310,7 @@ ORDER BY PDATE DESC
 </select>
  
 
-<select id="getMyFundingList" parameterType="com.petmeeting.joy.mypage.model.MypageListParam" resultType="com.petmeeting.joy.funding.model.FundingDto" >
+<select id="getMyFundingList" parameterType="com.petmeeting.joy.mypage.model.MypageListParam" resultType="com.petmeeting.joy.mypage.model.MypageFundingParam" >
 SELECT  a.*, b.DONATION
 FROM PM_FUNDINGBOARD a, (SELECT FUNDING_SEQ, DONATION FROM PM_FUNDINGMEM WHERE EMAIL=#{email}) b
 WHERE a.SEQ = b.FUNDING_SEQ

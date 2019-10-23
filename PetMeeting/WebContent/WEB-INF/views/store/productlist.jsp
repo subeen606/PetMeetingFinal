@@ -38,10 +38,23 @@
 .pro-img img{
 	width: 300px;
 	height: 300px;
-	border-radius: 5px;
+	border-radius: 10px;
 	position: relative;
 	opacity: 1;
+	/* 
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.45s ease-in-out;
+	transition: all 0.45s ease-in-out; */
 }
+/* 
+.pro-img img:hover {
+	max-width: 300px;
+	opacity: 0.8;
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+}
+ */
 li.list-slider-li ul.pro-list li {
 	margin-bottom: 0;
 }
@@ -60,12 +73,12 @@ span.soldout{
 
 .more-btn {
 	background-color: #fff;
-	border: 2px solid #333;
+	border: 2px solid #093a27;
 	border-radius: 5px;
 	width: 150px;
 	height: 50px;
 	font-size: 20px;
-	color: #333;
+	color: #093a27;
 	font-weight: 800;
 }
 
@@ -73,9 +86,8 @@ span.soldout{
 	background: #fff;
 }
 
-.s-text b {
-	font-size: 17px;
-}
+/* list slider */
+
 </style>
 </head>
 <body>
@@ -133,11 +145,10 @@ span.soldout{
 	
 	<!-- Content part start -->
 	<div class="container s-container">
-		
 		<!-- Recommend Product Part Start -->
-		<div class="s-list-wrap" style="margin-bottom: 50px;">
+		<div class="s-list-wrap">
 			<div class="s-title" style="width: 1000px; margin: 30px auto;">
-				<h3>MD 추천상품</h3>
+				<h2>MD 추천상품</h2>
 			</div>
 			<div id="list-slider-wrapper">
 				<div id="list-slider-wrap">
@@ -184,14 +195,14 @@ span.soldout{
 				</div>
 			</div>
 		</div>
+		
+		
 		<!-- Recommend Product Part End -->
 		
 		<!-- All Product part start -->
-		<div id="all-product" style="padding: 30px">
-		</div>
 		<div class="s-list-wrap">
 			<div class="s-title" style="width: 1000px; margin: 30px auto;">
-				<h3>All Product</h3>
+				<h2>All Product</h2>
 			</div>
 			
 			<div class="search-wrap">
@@ -228,7 +239,7 @@ span.soldout{
 				</c:forEach>
 			</ul>
 		</div>
-		<div class="more-wrap" style="margin-bottom: 150px;">
+		<div class="more-wrap">
 			<button type="button" class="more-btn">Load More+</button>
 		</div>
 		<!-- Total Content part end -->
@@ -305,12 +316,12 @@ $(function () {
 	
 	// 검색버튼 클릭 시 검색폼 제출
 	$(".search-btn").click(function () {
-		$("#search-form").attr("action", "productlist.do#all-product").submit();
+		$("#search-form").attr("action", "productlist.do").submit();
 	});
 	
 	// 정렬 셀렉트박스 변경 시 검색 폼 제출
 	$("select[name=p_sorting]").change(function () {
-		$("#search-form").attr("action", "productlist.do#all-product").submit();
+		$("#search-form").attr("action", "productlist.do").submit();
 	});
 	
 	// 더보기 ajax

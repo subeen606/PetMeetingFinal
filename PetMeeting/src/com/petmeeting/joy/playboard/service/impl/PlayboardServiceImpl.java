@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.login.model.MemberDto;
-import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.playboard.Util.DateUtil;
 import com.petmeeting.joy.playboard.dao.playboardDao;
 import com.petmeeting.joy.playboard.model.MsgDto;
@@ -255,16 +254,6 @@ public class PlayboardServiceImpl implements PlayboardService{
 	public void reportMember(ReportDto rdto) {
 		pdao.insertMemberReport(rdto);
 		pdao.plusMemberReportCount(rdto);
-	}
-
-	@Override
-	public void insertFollow(MypageFollowDto followDto) {
-		pdao.insertFollow(followDto);
-	}
-
-	@Override
-	public int followingCheck(MypageFollowDto followDto) {
-		return pdao.followingCheck(followDto);
 	}
 
 	

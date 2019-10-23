@@ -9,7 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 - 나의 소모임</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/mypage_s/listform/list-style.css">
 <link href="./mypage_resources/mypage_s/datepicker/datepicker.css" rel="stylesheet">
 </head>
@@ -22,7 +21,6 @@
   <!-- Main -->
 	<div id="main">
 		<div class="inner">
-		  
 		  <h2>나의 소모임</h2>
 		 <hr>
 		  <div id="attend-tap">
@@ -66,12 +64,7 @@
                </div>
              </section>
 		  </c:if>
-		  <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 		  <c:forEach items="${myattendList }" var="attend" varStatus="i">
-				<jsp:setProperty property="date1" name="dateUtil" value="${attend.pdate }"/>
-				<jsp:setProperty property="date2" name="dateUtil" value="${attend.pdate }"/>
-				<jsp:setProperty property="date3" name="dateUtil" value="${attend.edate }"/>
-				<jsp:setProperty property="location" name="dateUtil" value="${attend.location }"/>
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
@@ -83,19 +76,19 @@
                     <div class="right-content">
                       <h3>[${attend.category}] ${attend.title }</h3>
                       <div>
-                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<jsp:getProperty property="dateString1" name="dateUtil"/><span id="expired-attend${i.index }" class="expired"></span>
+                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font>${attend.pdate }</font><span id="expired-attend${i.index }" class="expired"></span>
                       </div>
                       <div>
-                	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="simpleLoc" name="dateUtil"/></font>
+                	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font>${attend.location }</font>
                       </div>
                       <div>
                       <img src="./mypage_resources/mypage_s/images/like.png" class="playicon">&nbsp;&nbsp;<font>${attend.likecount }</font>                      
                       </div>
-                      <div id="checkExpired-attend${i.index }" personcount="${attend.personcount}" people="${attend.people }" isEnd="<jsp:getProperty property='isEnd3' name='dateUtil'/>">
+                      <div id="checkExpired-attend${i.index }" personcount="${attend.personcount}" people="${attend.people }" edate="${attend.edate }">
     	            <img src="./mypage_resources/mypage_s/images/people.png" class="playicon">&nbsp;&nbsp;<font>${attend.personcount}명 참여중  모집인원 ${attend.people }명</font>
                      </div>
-                      <div class="primary-button" seq="${attend.seq }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">
-                        <a>Read More</a>
+                      <div class="primary-button">
+                        <a href="#">Read More</a>
                       </div>
                     </div>
                   </div>
@@ -124,9 +117,6 @@
              </section>
 		  </c:if>
 		  <c:forEach items="${mymakeList }" var="make" varStatus="i">
-		  	<jsp:setProperty property="date2" name="dateUtil" value="${make.pdate }"/>
-				<jsp:setProperty property="date3" name="dateUtil" value="${make.edate }"/>
-			<jsp:setProperty property="location" name="dateUtil" value="${make.location }"/>
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
@@ -138,19 +128,19 @@
                     <div class="right-content">
                       <h3>[${make.category}] ${make.title }</h3>
                       <div>
-                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="dateString2" name="dateUtil"/></font><span id="expired-make${i.index }" class="expired"></span>
+                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font>${make.pdate }</font><span id="expired-make${i.index }" class="expired"></span>
                       </div>
                       <div>
-                	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="simpleLoc" name="dateUtil"/></font>
+                	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font>${make.location }</font>
                       </div>
                       <div>
                       <img src="./mypage_resources/mypage_s/images/like.png" class="playicon">&nbsp;&nbsp;<font>${make.likecount }</font>                      
                       </div>
-                      <div id="checkExpired-make${i.index }" personcount="${make.personcount}" people="${make.people }" isEnd="<jsp:getProperty property='isEnd3' name='dateUtil'/>">
-    	            <img src="./mypage_resources/mypage_s/images/people.png" class="playicon">&nbsp;&nbsp;<font>${make.personcount}명 참여중  모집인원&nbsp; ${make.people }명</font>
+                      <div id="checkExpired-make${i.index }" personcount="${make.personcount}" people="${make.people }" edate="${make.edate }">
+    	            <img src="./mypage_resources/mypage_s/images/people.png" class="playicon">&nbsp;&nbsp;<font>${make.personcount}명 참여중  모집인원 ${make.people }명</font>
                      </div>
-                      <div class="primary-button"  seq="${make.seq }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">
-                        <a>Read More</a>
+                      <div class="primary-button">
+                        <a href="#">Read More</a>
                       </div>
                     </div>
                   </div>
@@ -185,19 +175,15 @@ $(document).ready(function(){
 	}
 	<%List<PlayboardDto> attendlist = (List<PlayboardDto>)request.getAttribute("myattendList"); 
 	List<PlayboardDto> makelist = (List<PlayboardDto>)request.getAttribute("mymakeList");%>
-	
-	
-	var today = new Date();
-
-	
 	<%
 	for(int i = 0; i <attendlist.size() ; i++){
 	%>
 		var people = $("#checkExpired-attend<%=i%>").attr("people");
 		var personcount =  $("#checkExpired-attend<%=i%>").attr("personcount");
-		var edate =  $("#checkExpired-attend<%=i%>").attr("isEnd");
+		var edate =  new Date($("#checkExpired-attend<%=i%>").attr("edate"));
+		var today = new Date();
 		
-		if(edate == 0 || people == personcount){
+		if(edate.getTime()<=today.getTime() || people == personcount){
 			$("#expired-attend<%=i%>").text("  마감 ");	
 		}
 	<%
@@ -208,28 +194,16 @@ $(document).ready(function(){
 	%>
 		var people = $("#checkExpired-make<%=i%>").attr("people");
 		var personcount =  $("#checkExpired-make<%=i%>").attr("personcount");
-		var edate =  $("#checkExpired-attend<%=i%>").attr("isEnd");
+		var edate =  new Date($("#checkExpired-make<%=i%>").attr("edate"));
+		var today = new Date();
 		
-		
-		if(edate == 0 || people == personcount){
+		if(edate.getTime()<=today.getTime() || people == personcount){
 			$("#expired-make<%=i%>").text("  마감 ");	
 		}
 	<%
 	}
 	%>
 	
-	$(".primary-button").on("click",function(){
-		var pdate =$(this).attr("isEnd");
-		var seq = $(this).attr("seq");
-		
-		if(pdate == 0){
-			alert("모임 예정일이 지난 소모임입니다.");
-		}else{
-			location.href="detailPlay.do?seq="+seq;
-		}
-		
-		
-	});
 	
 	$("#attend-tap").on("click",function(){
 		$(this).css("background-color","rgb(241,238,235,0.6)");

@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- animate CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/store_resources/css/animate.css">
+    <!-- custom CSS -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css?after">
 	<!-- 셀렉트박스 이미지넣기 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/dd.css" />
 	<script type="text/javascript"  src="${pageContext.request.contextPath}/admin_resources/js/jquery.dd.min.js"></script>

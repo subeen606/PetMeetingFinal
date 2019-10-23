@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="Admin">
-<!-- 소모임 목록 -->
+	<!-- 소모임 목록 -->
 	<select id="getPlayboardList" parameterType="com.petmeeting.joy.playboard.model.PlayboardSearchBean" resultType="com.petmeeting.joy.playboard.model.PlayboardDto">
 		SELECT SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, FILENAME, LOCATION, LOCATION_DETAIL, CATEGORY, 
 			   PRICE, PEOPLE, PERSONCOUNT, READCOUNT, LIKECOUNT, REPORTCOUNT, PDATE, EDATE, REGDATE, DEL
@@ -12,34 +12,31 @@
 			   PRICE, PEOPLE, PERSONCOUNT, READCOUNT, LIKECOUNT, REPORTCOUNT, PDATE, EDATE, REGDATE, DEL
 			   FROM PM_PLAYBOARD
 			   WHERE 1=1 AND CATEGORY LIKE '%'||#{playCategory}||'%'  
-			<if test="sortingType == '선택' and searchCategory == '선택'">
+			<if test="searchCategory == '선택' and searchCategory == '선택'">
 				)
-			</if>
+			</if>		
 			
-			<if test="sortingType != '선택' or searchCategory != '선택'">
-				<if test="sortingType == '삭제'">
+			<if test="searchCategory != '선택' and searchCategory != '선택'">
+				<if test="searchCategory == '삭제'">
 					AND DEL=1
 				</if>			
-				<if test="sortingType == '마감'">
+				<if test="searchCategory == '마감'">
 					AND EDATE <![CDATA[<=]]> SYSDATE
 				</if>	
 				<if test="searchCategory == '작성자'">
 					AND EMAIL LIKE '%'||#{searchText}||'%'  
 				</if>
-				
 				<if test="searchCategory == '제목'">
 					AND TITLE LIKE '%'||#{searchText}||'%'  
 				</if>
-				
 				<if test="searchCategory == '내용'">
 					AND CONTENT LIKE '%'||#{searchText}||'%'  
 				</if>
-				
-				<if test="searchCategory == '장소'">	
+				<if test="searchCategory == '장소'">
 					AND LOCATION LIKE '%'||#{searchText}||'%'  
 				</if>		
-				)												
-			</if>						
+				)		
+			</if>					
 			WHERE RNUM <![CDATA[>=]]> #{startRow} AND RNUM <![CDATA[<=]]> #{endRow}
 	</select>
 	<!-- 총 글의 개수(row count) -->
@@ -49,34 +46,31 @@
 			   PRICE, PEOPLE, PERSONCOUNT, READCOUNT, LIKECOUNT, REPORTCOUNT, PDATE, EDATE, REGDATE, DEL
 			   FROM PM_PLAYBOARD
 			   WHERE 1=1 AND CATEGORY LIKE '%'||#{playCategory}||'%'  
-			<if test="sortingType == '선택' and searchCategory == '선택'">
+			<if test="searchCategory == '선택' and searchCategory == '선택'">
 				)
-			</if>
+			</if>		
 			
-			<if test="sortingType != '선택' or searchCategory != '선택'">
-				<if test="sortingType == '삭제'">
+			<if test="searchCategory != '선택' and searchCategory != '선택'">
+				<if test="searchCategory == '삭제'">
 					AND DEL=1
 				</if>			
-				<if test="sortingType == '마감'">
+				<if test="searchCategory == '마감'">
 					AND EDATE <![CDATA[<=]]> SYSDATE
 				</if>	
 				<if test="searchCategory == '작성자'">
 					AND EMAIL LIKE '%'||#{searchText}||'%'  
 				</if>
-				
 				<if test="searchCategory == '제목'">
 					AND TITLE LIKE '%'||#{searchText}||'%'  
 				</if>
-				
 				<if test="searchCategory == '내용'">
 					AND CONTENT LIKE '%'||#{searchText}||'%'  
 				</if>
-				
-				<if test="searchCategory == '장소'">	
+				<if test="searchCategory == '장소'">
 					AND LOCATION LIKE '%'||#{searchText}||'%'  
-				</if>		
-				)												
-			</if>					
+				</if>			
+				)
+			</if>														
 	</select>
 	
 	<!-- 소모임 글 삭제 -->
@@ -200,20 +194,8 @@
 				<if test="sortingType == '신고' and search_category == '선택'">
 					AND M.REPORTCOUNT <![CDATA[>]]> 0
 				</if>
-				<if test="sortingType == '활중' and search_category == '선택'">
-					AND AUTH=4
-				</if>
 				<if test="sortingType == '신고' and search_category != '선택'">
-					AND M.REPORTCOUNT <![CDATA[>]]> 0 AND
-					<if test="search_category == '이메일'">
-						M.EMAIL LIKE '%'||#{search_txt}||'%'
-					</if>
-					<if test="search_category == '닉네임'">
-						M.NICKNAME LIKE '%'||#{search_txt}||'%'
-					</if>	
-				</if>	
-				<if test="sortingType == '활중' and search_category != '선택'">
-					AND AUTH=4 AND
+					AND M.REPORTCOUNT AND
 					<if test="search_category == '이메일'">
 						M.EMAIL LIKE '%'||#{search_txt}||'%'
 					</if>
@@ -256,27 +238,15 @@
 				<if test="sortingType == '신고' and search_category == '선택'">
 					AND M.REPORTCOUNT <![CDATA[>]]> 0
 				</if>
-				<if test="sortingType == '활중' and search_category == '선택'">
-					AND AUTH=4
-				</if>
 				<if test="sortingType == '신고' and search_category != '선택'">
-					AND M.REPORTCOUNT <![CDATA[>]]> 0 AND
+					AND M.REPORTCOUNT AND
 					<if test="search_category == '이메일'">
 						M.EMAIL LIKE '%'||#{search_txt}||'%'
 					</if>
 					<if test="search_category == '닉네임'">
 						M.NICKNAME LIKE '%'||#{search_txt}||'%'
 					</if>	
-				</if>	
-				<if test="sortingType == '활중' and search_category != '선택'">
-					AND AUTH=4 AND
-					<if test="search_category == '이메일'">
-						M.EMAIL LIKE '%'||#{search_txt}||'%'
-					</if>
-					<if test="search_category == '닉네임'">
-						M.NICKNAME LIKE '%'||#{search_txt}||'%'
-					</if>	
-				</if>						
+				</if>			
 			) A 
 			WHERE
 				 <if test="grade == 'vip'">GRADE_NAME=#{grade}</if> 
@@ -316,18 +286,12 @@
 	</update>
 	
 	<!-- 관리자에 의한 회원 활동중지 -->
-	<update id="pauseMember" parameterType="java.lang.String">		 		
-		UPDATE PM_MEMBER
-		SET AUTH=4		
-		WHERE EMAIL=#{email}		
-	</update>
-	
-	<!-- 활동중지 해제 -->
-	<delete id="cancelPauseMember" parameterType="java.lang.String">
-		UPDATE PM_MEMBER
-		SET AUTH=1
-		WHERE EMAIL=#{email}
-	</delete>
+	<insert id="insertLeaveMember" parameterType="java.util.List">
+		INSERT INTO PM_LEAVEMEMBER(EMAIL, REASON)
+		<foreach collection="list" item="leaveMemberList" separator=", ">
+			VALUES(#{leaveMemberList.email}, #{leaveMemberList.reason})
+		</foreach>
+	</insert>
 	
 	<!-- leavemember테이블에 있는 회원인지 확인 -->
 	<select id="leaveMemberCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -349,7 +313,6 @@
 		WHERE EMAIL=#{email}
 	</select>
 
-
 	<!-- fundingList 추가 -->
 	<insert id="addFunding" parameterType="com.petmeeting.joy.funding.model.FundingDto">
 		INSERT INTO PM_FUNDINGBOARD(SEQ, BOARD_CODE, EMAIL, TITLE, INTRO, CONTENT, THUMBNAIL, MAX_PRICE, CURRENT_PRICE, PERSONCOUNT, LIKECOUNT, READCOUNT,SDATE, EDATE, REGDATE)
@@ -364,14 +327,26 @@
 				PERSONCOUNT, LIKECOUNT, READCOUNT, SDATE, EDATE, REGDATE
 				FROM PM_FUNDINGBOARD
 		WHERE 1=1
+		<if test="f_categorys == '전체'">
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>
+		
 		<if test="f_categorys == '진행'">
 		AND EDATE <![CDATA[>=]]> SYSDATE
 		AND	CURRENT_PRICE <![CDATA[<]]> MAX_PRICE
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
 		</if>
+		
 		<if test="f_categorys == '마감'">
-		AND EDATE <![CDATA[<]]> SYSDATE
-		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE		
-		</if>
+		AND (EDATE <![CDATA[<]]> SYSDATE OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE)			
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>	
 		)
 		WHERE RNUM BETWEEN ${start} AND ${end}			
 	</select>
@@ -382,14 +357,26 @@
 		FROM PM_FUNDINGBOARD
 		
 		WHERE 1=1
+		<if test="f_categorys == '전체'">
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>
+		
 		<if test="f_categorys == '진행'">
 		AND EDATE <![CDATA[>=]]> SYSDATE
 		AND	CURRENT_PRICE <![CDATA[<]]> MAX_PRICE
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
 		</if>
+		
 		<if test="f_categorys == '마감'">
-		AND EDATE <![CDATA[<]]> SYSDATE
-		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE		
-		</if>
+		AND (EDATE <![CDATA[<]]> SYSDATE OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE)			
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>	
 	</select>
 	
 	<!-- fundingDetail 보기  -->

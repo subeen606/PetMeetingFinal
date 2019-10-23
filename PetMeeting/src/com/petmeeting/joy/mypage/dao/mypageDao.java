@@ -2,7 +2,6 @@ package com.petmeeting.joy.mypage.dao;
 
 import java.util.List;
 
-import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
 import com.petmeeting.joy.mypage.model.MyPetProfileDto;
@@ -11,6 +10,7 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
+import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
@@ -139,7 +139,7 @@ public interface mypageDao {
 		
 		public List<PlayboardDto> getMakePlayList(MypageListParam listparam);
 		
-		public List<FundingDto> getMyFundingList(MypageListParam listparam);
+		public List<MypageFundingParam> getMyFundingList(MypageListParam listparam);
 		
 		////////////////////////////////////////////////////////////////
 		

@@ -92,7 +92,7 @@ public class AdminCotroller {
 		}
 		search.setEndRow(end);
 			
-		System.out.println("searchBean : " + search.toString());
+	//	System.out.println("searchBean : " + search.toString());
 		List<PlayboardDto> playboardList = adminService.getAllPlayboardList(search);
 
 		model.addAttribute("searchBean", search);
@@ -206,25 +206,23 @@ public class AdminCotroller {
 		return "admin/member/memberList";
 	}
 	
-	@RequestMapping(value = "adminPauseMember.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String adminPauseMember(HttpServletRequest req) {
+	@RequestMapping(value = "adminLeaveMember.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String adminLeaveMember(HttpServletRequest req) {
 		String[] mems = req.getParameterValues("memcheck");
 		System.out.println(Arrays.toString(mems));
-	
-		System.out.println(Arrays.toString(mems));
-		for (String email : mems) {
-			adminService.pauseMember(email);
-		}	
+		
+		List<ReportDto> leaveMemberList = new ArrayList<ReportDto>();
+		String reason = "관리자 권한";
+		for (int i = 0; i < mems.length; i++) {
+			leaveMemberList.add(new ReportDto(mems[i], reason));
+		}
+		
+		System.out.println(leaveMemberList.toString());
+		adminService.insertLeaveMember(leaveMemberList);
 		
 		return "redirect:/adminMemberList.do";
 	}
 	
-	@RequestMapping(value = "adminCancelPauseMember.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String adminCancelPauseMember(String email) {
-		System.out.println("활중 해제 이멜  : " + email);
-		adminService.cancelPauseMember(email);
-		return "redirect:/adminMemberList.do";
-	}
 	@RequestMapping(value = "adminMemberDetail.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String adminMemberDetail(String email, Model model) {
 		System.out.println("정보 볼 이메일 : " + email);
@@ -254,7 +252,6 @@ public class AdminCotroller {
 		return "redirect:/adminMemberReportReason.do";
 	}
 	
-	
 	/*funding 관리자*/
 	@RequestMapping(value = "adminFundingList.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminFundingList(Model model, fundingBean fbean) {
@@ -281,6 +278,7 @@ public class AdminCotroller {
 		
 		model.addAttribute("flist", flist);
 		model.addAttribute("f_categorys", fbean.getF_categorys());
+		model.addAttribute("f_keyword", fbean.getF_keyword());
 			
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);

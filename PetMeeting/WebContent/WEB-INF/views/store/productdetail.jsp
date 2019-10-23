@@ -72,8 +72,8 @@
 }
 #product-totalprice {
 	font-size: 20px;
-	font-weight: 600;
-	color: #333;
+	font-weight: 500;
+	color: #2a7d6b;
 	margin-bottom: 20px;
 	width: 60%;
 	border-radius: 10px;
@@ -92,7 +92,7 @@
 	border-top: 1px solid #999;
 	z-index: 1;
 }
-.s-text h3 {
+.s-text h2 {
 	margin: 30px 0;
 }
 
@@ -162,7 +162,7 @@
 		ProductBean pbean = (ProductBean)request.getAttribute("pbean");
 		%>
 		<div class="s-text" style="margin: 0 auto;">
-			<h3>Product Detail</h3>
+			<h2>Product Detail</h2>
 		</div>
 		<div id="product-order">
 			<div id="product-img">
@@ -819,8 +819,8 @@ $(function () {
 	
 	// 리뷰 이미지 클릭 시 모달 띄우기
 	$(document).on("click", ".review-list-content-wrap img", function () {
-// 		alert($(this).parent().children().length);
-// 		alert($(this).attr("pos"));
+	//	alert($(this).parent().children().length);
+	//	alert($(this).attr("pos"));
 	
 		var images = $(this).parent().children();
 		

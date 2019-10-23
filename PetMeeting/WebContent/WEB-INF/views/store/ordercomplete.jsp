@@ -204,11 +204,7 @@ text-align: left;
 </table>
 </c:forEach>
 
-<br><br>
-<div align="center">
-<button type="button" class="l-btn" name="main" id="_main" onclick="main()" style="cursor: pointer;">메인으로</button>
-</div>
-
+<br><br><br><br>
 
 	<!-- Footer part start -->
 	<footer class="footer_area">
@@ -276,10 +272,6 @@ for (var i = 0; i < tot.length; i++) {
 	total_p += parseInt(_totalprice.val());
 	
 	$("#product_price").text(numberWithCommas(total_p));
-}
-
-function main() {
-	location.href = "productlist.do";
 }
 
 </script>

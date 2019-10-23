@@ -22,7 +22,7 @@
   <!-- Main -->
 	<div id="main">
 		<div class="inner">
-			<h2>나의 프로필</h2>
+			<h2>내 프로필 정보</h2>
 			<hr>							
 			<section class="main-container">
 				<div class="container-fluid">

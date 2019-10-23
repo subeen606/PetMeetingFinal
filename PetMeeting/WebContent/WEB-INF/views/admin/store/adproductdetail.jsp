@@ -7,7 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<!-- animate CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/store_resources/css/animate.css">
+    <!-- custom CSS -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css?after">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style type="text/css">
+span.category {
+	width: 100px;
+	padding: 10px 0;
+	background: #008c9e;
+	color: #fff;
+}
+</style>
 </head>
 <body>
 <div id="right-panel" class="right-panel">
@@ -29,23 +41,23 @@
 					<td rowspan="6">
 						<img alt="이미지없음" src="${pageContext.request.contextPath}/upload/${pbean.filename }" style="width: auto; height: 300px;">
 					</td>
-					<td><span class="category2">카테고리</span></td>
+					<td><span class="category">카테고리</span></td>
 					<td>${pbean.category }</td>
 				</tr>
 				<tr>
-					<td><span class="category2">상품코드</span></td>
+					<td><span class="category">상품코드</span></td>
 					<td>${pbean.productcode }</td>
 				</tr>
 				<tr>
-					<td><span class="category2">상품명</span></td>
+					<td><span class="category">상품명</span></td>
 					<td>${pbean.productname }</td>
 				</tr>
 				<tr>
-					<td><span class="category2">상품 가격</span></td>
+					<td><span class="category">상품 가격</span></td>
 					<td>${pbean.price }</td>
 				</tr>
 				<tr>
-					<td><span class="category2">상품 사이즈</span></td>
+					<td><span class="category">상품 사이즈</span></td>
 					<td>
 						<c:forEach begin="0" end="${fn:length(pbean.psize) - 1 }" varStatus="i">
 							${pbean.psize[i.index] }
@@ -53,7 +65,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td><span class="category2">상품 색상</span></td>
+					<td><span class="category">상품 색상</span></td>
 					<td>
 						<c:forEach begin="0" end="${fn:length(pbean.pcolor) - 1 }" varStatus="i">
 							${pbean.pcolor[i.index] }
@@ -62,7 +74,7 @@
 				</tr>
 				<tr>
 					<td colspan="3">
-						<span class='category2' style="width: 100%">상세설명</span>		
+						<span class='category' style="width: 100%">상세설명</span>		
 						<div>
 							${pbean.content }
 						</div>

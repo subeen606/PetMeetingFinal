@@ -432,17 +432,4 @@
 		WHERE EMAIL=#{bad_email}
 	</update>
 	
-	<!-- 멤버 팔로우 -->
-	<insert id="insertFollow" parameterType="com.petmeeting.joy.mypage.model.MypageFollowDto">
-		INSERT INTO PM_FOLLOW
-		VALUES(PM_FOLLOW_SEQ.NEXTVAL, #{myemail}, #{folloing_email})
-	</insert>
-	
-	<!-- 팔로우 중인지 체크 -->
-	<select id="followingCheck" parameterType="com.petmeeting.joy.mypage.model.MypageFollowDto" resultType="java.lang.Integer">
-		SELECT COUNT(*)
-		FROM PM_FOLLOW
-		WHERE MYEMAIL=#{myemail} AND FOLLOING_EMAIL=#{folloing_email}
-	</select>
-	
 </mapper>

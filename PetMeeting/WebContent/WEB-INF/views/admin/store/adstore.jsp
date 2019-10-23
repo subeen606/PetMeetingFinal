@@ -15,13 +15,10 @@ div.todaySales {
 	text-align: center;
 	font-size: 30px;
 	font-weight: 600;
-	background: #f0f0f0;
+	background: #ffb7b7;
 	padding: 20px 0;
 	margin: 50px 0;
 	border-radius: 10px;
-}
-div#monthly-sales, div#product-Top5 {
-	margin-bottom: 100px;
 }
 </style>
 </head>
@@ -102,13 +99,13 @@ Highcharts.chart('product-Top5', {
         type: 'column'
     },
     title: {
-        text: '최고매출 상품 TOP5'
+        text: '인기 제품 TOP5'
     },
     subtitle: {
-        text: '매출 상위 5개 상품'
+        text: '판매량 상위 5개 제품'
     },
     xAxis: {
-        type: 'category'
+        type: '상품명'
     },
     yAxis: {
         title: {
@@ -119,17 +116,9 @@ Highcharts.chart('product-Top5', {
     legend: {
         enabled: false
     },
-    plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-            }
-        }
-    },
     series: [
         {
-            name: "Sales",
+            name: "Browsers",
             colorByPoint: true,
             data: ${jsonTop5 }
         }

@@ -13,7 +13,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css?after">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/playboard.css">
 </head>
 <body>
@@ -28,7 +28,7 @@
 	
 		<div class="container">
 		
-		<div class="mainTitle"><a href="adminPlayboardList.do">소모임 글목록</a></div>
+		<div class="mainTitle">소모임 글목록</div>
 		
 			<form id="searchFrm">
 			<input type="hidden" name="startRow" value="${searchBean.startRow }">
@@ -64,7 +64,7 @@
 			
 			<form id="delFrm" action="adminPlayboardDelete.do" method="post">
 				<table class="boardTable">
-					<col width="5%"><col width="5%"><col width="13%"><col width="37%"><col width="20%"><col width="5%"><col width="25%">
+					<col width="5%"><col width="5%"><col width="15%"><col width="35%"><col width="20%"><col width="5%"><col width="25%">
 					<thead>
 						<tr>
 							<th><input type="checkbox" name="alldel"></th><th>No.</th><th>모임 유형</th><th>제목</th><th>작성자</th><th>신고 수</th><th>작성일</th>
@@ -110,6 +110,18 @@
 
 <script type="text/javascript">
 
+/* 선택 여부 확인 */
+function delCheck() {	
+	var checklen = $("input:checkbox[name='delcheck']:checked").length;
+	if(checklen == 0 ){
+		alert("삭제할 게시글을 선택해 주세요");
+		return false;
+	}
+	else {		
+		return true;
+	}
+}
+
 $(function () {
 	/* 셀렉트 박스 선택 유지 */
 	if("${searchBean.playCategory }" == ""){
@@ -118,7 +130,6 @@ $(function () {
 		$("select[name='playCategory']").val("${searchBean.playCategory }").attr("selected", "selected");
 	}
 	$("select[name='searchCategory']").val("${searchBean.searchCategory }").attr("selected", "selected");
-	$("select[name='sortingType']").val("${searchBean.sortingType }").attr("selected", "selected");
 	
 	if("${searchBean.searchText }" != ""){
 		$("input[name='searchText']").val("${searchBean.searchText }");
@@ -171,18 +182,12 @@ $(function () {
 	
 	/* 선택삭제 */
 	$("#deleteBtn").click(function () {
-		var checklen = $("input:checkbox[name='delcheck']:checked").length;
-		if(checklen == 0){
-			alert("삭제할 글을 선택하세요!");
+		var check = confirm("선택하신 글들을 삭제하시겠습니까?");
+		if(check){
+			$("#delFrm").submit();
 		}else{
-			var check = confirm("선택하신 글들을 삭제하시겠습니까?");
-			if(check){
-				$("#delFrm").submit();
-			}else{
-				return false;
-			}
+			return false;
 		}
-		
 		
 	});
 	
