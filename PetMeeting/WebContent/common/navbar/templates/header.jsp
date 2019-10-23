@@ -9,7 +9,7 @@
  	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/bootstrap.min.css">
@@ -26,46 +26,52 @@
     <!-- style CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/style.css">
     <!-- 우리가 추가한 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css">
 </head>
 <body>
+
  <!--::header part start::-->
     <header class="header_area">
         <div class="sub_header">
             <div class="container">
+               
+                
                 <div class="row align-items-center">
-                 <!--  <div class="col-4 col-md-4 col-xl-6"> -->
-                      <div id="logo">
-                          <a href="main.do"><img src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogo.png" alt="" title="" width="400px" /></a>
+                  <div class="col-4 col-md-4 col-xl-6">
+                       <div id="logo">
+                          <a href="main.do"><img src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogo.png" alt="" title="" width="300px" /></a>
                       </div>
-                      
-                  <!-- </div> -->
-                  <!-- 
+                  </div>
                   <div class="col-8 col-md-8 col-xl-6 ">
-                      <div class="sub_header_social_icon float-right">
-                        <a href="#"><i class="flaticon-phone"></i>+02 213 - 256 (365)</a>
-                        <a href="#" class="btn_1 d-none d-md-inline-block">Become a Volunteer</a>
-                      </div>
+
+                    <div class="sub_header_social_icon float-right">
+                        <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
+				        <div id="loginInfo">				        
+				            <input type="hidden" class='nowmymsg' value="-1">
+				        	<c:if test="${not empty login }">			        		
+				        		<img src="${pageContext.request.contextPath}/common/img/usericon.png" width="20px" />&nbsp;
+				        		${login.nickname }		        		
+				        		 <div class="myDropDown">
+									<ul>
+										<li><a href="mypagehome.do">마이페이지</a></li>	
+										<li><a href="myrevmsg.do?recordCountPerPage=10">나의 쪽지함</a></li>									
+										<li><a href="logout.do">로그아웃</a></li>										
+									</ul>
+								</div>			        		
+				        	</c:if>
+				        	
+				        	<c:if test="${empty login }">
+				        		<a href="login.do" target="_self">로그인</a>
+				        	</c:if>
+				           
+				        </div>
+                   		</div>
                     </div>
-                     -->
                 </div>
             </div>
         </div>
-        
-         <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
-        <div id="loginInfo">
-            <input type="hidden" class='nowmymsg' value="-1">
-        	<c:if test="${not empty login }">
-        		<a href="mypagehome.do">나의페이지</a>
-        		<a href="logout.do">로그아웃</a>
-        	</c:if>
-        	
-        	<c:if test="${empty login }">
-        		<a href="login.do" target="_self">로그인</a>
-        	</c:if>
-           
-        </div>
-        
+              
+
         <div class="main_menu">
             <div class="container">
                 <div class="row">
@@ -109,9 +115,15 @@
     </header>
     <!-- Header part end-->
     
+    
+    
+    
+    
     <!-- jquery plugins here-->
     <!-- jquery -->
-   <%--  <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script> --%>
+
+   	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <!-- popper js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>
     <!-- bootstrap js -->
@@ -126,5 +138,100 @@
     <script src="${pageContext.request.contextPath}/common/navbar/js/owl.carousel.min.js"></script>
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/custom.js"></script>
+
+    
+    
+    <script type="text/javascript">
+    $(function () {
+		$("#loginInfo").click(function () {
+			if($(".myDropDown").css("display") == "block" ){
+				$(".myDropDown").css("display", "none");
+			}else if($(".myDropDown").css("display") == "none" ){
+				$(".myDropDown").css("display", "block");
+			}
+		});
+		$(window).scroll(function(event){ 
+			$(".myDropDown").css("display", "none");
+		});	
+	});
+    </script>
+    
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+		  Notification.requestPermission(function (status) {
+		    // This allows to use Notification.permission with Chrome/Safari
+		    //alert("status"+status);
+		    if (Notification.permission !== status) {
+		      Notification.permission = status;
+		    }
+		  });
+	
+	$.ajax({
+		 type:"POST",
+		 url:"mypagemsgpush.do",
+		 async: false,
+		 success:function(data){
+			 var split_res=data.split('/');
+			 var count=split_res[1];
+ 			if(count!='-1'){
+				$(".nowmymsg").val(count);				
+			}			
+		  },error:function(){
+			  alert("실패!");
+		  }
+	   });
+       
+		// var notification = new Notification("새 쪽지가 등록 되었습니다");
+    function noti() {	   	
+		$.ajax({
+			 type:"POST",
+			 url:"mypagemsgpush.do",
+			 async: false,
+			 success:function(data){
+						 
+				 var split_res=data.split('/');
+				 var email=split_res[0];
+				 var count=split_res[1];
+				 
+				//alert("이메일"+email);
+				 //alert("카운트"+count);
+				 				 
+				 if(count!='-1'){
+					 					 
+					 if($(".nowmymsg").val()<count){
+							
+					    var options={
+					        icon:"https://img.icons8.com/cotton/2x/topic-push-notification.png",
+					    	body:"새 쪽지가 도착 하였습니다. ",
+					    	onclick:"alert('d');"
+					    }				    		
+					Notification.requestPermission().then(function(result) {
+										
+				      if(result=='denied'){
+				      alert(email+"님으로 부터 쪽지가 왔습니다");	
+				  }else{
+						var notification = new Notification(email+"님으로 부터 쪽지가 왔습니다",options);
+					    notification.onclick =function (){
+					       location.href="myrevmsg.do?recordCountPerPage=10";
+					    }										  
+				  }								 
+			});						 
+						$(".nowmymsg").val(count);
+					}else{
+						//alert(data);
+					}					
+				}				 
+				 
+			  },error:function(){
+				  alert("실패!");
+			  }
+		   });
+	}	
+	 setInterval(noti,2000);	 	
+});
+	
+</script>
 </body>
 </html>

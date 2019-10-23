@@ -990,6 +990,12 @@ public class StoreController {
 		return "store/mystore/myquestion";
 	}
 
+	@RequestMapping(value = "mytracking.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String mytracking() {
+		
+		
+		return "store/mystore/mytracking";
+	}
 	
 	
 
