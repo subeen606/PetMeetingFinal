@@ -5,24 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <meta charset="UTF-8">
 <title>PetMeeting</title>
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
 </head>
 <body>
-<<<<<<< HEAD
 
-  	<!--::header part start::-->
-   
-=======
- <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script>
+
   <!--::header part start::-->
-    <header class="header_area">
->>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
-    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
-    
-    <!-- Header part end-->
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>    
+  <!-- Header part end-->
     
     
     
@@ -39,17 +32,11 @@
     
      
      
-    <!--::footer part start::-->
-    
-    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>
-   
+    <!--::footer part start::-->    
+    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
     <!-- footer part end-->
     
 <script type="text/javascript">
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
 $(document).ready(function () {
 	 Notification.requestPermission(function (status) {
 	   // This allows to use Notification.permission with Chrome/Safari
@@ -124,7 +111,6 @@ $(document).ready(function () {
 });
 	
 </script>
-<!-- 슬라이드 쇼 js -->
-<%-- <script src="${pageContext.request.contextPath}/common/navbar/js/slideshow.js"></script> --%>
+
 </body>
 </html>
