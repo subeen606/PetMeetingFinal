@@ -20,7 +20,6 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
-import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
@@ -398,56 +397,50 @@ public class mypageServiceImpl implements mypageService {
 	}
 
 	@Override
-	public List<MypageFollowListParam> getRecentFollowersPlay(String email) {
+	   public List<MypageFollowListParam> getRecentFollowersPlay(String email) {
 
-		List<MypageFollowListParam> flwerPlayJoinList = mypageDao.getRecentFollowersPlayJoin(email);
-		List<MypageFollowListParam> flwerPlayMakeList = mypageDao.getRecentFollowersPlayMake(email);
-
-		List<MypageFollowListParam> flwerAllPlayList = new ArrayList<MypageFollowListParam>();
-
-		for (MypageFollowListParam mypageFollowListParam : flwerPlayJoinList) {
-
-			mypageFollowListParam.setSort("[소모임 - 참여]");
-			flwerAllPlayList.add(mypageFollowListParam);
-		}
-		for (MypageFollowListParam mypageFollowListParam : flwerPlayMakeList) {
-
-			mypageFollowListParam.setSort("[소모임 - 모집]");
-			flwerAllPlayList.add(mypageFollowListParam);
-		}
-		SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		Date playDate1 = null;
-		Date playDate2 = null;
-
-		for (int i = 0; i < flwerAllPlayList.size(); i++) {
-			for (int j = 0; j < flwerAllPlayList.size() - 1; j++) {
-
-				MypageFollowListParam mypageFollowListParam1 = flwerAllPlayList.get(j);
-				MypageFollowListParam mypageFollowListParam2 = flwerAllPlayList.get(j + 1);
-				try {
-					playDate1 = pdate.parse(mypageFollowListParam1.getPdate());
-					playDate2 = pdate.parse(mypageFollowListParam2.getPdate());
-					int result = playDate1.compareTo(playDate2);
-
-					System.out.println(j + "result의 결과 몇번 :" + result + mypageFollowListParam1.toString()
-							+ mypageFollowListParam2.toString());
-
-					if (result == 1) {
-						flwerAllPlayList.set(j, mypageFollowListParam2);
-						flwerAllPlayList.set(j + 1, mypageFollowListParam1);
-					} else {
-						flwerAllPlayList.set(j, mypageFollowListParam1);
-						flwerAllPlayList.set(j + 1, mypageFollowListParam2);
-					}
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
-		return flwerAllPlayList;
-	}
-
+	      List<MypageFollowListParam> flwerPlayJoinList = mypageDao.getRecentFollowersPlayJoin(email);
+	      List<MypageFollowListParam> flwerPlayMakeList = mypageDao.getRecentFollowersPlayMake(email);
+	      
+	      List<MypageFollowListParam> flwerAllPlayList = new ArrayList<MypageFollowListParam>();
+	      
+	      for (MypageFollowListParam mypageFollowListParam : flwerPlayJoinList) {
+	         
+	         mypageFollowListParam.setSort("[소모임 - 참여]");
+	         flwerAllPlayList.add(mypageFollowListParam);
+	      }
+	      for (MypageFollowListParam mypageFollowListParam : flwerPlayMakeList) {
+	         
+	         mypageFollowListParam.setSort("[소모임 - 모집]");
+	         flwerAllPlayList.add(mypageFollowListParam);
+	      }
+	        Date playDate1 = null;
+	        Date playDate2 = null;
+	        
+	        for (int i = 0; i < flwerAllPlayList.size(); i++) {
+	           for(int j = 0; j < flwerAllPlayList.size()-1; j++) {
+	         
+	            MypageFollowListParam mypageFollowListParam1 = flwerAllPlayList.get(j);
+	            MypageFollowListParam mypageFollowListParam2 = flwerAllPlayList.get(j+1);
+	            
+	               playDate1 =  mypageFollowListParam1.getPdate();
+	               playDate2 =  mypageFollowListParam2.getPdate(); 
+	               int result = playDate1.compareTo(playDate2);
+	               
+	               
+	               if(result == 1) {
+	                  flwerAllPlayList.set(j, mypageFollowListParam2);
+	                  flwerAllPlayList.set(j+1, mypageFollowListParam1);
+	               }
+	               else {
+	                  flwerAllPlayList.set(j, mypageFollowListParam1);
+	                  flwerAllPlayList.set(j+1, mypageFollowListParam2);
+	               }
+	           
+	           }
+	      }            
+	      return flwerAllPlayList;
+	   }
 	@Override
 	public List<MypageFollowListParam> getRecentFollowersFree(String email) {
 
@@ -466,7 +459,12 @@ public class mypageServiceImpl implements mypageService {
 		return mypageDao.getMakePlayList(listparam);
 	}
 
-	public List<MypageFundingParam> getMyFundingList(MypageListParam listparam) {
+
+	
+
+	
+	public List<FundingDto> getMyFundingList(MypageListParam listparam){
+
 		return mypageDao.getMyFundingList(listparam);
 	}
 
