@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class fundingBean implements Serializable{
 
-	private String f_categorys; 
+	private String f_categorys;
+	private String f_keyword;
 	
 	//paging에 필요한 부분
 	private int pageNumber = 0; //현재 페이지(초기값주기)
@@ -22,6 +23,13 @@ public class fundingBean implements Serializable{
 
 	public void setF_categorys(String f_categorys) {
 		this.f_categorys = f_categorys;
+	}
+	public String getF_keyword() {
+		return f_keyword;
+	}
+
+	public void setF_keyword(String f_keyword) {
+		this.f_keyword = f_keyword;
 	}
 
 	public int getPageNumber() {
@@ -56,9 +64,11 @@ public class fundingBean implements Serializable{
 		this.end = end;
 	}
 
-	public fundingBean(String f_categorys, int pageNumber, int recordCountPerPage, int start, int end) {
+	public fundingBean(String f_categorys, String f_keyword, int pageNumber, int recordCountPerPage, int start,
+			int end) {
 		super();
 		this.f_categorys = f_categorys;
+		this.f_keyword = f_keyword;
 		this.pageNumber = pageNumber;
 		this.recordCountPerPage = recordCountPerPage;
 		this.start = start;
@@ -67,11 +77,7 @@ public class fundingBean implements Serializable{
 
 	@Override
 	public String toString() {
-		return "fundingBean [f_categorys=" + f_categorys + ", pageNumber=" + pageNumber + ", recordCountPerPage="
-				+ recordCountPerPage + ", start=" + start + ", end=" + end + "]";
+		return "fundingBean [f_categorys=" + f_categorys + ", f_keyword=" + f_keyword + ", pageNumber=" + pageNumber
+				+ ", recordCountPerPage=" + recordCountPerPage + ", start=" + start + ", end=" + end + "]";
 	}
-	
-	
-	
-	
 }

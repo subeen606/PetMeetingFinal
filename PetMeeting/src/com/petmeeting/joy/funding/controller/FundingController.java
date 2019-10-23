@@ -38,19 +38,24 @@ public class FundingController {
 	/* 펀딩 리스트 */
 	@RequestMapping(value = "funding.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String fundingList(Model model, HttpServletRequest req, FundingParam param) {
-		String email = ((MemberDto) req.getSession().getAttribute("login")).getEmail();
-
+		String email ="";
+		
+		if(((MemberDto) req.getSession().getAttribute("login")) != null) {
+			email = ((MemberDto) req.getSession().getAttribute("login")).getEmail();
+		}
+		
 		System.out.println("컨트롤러로 들어오는 param: " + param.toString());
+		
+		if(param.getIng_end() == null) {
+			param.setIng_end("_ing");
+		}
 
 		List<FundingDto> list = service.fundingList(email, param);
 		model.addAttribute("list", list);
-
-		if (param.getKeyword() != null) {
-			model.addAttribute("keyword", param.getKeyword());
-		}
+		model.addAttribute("keyword", param.getKeyword());
 		model.addAttribute("categorys", param.getCategorys());
-
-		model.addAttribute("param", param);
+		model.addAttribute("ing_end", param.getIng_end());
+		
 		return "funding/fundingList";
 	}
 
@@ -134,6 +139,7 @@ public class FundingController {
 	public String fundingstaDetail(int seq, Model model) {
 		System.out.println("funding 내역서 seq = " + seq);
 		FundingStaDto sta = service.fundingStaDetail(seq);
+		//System.out.println("내역서controller 디테일: " + sta.toString());
 		model.addAttribute("sta", sta);
 
 		return "funding/fundingstaDetail";
