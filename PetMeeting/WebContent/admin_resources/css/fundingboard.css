@@ -103,3 +103,14 @@
     font-weight: 600;
     color: gray;
 }
+#searchBtn{
+	border: none;
+    width: 50px;
+    height: 35px;
+    border-radius: 0.5em;
+    font-size: 11pt;
+    background-color: #4ab8c5;
+    color: #fff;
+    cursor: pointer;
+}
+}

@@ -327,14 +327,26 @@
 				PERSONCOUNT, LIKECOUNT, READCOUNT, SDATE, EDATE, REGDATE
 				FROM PM_FUNDINGBOARD
 		WHERE 1=1
+		<if test="f_categorys == '전체'">
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>
+		
 		<if test="f_categorys == '진행'">
 		AND EDATE <![CDATA[>=]]> SYSDATE
 		AND	CURRENT_PRICE <![CDATA[<]]> MAX_PRICE
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
 		</if>
+		
 		<if test="f_categorys == '마감'">
-		AND EDATE <![CDATA[<]]> SYSDATE
-		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE		
-		</if>
+		AND (EDATE <![CDATA[<]]> SYSDATE OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE)			
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>	
 		)
 		WHERE RNUM BETWEEN ${start} AND ${end}			
 	</select>
@@ -345,14 +357,26 @@
 		FROM PM_FUNDINGBOARD
 		
 		WHERE 1=1
+		<if test="f_categorys == '전체'">
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>
+		
 		<if test="f_categorys == '진행'">
 		AND EDATE <![CDATA[>=]]> SYSDATE
 		AND	CURRENT_PRICE <![CDATA[<]]> MAX_PRICE
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
 		</if>
+		
 		<if test="f_categorys == '마감'">
-		AND EDATE <![CDATA[<]]> SYSDATE
-		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE		
-		</if>
+		AND (EDATE <![CDATA[<]]> SYSDATE OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE)			
+			<if test="f_keyword != null and f_keyword !=''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%' 
+			</if>	
+		</if>	
 	</select>
 	
 	<!-- fundingDetail 보기  -->

@@ -14,14 +14,15 @@
 <head>
 <meta charset="UTF-8">
 <title>PetMeeting-funding</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/fundingboard_resources/css/fundingboard.css">
-    <!-- 슬라이드 화살표 -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/fundingboard_resources/css/fundingboard.css">
+<!-- 슬라이드 화살표 -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -34,25 +35,25 @@
  
 <div class="container">
 
-<div id="wrapper">
-	      <div id="slider-wrap">
+	<div id="wrapper">
+		<div id="slider-wrap">
 	             <ul id="slider">     
-		         <li>          
-					<img src="./fundingboard_resources/img/dog.jpg">
-		     	 </li>
-		         <li>          
-					<img src="./fundingboard_resources/img/dog2.jpg">
-		     	 </li>
-	     	     <li>          
-					<img src="./fundingboard_resources/img/cat.jpg">
-	     	  	 </li>
-	     	     <li>          
-					<img src="./fundingboard_resources/img/cat2.jpg">
-	     	  	 </li>
-	      	     <li>          
-					<img src="./fundingboard_resources/img/ham.jpg">
-	     	  	 </li>  
-	          </ul>
+			         <li>          
+						<img src="./fundingboard_resources/img/dog.jpg">
+			     	 </li>
+			         <li>          
+						<img src="./fundingboard_resources/img/dog2.jpg">
+			     	 </li>
+		     	     <li>          
+						<img src="./fundingboard_resources/img/cat.jpg">
+		     	  	 </li>
+		     	     <li>          
+						<img src="./fundingboard_resources/img/cat2.jpg">
+		     	  	 </li>
+		      	     <li>          
+						<img src="./fundingboard_resources/img/ham.jpg">
+		     	  	 </li>  
+	         	 </ul>
 	          
 	           <!--controls-->
 	          <div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
@@ -62,17 +63,17 @@
 	            </ul>
 	          </div>
 	          <!--controls-->  
-	        </div>
-</div>
+		</div>
+	</div>
 	
 <jsp:useBean id="dates" class="com.petmeeting.joy.funding.util.DateUtil"/>
 <jsp:useBean id="today" class="java.util.Date"/>
 
-<div class="pack">
 
+<div class="pack">
 	<div class="select">
 		<select id="_select" onchange="select()">
-			<option <c:if test="${categorys == '_update' }">selected</c:if> value="_update">등록 순</option>
+			<option value="">정렬 선택</option>
 			<option <c:if test="${categorys == '_like' }">selected</c:if> value="_like">좋아요 순</option>
 			<option <c:if test="${categorys == '_join' }">selected</c:if> value="_join">참여자 순</option>
 		</select>
@@ -84,44 +85,33 @@
 	</div>
 </div>
 
+<div class="radioDiv">
+	<input type="radio" name="List" id="List1" value="_update" <c:if test="${ing_end == '_update' }">checked</c:if>><label for="List1">전체 후원</label>
+	<input type="radio" name="List" id="List2" value="_ing" <c:if test="${ing_end == '_ing' }">checked</c:if>><label for="List2">진행중인 후원</label>
+	<input type="radio" name="List" id="List3" value="_end" <c:if test="${ing_end == '_end' }">checked</c:if>><label for="List3">마감된 후원</label>
+</div>
 
-<%-- 	
-<c:if test="${dates.isEnd(list.edate) eq 'true'  || list.current_price eq list.max_price && login.auth ne '8'}">
-	<div class="fundingContainer" style="display: none; opacity: 0.4;">
-</c:if>
-<c:if test="${dates.isEnd(list.edate) eq 'false' && list.current_price ne list.max_price }">
-	<div class="fundingContainer" style="display: none">
-</c:if> 
---%>
 <c:forEach var="list" items="${list }" varStatus="vs">
 	<div class="fundingContainer" style="display: none;">
-		
-		<div>
-			<div class="endtext">
-				<c:if test="${dates.isEnd(list.edate) eq 'true' || list.current_price eq list.max_price}">
-					<span class="fundEnd">[후원 마감]</span>
-				</c:if>
-			</div>
 			<div>
-				<a href="#" ><img class="listimg" src="fundingFileupload/${list.thumbnail }"></a>
+				<a href="fundingDetail.do?board_seq=${list.seq }&seq=${list.seq }&email=${login.email}&board_code=FUND" ><img class="listimg" src="fundingFileupload/${list.thumbnail }"></a>
 			</div>
-		</div>	
-			
+
 			<div class="listText">
 			
 				<div>
+						<c:if test="${dates.isEnd(list.edate) eq 'true' || list.current_price eq list.max_price}">
+							<span class="fundEnd">[후원 마감]</span><br>
+						</c:if>
+					
 					[ <fmt:formatDate pattern="yyyy-MM-dd" value="${list.sdate }"/> ]  ~ [ <fmt:formatDate pattern="yyyy-MM-dd" value="${list.edate }"/> ]		
 					<c:if test="${list.isfunding eq 'true' }">
 						&nbsp;<img class="listicon" alt="" src="./fundingboard_resources/img/success.png"> 참여중
 					</c:if>
 				</div>
 				
-				<div class="listTitle"> ${list.title } </div>
+				<div class="listTitle">${list.title } </div>
 			
-			    <!-- 
- 				 <div class="list1">
-				 	등록일: [ <fmt:formatDate pattern="yyyy-MM-dd" value="${list.regdate }"/> ]
-				 </div>	 -->
 				 <c:if test="${dates.isEnd(list.edate) eq 'false'}"> 
 					 <div class="dday">
 					 	<fmt:formatDate value="${today }" var="now" pattern="yyyyMMdd"/>
@@ -148,16 +138,8 @@
 					</div>
 				</div>	
 				<div class="fundingintro">${list.intro }</div>
-				<div><a href="fundingDetail.do?board_seq=${list.seq }&seq=${list.seq }&email=${login.email}&board_code=FUND"> 자세히보기>> </a></div><br>
-				
-				<c:if test="${dates.isEnd(list.edate) eq 'true' || list.current_price eq list.max_price }">
-					<c:if test="${ login.auth eq '8'}">
-						<c:if test="${list. isfundingsta eq 'false' }">
-							<a href="statement.do?board_seq=${list.seq }&seq=${list.seq }&email=${login.email}"><img class="listicon" src="./fundingboard_resources/img/notepad.png">내역서 등록</a>
-						</c:if>
-					</c:if>
-				</c:if>
-			</div>
+				<div class="fundMore"><a class="more" href="fundingDetail.do?board_seq=${list.seq }&seq=${list.seq }&email=${login.email}&board_code=FUND">후원내용 보기</a></div>
+		</div>
 	</div>
 </c:forEach>		 
 
@@ -168,7 +150,7 @@
 
 <script>
 
- $(document).ready(function() {
+ $(document).ready(function() {	 
 	$(".fundingContainer").slice(0,5).show();
 	
 	if($(".fundingContainer:hidden").length == 0 ){
@@ -182,16 +164,24 @@
 			}
 	});
 	}
+	
+	var ingEnd = "${ing_end}";
+	if(ingEnd == ""){
+		$("#List2").attr("checked","checked");
+	}
 });
+ 
+$("input[name=List]").click(function() {
+	location.href="funding.do?ing_end="+$(this).val();
+}); 
 
 function select() {
-	//alert("정렬: " + $("#_select").val());
-	location.href="funding.do?categorys="+$("#_select").val()+"&keyword=";
+	location.href="funding.do?ing_end="+$("input[name=List]:checked").val()+"&categorys="+$("#_select").val()+"&keyword="+$("#search_title").val();
 }
 
 $("#searchBtn").click(function() {
 	//alert("검색어: " + $("#search_title").val() + " 키워드: " + $("#_select").val());
-	location.href="funding.do?keyword="+$("#search_title").val()+"&categorys="+$("#_select").val();
+	location.href="funding.do?ing_end="+$("input[name=List]:checked").val()+"&categorys="+$("#_select").val()+"&keyword="+$("#search_title").val();
 });
 
 //current position

@@ -278,6 +278,7 @@ public class AdminCotroller {
 		
 		model.addAttribute("flist", flist);
 		model.addAttribute("f_categorys", fbean.getF_categorys());
+		model.addAttribute("f_keyword", fbean.getF_keyword());
 			
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);

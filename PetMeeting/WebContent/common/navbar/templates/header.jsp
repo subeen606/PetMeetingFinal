@@ -29,12 +29,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
 </head>
 <body>
-<c:if test="${login eq null}">
-	<script type="text/javascript">
-		alert("세션이 종료되었습니다. 다시 로그인 하세요");
-		location.href="login.do";
-	</script>
-</c:if>
  <!--::header part start::-->
     <header class="header_area">
         <div class="sub_header">
