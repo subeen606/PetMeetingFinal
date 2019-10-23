@@ -17,7 +17,6 @@ input[type=radio]{
  display: none;	
  margin: 10px;
 }
-
 label{
 	margin:  0 0 -1px;
 	padding:  8px;
@@ -64,19 +63,23 @@ input:checked + label{
 }
 
 .listicon{
-	max-width: 100%;
-    width: 23px;
+	width: 30px;
+    height: 27px;
 }
-	
+.listicon_list{
+    width: 16px;
+}
 .pack{
 	text-align: right;
 }
 
 .countspan{
-	font-size: 15pt;
+	font-size: 17pt;
 	font-weight: bold;
 }
-
+.tex_t{
+	font-weight: bold;
+}
 .dday{
 	font-size: 15pt;
     font-weight: bold;
@@ -428,7 +431,7 @@ text-align: right;
     border-radius: 10em;
 }
 .more{
-	margin-left: 8px;
+	margin-left: 9px;
 	font-weight: bold;
 	color : #3e4042;
 }

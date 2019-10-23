@@ -85,7 +85,8 @@
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
                             <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
                         </ul>
-                    </li>
+                        <a href="noticeList.do"><i class="menu-icon fa fa-laptop"></i>notice</a>
+					</li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

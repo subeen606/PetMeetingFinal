@@ -36,9 +36,7 @@
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     
 </head>
-
 <body>
-
 
 <!--::header part start::-->
     <header class="header_area">
@@ -107,8 +105,8 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="radio" name="howfund" value="포인트기부">포인트기부 &nbsp;&nbsp;
-					<input type="radio" name="howfund" value="결제기부">결제기부
+					<input style="display: inline" type="radio" name="howfund" value="포인트기부">포인트기부 &nbsp;&nbsp;
+					<input style="display: inline" type="radio" name="howfund" value="결제기부">결제기부
 				</td>
 			</tr>
 			<tr id="pointCheck" style="display: none">
@@ -175,28 +173,27 @@ $("input[name=howfund]").click(function() {
 		alert("후원금액은 1,000,000원 이하까지 가능합니다.");
 		$("#_funding").focus();
 	}
-	
-    if( goal >= _funding && _funding <= 1000000){	
+	if( goal >= _funding && _funding <= 1000000){	
     	var b = $("input[name=howfund]:checked").val();
     	//alert(b);
-		 if(b == "포인트기부"){
-			  $("#pointCheck").css("display","");
-			  $("#funding").val("");
+		if(b == "포인트기부"){
+			$("#pointCheck").css("display","");
+			$("#funding").val("");
 		  }
 		  else if(b != "포인트기부"){
-				var num = $(".number").val().replace(/[^\d]+/g, "");
-				$("#realfund").val(parseInt(num));
-				$("#pointCheck").css("display","none");
+			var num = $(".number").val().replace(/[^\d]+/g, "");
+			$("#realfund").val(parseInt(num));
+			$("#pointCheck").css("display","none");
 		  }
 		  if(b == "결제기부"){
 			  //alert( $("#_funding").val() );
-			  $("#funding").val( $("#_funding").val() );  
-			  $("#_funding").on("propertychange change keyup paste input", function() {
-		    					var currentVal = $(this).val();
-		    					$("#funding").val( currentVal );  
-		  		});
+			$("#funding").val( $("#_funding").val() );  
+			$("#_funding").on("propertychange change keyup paste input", function() {
+ 					var currentVal = $(this).val();
+ 					$("#funding").val( currentVal );  
+		  	});
 		   }
-	}
+		}
 });
 
 /* 포인트사용 버튼 클릭시 */
@@ -216,7 +213,7 @@ $("#pointBtn").click(function() {
 		alert("사용하실 POINT를 입력해주세요");
 		$("#funding").val("");
 		$("#fundingPt").focus();
-		}
+	}
 	if($("#fundingPt").val() < 500){
 		alert("포인트는 500점 이상부터 사용가능합니다");
 		$("#fundingPt").focus();
@@ -367,8 +364,6 @@ $("#check_module").click(function () {
 			}
 	 }
 	});
-
 </script>
-
 </body>
 </html>

@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	
+	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/fundingboard_resources/css/fundingboard.css">
 </head>
 <body>
@@ -30,36 +30,33 @@
 		<div class="detailti">
 			" ${dto.title } "
 		</div>
-	
 		<div class="deDate">
 			<fmt:formatDate pattern="yyyy-MM-dd" value="${dto.sdate }"/> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${dto.edate }"/>
 		</div>
 		<div class="deRead">
 			조회수: ${dto.readcount }
 		</div>
-
 		<div class="deContent">
 			${dto.content }
 		</div>	
-
 		<div class="deicon">	
 			<div class="deiconFont">
 				<img class="listicon" src="./fundingboard_resources/img/group.png"> 
 				<div class="countdiv">
-					<span class="countspan">${dto.personcount }</span>명이 후원 중입니다
+					<span class="countspan">${dto.personcount }</span> <span class="tex_t">명이 후원 중입니다</span>
 				</div>
 			</div>
 			<div class="deiconFont">
 				<c:if test="${dto.islike eq 'true' }">
 					<a><img id="likeBtn" class="listicon" src="./fundingboard_resources/img/hearts.png" ></a> 
-					 <div class="countdiv">
-					  <span class="countspan" id="likecount">${dto.likecount }</span>명이 좋아합니다 
-					 </div>
+					<div class="countdiv">
+				  		<span class="countspan" id="likecount">${dto.likecount }</span> <span class="tex_t">명이 좋아합니다</span>
+					</div>
 				</c:if>
 				<c:if test="${dto.islike eq 'false' }">
 					<a><img id="likeBtn" class="listicon" src="./fundingboard_resources/img/wheart.png" ></a>   
 					<div class="countdiv">
-						<span class="countspan" id="likecount">${dto.likecount }</span>명이 좋아합니다
+						<span class="countspan" id="likecount">${dto.likecount }</span> <span class="tex_t">명이 좋아합니다</span>
 					</div>
 				</c:if>
 			</div>
@@ -74,23 +71,20 @@
 				<input type="button" id="endListBtn" value="후원 내역 보기">
 			</c:if>
 		
-	<!-- The Modal -->
-    <div id="myModal" class="fundmodal">
- 
-      <!-- Modal content -->
-      <div class="modal-content">
-		    <div class="xBtn" onClick="close_pop();">
-               <img class="xicon" src="./fundingboard_resources/img/close.png">
-            </div>
-            <div class="state">후원 내역서</div>	
-            <iframe class="staiframe" src="fundingstaDetail.do?seq=${dto.seq}"></iframe>
-       </div>
- 
-    </div>
-        <!--End Modal-->
-		
-		
-		</div>
+			<!-- The Modal -->
+		    <div id="myModal" class="fundmodal">
+		 
+		      <!-- Modal content -->
+		      <div class="modal-content">
+				    <div class="xBtn" onClick="close_pop();">
+		               <img class="xicon" src="./fundingboard_resources/img/close.png">
+		            </div>
+		            <div class="state">후원 내역서</div>	
+		            <iframe class="staiframe" src="fundingstaDetail.do?seq=${dto.seq}"></iframe>
+		       </div>
+			 </div>
+		     <!--End Modal-->
+        </div>
 	</div>
 </div>
 
@@ -105,7 +99,6 @@ $("#fundingBtn").click(function() {
 	var funding = "${dto.isfunding}";
 	//alert("jstl 로그인정보: " + email);
 	//alert("jstl 펀딩했는지: " + funding);
-	
 	if(email == ""){
 		alert("후원을 위해서 로그인을 해주세요.");
 	}
@@ -142,19 +135,16 @@ $("#likeBtn").click(function() {
 				  $("#likecount").text(count-1);
 	
 				}
-				
 			},error:function(){
 				alert("error");
 			}
-			
 		}); 
 	}
 });
 
 
-
 $("#updateBtn").click(function() {
-	if (confirm("수정 하시겠습니까?") == true){    //확인
+	if(confirm("수정 하시겠습니까?") == true){    //확인
 		location.href="fundUpdate.do?seq=${dto.seq}"
 	}else{   //취소
 	    return;
@@ -162,7 +152,7 @@ $("#updateBtn").click(function() {
 });
 
 $("#deleteBtn").click(function() {
-	if (confirm("삭제 하시겠습니까?") == true){    //확인
+	if(confirm("삭제 하시겠습니까?") == true){    //확인
 		location.href="fundDelete.do?seq=${dto.seq}&email=${login.email}";
 	}else{   //취소
 	    return;
@@ -184,7 +174,6 @@ function close_pop(flag) {
 	$('body').css('overflow', 'auto');//부모창 스크롤
 	$('#myModal').hide();
 };
-
 
 </script>
 </body>
