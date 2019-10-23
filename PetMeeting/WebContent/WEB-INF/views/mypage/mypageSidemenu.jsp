@@ -31,7 +31,12 @@
 </head>
 
 <body>
-
+<c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+</c:if>
 
 	<!-- Sidebar -->
  <div id="sidebar">
@@ -43,7 +48,7 @@
 		
 		<img alt=""
 			src="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/images/profile.png"
-			class="myprofileimg">
+			class="mysidebar_myprofileimg">
 		
 		<img alt=""
 			src="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/images/petprofile.png"
@@ -57,7 +62,7 @@
 		<c:if test="${userProfile.myprofile_img ne null}">
 			<script>
 				var myprofileimg = '<c:out value="${myimg }"/>';							
-				$(".myprofileimg").attr("src", "upload/" + myprofileimg);
+				$(".mysidebar_myprofileimg").attr("src", "upload/" + myprofileimg);
 			</script>
 		</c:if>
 			
@@ -65,7 +70,7 @@
 		<c:if test="${fn:contains(myimg,'http')}">
 			<script>
 				var myprofileimg = '<c:out value="${myimg}"/>';
-				$(".myprofileimg").attr("src", myprofileimg);
+				$(".mysidebar_myprofileimg").attr("src", myprofileimg);
 			</script>
 		</c:if>
 				
@@ -169,10 +174,9 @@ $(document).ready(function(){
 		},
 		error:function(request,status,error){
 	        alert("code:"+request.status + "message:"+request.responseText+"error:"+error);
-	     
 		}
-
 	});
+	
 	/* 팔로워/팔로잉의 수  */
 	$.ajax({
 		type : "post",

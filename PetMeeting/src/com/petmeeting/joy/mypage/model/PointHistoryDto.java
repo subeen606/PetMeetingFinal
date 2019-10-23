@@ -13,24 +13,24 @@ CREATE TABLE PM_POINT_HISTORY(
    USEDTYPE NUMBER   --적립 0 , 사용 1
 );
 */
-public class PointHistoryParam implements Serializable{
+public class PointHistoryDto implements Serializable{
    
    private String email;
-   private String userinfo;
+   private String usedinfo;
    private int usepoint;
    private int resultpoint;
    private String regdate;
    private int usedtype;
    
-   public PointHistoryParam(){  
+   public PointHistoryDto(){  
 	   
    }
 
-   public PointHistoryParam(String email, String userinfo, int usepoint, int resultpoint, String regdate,
+   public PointHistoryDto(String email, String usedinfo, int usepoint, int resultpoint, String regdate,
          int usedtype) {
       super();
       this.email = email;
-      this.userinfo = userinfo;
+      this.usedinfo = usedinfo;
       this.usepoint = usepoint;
       this.resultpoint = resultpoint;
       this.regdate = regdate;
@@ -45,12 +45,12 @@ public class PointHistoryParam implements Serializable{
       this.email = email;
    }
 
-   public String getUserinfo() {
-      return userinfo;
+   public String getusedinfo() {
+      return usedinfo;
    }
 
-   public void setUserinfo(String userinfo) {
-      this.userinfo = userinfo;
+   public void setusedinfo(String usedinfo) {
+      this.usedinfo = usedinfo;
    }
 
    public int getUsepoint() {
@@ -87,7 +87,7 @@ public class PointHistoryParam implements Serializable{
 
    @Override
    public String toString() {
-      return "PointHIstoryParam [email=" + email + ", userinfo=" + userinfo + ", usepoint=" + usepoint
+      return "PointHIstoryParam [email=" + email + ", usedinfo=" + usedinfo + ", usepoint=" + usepoint
             + ", resultpoint=" + resultpoint + ", regdate=" + regdate + ", usedtype=" + usedtype + "]";
    }
    

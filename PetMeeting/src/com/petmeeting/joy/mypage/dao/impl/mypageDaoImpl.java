@@ -20,7 +20,9 @@ import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
+import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+import com.petmeeting.joy.mypage.model.PointHistoryDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
 @Repository
@@ -233,7 +235,15 @@ public class mypageDaoImpl implements mypageDao {
 		return dto;
 	}
 	
-	
+	@Override
+	public int getAllPointList(MypagePointListParam pageingparam) {
+		return sqlSession.selectOne(ns+"getAllPointList", pageingparam);
+	}
+	@Override
+	public List<PointHistoryDto> getPointHIstoryList(MypagePointListParam pageingparam) {
+		//List<PointHistoryDto> list = 
+		return sqlSession.selectList(ns+"getPointHIstoryList", pageingparam);
+	}
 	
 	
 	

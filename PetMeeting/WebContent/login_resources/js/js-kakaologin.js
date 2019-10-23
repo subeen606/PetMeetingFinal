@@ -63,11 +63,8 @@ function loginWithKakao() {
 									$("#login").parent().parent().addClass("slide-up");
 									email.attr("readonly",true);
 									
-								}
-								if( num == 1 ) {
-									alert("활동이 정지된 계정입니다.");
-								}								
-								if (num == 2) { //DB에 아이디가 있는 경우 => 로그인 
+								}							
+								if (num == 1) { //DB에 아이디가 있는 경우 => 로그인 
 									console.log("로그인중...");
 									var accountString = $("#account-form").serialize() ;
 									// 로그인 포인트 지급여부
@@ -88,9 +85,21 @@ function loginWithKakao() {
 										}
 									});
 								}
-								if (num == 3) { // 탈퇴한 회원
+								if( num == 2 ) {
 									console.log("탈퇴한회원");
 									alert("해당 계정은 탈퇴한 계정입니다.");
+								}
+								if (num == 3) {
+									console.log("신고 횟수가 10번 이상 접수되어 자동으로 활동정지된 계정입니다.");
+									alert("신고 횟수가 10번 이상 접수되어 자동으로 활동정지된 계정입니다.");
+								}
+								if (num == 4) {
+									console.log("관리자 권한으로 활동정지된 계정입니다.");
+									alert("관리자 권한으로 활동정지된 계정입니다.");
+								}
+								if( num == 8 ) {
+									console.log("관리자계정");
+									location.href="adminMain.do";
 								}
 							}
 						})

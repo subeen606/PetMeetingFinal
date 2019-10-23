@@ -29,12 +29,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
 </head>
 <body>
-<c:if test="${login eq null}">
-	<script type="text/javascript">
-		alert("세션이 종료되었습니다. 다시 로그인 하세요");
-		location.href="login.do";
-	</script>
-</c:if>
+
  <!--::header part start::-->
     <header class="header_area">
         <div class="sub_header">
@@ -62,7 +57,8 @@
         <div id="loginInfo">
             <input type="hidden" class='nowmymsg' value="-1">
         	<c:if test="${not empty login }">
-        		<a href="mypagehome.do">나의페이지</a>
+        		<font>[ ${login.nickname } ]님, 환영합니다.</font>
+        		<a href="mypagehome.do">마이페이지</a>
         		<a href="logout.do">로그아웃</a>
         	</c:if>
         	
