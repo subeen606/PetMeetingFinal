@@ -43,12 +43,9 @@
                       </div>
                   </div>
                   <div class="col-8 col-md-8 col-xl-6 ">
-<<<<<<< HEAD
+
                     <div class="sub_header_social_icon float-right">
-                         <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
-                         
-                         
-                        
+                        <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
 				        <div id="loginInfo">				        
 				            <input type="hidden" class='nowmymsg' value="-1">
 				        	<c:if test="${not empty login }">			        		
@@ -61,10 +58,6 @@
 										<li><a href="logout.do">로그아웃</a></li>										
 									</ul>
 								</div>			        		
-								<!-- 
-				        		<a href="mypagehome.do">나의페이지</a>
-				        		<a href="logout.do">로그아웃</a>
-				        		 -->
 				        	</c:if>
 				        	
 				        	<c:if test="${empty login }">
@@ -77,34 +70,8 @@
                 </div>
             </div>
         </div>
+              
 
-=======
-                      <div class="sub_header_social_icon float-right">
-                        <a href="#"><i class="flaticon-phone"></i>+02 213 - 256 (365)</a>
-                        <a href="#" class="btn_1 d-none d-md-inline-block">Become a Volunteer</a>
-                      </div>
-                  </div>
-                     -->
-                </div>
-            </div>
-        </div>
-        
-         <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
-        <div id="loginInfo">
-            <input type="hidden" class='nowmymsg' value="-1">
-        	<c:if test="${not empty login }">
-        		<font>[ ${login.nickname } ]님, 환영합니다.</font>
-        		<a href="mypagehome.do">마이페이지</a>
-        		<a href="logout.do">로그아웃</a>
-        	</c:if>
-        	
-        	<c:if test="${empty login }">
-        		<a href="login.do" target="_self">로그인</a>
-        	</c:if>
-           
-        </div>
-        
->>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
         <div class="main_menu">
             <div class="container">
                 <div class="row">

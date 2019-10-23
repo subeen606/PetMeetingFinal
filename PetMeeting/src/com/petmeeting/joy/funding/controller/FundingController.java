@@ -134,7 +134,6 @@ public class FundingController {
 	public String fundingstaDetail(int seq, Model model) {
 		System.out.println("funding 내역서 seq = " + seq);
 		FundingStaDto sta = service.fundingStaDetail(seq);
-		System.out.println("내역서controller 디테일: " + sta.toString());
 		model.addAttribute("sta", sta);
 
 		return "funding/fundingstaDetail";
