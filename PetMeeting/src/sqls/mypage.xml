@@ -137,6 +137,34 @@ WHERE to_EMAIL=#{email}
 AND READCHECK='0' ))
 </select>
 
+<select id="mypagefundinglike" parameterType="com.petmeeting.joy.mypage.model.MypagemylikeDto"
+resultType="com.petmeeting.joy.funding.model.FundingDto">
+SELECT * FROM PM_FUNDINGBOARD WHERE SEQ IN
+(SELECT BOARD_SEQ FROM PM_BOARD_LIKE WHERE  BOARD_CODE='FUND' AND
+EMAIL= #{email})
+<if test="keyword != null and keyword !='' ">
+AND TITLE LIKE '%'||#{keyword}||'%' 
+</if>
+</select>
+
+
+<select id="mypageplayboardlike" parameterType="com.petmeeting.joy.mypage.model.MypagemylikeDto"
+resultType="com.petmeeting.joy.playboard.model.PlayboardDto">
+SELECT SEQ, BOARD_CODE, TITLE, CONTENT,
+FILENAME, LOCATION, LOCATION_DETAIL, CATEGORY,
+PRICE, PEOPLE, PERSONCOUNT, READCOUNT, LIKECOUNT, 
+REPORTCOUNT, PDATE, EDATE, REGDATE, DEL FROM PM_PLAYBOARD 
+WHERE SEQ IN (SELECT BOARD_SEQ FROM PM_BOARD_LIKE WHERE  BOARD_CODE='PLAY' AND
+EMAIL= #{email} )
+<if test="category != '모임 유형' and category != null and category !=''" > AND CATEGORY LIKE '%'||#{category}||'%' </if>
+<if test="selection != null and selection !='' and keyword != null and keyword !='' ">
+<if test="selection == '제목'"> AND TITLE LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '장소'">AND LOCATION LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '일시'">AND TO_CHAR(PDATE, 'YYYY-MM-DD') LIKE '%'||#{keyword}||'%' </if>
+</if>
+AND DEL=0
+ORDER BY PDATE DESC
+</select>
 
 <!-- 유정    ==========================================   -->
 <select id="checkMemberLeave" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -325,7 +353,7 @@ ORDER BY PDATE DESC
 </select>
  
 
-<select id="getMyFundingList" parameterType="com.petmeeting.joy.mypage.model.MypageListParam" resultType="com.petmeeting.joy.mypage.model.MypageFundingParam" >
+<select id="getMyFundingList" parameterType="com.petmeeting.joy.mypage.model.MypageListParam" resultType="com.petmeeting.joy.funding.model.FundingDto" >
 SELECT  a.*, b.DONATION
 FROM PM_FUNDINGBOARD a, (SELECT FUNDING_SEQ, DONATION FROM PM_FUNDINGMEM WHERE EMAIL=#{email}) b
 WHERE a.SEQ = b.FUNDING_SEQ

@@ -55,6 +55,10 @@ public class FundingDto implements Serializable {
 	private Date edate;
 	private Date regdate;
 	
+	//송혜연을 위한 변수
+	private int donation;
+	
+	
 	/* like check 하는 것 */
 	private boolean islike;
 	/* funding check 하는 것 */
@@ -212,6 +216,16 @@ public class FundingDto implements Serializable {
 		this.isfundingsta = isfundingsta;
 	}
 
+	
+	
+	public int getDonation() {
+		return donation;
+	}
+
+	public void setDonation(int donation) {
+		this.donation = donation;
+	}
+
 	public FundingDto(int seq, String email) {
 		super();
 		this.seq = seq;
@@ -308,6 +322,22 @@ public class FundingDto implements Serializable {
 		this.regdate = regdate;
 		this.islike = islike;
 		this.isfunding = isfunding;
+	}
+
+	//송혜연을 위한 생성자
+	public FundingDto(int seq, String title, String thumbnail, int max_price, int current_price, int personcount,
+			int likecount, Date sdate, Date edate, int donation) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.thumbnail = thumbnail;
+		this.max_price = max_price;
+		this.current_price = current_price;
+		this.personcount = personcount;
+		this.likecount = likecount;
+		this.sdate = sdate;
+		this.edate = edate;
+		this.donation = donation;
 	}
 
 	@Override

@@ -140,6 +140,14 @@
 		
 		
 		<!-- 현아 part 1  -->
+		<li><span class="opener">나의 좋아요</span>
+			<ul>
+				<li><a href="mypagefundinglike.do">나의 후원</a></li>
+				<li><a href="mypageplayboardlike.do">나의 소모임</a></li>
+				<li><a href="mypageboardlike.do">나의 게시글</a></li>
+			</ul></li>
+		
+		
 		<li><a href="mypagefollow.do">나의 구독</a></li>
 	
 		<!-- 현아 part 2 -->	

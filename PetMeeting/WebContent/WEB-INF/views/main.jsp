@@ -11,7 +11,7 @@
 
 </head>
 <body>
-
+ <script src="${pageContext.request.contextPath}/common/navbar/js/jquery-1.12.1.min.js"></script>
   <!--::header part start::-->
     <header class="header_area">
     	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>

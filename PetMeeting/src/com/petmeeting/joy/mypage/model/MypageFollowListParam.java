@@ -1,6 +1,7 @@
 package com.petmeeting.joy.mypage.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class MypageFollowListParam implements Serializable {
 
@@ -29,8 +30,8 @@ public class MypageFollowListParam implements Serializable {
 	private String board_code;
 	private String category;
 	private String title;
-	private String regdate;
-	private String pdate;
+	private Date regdate;
+	private Date pdate;
 	
 	
 	//모집인지 참여인지 sort
@@ -67,8 +68,9 @@ public class MypageFollowListParam implements Serializable {
 	
 
 	//play와 free 글을 가져오기 위한 생성자
+
 	public MypageFollowListParam(String email, String nickname, String myprofile_img, int seq, String myemail,
-			String board_code, String category, String title, String regdate, String pdate, String sort) {
+			String board_code, String category, String title, Date regdate, Date pdate, String sort) {
 		super();
 		this.email = email;
 		this.nickname = nickname;
@@ -254,26 +256,29 @@ public class MypageFollowListParam implements Serializable {
 	}
 
 
-	public String getRegdate() {
+	
+
+	
+
+	public Date getRegdate() {
 		return regdate;
 	}
 
 
-	public void setRegdate(String regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 
 
-	public String getPdate() {
+	public Date getPdate() {
 		return pdate;
 	}
 
 
-	public void setPdate(String pdate) {
+	public void setPdate(Date pdate) {
 		this.pdate = pdate;
 	}
 
-	
 
 	public String getSort() {
 		return sort;

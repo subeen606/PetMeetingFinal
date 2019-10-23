@@ -1,0 +1,227 @@
+/* mypage_home css*/
+@font-face {
+font-family: 'NanumSquareRound'; 
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); 
+font-weight: normal; 
+font-style: normal; 
+}
+body {/* ???????? */
+     font-family:  'NanumSquareRound'!important;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+	font-weight: normal; 
+	font-style: normal; 
+}
+
+.right-box{
+	width:50%;
+	float:left;
+}
+.left-box{
+	font-size:12px;
+	margin-top: 4px;
+	display:inline;
+	width:49%;
+	height:900px;
+	float:right;
+	background-color: rgb(241,238,235,0.6);
+	 border-radius: 0.6em;
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+  	animation: fade-in-top 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.list-profileimg{
+	width:50px;
+	height:50px;
+	border-radius: 50%;
+}
+.member-card{
+	margin-top: 4px;
+	height:250px;
+	display:block;
+	 border-radius: 0.6em;
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+  	animation: fade-in-top 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.my-description{
+	height:630px;
+	width:100%;
+	 border-radius: 0.6em;
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+  	animation: fade-in-top 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.new-flwer-list{
+	height:700px;
+	float:right;
+}
+.grade-container{
+	display:block;
+}
+.gradeimg{
+	margin:10px 0;
+
+}
+.gradename{
+	font-size:20px;
+	text-transform:uppercase;
+	font-weight: 1000;
+}
+.card-detail{
+	display:inline;
+	margin: 25px;
+	text-align:center;
+	font-weight:1000;
+	float:left;
+}
+.card-detail-title{
+	font-size:15px;
+}
+.card-detail-content{
+	font-size:27px;
+	color:#ff9c3d;
+}
+.details{
+	margin-top: -5px;
+	margin-left: 70px;
+}
+
+.grade-table{
+	border: 1px #ddd;
+}
+.grade-th{
+	text-align:center;
+	border-bottom:none;
+}
+.grade-tr{
+	border-top:0.5px solid rgb(241,238,235,0.6);
+}
+.grade-td{
+	vertical-align:top;
+	padding:10px 0;
+}
+/*------------------*/
+/*
+*
+*    Author:    Michael Raffaele <michael@mraffaele.com>
+*    Date:    25th October 2011
+*    Info:     http://www.mraffaele.com/blog/2011/10/25/css-accordion-no-javascript/
+*
+*/
+
+/* Shared for all accordion types */
+.accordion {
+    margin-top: 10px;
+    margin-left: -2px;
+    font-size: 14px;
+    width: 650px;
+}
+}
+.accordion ul {
+    list-style:none;
+    margin:0;
+    padding:0;    
+}
+.accordion li {
+    margin:0;
+    padding:0;
+}
+.accordion [type=radio], .accordion [type=checkbox] {
+    display:none;
+}
+.accordion label {
+	display: block;
+    font-size: 16px;
+    line-height: 16px;
+    background:rgb(241,238,235,0.6);
+    /* border: 1px solid #542437; */
+    color: #542437;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+}
+.accordion ul li label:hover, .accordion [type=radio]:checked ~ label, .accordion [type=checkbox]:checked ~ label {
+    background: #2b2b2b;
+    color: #FFF;
+    	 border-radius: 0.6em;
+    text-shadow:1px 1px 1px rgba(0,0,0,0.5);
+}
+.accordion .content {
+    padding:0 10px;
+    overflow:hidden;
+   /*  border:1px solid #fff; Make the border match the background so it fades in nicely */
+    -webkit-transition: all .5s ease-out;
+    -moz-transition: all .5s ease-out;
+}
+.accordion p {
+	font-family:'NanumSquareRound';
+    color:#333;
+    margin:0 0 10px;
+}
+.accordion h3 {
+    color:#542437;
+    padding:0;
+    margin:10px 0;
+}
+
+
+/* Vertical */
+.vertical ul li {
+    overflow:hidden;
+    margin:0 0 1px;
+}
+.vertical ul li label {
+	border-radius: 0.6em;
+    padding:10px;
+}
+.vertical [type=radio]:checked ~ label, .vertical [type=checkbox]:checked ~ label {
+    border-bottom:0;
+}
+.vertical ul li label:hover {
+}
+.vertical ul li .content {
+    height:0px;
+    border-top:0;
+}
+
+.vertical [type=radio]:checked ~ label ~ .content, .vertical [type=checkbox]:checked ~ label ~ .content {
+   height: 500px;
+}
+
+.left-box label{
+	display: block;
+    font-size: 16px;
+    line-height: 16px;
+	background: #2b2b2b;
+    color: #FFF;
+    border-radius: 0.6em;
+    padding:10px;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+}
+.flwer-activity td{
+	border-color: 0.5px solid #ddd;
+}
+.flwer-activity:hover tr{
+	background-color: rgba(245, 245, 245, 0.7);
+}
+.flwer-activity th{
+	background-color: #eee;
+}
+.flwer-activity{
+	display: grid;
+    text-align: center;
+}

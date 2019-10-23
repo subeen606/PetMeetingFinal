@@ -2,6 +2,7 @@ package com.petmeeting.joy.mypage.dao;
 
 import java.util.List;
 
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
 import com.petmeeting.joy.mypage.model.MyPetProfileDto;
@@ -10,14 +11,16 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
-import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
 import com.petmeeting.joy.mypage.model.MypagePointListParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
+
 import com.petmeeting.joy.mypage.model.PointHistoryDto;
+
+import com.petmeeting.joy.mypage.model.MypagemylikeDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
 
@@ -72,6 +75,14 @@ public interface mypageDao {
 	
    //나한테 메세지 보낸 놈 누구야
 	public String mypagemsgpushnewperson(String email);
+	
+	
+	//내가 좋아하는 후원!!
+	public List<FundingDto> mypagefundinglike(MypagemylikeDto param);
+	
+	
+	//내가 좋아하는 소모임!!
+	public List<PlayboardDto> mypageplayboardlike(MypagemylikeDto param);
 	
 	///////////////////////////////유정//////////////////////
 
@@ -146,7 +157,7 @@ public interface mypageDao {
 		
 		public List<PlayboardDto> getMakePlayList(MypageListParam listparam);
 		
-		public List<MypageFundingParam> getMyFundingList(MypageListParam listparam);
+		public List<FundingDto> getMyFundingList(MypageListParam listparam);
 		
 		////////////////////////////////////////////////////////////////
 		
