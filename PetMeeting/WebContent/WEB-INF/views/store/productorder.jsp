@@ -670,7 +670,7 @@ function pay() {
 				IMP.request_pay({
 					pg : 'KG inicis',
 					pay_method : 'card',
-					merchant_uid : 'merchant_' + new Date().getTime(),
+					merchant_uid : <%=orderNumber%>,
 					name : '주문명:' + _product_name + '외 ' + tot.length + '개' ,
 // 					amount : total_p + delivery - useP,
 					amount : 10,
