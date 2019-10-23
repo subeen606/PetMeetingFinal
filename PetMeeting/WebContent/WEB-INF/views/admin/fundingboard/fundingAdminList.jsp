@@ -35,9 +35,8 @@
 				<option value="진행" <c:if test="${f_categorys == '진행' }">selected</c:if>>진행중인 후원</option>
 				<option value="마감" <c:if test="${f_categorys == '마감' }">selected</c:if>>마감된 후원</option>
 			</select>
-			<input id="search_title" name="f_keyword" type="text" placeholder="후원명을 입력해주세요" <c:if test="${f_keyword != null}"> value='${f_keyword}'</c:if> > 
-			<input id="searchBtn" type="button" value="검색">
-			
+		
+		
 			<table class="boardTable">
 				
 				<thead>
@@ -110,11 +109,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-
-$("#searchBtn").click(function() {
-	$("#_pageNumber").val(0);
-	$("#frm").attr({"action":"adminFundingList.do","method":"post"}).submit();	
-});
 
 function popup(seq){
 	window.open("fundingstaDetail.do?seq="+seq,"후원 내역서","width=780,height=820,left=100,top=50");

@@ -10,7 +10,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 	 <!-- 도로명 주소 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=689cdd3b092f29b4c71fe175d367652c&libraries=services"></script>
   
@@ -26,7 +26,12 @@
    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
    </header>
 <!-- Header part end-->
-
+<c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+</c:if>
 <div class="container">
 	<div class="makerBtns">
 		<c:if test="${login.email eq detail.email }">
@@ -72,11 +77,14 @@
 				<div class="infoTitle">
 					<span class="smallTxt">모임 주최자</span>
 				</div>			
+					<!-- 프로필 사진이 없는 경우 -->
 					<c:if test="${empty profile || empty profile.myprofile_img }">
 						<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="50px" height="50px">&nbsp;&nbsp;
 					</c:if>
+					
+					<!-- 프로필 사진이 있는 경우 -->
 					<c:if test="${not empty profile || not empty profile.myprofile_img }">
-						<img id="profilePic" src="${pageContext.request.contextPath}/playboard_resources/img/brandon.jpg">&nbsp;&nbsp;
+						<img id="profilePic" src="${pageContext.request.contextPath}/upload/${profile.myprofile_img }">&nbsp;&nbsp;
 					</c:if>
 					<a class="dropdown" email="${detail.email }" nickname="${detail.nickname }">
 						${detail.nickname }
@@ -126,7 +134,7 @@
 				   						</c:if>			
 				   						
 				   						<c:if test="${not empty partMem.memProfile.myprofile_img }">		   								   							   							
-				   							<img class="partMemProfilePic" src="${pageContext.request.contextPath}/playboard_resources/img/bakar.jpg">&nbsp;&nbsp;		   											   								   									   								   							
+				   							<img class="partMemProfilePic" src="${pageContext.request.contextPath}/upload/${partMem.memProfile.myprofile_img }">&nbsp;&nbsp;		   											   								   									   								   							
 				   						</c:if>	
 				   					<a class="dropdown" email="${partMem.email }" nickname="${partMem.nickname }">		    
 			   							${partMem.nickname }	
@@ -210,9 +218,9 @@
 											<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="40px" height="40px">
 											</c:if>
 											<c:if test="${not empty qna.memProfile.myprofile_img }">
-												<img class="QnAProfilePic" src="${pageContext.request.contextPath}/playboard_resources/img/bakar.jpg">
+												<img class="QnAProfilePic" src="${pageContext.request.contextPath}/upload/${qna.memProfile.myprofile_img }">
 											</c:if>							
-											&nbsp;${qna.nickname } | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
+											&nbsp;<a class="dropdown" email="${qna.email }" nickname="${qna.nickname }">${qna.nickname }</a> | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
 										</c:if>					
 										
 										<c:if test="${login.email ne detail.email && qna.email ne login.email }">
@@ -227,9 +235,9 @@
 											<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="40px" height="40px">
 										</c:if>
 										<c:if test="${not empty qna.memProfile.myprofile_img }">
-											<img class="QnAProfilePic" src="${pageContext.request.contextPath}/playboard_resources/img/bakar.jpg">
+											<img class="QnAProfilePic" src="${pageContext.request.contextPath}/upload/${qna.memProfile.myprofile_img }">
 										</c:if>								
-										&nbsp;${qna.nickname } | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
+										 &nbsp;<a class="dropdown" email="${qna.email }" nickname="${qna.nickname }">${qna.nickname }</a> | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
 									</c:if>													
 								</div>
 								
@@ -269,9 +277,9 @@
 										<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="40px" height="40px">
 										</c:if>
 										<c:if test="${not empty qna.memProfile.myprofile_img }">
-											<img class="QnAProfilePic" src="${pageContext.request.contextPath}/playboard_resources/img/bakar.jpg">
+											<img class="QnAProfilePic" src="${pageContext.request.contextPath}/upload/${qna.memProfile.myprofile_img }">
 										</c:if>							
-										&nbsp;${qna.nickname } | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
+										 &nbsp;<a class="dropdown" email="${qna.email }" nickname="${qna.nickname }">${qna.nickname }</a> | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
 									</c:if>					
 										
 										<c:if test="${login.email ne detail.email && qna.email ne login.email }">
@@ -286,9 +294,9 @@
 											<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="40px" height="40px">
 										</c:if>
 										<c:if test="${not empty qna.memProfile.myprofile_img }">
-											<img class="QnAProfilePic" src="${pageContext.request.contextPath}/playboard_resources/img/bakar.jpg">
+											<img class="QnAProfilePic" src="${pageContext.request.contextPath}/upload/${qna.memProfile.myprofile_img }">
 										</c:if>								
-										&nbsp;${qna.nickname } | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
+										 &nbsp;<a class="dropdown" email="${qna.email }" nickname="${qna.nickname }">${qna.nickname }</a> | 작성일&nbsp;<fmt:formatDate value="${qna.regdate }"  pattern="yyyy.MM.dd HH:mm" />
 									</c:if>			
 								</div>
 								<img alt="" src="${pageContext.request.contextPath}/playboard_resources/img/arrow.png" width="18px" style="vertical-align: top; margin-top: 12px;">
@@ -343,9 +351,9 @@
 
 <div class="memberDropDown">
 	<ul>
-		<li><a>프로필 보기</a></li>
-		<li><a>팔로우 하기</a></li>
-		<li><a>쪽지 보내기</a></li>
+		<li><a id="viewMemberProfile">프로필 보기</a></li>
+		<li><a id="follow">팔로우 하기</a></li>
+		<li><a id="writeMsg">쪽지 보내기</a></li>
 		<li><a id="reportMember">신고하기</a></li>
 	</ul>
 	<form id="memberProfileFrm">
@@ -529,27 +537,31 @@ $(function () {
 	/* 닉네임 클릭시 드롭다운 div 보이게 하기  */
 	$(".dropdown").click(function () {
 		
-		$("#memberProfileFrm input[name='nickname']").val($(this).attr("nickname"));
-		$("#memberProfileFrm input[name='bad_email']").val($(this).attr("email"));
-		$("#memberProfileFrm input[name='email']").val("${login.email }");
 		
-		var left = $(this).offset().left;
-		var top = $(this).offset().top + $(this).height();
+			$("#memberProfileFrm input[name='nickname']").val($(this).attr("nickname"));
+			$("#memberProfileFrm input[name='bad_email']").val($(this).attr("email"));
+			$("#memberProfileFrm input[name='email']").val("${login.email }");
+			
+			var left = $(this).offset().left;
+			var top = $(this).offset().top + $(this).height();
 
-		if($(".memberDropDown").length > 1){
-			$(".memberDropDown").css("display", "none");
-			$(".memberDropDown").css({
-				"display": "block",
-				"left": left,
-				"top": top
-			});
-		}else{
-			$(".memberDropDown").css({
-				"display": "block",
-				"left": left,
-				"top": top
-			});
-		}		 		
+			if($(".memberDropDown").length > 1){
+				$(".memberDropDown").css("display", "none");
+				$(".memberDropDown").css({
+					"display": "block",
+					"left": left,
+					"top": top
+				});
+			}else{
+				$(".memberDropDown").css({
+					"display": "block",
+					"left": left,
+					"top": top
+				});
+			}		 		
+		
+		
+		
 	});
 	
 	/* 스크롤 움직일 경우 드롭다운 div 제거 */
@@ -567,7 +579,7 @@ $(function () {
 		} 
 	});
 	
-	/* 멤버 신고 */
+	/* 드롭다운 멤버 신고 */
 	$("#reportMember").click(function () {
 		//alert($("#memberProfileFrm input[name='nickname']").val());
 		if($("#memberProfileFrm input[name='bad_email']").val() == $("#memberProfileFrm input[name='email']").val()){
@@ -595,13 +607,57 @@ $(function () {
 			var option = "width = 550, height = 500, top = 100, left = 300, location = no, resizeable = no";
 			var reportPopUp = window.open("memberReport.do", "report", option);
 		//	$(reportPopUp).find("input[name='bad_email']").val($("#memberProfileFrm input[name='bad_email']").val());
-	
-			
+				
 		}		
 	});
 	
 	
+	/* 드롭다운 쪽지보내기 */
+	$('#writeMsg').on("click",function() {
+		if($("#memberProfileFrm input[name='bad_email']").val() == $("#memberProfileFrm input[name='email']").val()){
+			alert("자기 자신에게 쪽지보내기는 불가합니다.");
+		}else{
+			var url =  "mypageFollowreplymsg.do?to_email="+$("#memberProfileFrm input[name='bad_email']").val()+"&nickname="+$("#memberProfileFrm input[name='nickname']").val();
+			var option = "scrollbars=no, left=400,top=200, width=472, height=595";
+			var name = "새 쪽지";
+			window.open(url, name, option);
+		} 
+	});
 	
+	/* 드롭다운 프로필보기 */
+	$("#viewMemberProfile").click(function () {
+		var url =  "mypagefollowprofile.do?email="+$("#memberProfileFrm input[name='bad_email']").val();
+		var option = "scrollbars=no, left=400,top=200, width=420, height=420 ";
+		var name = "프로필";
+		
+		window.open(url, name, option);
+	});
+	
+	/* 드롭다운 팔로우하기 */
+	$("#follow").click(function () {
+		if($("#memberProfileFrm input[name='bad_email']").val() == $("#memberProfileFrm input[name='email']").val()){
+			alert("자기 자신은 팔로우 할 수 없습니다.");
+		}else{
+			var follow = $("#memberProfileFrm input[name='bad_email']").val();
+			$.ajax({
+				url: 'follow.do',
+				type: 'post',
+				data: {"folloing_email": follow },
+				success: function ( data ) {
+					//alert("성공");
+					if(data.trim() == "no"){
+						alert("이미 팔로잉 중입니다.");
+					}else{
+						alert("팔로우 되었습니다.");					
+					}				
+				},
+				error: function () {
+					alert("에러");
+				}
+			});
+		}
+		
+	});
 	
 /* 지도 출력 */
 var geocoder = new kakao.maps.services.Geocoder();

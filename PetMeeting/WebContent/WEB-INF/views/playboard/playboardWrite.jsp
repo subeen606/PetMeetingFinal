@@ -9,7 +9,7 @@
  <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!--     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
     
 	<!-- datepicker -->
 	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">
@@ -34,7 +34,13 @@
 	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
 </header>
 <!-- Header part end-->
-    
+<c:if test="${login eq null}">
+	<script type="text/javascript">
+		alert("세션이 종료되었습니다. 다시 로그인 하세요");
+		location.href="login.do";
+	</script>
+</c:if>
+
 <!-- 글쓰기 폼 -->
 <form id="boardWriteFrm" action="" method="post" enctype="multipart/form-data">
 <input type="hidden" name="email" value="${login.email }">

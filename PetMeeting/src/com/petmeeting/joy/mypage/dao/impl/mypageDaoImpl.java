@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.dao.mypageDao;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -15,7 +16,6 @@ import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.mypage.model.MypageFollowListParam;
 import com.petmeeting.joy.mypage.model.MypageFollowparam;
-import com.petmeeting.joy.mypage.model.MypageFundingParam;
 import com.petmeeting.joy.mypage.model.MypageListParam;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
@@ -298,7 +298,7 @@ public class mypageDaoImpl implements mypageDao {
 		return sqlSession.selectList(ns+"getMakePlayList", listparam);
 	}
 
-	public List<MypageFundingParam> getMyFundingList(MypageListParam listparam){
+	public List<FundingDto> getMyFundingList(MypageListParam listparam){
 		return sqlSession.selectList(ns+"getMyFundingList", listparam);
 	}
 

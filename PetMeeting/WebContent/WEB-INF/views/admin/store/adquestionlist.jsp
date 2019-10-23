@@ -7,12 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-	<!-- animate CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/store_resources/css/animate.css">
-    <!-- custom CSS -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css?after">
-
 <style type="text/css">
 .content-tr {
 	display: none;

@@ -1,4 +1,4 @@
-<%@page import="com.petmeeting.joy.mypage.model.MypageFundingParam"%>
+<%@page import="com.petmeeting.joy.funding.model.FundingDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -13,9 +13,9 @@
 <link href="./mypage_resources/mypage_s/datepicker/datepicker.css" rel="stylesheet">
 </head>
 <body>
-
-<jsp:include page="../main.jsp" flush="false" />
-
+  <header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+    </header>
 <div id="wrapper">
 
   <!-- Main -->
@@ -43,7 +43,10 @@
                </div>
              </section>
 		  </c:if>
+		  <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 		  <c:forEach items="${fundinglist }" var="fund" varStatus="i">
+		   <jsp:setProperty property="date1" name="dateUtil" value="${fund.sdate }"/>
+		  <jsp:setProperty property="date2" name="dateUtil" value="${fund.edate }"/>
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
@@ -55,7 +58,7 @@
                     <div class="right-content">
                       <h3>${fund.title }</h3>
                       <div>
-                     	 <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font>${fund.sdate } ~ ${fund.edate }</font><span id="expired-attend${i.index }" class="expired"></span>
+                     	 <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="dateString1" name="dateUtil"/> ~ <jsp:getProperty property="dateString2" name="dateUtil"/></font><span id="expired-attend${i.index }" class="expired"></span>
                       </div>
                       <div>
                       	<img src="./mypage_resources/mypage_s/images/like.png" class="playicon">&nbsp;&nbsp;<font>${fund.likecount }</font>                      
@@ -63,11 +66,11 @@
                       <div>
     	             	<img src="./mypage_resources/mypage_s/images/angels.png" class="playicon">&nbsp;&nbsp;<font>${fund.personcount}명의 후원</font>
                       </div>
-                       <div id="checkExpired-fund${i.index }" edate="${fund.edate }" current_price="${fund.current_price }" max_price="${fund.max_price }">
+                       <div id="checkExpired-fund${i.index }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>" current_price="${fund.current_price }" max_price="${fund.max_price }">
                      	 <img src="./mypage_resources/mypage_s/images/fundprice.png" class="playicon">&nbsp;&nbsp;<font>${fund.current_price } / ${fund.max_price }&nbsp;원&nbsp;( 나의 후원금 : ${fund.donation }&nbsp;원 )</font>
                       </div>
-                      <div class="primary-button">
-                        <a href="#">Read More</a>
+                      <div class="primary-button"  seq="${fund.seq }">
+                        <a>Read More</a>
                       </div>
                     </div>
                   </div>
@@ -90,17 +93,16 @@
 $(document).ready(function(){
 	
 	<%
-	List<MypageFundingParam> fundinglist = (List<MypageFundingParam>)request.getAttribute("fundinglist"); 
+	List<FundingDto> fundinglist = (List<FundingDto>)request.getAttribute("fundinglist"); 
 	%>
 	<%
 	for(int i = 0; i <fundinglist.size() ; i++){
 	%>
 		var current_price = $("#checkExpired-fund<%=i%>").attr("current_price");
 		var max_price =  $("#checkExpired-fund<%=i%>").attr("max_price");
-		var edate =  new Date($("#checkExpired-fund<%=i%>").attr("edate"));
-		var today = new Date();
+		var edate = $("#checkExpired-fund<%=i%>").attr("isEnd");
 		
-		if(edate.getTime()<=today.getTime() || current_price == max_price){
+		if(edate == 0 || current_price == max_price){
 			$("#expired-attend<%=i%>").text("  마감 ");	
 		}
 		
@@ -108,7 +110,13 @@ $(document).ready(function(){
 	}
 	%>
 
-	
+	$(".primary-button").on("click",function(){
+		var seq = $(this).attr("seq");
+		location.href="fundingDetail.do?seq="+seq+"&email="+<%=request.getAttribute("login")%>;
+		
+		
+		
+	});
 	$("#searchBtn").on("click", function(){
 		$("#frm").attr("action","mypageplaylist.do").submit();
 	});

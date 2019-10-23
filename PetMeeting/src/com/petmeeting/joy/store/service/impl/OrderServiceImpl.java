@@ -293,7 +293,7 @@ public class OrderServiceImpl implements OrderService {
 		String json = "[";
 		for (int i = 0; i < list.size(); i++) {
 			SalesDto sales = list.get(i);
-			json += "{name:'" + sales.getProductname() + "',y:" + sales.getSales() + "},";
+			json += "{name:\"" + sales.getProductname() + "\",y:" + sales.getSales() + "},";
 		}
 		json = json.substring(0, json.lastIndexOf(","));
 		

@@ -32,7 +32,8 @@ public interface AdminService {
 	
 	public AdminMemberDto getMemberDetail(String email);
 	
-	public void insertLeaveMember(List<ReportDto> leaveMemberList);
+	public void pauseMember(String email);
+	public void cancelPauseMember(String email);
 	
 	public List<ReportDto> getMemberReportReason(String email);
 	

@@ -3,16 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%!public String dot3(String msg){
-	String str = "";
-	if(msg.length() >= 17){
-		str = msg.substring(0,15);	// 0에서 9까지
-		str += "...";
-	}else{
-		str = msg.trim();
-	}
-	return str;
-}%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,36 +17,13 @@
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.js'></script>
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.js'></script>
 <%
-	//Data를 넣기 위해 json 생성
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
 	List<PlayboardDto> makelist = (List<PlayboardDto>) request.getAttribute("mymakeList");
-	String jsonData = "[";
-	if(!joinlist.isEmpty()){
-		
-		for (PlayboardDto pdto : joinlist) {
-	jsonData += "{title:'" + dot3(pdto.getTitle()) + "', start:'" + pdto.getPdate() + "', backgroundColor:'#ff9c3d' },";
-		}
-	}
-	if(!makelist.isEmpty()){
-		for (PlayboardDto pdto : makelist) {
-	jsonData += "{title:'" + dot3(pdto.getTitle()) + "', start:'" + pdto.getPdate() + "', backgroundColor:'#ffe7c1' },";
-		}		
-	}
-	if(jsonData.equals("[")){
-		jsonData = "";			
-	}
-	else{
-		jsonData = jsonData.substring(0, jsonData.lastIndexOf(","));
-		jsonData += "]";		
-	}
-
-
-	System.out.println("jsonData" + jsonData);
-	//calendar에서 불러주기 위한 json data
-	request.setAttribute("jsonData", jsonData);
+	String jsonData = (String)request.getAttribute("jsonData");
 %>
 
 <script>
+var jsonData = 
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
 	var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -70,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		  <%
 			if(!jsonData.equals("")){	
 			%>
-			events : <%=request.getAttribute("jsonData")%>,
+			events : <%=jsonData%>,
 			<%
 			 }
 			 %>
@@ -84,7 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <body class="is-preload">
-	<jsp:include page="../main.jsp" flush="false" />
+  <header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+    </header>
 <!-- Wrapper -->
 <div id="wrapper">
 
@@ -234,22 +204,25 @@ document.addEventListener('DOMContentLoaded', function() {
 									            <div class="content">
 									          			<div id='calendar'></div>
 									        
-            </div>
-        </li>
-    </ul>
-</div>
+			            </div>
+			        </li>
+			    </ul>
+			</div>
 									
 								</div>
 							</div>
 							<div class="left-box">
-									<table border="1">
+									 <label for="flwer-play-activity">팔로워의 최신 소모임</label>
+									 <div class="flwer-activity">
+									<table id="flwer-play-activity">
 									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
-									<col width="20%"><col width="60%"><col width="20%">
+									<col width="15%"><col width="55%"><col width="25%">
 									<c:if test="${ empty flwerAllPlayList }">
 									<tr>
 										<td>이번주의 팔로워 글이 없습니다.</td>
 									</tr>
 									</c:if>
+									<jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 									<c:if test="${ not empty flwerAllPlayList }">
 										<tr>
 										<th>팔로워</th>
@@ -257,24 +230,64 @@ document.addEventListener('DOMContentLoaded', function() {
 										<th>모임 예정일</th>
 										</tr>
 										<c:forEach items="${flwerAllPlayList }" var="play" varStatus="i">
+											<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
 											<tr>
 											<td>
-												<img src="${play.myprofile_img }">
+												<img src="${play.myprofile_img }" class="list-profileimg">
 												<br>
 												${play.nickname }
 											</td>
 											
-											<td>
+											<td align="left">
 												${play.sort }
 												<br>
 												${play.category }&nbsp;${play.title }
 											</td>
 											
-											<td>${play.pdate }</td>
+											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
 											</tr>
 										</c:forEach>
 									</c:if>
 									</table>
+									</div>
+									
+									 <label for="flwer-play-activity">팔로워의 최신 게시글</label>
+									 <div class="flwer-activity">
+									<table id="flwer-free-activity">
+									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
+									<col width="15%"><col width="55%"><col width="25%">
+									<c:if test="${ empty flwerFreeList }">
+									<tr>
+										<td>이번주의 팔로워 글이 없습니다.</td>
+									</tr>
+									</c:if>
+									<c:if test="${ not empty flwerFreeList }">
+										<tr>
+										<th>팔로워</th>
+										<th>게시글 정보</th>
+										<th>작성일</th>
+										</tr>
+										<c:forEach items="${flwerFreeList }" var="free" varStatus="i">
+											<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
+											<tr>
+											<td>
+												<img src="${free.myprofile_img }" class="list-profileimg">
+												<br>
+												${free.nickname }
+											</td>
+											
+											<td align="left">
+												${free.sort }
+												<br>
+												${free.category }&nbsp;${free.title }
+											</td>
+											
+											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
+											</tr>
+										</c:forEach>
+									</c:if>
+									</table>
+									</div>
 							</div>
 					</div>
 				</div>

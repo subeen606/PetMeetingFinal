@@ -13,15 +13,16 @@
 
 </head>
 <body class="is-preload">
-	<jsp:include page="../main.jsp" flush="false" />
-	
+	  <header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+    </header>
 <!-- Wrapper -->
 <div id="wrapper">
 
   <!-- Main -->
 	<div id="main">
 		<div class="inner">
-			<h2>내 프로필 정보</h2>
+			<h2>나의 프로필</h2>
 			<hr>							
 			<section class="main-container">
 				<div class="container-fluid">

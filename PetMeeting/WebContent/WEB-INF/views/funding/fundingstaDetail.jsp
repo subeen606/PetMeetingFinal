@@ -19,6 +19,7 @@
 
 <form id=frm method="post">
 	<input type="hidden" name="seq" value="${sta.seq }">
+	<%-- <input type="hidden" name="content" value="${sta.content }"> --%>
 	
 	<c:if test="${login.auth eq 8 }">
 		<div id="staTitle">후원내역서</div>

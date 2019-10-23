@@ -27,7 +27,6 @@ import com.petmeeting.joy.store.model.ProductOptionDto;
 import com.petmeeting.joy.store.model.ProductParam;
 import com.petmeeting.joy.store.model.QnaBean;
 import com.petmeeting.joy.store.model.QnaParam;
-import com.petmeeting.joy.store.model.QuestionDto;
 import com.petmeeting.joy.store.model.RefundDto;
 import com.petmeeting.joy.store.model.ReviewBean;
 import com.petmeeting.joy.store.model.ReviewParam;
@@ -406,6 +405,20 @@ public class StoreAdminController {
 		return "admin/store/adorderlist";
 	}
 	
+	@RequestMapping(value = "adorderdetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adorderdetail(Model model, OrderInfoDto oiDto) {
+		
+		List<OrderInfoDto> mylist = orderService.getOrderDetailList(oiDto);
+		System.out.println(mylist.toString());
+		int usepoint = orderService.getUse_Point(oiDto);
+		
+		model.addAttribute("mylist", mylist);
+		model.addAttribute("usepoint", usepoint);
+				
+	
+		return "admin/store/adorderdetail";
+	}
+	
 	
 	@RequestMapping(value = "adrefundlist.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adrefundlist(Model model, OrderParam param) {
@@ -440,6 +453,28 @@ public class StoreAdminController {
 		
 		return "admin/store/adrefundlist";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "adrefundproduct.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<OrderInfoDto> adrefundproduct(int seq) {
+		System.out.println("------------------------------------ adrefundproduct 들왔다! ");
+		
+		System.out.println("adrefundproduct seq " + seq);
+		
+		List<OrderInfoDto> olist = orderService.getRefundProductList(seq);
+		System.out.println("adrefundproduct olist "+ olist.toString());
+		
+		return olist;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "adcancelpay.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public void adcancelpay() {
+		System.out.println("------------------------------------ adcancelpay 들왔다! ");
+
+	}
+	
 		
 	@RequestMapping(value = "adproductdetail.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adproductdetail(Model model, String pcode) {

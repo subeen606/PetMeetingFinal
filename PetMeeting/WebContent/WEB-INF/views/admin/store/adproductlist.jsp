@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
 <style type="text/css">
 input[type=checkbox] { display:none; }
 
@@ -40,8 +39,6 @@ input[type=checkbox]:checked + label {
 		<div class="container">
 			<div style="margin: 40px 0;">
 				<font style="font-size: 1.5rem;">상품 관리</font>
-				<button type="button" onclick="location.href='adproductadd.do'" style="float:right;">상품등록</button>
-				<button type="button" onclick="location.href='adproductoption.do'" style="float:right; margin-right: 10px;">상품옵션등록</button>
 			</div>
 			<div class="search-wrap">
 				<form id="search-form" method="post">
