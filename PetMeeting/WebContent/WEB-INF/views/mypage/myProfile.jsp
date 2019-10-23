@@ -131,9 +131,7 @@
 $(document).ready(function(){
 	
 	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
-	$('input[type="checkbox"]').bind('click',function() {
-	    $('input[type="checkbox"]').not(this).prop("checked", false);
-	});
+	//$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
 	
 	var gender = $("#gender").val();
 	

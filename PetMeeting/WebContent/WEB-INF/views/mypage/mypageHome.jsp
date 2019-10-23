@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									        <li>
 									            <input type="radio" id="radio-1" name="radio-accordion" />
 									            <label for="radio-1">포인트 사용내역</label>
-									            <div class="content">
+									            <div class="content plistcontent">
 									            
 									        	
 									            </div>
@@ -321,7 +321,7 @@ $(document).ready(function(){
 	
 	
 	var frmdata = $("#frm").serialize();
-	$(".content").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
+	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
 	
 });
 
@@ -331,7 +331,7 @@ function goPage(pageNumber){
 	$("#_recordCountPerPage").val("${pparam.recordCountPerPage}");
 	
 	var frmdata = $("#frm").serialize();
-	$(".content").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
+	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
 };
 
 

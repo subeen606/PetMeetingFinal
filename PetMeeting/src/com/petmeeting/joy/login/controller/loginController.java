@@ -122,7 +122,7 @@ public class loginController {
 		System.out.println("snsLoginCheck.do 넘어온 param : " + param.toString() );
 		
 		MemberDto user = memService.kakaologinCheck(param);
-		
+	
 		int num;
 		boolean leaveCheck = memService.leaveMemCheck(param.getEmail());		
 		

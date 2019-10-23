@@ -6,7 +6,7 @@ function loginWithKakao() {
   // 로그인 창을 띄웁니다.
   Kakao.Auth.login({
     success: function(authObj) {
-  	  alert(JSON.stringify(authObj));
+  	  //alert(JSON.stringify(authObj));
 
 		console.log(JSON.stringify(authObj));
 		console.log(Kakao.Auth.getAccessToken());
@@ -53,18 +53,18 @@ function loginWithKakao() {
 							url : "snsLoginCheck.do",
 							method : "post",
 							data : mydata,							
-							success : function(msg) {
-								console.log("idChk = " + msg);
+							success : function(num) {
+								console.log("snsLoginCheck idChk = " + num);
 
-								if (num == 0) { //DB에 아이디가 없을 경우 => 회원가입
+								if (num == 0) {
 									console.log("회원가입중...");
 									alert("카카오계정으로 등록된 회원 정보가 없습니다. 추가적인 가입 절차를 진행합니다.");
 									$("#signup").parent().removeClass("slide-up");
 									$("#login").parent().parent().addClass("slide-up");
 									email.attr("readonly",true);
 									
-								}							
-								if (num == 1) { //DB에 아이디가 있는 경우 => 로그인 
+								}					
+								else if (num == 1) { //DB에 아이디가 있는 경우 => 로그인 
 									console.log("로그인중...");
 									var accountString = $("#account-form").serialize() ;
 									// 로그인 포인트 지급여부
@@ -85,19 +85,19 @@ function loginWithKakao() {
 										}
 									});
 								}
-								if( num == 2 ) {
+								else if( num == 2 ) {
 									console.log("탈퇴한회원");
 									alert("해당 계정은 탈퇴한 계정입니다.");
 								}
-								if (num == 3) {
+								else if (num == 3) {
 									console.log("신고 횟수가 10번 이상 접수되어 자동으로 활동정지된 계정입니다.");
 									alert("신고 횟수가 10번 이상 접수되어 자동으로 활동정지된 계정입니다.");
 								}
-								if (num == 4) {
+								else if (num == 4) {
 									console.log("관리자 권한으로 활동정지된 계정입니다.");
 									alert("관리자 권한으로 활동정지된 계정입니다.");
 								}
-								if( num == 8 ) {
+								else if( num == 8 ) {
 									console.log("관리자계정");
 									location.href="adminMain.do";
 								}
@@ -105,6 +105,7 @@ function loginWithKakao() {
 						})
 					},
 					fail : function(error) {
+						alert("snsLoginCheck err");
 						alert(JSON.stringify(error));
 					}					
 				});//request 끝

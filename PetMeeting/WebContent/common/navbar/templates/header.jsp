@@ -47,7 +47,7 @@
                         <a href="#"><i class="flaticon-phone"></i>+02 213 - 256 (365)</a>
                         <a href="#" class="btn_1 d-none d-md-inline-block">Become a Volunteer</a>
                       </div>
-                    </div>
+                  </div>
                      -->
                 </div>
             </div>
