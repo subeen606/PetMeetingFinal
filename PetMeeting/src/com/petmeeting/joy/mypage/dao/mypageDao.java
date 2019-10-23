@@ -2,6 +2,7 @@ package com.petmeeting.joy.mypage.dao;
 
 import java.util.List;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.MyGradeDto;
@@ -17,6 +18,7 @@ import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
 import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
 
@@ -79,6 +81,10 @@ public interface mypageDao {
 	
 	//내가 좋아하는 소모임!!
 	public List<PlayboardDto> mypageplayboardlike(MypagemylikeDto param);
+	
+	//내가 좋아하는 게시판글 
+	public List<FreeboardDto> mypagefreeboardlike(MypagemylikefreeboardDto param);
+	
 	
 	///////////////////////////////유정//////////////////////
 

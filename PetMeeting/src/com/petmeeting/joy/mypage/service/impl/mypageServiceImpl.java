@@ -10,6 +10,7 @@ import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.dao.mypageDao;
@@ -26,6 +27,7 @@ import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
 import com.petmeeting.joy.mypage.model.Mypagememandpet;
 import com.petmeeting.joy.mypage.model.MypagemylikeDto;
+import com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto;
 import com.petmeeting.joy.mypage.model.Mypagewebpush;
 import com.petmeeting.joy.mypage.service.mypageService;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
@@ -260,11 +262,19 @@ public class mypageServiceImpl implements mypageService {
 		return mypageDao.mypageplayboardlike(param);
 	}
 	
+     @Override
+	  public List<FreeboardDto> mypagefreeboardlike(MypagemylikefreeboardDto param) {
+		return mypageDao.mypagefreeboardlike(param);
+	}
 
+	
+	
+	
 	// 유정/////////////////
 
 	/* ======================== 유정 ======================= */
 
+	
 	// 로그인 유저 정보 가져오기
 	@Override
 	public MemberDto getUser(String email) {

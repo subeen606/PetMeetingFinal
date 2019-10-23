@@ -187,7 +187,7 @@ $(document).ready(function(){
 	List<PlayboardDto> makelist = (List<PlayboardDto>)request.getAttribute("mymakeList");%>
 	
 	
-	var today = new Date();
+
 
 	
 	<%

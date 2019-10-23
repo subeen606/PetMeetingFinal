@@ -166,6 +166,23 @@ AND DEL=0
 ORDER BY PDATE DESC
 </select>
 
+
+<!-- 내가 좋아하는 자유게시판 글 -->
+<select id="mypagefreeboardlike" parameterType="com.petmeeting.joy.mypage.model.MypagemylikefreeboardDto"
+resultType="com.petmeeting.joy.freeboard.model.FreeboardDto">
+SELECT * FROM PM_FREEBOARD WHERE SEQ IN
+(SELECT BOARD_SEQ FROM PM_BOARD_LIKE WHERE  BOARD_CODE !='FUND' AND BOARD_CODE !='PLAY' AND
+EMAIL= #{email})
+<if test="board_code != '게시판 유형' and board_code != null and board_code !=''" >AND BOARD_CODE LIKE '%'||#{board_code}||'%'</if>
+<if test="category != '분류 유형' and category != null and category !=''" > AND CATEGORY LIKE '%'||#{category}||'%' </if>
+<if test="selection != '선택' and selection != null and selection !='' and keyword != null and keyword !='' ">
+<if test="selection == '제목'"> AND TITLE LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '이메일'">AND EMAIL LIKE '%'||#{keyword}||'%' </if>
+</if>
+AND  DEL=0
+</select>
+
+
 <!-- 유정    ==========================================   -->
 <select id="checkMemberLeave" parameterType="java.lang.String" resultType="java.lang.Integer">
 SELECT COUNT(*) FROM PM_LEAVEMEMBER WHERE EMAIL=#{email}

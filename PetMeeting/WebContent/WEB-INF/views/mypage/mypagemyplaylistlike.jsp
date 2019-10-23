@@ -20,8 +20,9 @@
 /* List<PlayboardDto>list=(List)request.getAttribute("list"); */
 //System.out.println("체크중임"+list.get(0));
 %>
-
-<jsp:include page="../main.jsp" flush="false" />
+<header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+</header>
 <div id="wrapper">
 
   <!-- Main -->
@@ -70,9 +71,9 @@
                </div>
              </section>
 		  </c:if>
+		
 		  <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 		  <c:forEach items="${myattendList }" var="attend" varStatus="i">
-				<jsp:setProperty property="date1" name="dateUtil" value="${attend.pdate }"/>
 				<jsp:setProperty property="date2" name="dateUtil" value="${attend.pdate }"/>
 				<jsp:setProperty property="date3" name="dateUtil" value="${attend.edate }"/>
 				<jsp:setProperty property="location" name="dateUtil" value="${attend.location }"/>
@@ -177,7 +178,7 @@ function playboarddetail(e) {
 		
 		
 		
-		var today = new Date();
+		
 		
 		<%
 		List<PlayboardDto> attendlist = (List<PlayboardDto>)request.getAttribute("myattendList"); 
@@ -188,14 +189,11 @@ function playboarddetail(e) {
 			
 			var people = $("#checkExpired-attend<%=i%>").attr("people");
 			var personcount =  $("#checkExpired-attend<%=i%>").attr("personcount");
-			var edate =  new Date($("#checkExpired-attend<%=i%>").attr("edate"));
-			var today = new Date();
+			var edate =  $("#checkExpired-attend<%=i%>").attr("isEnd");
 			
 			
-			
-			if(edate.getTime()<=today.getTime() || people == personcount){
-			
-				$("#expired-attend<%=i%>").text('  마감 ');	
+			if(edate == 0 || people == personcount){
+				$("#expired-attend<%=i%>").text("  마감 ");	
 			}
 		<%	
 		}
