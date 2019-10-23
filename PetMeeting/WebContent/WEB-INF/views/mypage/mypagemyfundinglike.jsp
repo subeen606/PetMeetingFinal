@@ -2,7 +2,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.petmeeting.joy.funding.model.FundingDto"%>    
+<%@page import="com.petmeeting.joy.funding.model.FundingDto"%>
+
+    
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -45,7 +47,9 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
                    </div>
                </div>
              </section>
+		  
         </c:if>
+        
         <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
         <c:forEach items="${fundinglist }" var="fund" varStatus="i">
          <jsp:setProperty property="date1" name="dateUtil" value="${fund.sdate }"/>
@@ -53,6 +57,7 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
        
         
           <div id="section${i.index}">
+
             
             <section class="left-image">
               <div class="container-fluid">
@@ -65,7 +70,9 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
                     <div class="right-content">
                       <h3>${fund.title }</h3>
                       <div>
-                         <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="dateString1" name="dateUtil"/> ~ <jsp:getProperty property="dateString2" name="dateUtil"/></font><span id="expired-attend${i.index }" class="expired"></span>
+                     	 <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="dateString1" name="dateUtil"/> ~ <jsp:getProperty property="dateString2" name="dateUtil"/></font><span id="expired-attend${i.index }" class="expired"></span>
+
+                  
                       </div>
                       <div>
                          <img src="./mypage_resources/mypage_s/images/like.png" class="playicon">&nbsp;&nbsp;<font>${fund.likecount }</font>                      
@@ -74,8 +81,9 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
                        <img src="./mypage_resources/mypage_s/images/angels.png" class="playicon">&nbsp;&nbsp;<font>${fund.personcount}명의 후원</font>
                       </div>
                       <div id="checkExpired-fund${i.index }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>" current_price="${fund.current_price }" max_price="${fund.max_price }">
-                         <img src="./mypage_resources/mypage_s/images/fundprice.png" class="playicon">&nbsp;&nbsp;<font>${fund.current_price } / ${fund.max_price }&nbsp;원&nbsp;( 나의 후원금 : ${fund.donation }&nbsp;원 )</font>
+                         <img src="./mypage_resources/mypage_s/images/fundprice.png" class="playicon">&nbsp;&nbsp;<font>${fund.current_price } / ${fund.max_price }&nbsp;원&nbsp;</font>
                       </div>
+
                       <div class="primary-button">
                         <a href="fundingDetail.do?seq=${fund.seq}&email=<%=member.getEmail()%>">Read More</a>
                       </div>
@@ -104,7 +112,9 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
 
 
  $("#js-btn-wrap").click(function () {
-   
+
+	
+	 
     var nowpage1=$(".nowpage").val();
     $(".nowpage").val( Number(nowpage1)+5);     
     var nowpage2=$(".nowpage").val();
@@ -113,6 +123,7 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
        $("#section"+i).fadeIn(3000);
     }
     var offset = $("#section" + nowpage1).offset();
+
     $('html, body').animate({scrollTop : offset.top}, 400);
 
    
@@ -133,6 +144,15 @@ $(document).ready(function(){
         $("#js-btn-wrap").hide();
     }
 
+
+	for(var i = Number(nowpage) ; i<totalsize ; i++){
+		
+		$("#section"+i).hide();
+	}	
+	
+	
+	
+
    for(var i = Number(nowpage) ; i<totalsize ; i++){
       
       $("#section"+i).hide();
@@ -140,7 +160,7 @@ $(document).ready(function(){
    
    
    <%
-   List<FundingDto> fundinglist = (List<FundingDto>)request.getAttribute("fundinglist"); 
+   List<FundingDto> fundinglist = (List)request.getAttribute("fundinglist"); 
    %>
    <%
    for(int i = 0; i <fundinglist.size() ; i++){
@@ -156,6 +176,7 @@ $(document).ready(function(){
    <%
    }
    %>
+
 
    
    $("#searchBtn").on("click", function(){

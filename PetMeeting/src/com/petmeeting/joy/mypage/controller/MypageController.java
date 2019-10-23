@@ -550,7 +550,7 @@ public class MypageController {
 		     
 		     List<PlayboardDto> list=mypageService.mypageplayboardlike(param);
 		     
-		     model.addAttribute("list", list);
+		     model.addAttribute("myattendList", list);
 		     
 		     
 		     return "mypage/mypagemyplaylistlike";
@@ -558,6 +558,22 @@ public class MypageController {
 		
 		
 	 
+		
+		//나의 좋아요 게시글
+				@RequestMapping(value = "mypageboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
+				 public String mypageboardlike(MypagemylikeDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+					
+					
+					System.out.println("나의 좋아요  게시글");
+				     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+				     param.setEmail(member.getEmail()); 
+				  
+				     
+				     
+				     return "mypage/mypageboardlike";
+				}
+				
+				
 	 
 	  
 	  ////////////////////////////////////////////////////////////////////////////////////////////
