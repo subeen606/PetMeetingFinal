@@ -26,7 +26,7 @@
     <!-- style CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/style.css">
     <!-- 우리가 추가한 css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css">
 </head>
 <body>
 
@@ -34,39 +34,49 @@
     <header class="header_area">
         <div class="sub_header">
             <div class="container">
+               
+                
                 <div class="row align-items-center">
-                 <!--  <div class="col-4 col-md-4 col-xl-6"> -->
-                      <div id="logo">
-                          <a href="main.do"><img src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogo.png" alt="" title="" width="400px" /></a>
+                  <div class="col-4 col-md-4 col-xl-6">
+                       <div id="logo">
+                          <a href="main.do"><img src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogo.png" alt="" title="" width="300px" /></a>
                       </div>
-                      
-                  <!-- </div> -->
-                  <!-- 
+                  </div>
                   <div class="col-8 col-md-8 col-xl-6 ">
-                      <div class="sub_header_social_icon float-right">
-                        <a href="#"><i class="flaticon-phone"></i>+02 213 - 256 (365)</a>
-                        <a href="#" class="btn_1 d-none d-md-inline-block">Become a Volunteer</a>
-                      </div>
+                    <div class="sub_header_social_icon float-right">
+                         <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
+                         
+                         
+                        
+				        <div id="loginInfo">				        
+				            <input type="hidden" class='nowmymsg' value="-1">
+				        	<c:if test="${not empty login }">			        		
+				        		<img src="${pageContext.request.contextPath}/common/img/usericon.png" width="20px" />&nbsp;
+				        		${login.nickname }		        		
+				        		 <div class="myDropDown">
+									<ul>
+										<li><a href="mypagehome.do">마이페이지</a></li>	
+										<li><a href="myrevmsg.do?recordCountPerPage=10">나의 쪽지함</a></li>									
+										<li><a href="logout.do">로그아웃</a></li>										
+									</ul>
+								</div>			        		
+								<!-- 
+				        		<a href="mypagehome.do">나의페이지</a>
+				        		<a href="logout.do">로그아웃</a>
+				        		 -->
+				        	</c:if>
+				        	
+				        	<c:if test="${empty login }">
+				        		<a href="login.do" target="_self">로그인</a>
+				        	</c:if>
+				           
+				        </div>
+                   		</div>
                     </div>
-                     -->
                 </div>
             </div>
         </div>
-        
-         <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
-        <div id="loginInfo">
-            <input type="hidden" class='nowmymsg' value="-1">
-        	<c:if test="${not empty login }">
-        		<a href="mypagehome.do">나의페이지</a>
-        		<a href="logout.do">로그아웃</a>
-        	</c:if>
-        	
-        	<c:if test="${empty login }">
-        		<a href="login.do" target="_self">로그인</a>
-        	</c:if>
-           
-        </div>
-        
+
         <div class="main_menu">
             <div class="container">
                 <div class="row">
@@ -110,9 +120,13 @@
     </header>
     <!-- Header part end-->
     
+    
+    
+    
+    
     <!-- jquery plugins here-->
     <!-- jquery -->
-   	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- popper js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>
     <!-- bootstrap js -->
@@ -127,5 +141,22 @@
     <script src="${pageContext.request.contextPath}/common/navbar/js/owl.carousel.min.js"></script>
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/custom.js"></script>
+    
+    
+    <script type="text/javascript">
+    $(function () {
+		$("#loginInfo").click(function () {
+			if($(".myDropDown").css("display") == "block" ){
+				$(".myDropDown").css("display", "none");
+			}else if($(".myDropDown").css("display") == "none" ){
+				$(".myDropDown").css("display", "block");
+			}
+		});
+		$(window).scroll(function(event){ 
+			$(".myDropDown").css("display", "none");
+		});	
+	});
+    </script>
+    
 </body>
 </html>
