@@ -53,7 +53,7 @@
 					<option value="닉네임">닉네임</option>
 				</select>
 				<input type="search" name="search_txt">
-				<button type="button" id="searchBtn">검색</button>
+				<button type="button" id="searchBtn" class="search-btn"></button>
 				</div>
 			</form>
 			

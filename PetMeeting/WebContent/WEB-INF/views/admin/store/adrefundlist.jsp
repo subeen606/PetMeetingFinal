@@ -87,9 +87,9 @@ color: #818181;
 						<div style="float: left;">
 							<select class="search-select" name="sorting_category">
 								<option value="">전체</option>
-								<option value="1">반품신청</option>
+								<option value="1">반품대기</option>
 								<option value="3">반품완료</option>
-								<option value="4">교환신청</option>
+								<option value="4">교환대기</option>
 								<option value="6">교환완료</option>
 							</select>
 						</div>
@@ -183,12 +183,12 @@ color: #818181;
 						<tr>
 							<td colspan="7">
 							<jsp:include page="/WEB-INF/views/store/mystore/paging.jsp" flush="false">
-									<jsp:param name="" value="type" />
-									<jsp:param name="pageNumber" value="${pageNumber }" />
-									<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
-									<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
-									<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
-							</jsp:include>
+										<jsp:param name="type" value="" />
+										<jsp:param name="pageNumber" value="${pageNumber }" />
+										<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+										<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
+										<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
+								</jsp:include>
 							</td>
 						</tr>
 					</tbody>
@@ -318,12 +318,6 @@ $(".status-refund").click(function () {
 		alert("tp " + totalprice);
  });
 
-// 페이징 함수
-function goPage( type, pageNumber ) {
-	$("#_pageNumber").val(pageNumber);
-	$("#search-form").attr("action", "adrefundlist.do").submit();
-};
-
 
 
 // 리뷰 이미지 클릭 시 모달 띄우기
@@ -434,7 +428,6 @@ $('#slider-wrap').hover(
 });
 
 
-
 // Slider page option
 function countSlides(pos, totalSlides){
    $('#counter').html(pos+1 + ' / ' + totalSlides);
@@ -443,6 +436,12 @@ function pagination(pos){
    $('#pagination-wrap ul li').removeClass('active');
    $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
 }
+
+//페이징 함수
+function goPage( type, pageNumber ) {
+	$("#_pageNumber").val(pageNumber);
+	$("#search-form").attr("action", "adrefundlist.do").submit();
+};
 
 </script>
 

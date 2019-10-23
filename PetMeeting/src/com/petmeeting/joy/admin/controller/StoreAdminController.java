@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
@@ -439,6 +438,10 @@ public class StoreAdminController {
 		
 		param.setStart(start);
 		param.setEnd(end);
+
+		System.out.println(param.toString());
+		System.out.println("trc " + totalRecordCount);
+		System.out.println("pn " + pageNumber);
 		
 		List<RefundDto> rlist = orderService.getAdminRefundList(param);
 		System.out.println("RLIST : " + rlist.toString());		
