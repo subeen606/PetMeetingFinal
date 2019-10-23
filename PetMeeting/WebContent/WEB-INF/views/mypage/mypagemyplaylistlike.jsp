@@ -1,8 +1,10 @@
 <%@page import="org.omg.PortableInterceptor.SYSTEM_EXCEPTION"%>
-<%@page import="com.petmeeting.joy.playboard.model.PlayboardDto"%>
 <%@page import="java.util.List"%>
+<%@page import="com.petmeeting.joy.playboard.model.PlayboardDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +17,7 @@
 </head>
 <body>
 <%
-List<PlayboardDto>list=(List)request.getAttribute("list");
+/* List<PlayboardDto>list=(List)request.getAttribute("list"); */
 //System.out.println("체크중임"+list.get(0));
 %>
 
@@ -57,67 +59,64 @@ List<PlayboardDto>list=(List)request.getAttribute("list");
 
 
 <div class="attend" id="_attend">
-<%
-    if(list.size()==0|| list==null){
-    	%>
-    	 <section class="left-image" >
-         <div class="container-fluid">
-           	<div class="row">
-           		<div class="empty-playlist">
-				  	<font>  활동이 없습니다.  </font>
-           		</div>
-           	</div>
-          </div>
-        </section>
-        <%
-    }else{
-        for(int i=0; i<list.size();i++){
-	      PlayboardDto dto=list.get(i);
-	      %>
-	      <div id="section<%=i%>">
-	 	 <section class="left-image"  >
-         <div class="container-fluid">
-           	<div class="row">
-           		<div class="col-md-4">
-           		  <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
-           		</div>
-           		<div class="col-md-4">
-           		   <div class="right-content">
-           		   <h3>[<%=dto.getCategory()%>]<%=dto.getTitle() %></h3>
-           		    <div>
-           		      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<font><%=dto.getPdate() %></font><span id="expired-attend<%=i%>" class="expired"></span>
-           		    </div>
-           		    <div>
-                	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font><%=dto.getLocation() %></font>
-                    </div>
-           		    <div>
-                      <img src="./mypage_resources/mypage_s/images/like.png" class="playicon">&nbsp;&nbsp;<font><%=dto.getLikecount() %></font>                      
-                    </div>
-           		    <div id="checkExpired-attend<%=i %>" personcount="<%=dto.getPersoncount() %>" people="<%=dto.getPeople() %>" edate="<%=dto.getEdate()%>">
-    	            <img src="./mypage_resources/mypage_s/images/people.png" class="playicon">&nbsp;&nbsp;<font><%=dto.getPersoncount() %>명 참여중  모집인원<%=dto.getPeople()%>명</font>
-                     </div>
-                     <div class="primary-button">
-                        <a href="#" onclick="playboarddetail(<%=dto.getSeq()%>)">Read More</a>
+ <c:if test="${empty myattendList  }">
+		     <section class="left-image">
+              <div class="container-fluid">
+                	<div class="row">
+                		<div class="empty-playlist">
+					  	<font>참여한 활동이 없습니다.</font>
+                		</div>
+                	</div>
+               </div>
+             </section>
+		  </c:if>
+		  <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
+		  <c:forEach items="${myattendList }" var="attend" varStatus="i">
+				<jsp:setProperty property="date1" name="dateUtil" value="${attend.pdate }"/>
+				<jsp:setProperty property="date2" name="dateUtil" value="${attend.pdate }"/>
+				<jsp:setProperty property="date3" name="dateUtil" value="${attend.edate }"/>
+				<jsp:setProperty property="location" name="dateUtil" value="${attend.location }"/>
+            <div id="section${i.index}">
+            <section class="left-image">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4">
+                      <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
+              <!--     <img src="${attend.filename }" alt=""> -->  
+                  </div>
+                  <div class="col-md-4">
+                    <div class="right-content">
+                      <h3>[${attend.category}] ${attend.title }</h3>
+                      <div>
+                      <img src="./mypage_resources/mypage_s/images/calendar.png" class="playicon">&nbsp;&nbsp;<jsp:getProperty property="dateString1" name="dateUtil"/><span id="expired-attend${i.index }" class="expired"></span>
                       </div>
-                     
-           		    
-           		   </div>
-           		</div>
-           		
-           	</div>
+                      <div>
+                	    <img src="./mypage_resources/mypage_s/images/location.png" class="playicon">&nbsp;&nbsp;<font><jsp:getProperty property="simpleLoc" name="dateUtil"/></font>
+                      </div>
+                      <div>
+                      <img src="./mypage_resources/mypage_s/images/like.png" class="playicon">&nbsp;&nbsp;<font>${attend.likecount }</font>                      
+                      </div>
+                      <div id="checkExpired-attend${i.index }" personcount="${attend.personcount}" people="${attend.people }" isEnd="<jsp:getProperty property='isEnd3' name='dateUtil'/>">
+    	            <img src="./mypage_resources/mypage_s/images/people.png" class="playicon">&nbsp;&nbsp;<font>${attend.personcount}명 참여중  모집인원 ${attend.people }명</font>
+                     </div>
+                      <div class="primary-button" onclick="playboarddetail(${attend.seq})" seq="${attend.seq }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">
+                        <a>Read More</a>
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </section>
+
+			<hr>
           </div>
+             </c:forEach>
          
-          </section>
-          <hr>
-        </div>
-          <%
-	
-	
-     }
-}
-%>
+        
+
  <input type="hidden" class="nowpage" value="5" >
- <input type="hidden" class="totallist" value="<%=list.size() %>">
+ <input type="hidden" class="totallist" value="${myattendList.size()}">
  <div id="js-btn-wrap" class="btn-wrap"><a href="javascript:;" class="moreBtn" style="color:#23527c">LOAD MORE</a> </div>
 
 </div>
@@ -142,6 +141,7 @@ function playboarddetail(e) {
 	
 };
  $("#js-btn-wrap").click(function () {
+	 
 	 var nowpage1=$(".nowpage").val();
 	 $(".nowpage").val( Number(nowpage1)+5);     
 	 var nowpage2=$(".nowpage").val();
@@ -177,10 +177,13 @@ function playboarddetail(e) {
 		
 		
 		
-		
+		var today = new Date();
 		
 		<%
-		for(int i=0;i<list.size();i++){
+		List<PlayboardDto> attendlist = (List<PlayboardDto>)request.getAttribute("myattendList"); 
+		
+		
+		for(int i=0;i<attendlist.size();i++){
 			%>
 			
 			var people = $("#checkExpired-attend<%=i%>").attr("people");
