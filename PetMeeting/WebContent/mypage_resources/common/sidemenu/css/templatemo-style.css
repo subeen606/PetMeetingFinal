@@ -136,7 +136,8 @@ h1, h2, h3, h4, h5, h6, a, span{
 	float: left;
 }
 
-#sidebar>.inner>.Myprofile>.imgs>.myprofileimg {
+#sidebar>.inner>.Myprofile>.imgs>.mysidebar_myprofileimg {
+	object-fit: cover; /* 유정추가 */
 	width: 150px;
 	height: 150px;
 	margin-top: 20px;
@@ -148,6 +149,7 @@ h1, h2, h3, h4, h5, h6, a, span{
 }
 
 #sidebar>.inner>.Myprofile>.imgs>.mypetprofileimg {
+	object-fit: cover; /* 유정추가 */
 	width: 90px;
 	height: 90px;
 	margin-top: -100px;

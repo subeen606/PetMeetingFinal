@@ -48,7 +48,6 @@ button {
 	color:  #ff9c3d!important;
 	border: 2px solid  #ff9c3d;
 	transition: all 0.5s;
-	cursor:pointer;
 }
 .primary-button a:hover,
 button:hover {
@@ -61,20 +60,21 @@ button:hover {
 	height:30px;
 }
 .mysize{
-	width:auto;
-	max-height:250px;
+	width:500px;
+	height:auto;
 }
 .col-md-6{
 	width:500px!important;
 }
 
-#attend-tap,#make-tap {
+#attend-tap {
 	display:inline-block;
 	padding:16px 40px;
 	border: 1px solid #f1eeeb;
 	border-bottom:none;
 	font-weight:1000;
 	cursor: pointer;
+     background-color:rgb(241,238,235,0.6);
 }
 #make-tap{
 	margin-left:-7px;
@@ -129,6 +129,43 @@ select{
     font-weight: 1000;
     color: red;
 
+}
+.js-load {
+    display: none;
+}
+.js-load.active {
+    display: block;
+}
+.is_comp.js-load:after {
+    display: none;
+}
+.btn-wrap, .lists, .main {
+    display: block;
+}
+.btn-wrap{
+	border-bottom:0.5px #e6e6e6 solid;
+	color:darkgray;
+	text-align:center;
+	padding:20px;
+-webkit-transition-property:color, background; 
+-webkit-transition-duration: 0.5s, 0.5s; 
+-webkit-transition-timing-function: linear, ease-in;
+    margin-top: -16px;
+} 
+.btn-wrap:hover{
+background-color:#e6e6e6;
+color:black;
+opacity:0.6;
+}
+a.moreBtn{
+ text-decoration:none;
+}
+.empty-playlist{
+	min-height: 280px;
+    width: 90%;
+    text-align: center;
+    font-weight: 1000;
+}
 }
 
 .js-load {

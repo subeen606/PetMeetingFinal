@@ -3,6 +3,8 @@ package com.petmeeting.joy.playboard.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PlayboardDto implements Serializable{
 	
 	
@@ -29,7 +31,7 @@ public class PlayboardDto implements Serializable{
    private Date pdate;
    private Date edate;
    private Date regdate;
-   
+ 
    private int del;
    
    private boolean deadlineCheck;		// 모집기한 지났으면 true 지나지 않았으면 false
@@ -318,6 +320,7 @@ public PlayboardHashTagDto getHashs() {
 public void setHashs(PlayboardHashTagDto hashs) {
 	this.hashs = hashs;
 }
+
 
 
 @Override

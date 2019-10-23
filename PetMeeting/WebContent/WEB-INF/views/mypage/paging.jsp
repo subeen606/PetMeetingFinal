@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+<%System.out.println("paging.jsp---------------");
 /*
 	[1][2][3][4][5][6][7][8][9][10] >>
 	<< ...[4][5][6] 7 [8][9][10]... >>
@@ -10,33 +10,36 @@
 	int pageCountPerScreen;	// 스크린당 페이지 수 = 10
 	int recordCountPerPage;	// 페이지당 글수 = 10
 	
-	String st1 = request.getParameter("totalRecordCount");
+	String st1 = request.getAttribute("totalRecordCount").toString();
 	if(st1 == null)	totalRecordCount = 0;
 	else			totalRecordCount = Integer.parseInt(st1);	
 	
-	String st2 = request.getParameter("pageNumber");
+	String st2 = request.getAttribute("pageNumber").toString();
 	if(st2 == null)	pageNumber = 0;
 	else			pageNumber = Integer.parseInt(st2);	
 	
-	String st3 = request.getParameter("pageCountPerScreen");
+	String st3 = request.getAttribute("pageCountPerScreen").toString();
 	if(st3 == null)	pageCountPerScreen = 0;
 	else			pageCountPerScreen = Integer.parseInt(st3);	
 	
-	String st4 = request.getParameter("recordCountPerPage");
-	System.out.println("recordCountPerPage" + st4);
+	String st4 = request.getAttribute("recordCountPerPage").toString();
 	if(st4 == null)	recordCountPerPage = 0;
 	else			recordCountPerPage = Integer.parseInt(st4);
 	
 	// 총페이지 수
 	int totalPageCount = totalRecordCount / recordCountPerPage;
+	
 	//	2					23					10
 	if((totalRecordCount % recordCountPerPage)!= 0){
 		totalPageCount++;		// -> 3
 	}
 	
+	
+	
+	
 	//			0    10    20
 	// 시작페이지 [1]  [11]  [21]	<<[1][2][3]...[10]>>
-	int screenStartPageIndex = ((pageNumber + 1) / pageCountPerScreen) * pageCountPerScreen;
+	int screenStartPageIndex = ( (pageNumber + 1) / pageCountPerScreen ) * pageCountPerScreen;
 	//			0					10					10
 	
 	// 끝페이지  [10] [20] [30]	
@@ -48,8 +51,7 @@
 	}
 	
 	if((pageNumber + 1) % pageCountPerScreen == 0){
-		screenStartPageIndex = (((pageNumber + 1) / pageCountPerScreen) * pageCountPerScreen) - pageCountPerScreen;
-		
+		screenStartPageIndex = (( (pageNumber + 1) / pageCountPerScreen) * pageCountPerScreen) - pageCountPerScreen;
 		screenEndPageIndex = pageNumber + 1;	// 0 -> 1  9 -> 10
 	}
 %>

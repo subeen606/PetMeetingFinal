@@ -33,7 +33,8 @@ public class MemberServiceImpl implements MemberService {
 	// 카카오프로필 이미지 있는경우 프로필이미지 주소로 업데이트시킨다
 	@Override
 	public boolean kakaoProfileImgUpdate(KakaoParam param) {
-		return memDao.kakaoProfileImgUpdate(param);		
+		
+		return memDao.kakaoProfileImgUpdate(param);
 	}
 
 	@Override

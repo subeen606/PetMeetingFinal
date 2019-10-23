@@ -13,15 +13,16 @@
 
 </head>
 <body class="is-preload">
-	<jsp:include page="../main.jsp" flush="false" />
-	
+  <header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+    </header>
 <!-- Wrapper -->
 <div id="wrapper">
 
   <!-- Main -->
 	<div id="main">
 		<div class="inner">
-			<h2>내 프로필 정보</h2>
+			<h2>나의 프로필</h2>
 			<hr>							
 			<section class="main-container">
 				<div class="container-fluid">
@@ -46,7 +47,7 @@
 									<div class="mypageHomebox_1">
 										<div class="input_row">
 											<p class="input_title">&nbsp;&nbsp;나이</p>
-											<span>&nbsp;<input name="myage" type="text" size="6px" value="${userProfile.myage==0? '':userProfile.myage }" >&nbsp;&nbsp;세</span>
+											<span>&nbsp;<input name="myage" type="text" size="6px" value="${userProfile.myage==0? 0:userProfile.myage }" >&nbsp;&nbsp;세</span>
 										</div>						
 									</div>
 									
@@ -129,10 +130,13 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	 
+	var comintro = $('textarea').val();
+	comintro = comintro.split('<br/>').join("\r\n");
+	$('textarea').val(comintro);
+	
 	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
-	 $('input[type="checkbox"]').bind('click',function() {
-		    $('input[type="checkbox"]').not(this).prop("checked", false);
-	 });
+	//$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
 	
 	var gender = $("#gender").val();
 	
@@ -142,6 +146,16 @@ $(document).ready(function(){
 	else{
 		$("#male").prop("checked",true);
 	}
+	
+	if($("input[name=myage]").val() == 0){
+		$("input[name=myage]").val("");
+	}
+	
+	
+	
+	
+	
+	
 	
 	$.ajax({
 		url : "checkprofile.do",
@@ -183,6 +197,9 @@ function readURL(input) {
 
 // 프로필 등록 js
 $('#myProfile_insertBtn').on("click",function(){
+	var inrtoval = $('textarea').val();
+	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	$('textarea').val(inrtoval);
 	
 	var profileForm = $("#_profileForm")[0];
 	var data = new FormData(profileForm);
@@ -224,6 +241,11 @@ $('#myProfile_updateBtn').on("click",function(){
 // 프로필 수정 submit
 $('#myProfile_updateSubBtn').on("click",function(){
 
+	var inrtoval = $('textarea').val();
+	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	$('textarea').val(inrtoval);
+	
+	
 	var profileForm = $("#_profileForm")[0];
 	var data = new FormData(profileForm);
 	
@@ -249,32 +271,22 @@ $('#myProfile_updateSubBtn').on("click",function(){
 
 // 닉네임체크버튼
 $("#nickChk_btn").on("click",function(){
-	alert("닉네임체크");
-	
-	var profileForm = $("#_profileForm")[0];
-	var data = new FormData(profileForm);
+	var nickname = $("input[name=nickname]").val().replace(/ /gi, '');
 	
 	$.ajax({
 		url : "nicknameCheck.do",
-		method : "post",
-		data : data,
-		enctype: 'multipart/form-data',
-		processData: false,
-        contentType: false,
-        cache: false,
+		type : "post",
+		data :"nickname=" + nickname,
+		dataType : "text",
 		async: false,
-		success : function(check) {
-			alert("success");
-			if(check) alert("사용가능한 닉네임입니다");
-			else if(!check) alert("사용불가능한 닉네임입니다");
+		success : function( data ) {
+			alert(data);
 		},
 		error: function (error) {
             alert(JSON.stringify(error));
-            alert("닉네임체크 실패...");
+            alert("닉네임 체크 실패...");
 		}
 	});
-	
-
 });
 </script>
 </body>
