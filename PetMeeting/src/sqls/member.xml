@@ -96,7 +96,7 @@ SELECT EMAIL, PETPROFILE_IMG, PETNAME, PETAGE, PETTYPE, PETDETAIL, PETWEIGHT, PE
 FROM PM_PETPROFILE
 WHERE EMAIL=#{email}
 </select>
-
+<!-- 
 
 <select id="checkNickname" parameterType="java.lang.String" resultType="com.petmeeting.joy.login.model.MemberDto">
 SELECT * 
@@ -104,6 +104,6 @@ FROM PM_MEMBER
 WHERE NICKNAME = #{nickname}
 </select>
 
-
+ -->
 
 </mapper>
