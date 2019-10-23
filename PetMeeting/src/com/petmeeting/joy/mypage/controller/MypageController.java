@@ -1415,9 +1415,10 @@ public class MypageController {
 		
 		@ResponseBody
 		@RequestMapping(value = "checknicknameExist.do",produces = "application/text; charset=utf8", method = { RequestMethod.GET, RequestMethod.POST })
-		public String checknicknameExist(String nickname) {
+		public String checknicknameExist(String nickname, HttpServletRequest req) {
 
 			String nicknameArr[] = null;
+			MemberDto user = (MemberDto)req.getSession().getAttribute("login");
 			List<String> existList = new ArrayList<String>();
 			List<String> notExistList = new ArrayList<String>();
 			List<MemberDto> selectedList = new ArrayList<MemberDto>();
@@ -1430,6 +1431,12 @@ public class MypageController {
 				for (int i = 0; i < nicknameArr.length-1; i++) {
 					if(nicknameArr[i].equals(nicknameArr[i+1])){
 						return "닉네임 "+ nicknameArr[i]+"가 중복 입력되었습니다";
+					}
+					if(nicknameArr[i].equals(user.getNickname())) {
+						return "자기 자신에게는 쪽지를 보낼 수 없습니다.";
+					}
+					if(user.getAuth() == 8) {
+						return "관리자에게는 쪽지를 보낼 수 없습니다.";
 					}
 				}
 				
@@ -1479,7 +1486,10 @@ public class MypageController {
 				
 			}
 			else {
-		
+				if(nickname.equals(user.getNickname())) {
+					return "자기 자신에게는 쪽지를 보낼 수 없습니다.";
+				}
+				
 				MemberDto memdto = mypageService.checkNicknameExist(nickname);
 				if(memdto == null) {
 					System.out.println("존재하지 않는 닉네임 : "+ nickname);
