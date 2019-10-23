@@ -13,7 +13,7 @@
 
 </head>
 <body class="is-preload">
-	<jsp:include page="../main.jsp" flush="false" />
+	<jsp:include page="/common/navbar/templates/header.jsp" flush="false" />
 	
 <!-- Wrapper -->
 <div id="wrapper">
