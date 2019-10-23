@@ -112,7 +112,7 @@ public class mypageDaoImpl implements mypageDao {
 	}
 	
 	//나의 구독하는 사람과 멤버와 펫의 프로필 보여주기 위함
-		@Override
+	@Override
 	public Mypagememandpet mypageprofilememandpet(String email) {
 	
 		return sqlSession.selectOne(ns+"mypageprofilememandpet", email);
