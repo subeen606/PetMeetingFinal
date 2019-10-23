@@ -13,7 +13,7 @@
     
 	<!-- datepicker -->
 	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">
-	<script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
+	
 
 	<!-- 도로명 주소 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -176,6 +176,7 @@
     </div>
 </form>
 
+<script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
 <script type="text/javascript">
 $(function () {
 	var today = new Date();

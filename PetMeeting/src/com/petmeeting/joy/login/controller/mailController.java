@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.petmeeting.joy.login.service.MemberService;
-
-//import util.SendEmail;
-
 import com.petmeeting.joy.login.service.MailService;
 
 @Controller
@@ -28,7 +25,6 @@ public class mailController {
 	MemberService memService;
 	*/
 	// 회원가입 이메일 인증
-	/*
     @ResponseBody
     @RequestMapping (value="emailAuth.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public boolean emailAuth(String inputEmail, HttpServletRequest req) {
@@ -62,7 +58,7 @@ public class mailController {
 	        
 	        //boolean sendCheck = mailService.send(subject, text.toString(), inputEmail, null);
 	    	
-	        boolean sendCheck = SendEmail.sendMail(subject, text.toString(), inputEmail);
+	        boolean sendCheck = com.petmeeting.joy.util.SendEmail.sendMail(subject, text.toString(), inputEmail);
 	        
 	        if(sendCheck) {
 	        	System.out.println("메일발신 성공");
@@ -75,7 +71,7 @@ public class mailController {
     	}
     	
     }
-    */
+    
     
  
     

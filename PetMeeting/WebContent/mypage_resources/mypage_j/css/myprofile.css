@@ -102,8 +102,10 @@ h1, h2, h3, h4, h5, h6{
 .mypageHomebox_1>.input_row>.input_content {
 	float: left;
 	margin-top: 32px;
-	margin-left:30px;
+
 }
+
+
 
 .mypageHomebox_1>.input_row>.input_content>.img_preView {
     object-fit: cover;
@@ -113,6 +115,7 @@ h1, h2, h3, h4, h5, h6{
     border-radius: 100%;
     border-style: dotted;
 }
+
 
 .mypageHomebox_1>.input_row> span> input{
     border-radius: 5px;
@@ -203,4 +206,8 @@ h1, h2, h3, h4, h5, h6{
 .input-icon{
 	width:30px;
 	height:19px;
+}
+.mypageHomebox_1.below-img{
+	margin-right:30px;
+	display:inline-block;
 }

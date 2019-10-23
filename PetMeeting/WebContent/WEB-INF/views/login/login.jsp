@@ -13,8 +13,8 @@
 
 </head>
 <body>
-
 	<div class="form-structor">
+	
 		<!-- 회원가입 -->
 		<div class="signup slide-up">		
 			<h2 class="form-title" id="signup">회원가입</h2>

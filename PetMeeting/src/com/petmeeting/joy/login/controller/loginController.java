@@ -2,6 +2,7 @@ package com.petmeeting.joy.login.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,8 @@ import com.petmeeting.joy.login.service.MemberService;
 import com.petmeeting.joy.mypage.model.MyPetProfileDto;
 import com.petmeeting.joy.mypage.model.MyProfileDto;
 import com.petmeeting.joy.mypage.model.MyProfileParam;
+import com.petmeeting.joy.mypage.model.MypageMsgDto;
+import com.petmeeting.joy.mypage.model.MypageMsgParam;
 
 @Controller
 public class loginController {
@@ -119,53 +122,60 @@ public class loginController {
 		System.out.println("snsLoginCheck.do 넘어온 param : " + param.toString() );
 		
 		MemberDto user = memService.kakaologinCheck(param);
+	
 		int num;
+		boolean leaveCheck = memService.leaveMemCheck(param.getEmail());		
 		
 		if(user == null) {
-			System.out.println("카카오)가입된 유저 없음");
-			num = 0; //"가입되지 않은 계정";
-		}
-		else if( user != null && user.getReportcount() >= 10 ) {
-						
-			num = 1; //"활동이 정지된 계정";
+			num = 0; // "가입되지 않은 계정";
 		}
 		else {
-			System.out.println("카카오)로그인가능 가입된 카카오계정이다");
-			num = 2; //"가입되어 있는 계정";
-		}
-
-		boolean leaveCheck = memService.leaveMemCheck(param.getEmail());
-		if(leaveCheck) {
-			num = 3; // ""탈퇴한 계정";
+			num = 1; // "가입되어 있는 계정";
 		}
 		
-		return num;
+		if(leaveCheck) {
+			num = 2; // ""탈퇴한 계정";
+		}
+		if( user != null && user.getReportcount() >= 10 ) {
+			num = 3; // "신고로 자동 활동정지된 계정";
+		}
+		if( user != null && user.getAuth() == 4 ) {
+			num = 4; // "관리자에 의한 활동이 정지된 계정";
+		}
+		if( user != null && user.getAuth() == 8 ) {
+			num = 8; // "관리자 계정";
+		}		
+		
+		return num;	
 	}
-	
+
 	@ResponseBody
 	@RequestMapping (value="loginAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public int loginAf(MemberDto mem, HttpServletRequest req, Model model) {
 		int num;
 		MemberDto user = memService.loginCheck(mem);
+		boolean leaveCheck = memService.leaveMemCheck(mem.getEmail());		
 		
 		
 		if(user == null) {
 			num = 0; // "가입되지 않은 계정";
 		}
-		else if( user != null && user.getReportcount() >= 10 ) {
-			num = 1; // "활동이 정지된 계정";
-		}else if( user.getAuth() == 8 ) {
-			num = 4;
+		else{
+			num = 1; // "가입되어 있는 계정";
 		}
-		else {
-			num = 2; // "가입되어 있는 계정";\
-		}
-		
-		boolean leaveCheck = memService.leaveMemCheck(mem.getEmail());
 		
 		if(leaveCheck) {
-			num = 3; // ""탈퇴한 계정";
+			num = 2; // ""탈퇴한 계정";
 		}
+		if( user != null && user.getReportcount() >= 10 ) {
+			num = 3; // "신고로 자동 활동정지된 계정";
+		}
+		if( user != null && user.getAuth() == 4 ) {
+			num = 4; // "관리자에 의한 활동이 정지된 계정";
+		}
+		if( user != null && user.getAuth() == 8 ) {
+			num = 8; // "관리자 계정";
+		}		
 		
 		return num;
 	}	

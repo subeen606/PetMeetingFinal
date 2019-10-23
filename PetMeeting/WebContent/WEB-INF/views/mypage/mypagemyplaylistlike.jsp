@@ -165,8 +165,9 @@ function playboarddetail(e) {
 		
 		var nowpage=$(".nowpage").val();
 		var totalsize=$(".totallist").val();
-
+		
 		 if(totalsize<=5){
+		
 	    	 $("#js-btn-wrap").hide();
 	    }
 		
