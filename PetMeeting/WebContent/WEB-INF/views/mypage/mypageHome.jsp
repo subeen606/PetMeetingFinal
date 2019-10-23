@@ -4,6 +4,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%!public String dot3(String msg){
+	String str = "";
+	if(msg.length() >= 17){
+		str = msg.substring(0,15);	// 0에서 9까지
+		str += "...";
+	}else{
+		str = msg.trim();
+	}
+	return str;
+}%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												현재 포인트
 											</div>
 											<div class="card-detail-content">
-												${login.point} 
+												${userdto.point} 
 											</div>
 										</div>
 										<div class="card-detail">
@@ -88,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												누적 포인트
 											</div>
 											<div class="card-detail-content">
-												${login.totalpoint} 
+												${userdto.totalpoint} 
 											</div>
 										</div>
 										<div class="card-detail">
@@ -115,36 +126,13 @@ document.addEventListener('DOMContentLoaded', function() {
 									        <li>
 									            <input type="radio" id="radio-1" name="radio-accordion" />
 									            <label for="radio-1">포인트 사용내역</label>
-									            <div class="content">
-									           <!--  <p>예정된 모임이 없습니다.</p> -->
-									        
-									              <table class="pointlist_table">
-											<colgroup> <col width="10%"><col width="32%"><col width="10%"><col width="10%"><col width="18%"><col width="20%"> </colgroup>
-											
-											<tbody>
-											<tr class="pointlist_table_th">
-												<th>NO</th><th>적립/사용내역</th><th>적립</th><th>사용</th><th>잔여포인트</th><th>날짜</th>
-											</tr>
-												<tr>
-													<td colspan="6">후원한 내역이 없습니다.</td>
-												</tr>
-											
-											<%-- 
-											<c:if test="${list empty}">
-											</c:if>
-												<c:forEach items="${list }" var="list" varStatus="i">
-											<tr>
-												<td>1</td><td>test</td><td>200</td><td>200</td><td>1000</td><td>2019-00-00</td>
-											</tr>
-												</c:forEach> --%>
-											
-										
-													
-											
-											
-											</tbody>										
-										</table> 
+									            <div class="content plistcontent">
+									            
+									        	
 									            </div>
+									             
+
+												 
 									        </li>
 									        <li>
 									            <input type="radio" id="radio-2" name="radio-accordion" />
@@ -295,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			</section>
 		</div>
 	</div>
-
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
 </div>
 
@@ -332,7 +319,22 @@ $(document).ready(function(){
 	}
 	%>
 	
+	
+	var frmdata = $("#frm").serialize();
+	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
+	
 });
+
+
+function goPage(pageNumber){
+	$("#_pageNumber").val(pageNumber);
+	$("#_recordCountPerPage").val("${pparam.recordCountPerPage}");
+	
+	var frmdata = $("#frm").serialize();
+	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
+};
+
+
 </script>
 </body>
 </html>

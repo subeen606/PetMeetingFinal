@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
 </head>
 <body>
+
  <!--::header part start::-->
     <header class="header_area">
         <div class="sub_header">
@@ -46,7 +47,7 @@
                         <a href="#"><i class="flaticon-phone"></i>+02 213 - 256 (365)</a>
                         <a href="#" class="btn_1 d-none d-md-inline-block">Become a Volunteer</a>
                       </div>
-                    </div>
+                  </div>
                      -->
                 </div>
             </div>
@@ -56,7 +57,8 @@
         <div id="loginInfo">
             <input type="hidden" class='nowmymsg' value="-1">
         	<c:if test="${not empty login }">
-        		<a href="mypagehome.do">나의페이지</a>
+        		<font>[ ${login.nickname } ]님, 환영합니다.</font>
+        		<a href="mypagehome.do">마이페이지</a>
         		<a href="logout.do">로그아웃</a>
         	</c:if>
         	
