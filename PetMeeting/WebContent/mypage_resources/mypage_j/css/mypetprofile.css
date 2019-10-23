@@ -1,5 +1,19 @@
 /* mypetprofile css*/
-
+font-face {
+font-family: 'NanumSquareRound'; 
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); 
+font-weight: normal; 
+font-style: normal; 
+}
+body {
+    font-family:  'NanumSquareRound'!important;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); 
+	font-weight: normal; 
+	font-style: normal; 
+}
+h1, h2, h3, h4, h5, h6{
+	font-family: 'NanumSquareRound'!important; 
+}
 .petprofile-container {
     background-color: #f3f3f3;
     border: 1px solid red;
@@ -98,4 +112,7 @@
 
 .displayis {
 	display: none;
+}
+.mypageHomebox_1 .below-img{
+	display:inline-block;
 }

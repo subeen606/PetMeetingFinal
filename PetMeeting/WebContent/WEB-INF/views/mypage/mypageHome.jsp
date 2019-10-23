@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <body class="is-preload">
-
+  <header class="header_area">
     	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
-  
+    </header>
 <!-- Wrapper -->
 <div id="wrapper">
 
