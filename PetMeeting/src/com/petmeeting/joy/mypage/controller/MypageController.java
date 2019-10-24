@@ -576,11 +576,15 @@ public class MypageController {
 				     List<FreeboardDto> list=mypageService.mypagefreeboardlike(param);
 		
 				     System.out.println(list.size());
-		  for(int i=0;i<list.size();i++) {
-		  System.out.println("list테스트 "+i+list.get(i)); 
-		  }
+		
+	                   
+				     for(int i=0;i<list.size();i++) {
+				    	 System.out.println(list.get(i));
+				     }
+				   
 		 
-				     model.addAttribute("list", list);
+				     
+				     model.addAttribute("freelist", list);
 				     
 				     return "mypage/mypagemyfreeboardlike";
 				}
