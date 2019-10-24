@@ -73,4 +73,6 @@ public interface OrderService {
 	public void updateRefundComplete(int refund_seq);
 
 	public void updateChangeComplete(int refund_seq);
+	
+	public OrderInfoDto getOrderDetail(String ordernumber);
 }

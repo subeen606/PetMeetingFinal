@@ -285,30 +285,32 @@ $(".refund_detail").click(function() {
 
 
 $(".status-refund").click(function () {
-	var ordernumber = $(this).attr("ordernumber");
-	var totalprice = $("#totalprice").val();
-	var detail = $(this).attr("detail");
-	var refund_seq = $(this).attr("refund_seq");
-	
-//	alert("order" + ordernumber);
-// 	alert("tp " + totalprice);
-// 	alert("detail " + detail);
-	
-	$.ajax({
-    url : "adcancelpay.do",
-    type : "POST",
-    data : {
-   	  "reason": detail,
-      "ordernumber" : ordernumber,
-      "refund_seq" : refund_seq,
-      "amount": 10
-    },
-	error: function () {
-		alert("error");
+	if(confirm("반품 및 환불을 정말로 진행하시겠습니까?")) {
+		var ordernumber = $(this).attr("ordernumber");
+		var totalprice = $("#totalprice").val();
+		var detail = $(this).attr("detail");
+		var refund_seq = $(this).attr("refund_seq");
+		
+	//	alert("order" + ordernumber);
+	// 	alert("tp " + totalprice);
+	// 	alert("detail " + detail);
+		
+		$.ajax({
+	    url : "adcancelpay.do",
+	    type : "POST",
+	    data : {
+	   	  "reason": detail,
+	      "ordernumber" : ordernumber,
+	      "refund_seq" : refund_seq,
+	      "amount": totalprice
+	    },
+		error: function () {
+			alert("error");
+		}
+	   }).done(function(result) {
+		   alert(result);
+	   });
 	}
-   }).done(function(result) { // 환불 성공시 로직 
-	   alert(result);
-   });
 });
 
 // 교환 완료

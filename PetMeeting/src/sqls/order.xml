@@ -42,7 +42,7 @@ VALUES(#{ordernumber}, #{email}, #{rname}, #{rpostcode}, #{raddress}, #{raddress
 		resultType="com.petmeeting.joy.store.model.OrderInfoDto">
 SELECT D.EMAIL, D.RNAME, D.RPOSTCODE, D.RADDRESS, D.RADDRESS_DETAIL, D.RPHONE, 
 		D.REQUIRE, D.ORDERDATE, D.STATUS, D.TOTALPRICE, O.ORDERNUMBER, O.QUANTITY, P.SEQ, P.PSIZE, 
-		P.PCOLOR, G.PRODUCTCODE, G.PRODUCTNAME, G.PRICE, G.FILENAME 
+		P.PCOLOR, G.PRODUCTCODE, G.PRODUCTNAME, G.PRICE, G.FILENAME, O.STATUS AS REFUND_STATUS
 FROM PM_ORDERDETAIL D, PM_ORDER O, PM_PRODUCT_OPTION P, PM_PRODUCT G
 WHERE D.ORDERNUMBER = O.ORDERNUMBER
 	AND O.PRODUCT_OPTION_SEQ = P.SEQ
@@ -68,12 +68,10 @@ WHERE EMAIL=#{email} AND STATUS=2
 
 <!-- 나의 주문 내역 최근 5개 뽑아오기 -->
 <select id="getMyorderListLatest" parameterType="java.lang.String" resultType="com.petmeeting.joy.store.model.OrderInfoDto">
-SELECT ORDERNUMBER, ORDERDATE, STATUS, TOTALPRICE, REFUND_STATUS
-FROM (SELECT ROW_NUMBER()OVER(ORDER BY D.ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.ORDERDATE, D.STATUS, D.TOTALPRICE, O.STATUS AS REFUND_STATUS
-		FROM PM_ORDERDETAIL D, PM_ORDER O
-		WHERE D.ORDERNUMBER = O.ORDERNUMBER
-		ANDD. EMAIL=#{email}
-		AND O.STATUS = 0)
+SELECT ORDERNUMBER, ORDERDATE, STATUS, TOTALPRICE
+FROM (SELECT ROW_NUMBER()OVER(ORDER BY ORDERDATE DESC) RNUM, ORDERNUMBER, ORDERDATE, STATUS, TOTALPRICE
+		FROM PM_ORDERDETAIL
+		WHERE EMAIL=#{email})
 WHERE RNUM BETWEEN 1 AND 5
 </select>
 
@@ -101,11 +99,10 @@ WHERE EMAIL = #{email}
 <!-- 검색된 기간별 리스트 -->
 <select id="orderRefernce" parameterType="com.petmeeting.joy.store.model.OrderParam"
 		resultType="com.petmeeting.joy.store.model.OrderInfoDto">
-SELECT ORDERNUMBER, ORDERDATE, STATUS, TOTALPRICE, REFUND_STATUS
-FROM (SELECT ROW_NUMBER()OVER(ORDER BY D.ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.ORDERDATE, D.STATUS, D.TOTALPRICE, O.STATUS AS REFUND_STATUS
-		FROM PM_ORDERDETAIL D, PM_ORDER O
-		WHERE D.ORDERNUMBER = O.ORDERNUMBER
-		AND D.EMAIL=#{email}
+SELECT ORDERNUMBER, ORDERDATE, STATUS, TOTALPRICE
+FROM (SELECT ROW_NUMBER()OVER(ORDER BY D.ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.ORDERDATE, D.STATUS, D.TOTALPRICE
+		FROM PM_ORDERDETAIL D
+		WHERE D.EMAIL=#{email}
 		<if test="startdate != null and enddate != null and startdate != '' and enddate != ''">
 		AND <![CDATA[SUBSTR(ORDERDATE, 1, 9) >= TO_DATE(#{startdate}, 'YYYY-MM-DD')
 		AND SUBSTR(ORDERDATE, 1, 9) <= TO_DATE(#{enddate}, 'YYYY-MM-DD')]]>
@@ -116,7 +113,6 @@ FROM (SELECT ROW_NUMBER()OVER(ORDER BY D.ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.
 		<if test="status == 3">		<!-- 주문 취소일 때 -->
 		AND D.STATUS = 3
 		</if>
-		AND O.STATUS = 0
 		)
 WHERE RNUM BETWEEN ${start} AND ${end}
 </select>
@@ -125,9 +121,8 @@ WHERE RNUM BETWEEN ${start} AND ${end}
 <select id="getOrderCount" parameterType="com.petmeeting.joy.store.model.OrderParam"
 		resultType="java.lang.Integer">
 SELECT NVL(COUNT(*), 0) AS CNT
-FROM PM_ORDERDETAIL D, PM_ORDER O
-WHERE D.ORDERNUMBER = O.ORDERNUMBER
-	AND D.EMAIL=#{email}
+FROM PM_ORDERDETAIL D
+	WHERE D.EMAIL=#{email}
 	<if test="startdate != null and enddate != null and startdate != '' and enddate != ''">
 	AND <![CDATA[SUBSTR(ORDERDATE, 1, 9) >= TO_DATE(#{startdate}, 'YYYY-MM-DD')
 	AND SUBSTR(ORDERDATE, 1, 9) <= TO_DATE(#{enddate}, 'YYYY-MM-DD')]]>
@@ -138,7 +133,6 @@ WHERE D.ORDERNUMBER = O.ORDERNUMBER
 	<if test="status == 3">
 	AND D.STATUS = 3
 	</if>
-	AND O.STATUS = 0
 </select>
 
 <!-- 나의 주문한 상품 리스트 뽑아오기 -->
@@ -250,10 +244,10 @@ WHERE EMAIL=#{email}
 <!-- 관리자 xml -->
 <select id="getAdminOrderList" parameterType="com.petmeeting.joy.store.model.OrderParam"
 	resultType="com.petmeeting.joy.store.model.OrderInfoDto">
-SELECT ORDERNUMBER, ORDERDATE, STATUS, RNAME, TOTALPRICE, REFUND_STATUS
-FROM (SELECT ROW_NUMBER()OVER(ORDER BY ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.ORDERDATE, D.STATUS, D.RNAME, D.TOTALPRICE, O.STATUS AS REFUND_STATUS
-		FROM PM_ORDERDETAIL D, PM_ORDER O
-		WHERE D.ORDERNUMBER = O.ORDERNUMBER
+SELECT ORDERNUMBER, ORDERDATE, STATUS, RNAME, TOTALPRICE
+FROM (SELECT ROW_NUMBER()OVER(ORDER BY ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.ORDERDATE, D.STATUS, D.RNAME, D.TOTALPRICE
+		FROM PM_ORDERDETAIL D
+		WHERE 1=1
 		<if test="sorting_category != '' and sorting_category != null">
 		AND D.STATUS = #{sorting_category}
 		</if>
@@ -265,7 +259,6 @@ FROM (SELECT ROW_NUMBER()OVER(ORDER BY ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.OR
 			AND D.RNAME LIKE '%' || #{s_keyword} || '%'
 			</if>
 		</if>
-		AND O.STATUS = 0
 		)
 WHERE RNUM BETWEEN #{start} AND #{end}
 </select>
@@ -273,9 +266,9 @@ WHERE RNUM BETWEEN #{start} AND #{end}
 <select id="getAdminOrderListCount" parameterType="com.petmeeting.joy.store.model.OrderParam"
 	resultType="java.lang.Integer">
 SELECT NVL(COUNT(*), 0) AS CNT
-FROM (SELECT ROW_NUMBER()OVER(ORDER BY ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.ORDERDATE, D.STATUS, D.RNAME, D.TOTALPRICE, O.STATUS AS REFUND_STATUS
-		FROM PM_ORDERDETAIL D, PM_ORDER O
-		WHERE D.ORDERNUMBER = O.ORDERNUMBER
+FROM (SELECT ROW_NUMBER()OVER(ORDER BY ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.ORDERDATE, D.STATUS, D.RNAME, D.TOTALPRICE
+		FROM PM_ORDERDETAIL D
+		WHERE 1=1
 		<if test="sorting_category != '' and sorting_category != null">
 		AND D.STATUS = #{sorting_category}
 		</if>
@@ -287,7 +280,6 @@ FROM (SELECT ROW_NUMBER()OVER(ORDER BY ORDERDATE DESC) RNUM, D.ORDERNUMBER, D.OR
 			AND D.RNAME LIKE '%' || #{s_keyword} || '%'
 			</if>
 		</if>
-		AND O.STATUS = 0
 		)
 </select>
 
@@ -449,5 +441,11 @@ WHERE REFUND_SEQ = #{refund_seq}
 UPDATE PM_ORDER SET STATUS = 6
 WHERE REFUND_SEQ = #{refund_seq}
 </update> 
+
+<!-- order number로 orderdetail 정보찾기 -->
+<select id="getOrderDetail" parameterType="java.lang.String" resultType="com.petmeeting.joy.store.model.OrderInfoDto">
+SELECT * FROM PM_ORDERDETAIL
+WHERE ORDERNUMBER=#{ordernumber}
+</select>
 
 </mapper>

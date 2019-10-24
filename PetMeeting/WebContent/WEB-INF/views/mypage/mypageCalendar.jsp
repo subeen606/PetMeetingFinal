@@ -96,11 +96,21 @@
 							</div>
 						</div>
 					</div>
+					    
+<!--::footer part start::-->
+	<br>
+	<footer>
+	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+	</footer> 
+<!-- footer part end-->
 			</section>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
+	
 </div>	
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".fc-left").append(

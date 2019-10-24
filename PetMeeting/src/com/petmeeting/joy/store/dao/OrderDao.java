@@ -174,4 +174,10 @@ public interface OrderDao {
 	 */
 	public void updateChangeComplete(int refund_seq);
 	
+	/**
+	 * 주문번호로 주문정보 불러오기
+	 */
+	public OrderInfoDto getOrderDetail(String ordernumber);
+	
+	
 }

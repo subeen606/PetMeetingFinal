@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.store.model.AnswerDto;
+import com.petmeeting.joy.store.model.OrderDto;
 import com.petmeeting.joy.store.model.OrderInfoDto;
 import com.petmeeting.joy.store.model.OrderParam;
 import com.petmeeting.joy.store.model.ProductBean;
@@ -479,19 +481,54 @@ public class StoreAdminController {
 	public String adcancelpay(RefundDto refund, int amount) {
 		System.out.println("------------------------------------ adcancelpay 들왔다! ");
 		System.out.println("------------------------------------ adcancelpay RefundDto : " + refund.toString());
-		System.out.println("------------------------------------ adcancelpay amount : " + amount);
+		
+		/*
+			amount : 환불할 상품의 실제 금액
+			pay_amonut : 실제 결제한 금액 -- DB에서 꺼내오기(PM_ORDERDETAIL : TOTALPRICE - USE_POINT)
+			
+			1-1. amount > pay_amount : pay_amount만큼 환불 후 amount - pay_amount 만큼 적립금 환불
+			1-2. amount <= pay_amount : amount만큼 환불
+			
+			2. amount * 0.05 만큼 포인트 회수....
+		*/
+		System.out.println("------------------------------------ adcancelpay 상품의 실제 금액 : " + amount);
+		
+		OrderInfoDto oi = orderService.getOrderDetail(refund.getOrdernumber());
+		int pay_amount = oi.getTotalprice() - oi.getUse_point();	// 결제금액
+		System.out.println("------------------------------------ adcancelpay 결제금액 : " + pay_amount);
+		
+		int refund_amount = 0;	// 환불될 금액
+		int refund_point = 0;	// 환불될 포인트
+		
+		if(amount > pay_amount) {
+			refund_amount = pay_amount;
+			refund_point = amount - pay_amount;
+		}else {
+			refund_amount = amount;
+		}
+		
+		refund_point = (int) (refund_point - amount * 0.05);
+		
+		System.out.println("------------------------------------ adcancelpay 최종환불금액 : " + refund_amount);
+		System.out.println("------------------------------------ adcancelpay 최종환불포인트 : " + refund_point);
 		
 		JSONObject json = new JSONObject();
 		
 		json.put("merchant_uid", refund.getOrdernumber());
 		json.put("reason", refund.getReason());
-		json.put("amount", amount);
+		json.put("amount", refund_amount);
 		
 		URLConn conn = new URLConn("http://192.168.0.7", 9000);
 		String result = conn.urlPost(json);
 		
 		if(result.equals("refund complete")) {
-			orderService.updateRefundComplete(refund.getRefund_seq());
+			orderService.updateRefundComplete(refund.getRefund_seq());	// order table 상태 변경
+			
+			MemberDto mem = new MemberDto();
+			mem.setEmail(oi.getEmail());
+			mem.setSavepoint(refund_point);
+			orderService.savePoint(mem);
+			
 			System.out.println("환불완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 		

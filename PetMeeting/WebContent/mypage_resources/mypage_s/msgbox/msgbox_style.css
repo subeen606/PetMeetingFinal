@@ -295,3 +295,19 @@ td.goDetail{
 	color:red;
 	font-weight: 600;
 }
+.cancel{
+	color:#ff8d00a8;
+	cursor:pointer;
+}
+#revmsgbox, #sendmsgbox{
+	border-color: #f4f4f4;
+    border: medium;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+#revmsgbox th, #sendmsgbox th{
+	background-color: #f1eeeb54;
+}
+#sendmsgbox th,td{
+	line-height:42px;
+}

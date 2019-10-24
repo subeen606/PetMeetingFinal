@@ -312,5 +312,8 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.updateChangeComplete(refund_seq);
 	}
 	
+	public OrderInfoDto getOrderDetail(String ordernumber) {
+		return orderDao.getOrderDetail(ordernumber);
+	}
 	
 }
