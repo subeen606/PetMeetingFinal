@@ -22,7 +22,7 @@
 
 
 	<div class="input-area">
-		<font id="recipient" IsAdmin="${revmsgDetail.nickname eq '관리자'? 0:1  }"><b>보낸사람</b>&nbsp;</font> <font>${revmsgDetail.nickname }</font>
+		<font id="recipient"><b>보낸사람</b>&nbsp;</font> <font>${revmsgDetail.nickname }</font>
 		<input type="hidden" name="nickname" value="${revmsgDetail.nickname }">
 	
 		<br><br>
@@ -35,10 +35,7 @@
 </form>
 <script type="text/javascript">
 $(document).ready(function(){
-	var admin = $("#recipient").attr("IsAdmin");
-	if(admin == 0){
-		$("#sendBtn").hide();
-	}
+	
 	//답장보내기 모드로 바꾸기 위한 장치
 	var count = 0;
 	

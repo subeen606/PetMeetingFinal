@@ -18,8 +18,7 @@
 
         <!-- Content -->
         <div class="content">
-        	사람들의(회원들 로그인?) 방문count? 
-        	통계..낼거없나요..?
+        	블라블라 블라블라
             <!-- Animated -->
             <div class="animated fadeIn">
 			

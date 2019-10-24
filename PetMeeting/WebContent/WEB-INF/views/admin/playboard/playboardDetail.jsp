@@ -13,13 +13,14 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/playboardDetail.css">
 </head>
 <body>
 <div id="right-panel" class="right-panel">
-<!--::header part start::-->
-	<jsp:include page="/admin_resources/admincss/templates/adminheader.jsp" flush="false"/>
-<!-- Header part end-->
+	<!--::header part start::-->
+		<jsp:include page="/admin_resources/admincss/templates/adminheader.jsp" flush="false"/>
+	<!-- Header part end-->
 
 <!-- Content -->
 <div class="content">
@@ -156,11 +157,9 @@
 		</tr>
 		
 		<tr>
-			<td colspan="2" align="center"><input id="deleteBtn" type="button" value="삭제"></td>
+			<td colspan="2" align="center"><button type="button" id="deleteBtn">삭제</button></td>
 		</tr>
 	</table>
-	
-	
 </div>
 </div>
 </div>

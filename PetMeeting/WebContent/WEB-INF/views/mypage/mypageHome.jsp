@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									</c:if>
 									<c:if test="${ not empty flwerFreeList }">
 										<tr>
-										<th>팔로잉</th>
+										<th>팔로워</th>
 										<th>게시글 정보</th>
 										<th>작성일</th>
 										</tr>

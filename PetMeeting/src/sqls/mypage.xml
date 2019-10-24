@@ -173,7 +173,17 @@ resultType="com.petmeeting.joy.freeboard.model.FreeboardDto">
 SELECT * FROM PM_FREEBOARD WHERE SEQ IN
 (SELECT BOARD_SEQ FROM PM_BOARD_LIKE WHERE  BOARD_CODE !='FUND' AND BOARD_CODE !='PLAY' AND
 EMAIL= #{email})
-<if test="board_code != '게시판 유형' and board_code != null and board_code !=''" >AND BOARD_CODE LIKE '%'||#{board_code}||'%'</if>
+<if test="board_code != '게시판 유형' and board_code != null and board_code !=''" >
+<if test="board_code=='강아지' ">
+AND BOARD_CODE = 'DOG'
+</if>
+<if test="board_code=='고양이' ">
+AND BOARD_CODE = 'CAT'
+</if>
+<if test="board_code=='기타 소동물' ">
+AND BOARD_CODE = 'OTHERS'
+</if>
+</if>
 <if test="category != '분류 유형' and category != null and category !=''" > AND CATEGORY LIKE '%'||#{category}||'%' </if>
 <if test="selection != '선택' and selection != null and selection !='' and keyword != null and keyword !='' ">
 <if test="selection == '제목'"> AND TITLE LIKE '%'||#{keyword}||'%' </if>

@@ -164,10 +164,5 @@ public interface OrderDao {
 	 */
 	public List<SalesDto> getProductSalesTop5();
 	
-	/**
-	 * 환불 완료 업데이트
-	 */
-	public void updateRefundComplete(int refund_seq);
-	
 	
 }

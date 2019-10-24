@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	
-	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/fundingboardDetail.css">	
     <link rel="stylesheet" href="${pageContext.request.contextPath}/fundingboard_resources/css/fundingboard.css">
@@ -96,27 +95,28 @@
 </div>
 </div>
 </div>
-
 <script type="text/javascript">
-$(document).ready(function() {
-	$('#summernote').summernote({
-		  placeholder: 'content',
-		  minHeight: 370,
-		  maxHeight: null,
-		  focus: true, 
-		  lang : 'ko-KR',
-		  callbacks: { // 콜백을 사용
-		            // 이미지를 업로드할 경우 이벤트를 발생
-			onImageUpload: function(files, editor, welEditable) {
-			  for (var i = files.length - 1; i >= 0; i--) {
-		          sendFile(files[i], this);
-				}
-		  		}
-		  	}
-	});
-});
+	$(document).ready(function() {
+		  $('#summernote').summernote({
+		    	placeholder: 'content',
+		        minHeight: 370,
+		        maxHeight: null,
+		        focus: true, 
+		        lang : 'ko-KR',
+		        callbacks: { // 콜백을 사용
+                    // 이미지를 업로드할 경우 이벤트를 발생
+				    onImageUpload: function(files, editor, welEditable) {
+				    	  for (var i = files.length - 1; i >= 0; i--) {
+				              sendFile(files[i], this);
 
-function sendFile(file, editor) {
+				            }
+		        		}
+		        	}
+		  });
+		});
+	
+	
+	function sendFile(file, editor) {
 	    // 파일 전송을 위한 폼생성
 			data = new FormData();
 		    data.append("file", file);
@@ -137,6 +137,13 @@ function sendFile(file, editor) {
 				}
 		    });
 		}
+	
+</script>
+
+
+
+
+<script type="text/javascript">
 
 $("#subBtn").click(function() {
 	$("#frm").attr("action","statementAf.do").submit();
@@ -148,64 +155,67 @@ $(document).ready(function() {
 	  var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 	  var tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1);
 	  //var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-		  
-	$("#_Sdate").datepicker({   
-	
-		      format: 'yyyy-mm-dd',
-		      startDate: today,
-		      language: "ko",
-		      todayHighlight: true,
-		      daysMin: ['일','월','화','수','목','금','토'],
-		      months: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-		      autoHide: true,
-		      yearFirst: true,
-		      yearSuffix: '년'            
-	});
+	  
+$("#_Sdate").datepicker({   
+
+	      format: 'yyyy-mm-dd',
+	      startDate: today,
+	      language: "ko",
+	      todayHighlight: true,
+	      daysMin: ['일','월','화','수','목','금','토'],
+	      months: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+	      autoHide: true,
+	      yearFirst: true,
+	      yearSuffix: '년'            
+	   });
 	   
-	/*Sdate 설정*/
-	$('#_Sdate').on('pick.datepicker', function (e) {
-		      
-			  var sdate = $('#_Sdate').datepicker('getDate');
-		      alert("sdate : " + sdate);
-		      
-		      var StartDate = new Date(sdate);
-		      StartDate.setDate(sdate.getDate()+1);
-		      //alert("StartDate : " + StartDate);
+/*Sdate 설정*/
+$('#_Sdate').on('pick.datepicker', function (e) {
+	      
+		  var sdate = $('#_Sdate').datepicker('getDate');
+	      alert("sdate : " + sdate);
+	      
+	      var StartDate = new Date(sdate);
+	      StartDate.setDate(sdate.getDate()+1);
+	      //alert("StartDate : " + StartDate);
+
+	      $("input[name='syear']").val(sdate.getFullYear());
+	      $("input[name='smonth']").val(sdate.getMonth()+1);
+	      $("input[name='sday']").val(sdate.getDate()); 
+	     
+	      
+	     /*Edate 설정*/
+		      $("#_Edate").datepicker({   
 	
-		      $("input[name='syear']").val(sdate.getFullYear());
-		      $("input[name='smonth']").val(sdate.getMonth()+1);
-		      $("input[name='sday']").val(sdate.getDate()); 
-		     
-		      
-		     /*Edate 설정*/
-			      $("#_Edate").datepicker({   
-		
-			    	    format: 'yyyy-mm-dd',
-			    	    startDate: StartDate,
-			    	    language: "ko",
-			    	    todayHighlight: true,
-			    	    daysMin: ['일','월','화','수','목','금','토'],
-			    	    months: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-			    	    autoHide: true,
-			    	    yearFirst: true,
-			    	    yearSuffix: '년'     
-			    	 });
-		
-			    	$('#_Edate').on('pick.datepicker', function (e) {
-			    	    
-			    	var edate = $('#_Edate').datepicker('getDate');
-			    		  //alert($('#_Edate').datepicker('getDate'));
-			    	 
-			  	      $("input[name='eyear']").val(edate.getFullYear());
-				      $("input[name='emonth']").val(edate.getMonth()+1);
-				      $("input[name='eday']").val(edate.getDate()); 
-			    	    
-			    	 });
-	 });
+		    	    format: 'yyyy-mm-dd',
+		    	    startDate: StartDate,
+		    	    language: "ko",
+		    	    todayHighlight: true,
+		    	    daysMin: ['일','월','화','수','목','금','토'],
+		    	    months: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+		    	    autoHide: true,
+		    	    yearFirst: true,
+		    	    yearSuffix: '년'     
+		    	 });
+	
+		    	$('#_Edate').on('pick.datepicker', function (e) {
+		    	    
+		    	var edate = $('#_Edate').datepicker('getDate');
+		    		  //alert($('#_Edate').datepicker('getDate'));
+		    	 
+		  	      $("input[name='eyear']").val(edate.getFullYear());
+			      $("input[name='emonth']").val(edate.getMonth()+1);
+			      $("input[name='eday']").val(edate.getDate()); 
+		    	    
+		    	 });
+	      
+	   });
 	   
-	$("input:text[numberOnly]").on("keyup",function() {
-		$(this).val($(this).val().replace(/[^0-9]/g,""));
-	});
+$("input:text[numberOnly]").on("keyup",function() {
+	$(this).val($(this).val().replace(/[^0-9]/g,""));
+});
+
+	   
 });
 </script>
 </body>

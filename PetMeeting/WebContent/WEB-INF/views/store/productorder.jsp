@@ -135,15 +135,11 @@ min-width:970px;
 							</div>
 							
 							<div class="s-navi-bottom">
-	                        	<div class="s-logo">
-	                        		<img alt="이미지없음" src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogostore.png" width="auto" height="30px"
-	                        			onclick="location.href='productlist.do'">
-	                        	</div>
-	                        
-	                        	<div class="s-mymenu">
-									<div class="s-mymenu-petmain">
-										<img alt="이미지없음" src="${pageContext.request.contextPath}/store_resources/images/home.png" width="30px" height="30px" onclick="location.href='main.do'">&nbsp;&nbsp;&nbsp;
-									</div>
+		                        <div class="s-logo">
+		                        	<img alt="이미지없음" src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogo.png" width="auto" height="30px"
+		                        		onclick="location.href='productlist.do'">
+		                        </div>
+		                        <div class="s-mymenu">
 									<div class="s-mymenu-mystore">
 										<img alt="이미지없음" src="${pageContext.request.contextPath}/store_resources/images/user.png" width="30px" height="30px" onclick="location.href='mystore.do'">&nbsp;&nbsp;&nbsp;
 									</div>
@@ -519,10 +515,13 @@ $('#allPoint').on("click", function () {
 	if($("input:checkbox[id='allPoint']").is(":checked") == true){	// 전체 사용이 체크되면
 		
 		if(price_total + 2500 < point && total_p == 0){		// 바로주문하기일 떄
+			alert("if");
 			$("#usepoint").val(price_total + 2500);
 		}else if(total_p + 2500 < point && total_p != 0){	// 카트 주문일 때
+			alert("else if")
 			$("#usepoint").val(total_p + 2500);	// 상품가격보다 포인트가 더 많으면 상품가격만큼만 사용함
 		}else{
+			alert("else");
 			$("#usepoint").val(point);		
 		}
 	}else{
@@ -671,7 +670,7 @@ function pay() {
 				IMP.request_pay({
 					pg : 'KG inicis',
 					pay_method : 'card',
-					merchant_uid : <%=orderNumber%>,
+					merchant_uid : 'merchant_' + new Date().getTime(),
 					name : '주문명:' + _product_name + '외 ' + tot.length + '개' ,
 // 					amount : total_p + delivery - useP,
 					amount : 10,

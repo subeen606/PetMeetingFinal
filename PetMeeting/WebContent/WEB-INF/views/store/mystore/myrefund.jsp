@@ -110,14 +110,10 @@ form{
 						
 						<div class="s-navi-bottom">
 	                        <div class="s-logo">
-	                        	<img alt="이미지없음" src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogostore.png" width="auto" height="30px"
+	                        	<img alt="이미지없음" src="${pageContext.request.contextPath}/common/navbar/img/petmeetinglogo.png" width="auto" height="30px"
 	                        		onclick="location.href='productlist.do'">
 	                        </div>
-	                        
 	                        <div class="s-mymenu">
-								<div class="s-mymenu-petmain">
-									<img alt="이미지없음" src="${pageContext.request.contextPath}/store_resources/images/home.png" width="30px" height="30px" onclick="location.href='main.do'">&nbsp;&nbsp;&nbsp;
-								</div>
 								<div class="s-mymenu-mystore">
 									<img alt="이미지없음" src="${pageContext.request.contextPath}/store_resources/images/user.png" width="30px" height="30px" onclick="location.href='mystore.do'">&nbsp;&nbsp;&nbsp;
 								</div>

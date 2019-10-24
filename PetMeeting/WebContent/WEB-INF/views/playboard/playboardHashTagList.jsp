@@ -86,9 +86,6 @@
 			</c:if>
 	</div>
 </div>
-   <!--::footer part start::--> 
-    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-    <!-- footer part end-->
 <script type="text/javascript">
 
 

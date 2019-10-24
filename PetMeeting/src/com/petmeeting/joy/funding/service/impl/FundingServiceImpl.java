@@ -29,8 +29,10 @@ public class FundingServiceImpl implements FundingService {
 		List<FundingDto> flist = new ArrayList<FundingDto>();
 		
 		for(FundingDto fund : list) {
+			
 			int seq = fund.getSeq();
-			int check = funddao.isFundlike(new FundinglikeBean(seq, email));
+			
+			//int check = funddao.fundingStacheck(seq);
 			int count = funddao.isfunding(new FundingmemDto(seq, email));
 			
 			if(count==1) {
@@ -38,13 +40,10 @@ public class FundingServiceImpl implements FundingService {
 			}else {
 				fund.setIsfunding(false);
 			}
-			
-			if(check==1) { 
-				fund.setIslike(true);
-			}else {
-				fund.setIslike(false);
-			}
-			 
+			/*
+			 * if(check==1) { fund.setIsfundingsta(true); }else {
+			 * fund.setIsfundingsta(false); }
+			 */
 			flist.add(fund);
 		}
 		return flist;

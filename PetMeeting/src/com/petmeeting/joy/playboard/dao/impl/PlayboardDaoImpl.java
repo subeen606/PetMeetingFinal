@@ -51,11 +51,6 @@ public class PlayboardDaoImpl implements playboardDao{
 	}
 
 	@Override
-	public void insertPointHistory(PlayboardDto pdto) {
-		sqlSession.insert(namespace+"insertPointHistory", pdto);
-	}
-
-	@Override
 	public List<PlayboardDto> getPlayboardList(PlayboardSearchBean search) {
 		List<PlayboardDto> list = sqlSession.selectList(namespace + "getPlayboardList", search);
 		return list;

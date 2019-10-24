@@ -69,6 +69,4 @@ public interface OrderService {
 	public int getTodaySales();
 	
 	public String getProductSalesTop5Json();
-	
-	public void updateRefundComplete(int refund_seq);
 }

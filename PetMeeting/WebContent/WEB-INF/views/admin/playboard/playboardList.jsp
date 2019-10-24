@@ -13,6 +13,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css?after">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/playboard.css">
 </head>
 <body>
@@ -57,7 +58,7 @@
 					<option value="장소">장소</option>
 				</select>
 				<input type="search" name="searchText">
-				<button type="button" id="searchBtn" class="search-btn"></button>
+				<button type="button" id="searchBtn">검색</button>
 				</div>
 			</form>
 			
@@ -93,7 +94,7 @@
 				</table>
 			</form>
 			
-			<input id="deleteBtn" type="button" value="삭제" onclick="delCheck()">
+			<button type="button" id="deleteBtn" onclick="delCheck()">삭제</button>
 			
 			<div class="pagingWrap">
 			<jsp:include page="/WEB-INF/views/admin/playboard/paging.jsp" flush="false">													

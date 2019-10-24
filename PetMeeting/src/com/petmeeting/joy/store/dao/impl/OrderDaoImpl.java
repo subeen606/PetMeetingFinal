@@ -195,10 +195,6 @@ public class OrderDaoImpl implements OrderDao {
 	public List<SalesDto> getProductSalesTop5() {
 		return sqlSession.selectList(ns + "getProductSalesTop5");
 	}
-	@Override
-	public void updateRefundComplete(int refund_seq) {
-		sqlSession.update(ns + "updateRefundComplete", refund_seq);
-	}
 	
 	
 	

@@ -120,7 +120,7 @@
 	                    <div class="play-items">
 	                        <div class="play-img set-bg">                           
 	                           <c:if test="${pList.reportcount >= 3 }">
-	                           	<a class="reportAnchor"><img class="thumbnail-img" src="${pageContext.request.contextPath}/playboard_resources/img/reportmark.png"></a>
+	                           	<a class="reportAnchor"><img src="${pageContext.request.contextPath}/playboard_resources/img/reportmark.png" width="100%" height="250px"></a>
 	                           </c:if>
 	                           
 	                           <c:if test="${pList.reportcount < 3 }">
@@ -159,11 +159,7 @@
      </c:if>
     
     </div>
-    
-    
-<!--::footer part start::--> 
-	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-<!-- footer part end-->
+
 
 <script type="text/javascript">
 $(function () {
@@ -181,12 +177,24 @@ $(function () {
 		alert("신고로 인해 관리자가 심사 중인 게시글 입니다.");
 	});
 
+/*
+	
+	$(".titleAnchor").on("click", function () {		
+		if("${login.email }" == ""){
+			alert("로그인을 하셔야 글을 보실 수 있습니다.");
+			location.href="login.do";
+		}else{
+			location.href="detailPlay.do?seq="+$(this).attr("seq");
+		}
+	});
+*/	
 	if("${searchBean.playCategory }" == ""){
 		$("select[name='playCategory']").val("선택").attr("selected", "selected");
 	}else{
 		$("select[name='playCategory']").val("${searchBean.playCategory }").attr("selected", "selected");
 	}
-		
+	
+	
 	$("select[name='searchCategory']").val("${searchBean.searchCategory }").attr("selected", "selected");
 	$("input[name='searchText']").val("${searchBean.searchText }");
 	$("select[name='sortingType']").val("${searchBean.sortingType }").attr("selected", "selected");
@@ -299,7 +307,7 @@ $(function () {
 					str += "</div>";
 				});
 				
-				$(".playboardContainer .row").last().append(str);
+				$(".row").last().append(str);
 				if(parseInt($("input[name='endRow']").val()) == ${totoalRowCount }){
 					$("#loadmore").hide();
 				}

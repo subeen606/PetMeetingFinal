@@ -11,7 +11,7 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/fundingboardDetail.css">
 
 </head>
@@ -19,6 +19,7 @@
 
 <form id=frm method="post">
 	<input type="hidden" name="seq" value="${sta.seq }">
+	<%-- <input type="hidden" name="content" value="${sta.content }"> --%>
 	
 	<c:if test="${login.auth eq 8 }">
 		<div id="staTitle">후원내역서</div>

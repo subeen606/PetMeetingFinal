@@ -13,7 +13,7 @@
     
 	<!-- datepicker -->
 	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">
-	
+	<script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
 
 	<!-- 도로명 주소 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -198,12 +198,7 @@
     	</div>   
     </div>
 </form>
-   <!--::footer part start::--> 
-    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-    <!-- footer part end-->
-    
-    
-<script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
+
 <script type="text/javascript">
 $(function () {
 	
