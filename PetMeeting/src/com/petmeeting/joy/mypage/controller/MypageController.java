@@ -561,32 +561,34 @@ public class MypageController {
 		
 		
 	 
-		
 		//나의 좋아요 게시글
-				@RequestMapping(value = "mypageboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
-				 public String mypageboardlike(MypagemylikefreeboardDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
-					
-					
-					System.out.println("나의 좋아요  게시글");
-				     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
-				     param.setEmail(member.getEmail()); 
-				  
-				     System.out.println("나의 좋아요 게시글 테스트 중"+param.toString());
-				     
-				     List<FreeboardDto> list=mypageService.mypagefreeboardlike(param);
+		@RequestMapping(value = "mypageboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
+		 public String mypageboardlike(MypagemylikefreeboardDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+			
+			
+			System.out.println("나의 좋아요  게시글");
+		     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+		     param.setEmail(member.getEmail()); 
+		  
+		     System.out.println("나의 좋아요 게시글 테스트 중"+param.toString());
+		     
+		     List<FreeboardDto> list=mypageService.mypagefreeboardlike(param);
+
+		     System.out.println(list.size());
+
+               
+		     for(int i=0;i<list.size();i++) {
+		    	 System.out.println(list.get(i));
+		     }
+		   
+ 
+		     
+		     model.addAttribute("freelist", list);
+		     
+		     return "mypage/mypagemyfreeboardlike";
+		}
 		
-				     System.out.println(list.size());
-		  for(int i=0;i<list.size();i++) {
-		  System.out.println("list테스트 "+i+list.get(i)); 
-		  }
-		 
-				     model.addAttribute("list", list);
-				     
-				     return "mypage/mypagemyfreeboardlike";
-				}
-				
-				
-	 
+		
 	  
 	  ////////////////////////////////////////////////////////////////////////////////////////////
 	  
@@ -1022,10 +1024,8 @@ public class MypageController {
 	  /* 혜연*/
 		@RequestMapping(value = "mycalendar.do", method = { RequestMethod.GET, RequestMethod.POST })
 		public String getMyCalendar(Model model, HttpServletRequest req) {
-			System.out.println("mycalendar.do로 들어왔나요");
-
+		
 			MemberDto user = (MemberDto) req.getSession().getAttribute("login");
-			System.out.println("로그인한 당신 " + user.toString());
 			MypageListParam listparam = new MypageListParam();
 			listparam.setEmail(user.getEmail());
 			
@@ -1129,29 +1129,22 @@ public class MypageController {
 				RequestMethod.POST })
 		public String mypageRevMsg(MypageMsgParam sparam, Model model, HttpServletRequest req) throws Exception {
 
-			System.out.println("받은 쪽지함으로 가는 중입니다");
-
 			MemberDto user = (MemberDto) req.getSession().getAttribute("login");
-			System.out.println("로그인한 당신 " + user.toString());
+			
 			
 			sparam.setEmail(user.getEmail());
-			System.out.println("들여온 값 : " + sparam.toString());
-
-			System.out.println("검색 중.. " + "selection :" + sparam.getSelection() + " keyword : " + sparam.getKeyword()
-					+ "page : " + sparam.getPageNumber());
-
 			int page = sparam.getPageNumber(); // 0 , 1, 2, 3, 4, 5,
 			int start = page * sparam.getRecordCountPerPage() + 1; // 1 11 21
 			int end = (page + 1) * sparam.getRecordCountPerPage(); // 10 20 30
 
+			System.out.println("sparam 체크체크 : " +sparam.toString());
 			sparam.setStart(start);
 			sparam.setEnd(end);
 
 			MypageMsgParam searchParam = new MypageMsgParam(user.getEmail(), "", // selection
 					"", // keyword
-					sparam.getImportant(), sparam.getReadcheck(), 0, sparam.getRecordCountPerPage(), start, end);
+					"", "", 0, 0, start, end);
 
-			System.out.println("초기화 한 애" + searchParam.toString());
 
 			int totalRecordCount = mypageService.getAllRevMsg(searchParam);
 			int pureTotal = totalRecordCount;
@@ -1159,7 +1152,8 @@ public class MypageController {
 
 			revmsglist = mypageService.getRevMsgList(sparam);
 			totalRecordCount = mypageService.getAllRevMsg(sparam);
-
+		
+			
 			for (MypageMsgDto msgDto : revmsglist) {
 				System.out.println(msgDto.toString());
 			}
@@ -1179,16 +1173,10 @@ public class MypageController {
 		@RequestMapping(value = "mysendmsg.do", method = { RequestMethod.GET, RequestMethod.POST })
 		public String mypageSendMsg(MypageMsgParam sparam, Model model, HttpServletRequest req) {
 
-			System.out.println("보낸 쪽지함으로 가는 중입니다");
-
 			MemberDto user = (MemberDto) req.getSession().getAttribute("login");
-			System.out.println("로그인한 당신 " + user.toString());
+
 			sparam.setEmail(user.getEmail());
-			System.out.println("들여온 값 : " + sparam.toString());
-
-			System.out.println("검색 중.. " + "selection :" + sparam.getSelection() + " keyword : " + sparam.getKeyword()
-					+ "page : " + sparam.getPageNumber());
-
+			System.out.println("sparam 체크체크 : " +sparam.toString());
 			int page = sparam.getPageNumber(); // 0 , 1, 2, 3, 4, 5,
 			int start = page * sparam.getRecordCountPerPage() + 1; // 1 11 21
 			int end = (page + 1) * sparam.getRecordCountPerPage(); // 10 20 30
@@ -1198,17 +1186,17 @@ public class MypageController {
 
 			MypageMsgParam searchParam = new MypageMsgParam(user.getEmail(), "", // selection
 					"", // keyword
-					0, sparam.getRecordCountPerPage(), start, end);
-
-			System.out.println("초기화 한 애" + searchParam.toString());
+					0, 0, start, end);
 
 			int totalRecordCount = mypageService.getAllSendMsg(searchParam);
 			int pureTotal = totalRecordCount;
-			List<MypageMsgDto> sendmsglist = mypageService.getSendMsgList(sparam);
+			List<MypageMsgDto> sendmsglist = mypageService.getSendMsgList(searchParam);
 
-			totalRecordCount = mypageService.getAllSendMsg(searchParam);
+			totalRecordCount = mypageService.getAllSendMsg(sparam);
 			sendmsglist = mypageService.getSendMsgList(sparam);
 
+			System.out.println("이게 변화하는 total : "+ totalRecordCount);
+			
 			model.addAttribute("pageNumber", page);
 			model.addAttribute("pageCountPerScreen", 10);
 			model.addAttribute("recordCountPerPage", sparam.getRecordCountPerPage());
@@ -1232,7 +1220,6 @@ public class MypageController {
 		@RequestMapping(value = "writemsgAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 		public String writeMsgAf(MypageMsgDto msgdto,  Model model) {
 			
-			System.out.println("쪽지 전송중입니다");
 			System.out.println("쪽지 내용 : " + msgdto.toString());
 			List<MypageMsgDto> msgdtolist = new ArrayList<MypageMsgDto>();
 			
@@ -1275,14 +1262,11 @@ public class MypageController {
 		@RequestMapping(value = "checkaccount.do", method = { RequestMethod.GET, RequestMethod.POST })
 		public String checkAccount(MypageMsgDto msgdto, Model model) {
 			
-
 			return "mypage/mypageRevMsgBox";
 		}
 
 		@RequestMapping(value = "replymsg.do", method = { RequestMethod.GET, RequestMethod.POST })
 		public String replyMsg() {
-
-			System.out.println("답장 하러 갑니다");
 
 			return "mypage/mypageReplyMsg";
 			
@@ -1294,17 +1278,13 @@ public class MypageController {
 			if (box.equals("rev")) {	
 				
 				MypageMsgDto mdto = mypageService.getRevMsgDetail(msgdto);
-				System.out.println("mdto 제대로 받아 왔습니까 : " + mdto.toString());
 				model.addAttribute("revmsgDetail", mdto);
-				
 				return "mypage/mypageReplyMsg";
 
 			} else {
 				
 				MypageMsgDto mdto = mypageService.getSendMsgDetail(msgdto);
-				System.out.println("mdto 제대로 받아 왔습니까 : " + mdto.toString());
 				model.addAttribute("sendmsgDetail", mdto);
-			
 				
 				return "mypage/mypageSendMsg";
 			}
@@ -1314,7 +1294,6 @@ public class MypageController {
 		@RequestMapping(value = "changeReadcheck.do", method = { RequestMethod.GET, RequestMethod.POST })
 		public int changeReadcheck(MypageMsgDto msgdto, String click) {
 
-			System.out.println("ajax 제대로 들어왔니 :" + msgdto);
 			MypageMsgDto mdto1 = mypageService.getRevMsgDetail(msgdto);
 
 			if (mdto1.getReaddate() == null || mdto1.getReaddate().equals("") || click.equals("click")) {
@@ -1322,7 +1301,6 @@ public class MypageController {
 			}
 
 			MypageMsgDto mdto2 = mypageService.getRevMsgDetail(msgdto);
-			System.out.println("mdto 제대로 받아 왔습니까 : " + mdto2.toString());
 			return mdto2.getReadcheck();
 		}
 
@@ -1334,20 +1312,19 @@ public class MypageController {
 				for (int seq : chArr) {
 					msgdto.setSeq(seq);
 					mypageService.deleteSendMsg(msgdto);
-					System.out.println("들어온 값을 확인합니다" + msgdto.toString() + " " + select);
+
 				}
 			} else if (select.equals("rev")) {
 				for (int seq : chArr) {
 					msgdto.setSeq(seq);
 					mypageService.deleteRevMsg(msgdto);
-					System.out.println("들어온 값을 확인합니다" + msgdto.toString() + " " + select);
+	
 				}
 			} else {
 				for (int seq : chArr) {
 					msgdto.setSeq(seq);
 					mypageService.deleteSendMsg(msgdto);
 					mypageService.deleteRevMsg(msgdto);
-					System.out.println("들어온 값을 확인합니다" + msgdto.toString() + " " + select);
 				}
 			}
 			return "성공";
@@ -1358,7 +1335,7 @@ public class MypageController {
 		public String countUnreadMsg(Model model, HttpServletRequest req) {
 
 			MemberDto user = (MemberDto) req.getSession().getAttribute("login");
-			System.out.println("로그인한 당신 " + user.toString());
+
 			int totalCount = mypageService.getAllUnreadMsg(user);
 			return totalCount + "";
 		}
@@ -1366,7 +1343,6 @@ public class MypageController {
 		@RequestMapping(value = "getcontact.do", method = { RequestMethod.GET, RequestMethod.POST })
 		public String getcontact(MypageFollowListParam flwparam, Model model, String flw, HttpServletRequest req) {
 			MemberDto user = (MemberDto) req.getSession().getAttribute("login");
-			System.out.println("로그인한 당신 " + user.toString());
 
 			flwparam.setEmail(user.getEmail());
 			int myfollowers = mypageService.myFollowerCount(flwparam);
@@ -1416,9 +1392,7 @@ public class MypageController {
 		public String getflwsearch(MypageFollowListParam flwparam, Model model, HttpServletRequest req) {
 			
 			 MemberDto user = (MemberDto)req.getSession().getAttribute("login");
-			 System.out.println("로그인한 당신 "+ user.toString());
 			 flwparam.setEmail(user.getEmail()); 
-			 System.out.println("검색결과" + flwparam.toString());
 			  
 			 List<MypageFollowListParam> myfollowerlist = mypageService.myFollowerInfoList(flwparam);
 			 List<MypageFollowListParam> myfollowinglist = mypageService.myFollowingInfoList(flwparam);	
@@ -1431,8 +1405,6 @@ public class MypageController {
 		@ResponseBody
 		@RequestMapping(value = "getflwemail.do",produces = "application/text; charset=utf8", method = { RequestMethod.GET, RequestMethod.POST })
 		public String getflwemail(int seq, String flw) {
-			
-			System.out.println("seq는 들어오니 "+ seq);
 			MypageFollowListParam myflwParam = null;
 			
 			if(flw.equals("ing")) {
@@ -1448,9 +1420,10 @@ public class MypageController {
 		
 		@ResponseBody
 		@RequestMapping(value = "checknicknameExist.do",produces = "application/text; charset=utf8", method = { RequestMethod.GET, RequestMethod.POST })
-		public String checknicknameExist(String nickname) {
+		public String checknicknameExist(String nickname, HttpServletRequest req) {
 
 			String nicknameArr[] = null;
+			MemberDto user = (MemberDto)req.getSession().getAttribute("login");
 			List<String> existList = new ArrayList<String>();
 			List<String> notExistList = new ArrayList<String>();
 			List<MemberDto> selectedList = new ArrayList<MemberDto>();
@@ -1463,6 +1436,12 @@ public class MypageController {
 				for (int i = 0; i < nicknameArr.length-1; i++) {
 					if(nicknameArr[i].equals(nicknameArr[i+1])){
 						return "닉네임 "+ nicknameArr[i]+"가 중복 입력되었습니다";
+					}
+					if(nicknameArr[i].equals(user.getNickname())) {
+						return "자기 자신에게는 쪽지를 보낼 수 없습니다.";
+					}
+					if(user.getAuth() == 8) {
+						return "관리자에게는 쪽지를 보낼 수 없습니다.";
 					}
 				}
 				
@@ -1503,8 +1482,7 @@ public class MypageController {
 						}
 					}					
 				}
-				
-				System.out.println("존재안한당께" + result);
+			
 				if(result.substring(0,0).equals(",")) {
 					
 				}else {					
@@ -1513,7 +1491,10 @@ public class MypageController {
 				
 			}
 			else {
-		
+				if(nickname.equals(user.getNickname())) {
+					return "자기 자신에게는 쪽지를 보낼 수 없습니다.";
+				}
+				
 				MemberDto memdto = mypageService.checkNicknameExist(nickname);
 				if(memdto == null) {
 					System.out.println("존재하지 않는 닉네임 : "+ nickname);

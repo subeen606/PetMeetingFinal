@@ -306,5 +306,10 @@ public class OrderServiceImpl implements OrderService {
 	public void updateRefundComplete(int refund_seq) {
 		orderDao.updateRefundComplete(refund_seq);
 	}
+
+	@Override
+	public OrderInfoDto getOrderDetail(String ordernumber) {
+		return orderDao.getOrderDetail(ordernumber);
+	}
 	
 }

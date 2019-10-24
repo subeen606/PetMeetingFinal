@@ -23,7 +23,7 @@
 	<div class="content">
 		<div class="container">
 			<div style="margin: 40px 0;">
-				<h4>상품 상세정보</h4>			
+				<h4>문의 관리</h4>			
 			</div>
 			<div class="search-wrap">
 				<form id="search-form" method="post">
