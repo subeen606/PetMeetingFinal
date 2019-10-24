@@ -221,7 +221,12 @@ document.addEventListener('DOMContentLoaded', function() {
 											<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
 											<tr>
 											<td>
-												<img src="${play.myprofile_img }" class="list-profileimg">
+											<c:if test="${empty play.myprofile_img || play.myprofile_img eq ''}">
+                                    		<img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
+                                    		</c:if>
+                                    		<c:if test="${not empty play.myprofile_img  }">
+                                    		<img src="${play.myprofile_img }" class="list-profileimg">
+                                    		</c:if>
 												<br>
 												${play.nickname }
 											</td>

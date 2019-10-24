@@ -38,7 +38,6 @@
 						<hr>
 						<div class="msg-container">
 							<form id="frm">
-								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)? 0:pageNumber }">
 						
 						<div class="left-container">
 							<select id="_recordCountPerPage" name="recordCountPerPage">			
@@ -63,7 +62,7 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<div class="searchbar">
-								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)? 0:pageNumber }">
+								<input type="hidden" name="pageNumber" id="_pageNumber" value="${sparam.pageNumber }">
 								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)? 0:recordCountPerPage }">
 										
 										<select name="selection" id="_selection">
@@ -310,6 +309,7 @@ $(document).ready(function(){
 	});
 	
 	$("#_recordCountPerPage").on("change", function(){
+		
 		$("#_important").val("${sparam.important}");
 		$("#_readcheck").val("${sparam.readcheck}");
 		$("#_selection").val("${sparam.selection}");
@@ -324,6 +324,7 @@ $(document).ready(function(){
 		if(count == 0){
 			$(this).val('중요');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
 			$("#_keyword").val("${sparam.keyword}");
@@ -332,6 +333,7 @@ $(document).ready(function(){
 		else if(count == 1){
 			$(this).val('안중요');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
 			$("#_keyword").val("${sparam.keyword}");
@@ -344,6 +346,7 @@ $(document).ready(function(){
 		if(count == 0){
 			$(this).val('읽지않음');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
 			$("#_keyword").val("${sparam.keyword}");
@@ -353,6 +356,7 @@ $(document).ready(function(){
 		else if(count == 1){
 			$(this).val('모두');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_important").val("${sparam.important}");
 			$("#_readcheck").val("${sparam.readcheck}");
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");

@@ -1131,17 +1131,17 @@ public class MypageController {
 			
 			
 			sparam.setEmail(user.getEmail());
-		
 			int page = sparam.getPageNumber(); // 0 , 1, 2, 3, 4, 5,
 			int start = page * sparam.getRecordCountPerPage() + 1; // 1 11 21
 			int end = (page + 1) * sparam.getRecordCountPerPage(); // 10 20 30
 
+			System.out.println("sparam 체크체크 : " +sparam.toString());
 			sparam.setStart(start);
 			sparam.setEnd(end);
 
 			MypageMsgParam searchParam = new MypageMsgParam(user.getEmail(), "", // selection
 					"", // keyword
-					sparam.getImportant(), sparam.getReadcheck(), 0, sparam.getRecordCountPerPage(), start, end);
+					"", "", 0, 0, start, end);
 
 
 			int totalRecordCount = mypageService.getAllRevMsg(searchParam);
@@ -1150,7 +1150,8 @@ public class MypageController {
 
 			revmsglist = mypageService.getRevMsgList(sparam);
 			totalRecordCount = mypageService.getAllRevMsg(sparam);
-
+		
+			
 			for (MypageMsgDto msgDto : revmsglist) {
 				System.out.println(msgDto.toString());
 			}
@@ -1173,7 +1174,7 @@ public class MypageController {
 			MemberDto user = (MemberDto) req.getSession().getAttribute("login");
 
 			sparam.setEmail(user.getEmail());
-
+			System.out.println("sparam 체크체크 : " +sparam.toString());
 			int page = sparam.getPageNumber(); // 0 , 1, 2, 3, 4, 5,
 			int start = page * sparam.getRecordCountPerPage() + 1; // 1 11 21
 			int end = (page + 1) * sparam.getRecordCountPerPage(); // 10 20 30
@@ -1183,15 +1184,17 @@ public class MypageController {
 
 			MypageMsgParam searchParam = new MypageMsgParam(user.getEmail(), "", // selection
 					"", // keyword
-					0, sparam.getRecordCountPerPage(), start, end);
+					0, 0, start, end);
 
 			int totalRecordCount = mypageService.getAllSendMsg(searchParam);
 			int pureTotal = totalRecordCount;
-			List<MypageMsgDto> sendmsglist = mypageService.getSendMsgList(sparam);
+			List<MypageMsgDto> sendmsglist = mypageService.getSendMsgList(searchParam);
 
-			totalRecordCount = mypageService.getAllSendMsg(searchParam);
+			totalRecordCount = mypageService.getAllSendMsg(sparam);
 			sendmsglist = mypageService.getSendMsgList(sparam);
 
+			System.out.println("이게 변화하는 total : "+ totalRecordCount);
+			
 			model.addAttribute("pageNumber", page);
 			model.addAttribute("pageCountPerScreen", 10);
 			model.addAttribute("recordCountPerPage", sparam.getRecordCountPerPage());
