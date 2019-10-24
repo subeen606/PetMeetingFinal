@@ -561,32 +561,34 @@ public class MypageController {
 		
 		
 	 
-		
 		//나의 좋아요 게시글
-				@RequestMapping(value = "mypageboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
-				 public String mypageboardlike(MypagemylikefreeboardDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
-					
-					
-					System.out.println("나의 좋아요  게시글");
-				     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
-				     param.setEmail(member.getEmail()); 
-				  
-				     System.out.println("나의 좋아요 게시글 테스트 중"+param.toString());
-				     
-				     List<FreeboardDto> list=mypageService.mypagefreeboardlike(param);
+		@RequestMapping(value = "mypageboardlike.do", method = { RequestMethod.GET, RequestMethod.POST })
+		 public String mypageboardlike(MypagemylikefreeboardDto param,Mypagememandpet mempet,Model model,HttpServletRequest req) {
+			
+			
+			System.out.println("나의 좋아요  게시글");
+		     MemberDto member=(MemberDto) req.getSession().getAttribute("login");
+		     param.setEmail(member.getEmail()); 
+		  
+		     System.out.println("나의 좋아요 게시글 테스트 중"+param.toString());
+		     
+		     List<FreeboardDto> list=mypageService.mypagefreeboardlike(param);
+
+		     System.out.println(list.size());
+
+               
+		     for(int i=0;i<list.size();i++) {
+		    	 System.out.println(list.get(i));
+		     }
+		   
+ 
+		     
+		     model.addAttribute("freelist", list);
+		     
+		     return "mypage/mypagemyfreeboardlike";
+		}
 		
-				     System.out.println(list.size());
-		  for(int i=0;i<list.size();i++) {
-		  System.out.println("list테스트 "+i+list.get(i)); 
-		  }
-		 
-				     model.addAttribute("list", list);
-				     
-				     return "mypage/mypagemyfreeboardlike";
-				}
-				
-				
-	 
+		
 	  
 	  ////////////////////////////////////////////////////////////////////////////////////////////
 	  
