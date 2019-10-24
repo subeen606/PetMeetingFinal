@@ -38,7 +38,6 @@
 						<hr>
 						<div class="msg-container">
 							<form id="frm">
-								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)? 0:pageNumber }">
 						
 						<div class="left-container">
 							<select id="_recordCountPerPage" name="recordCountPerPage">			
@@ -63,7 +62,7 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<div class="searchbar">
-								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)? 0:pageNumber }">
+								<input type="hidden" name="pageNumber" id="_pageNumber" value="${pageNumber }">
 								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)? 0:recordCountPerPage }">
 										
 										<select name="selection" id="_selection">
@@ -105,7 +104,9 @@
 									<td colspan="6" align="center"><p>쪽지가 없습니다.</p></td>
 								</tr>
 							</c:if>
+							 <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 							<c:forEach items="${myrevmsglist }" var="rev" varStatus="i">
+							<jsp:setProperty property="strDate" name="dateUtil" value="${rev.senddate }"/>
 								<tr>
 									<td><input type="checkbox" id="_del" class="delck" seq="${rev.seq }"></td>
 									<c:if test="${rev.important eq 0 }">
@@ -126,7 +127,7 @@
 					
 									<td class="goDetail" seq="${rev.seq }">${rev.content }</td>
 									<td>${rev.nickname }</td>
-									<td>${rev.senddate }</td>
+									<td><jsp:getProperty property="strDateFormat" name="dateUtil"/></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -148,6 +149,12 @@
 						</div>
 					</div>
 			</section>
+			<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
@@ -310,6 +317,7 @@ $(document).ready(function(){
 	});
 	
 	$("#_recordCountPerPage").on("change", function(){
+		
 		$("#_important").val("${sparam.important}");
 		$("#_readcheck").val("${sparam.readcheck}");
 		$("#_selection").val("${sparam.selection}");
@@ -324,6 +332,7 @@ $(document).ready(function(){
 		if(count == 0){
 			$(this).val('중요');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
 			$("#_keyword").val("${sparam.keyword}");
@@ -332,6 +341,7 @@ $(document).ready(function(){
 		else if(count == 1){
 			$(this).val('안중요');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
 			$("#_keyword").val("${sparam.keyword}");
@@ -344,6 +354,7 @@ $(document).ready(function(){
 		if(count == 0){
 			$(this).val('읽지않음');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
 			$("#_keyword").val("${sparam.keyword}");
@@ -353,6 +364,7 @@ $(document).ready(function(){
 		else if(count == 1){
 			$(this).val('모두');
 			alert($(this).val());
+			$("#_pageNumber").val(0);
 			$("#_important").val("${sparam.important}");
 			$("#_readcheck").val("${sparam.readcheck}");
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
