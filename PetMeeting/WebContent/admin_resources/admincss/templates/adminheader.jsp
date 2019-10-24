@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="admin_resources/admincss/css/style.css">
     <!-- animate CSS -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/store_resources/css/animate.css?after">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/admin_common.css">
 	<!-- custom CSS -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css">
 
@@ -92,7 +93,8 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fas fa-users"></i><a href="adminMemberList.do">회원 목록</a></li>
                         </ul>
-                    </li>
+                        <a href="noticeList.do"><i class="menu-icon fa fa-laptop"></i>notice</a>
+					</li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

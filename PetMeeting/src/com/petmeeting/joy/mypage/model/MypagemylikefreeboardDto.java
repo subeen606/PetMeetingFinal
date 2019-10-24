@@ -9,7 +9,6 @@ public class MypagemylikefreeboardDto implements Serializable {
 	private String category;
 	private String selection;
 	private String board_code;
-    private String keyword;
 	
 	public MypagemylikefreeboardDto() {
 		
@@ -47,29 +46,18 @@ public class MypagemylikefreeboardDto implements Serializable {
 		this.board_code = board_code;
 	}
 
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
-	public MypagemylikefreeboardDto(String email, String category, String selection, String board_code,
-			String keyword) {
+	public MypagemylikefreeboardDto(String email, String category, String selection, String board_code) {
 		super();
 		this.email = email;
 		this.category = category;
 		this.selection = selection;
 		this.board_code = board_code;
-		this.keyword = keyword;
 	}
 
 	@Override
 	public String toString() {
 		return "MypagemylikefreeboardDto [email=" + email + ", category=" + category + ", selection=" + selection
-				+ ", board_code=" + board_code + ", keyword=" + keyword + "]";
+				+ ", board_code=" + board_code + "]";
 	}
 	
-
 }

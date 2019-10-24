@@ -50,6 +50,7 @@ public class PlayboardServiceImpl implements PlayboardService{
 		if(pdao.checkPoint() <= 3) {
 			pdao.insertPoint(pdto);
 			pdao.plusPoint(pdto);
+			pdao.insertPointHistory(pdto);
 		}		
 	}
 

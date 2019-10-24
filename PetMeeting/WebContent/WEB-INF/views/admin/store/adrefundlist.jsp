@@ -87,9 +87,9 @@ color: #818181;
 						<div style="float: left;">
 							<select class="search-select" name="sorting_category">
 								<option value="">전체</option>
-								<option value="1">반품신청</option>
+								<option value="1">반품대기</option>
 								<option value="3">반품완료</option>
-								<option value="4">교환신청</option>
+								<option value="4">교환대기</option>
 								<option value="6">교환완료</option>
 							</select>
 						</div>
@@ -162,7 +162,7 @@ color: #818181;
 									<div class="content-refund-for-reason texts" >
 										<span class="category" style="width: 120px;">반품/교환 사유</span>${list.reason }	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 										<c:if test="${list.status eq 1 }">
-											<span class="status-refund" style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }" detail="${list.reason_detail }">반품진행</span>
+											<span class="status-refund" style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }" detail="${list.reason_detail }" refund_seq=${list.refund_seq }>반품진행</span>
 										</c:if>
 										<c:if test="${list.status eq 4 }">
 										<span class="status-change"  style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }">교환진행</span>
@@ -183,12 +183,12 @@ color: #818181;
 						<tr>
 							<td colspan="7">
 							<jsp:include page="/WEB-INF/views/store/mystore/paging.jsp" flush="false">
-									<jsp:param name="" value="type" />
-									<jsp:param name="pageNumber" value="${pageNumber }" />
-									<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
-									<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
-									<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
-							</jsp:include>
+										<jsp:param name="type" value="" />
+										<jsp:param name="pageNumber" value="${pageNumber }" />
+										<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+										<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
+										<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
+								</jsp:include>
 							</td>
 						</tr>
 					</tbody>
@@ -288,40 +288,27 @@ $(".status-refund").click(function () {
 	var ordernumber = $(this).attr("ordernumber");
 	var totalprice = $("#totalprice").val();
 	var detail = $(this).attr("detail");
+	var refund_seq = $(this).attr("refund_seq");
 	
-// 	alert("order" + ordernumber);
+//	alert("order" + ordernumber);
 // 	alert("tp " + totalprice);
 // 	alert("detail " + detail);
 	
-		$.ajax({
-	    url : "adcancelpay.do",
-	    type : "POST",
-	    data : JSON.stringify({
-    	  "reason": detail,
-	      "merchant_uid" : ordernumber, // 주문번호
-	      "amount": totalprice // 환불금액
-	    }),
-	    dataType : "json"
-	   }).done(function(result) { // 환불 성공시 로직 
-		   alert("환불 성공");
-	   }).fail(function(error) { // 환불 실패시 로직
-		   alert("환불 실패");
-	   });
 	$.ajax({
-       url : "adcancelpay.do",
-       type : "POST",
-       data : JSON.stringify({
-         "reason": detail,
-         "merchant_uid" : ordernumber, // 주문번호
-         "amount": totalprice // 환불금액
-       }),
-       dataType : "json"
+    url : "adcancelpay.do",
+    type : "POST",
+    data : {
+   	  "reason": detail,
+      "ordernumber" : ordernumber,
+      "refund_seq" : refund_seq,
+      "amount": 10
+    },
+	error: function () {
+		alert("error");
+	}
    }).done(function(result) { // 환불 성공시 로직 
-       alert("환불 성공");
-   }).fail(function(error) { // 환불 실패시 로직
-     alert("환불 실패");
+	   alert(result);
    });
-	
 });
 
  $(".status-change").click(function () {
@@ -330,12 +317,6 @@ $(".status-refund").click(function () {
 		alert("order" + ordernumber);
 		alert("tp " + totalprice);
  });
-
-// 페이징 함수
-function goPage( type, pageNumber ) {
-	$("#_pageNumber").val(pageNumber);
-	$("#search-form").attr("action", "adrefundlist.do").submit();
-};
 
 
 
@@ -447,7 +428,6 @@ $('#slider-wrap').hover(
 });
 
 
-
 // Slider page option
 function countSlides(pos, totalSlides){
    $('#counter').html(pos+1 + ' / ' + totalSlides);
@@ -456,6 +436,12 @@ function pagination(pos){
    $('#pagination-wrap ul li').removeClass('active');
    $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
 }
+
+//페이징 함수
+function goPage( type, pageNumber ) {
+	$("#_pageNumber").val(pageNumber);
+	$("#search-form").attr("action", "adrefundlist.do").submit();
+};
 
 </script>
 

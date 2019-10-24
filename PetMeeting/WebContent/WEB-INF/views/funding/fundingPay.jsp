@@ -36,9 +36,7 @@
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     
 </head>
-
 <body>
-
 
 <!--::header part start::-->
     <header class="header_area">
@@ -58,67 +56,98 @@
     <!-- Header part end-->
 
 <form id="frm">
-<input type="hidden" name="email" value="${login.email }">
-<input type="hidden" name="funding_seq" value="${dto.seq }">  
+	<input type="hidden" name="email" value="${login.email }">
+	<input type="hidden" name="funding_seq" value="${dto.seq }">  
 	<div id="divv" class="container">
-	 <div style="text-align: center;">
-	 	<div>
-	 		<p class="payfont"> Funding </p>
-	 	</div>
+	<div style="text-align: center;">
+	 	<div class="payfont">PETMEETING FUNDING</div>
 	 	<div class="con-flex">
 			<img class="listimg" src="fundingFileupload/${dto.thumbnail}"> 
 			<div class="paycontent">
 				<div class="pc">
-					<span class="titleSt">${dto.title }</span><br><br>
-					<span class="introSt">${dto.intro }</span>
+					<div class="titleSt">${dto.title }</div>
+					<div class="introSt">${dto.intro }</div>
 				</div>
 			</div>
 		</div>
 		<div class="fundcontent">
-		 	<div>	
-				<div>
-				이름: ${mem.name }
-				</div>
-				<div>
-				휴대폰번호: ${mem.phone }
-				</div>
-				<div>
-				주소: ${mem.address } / ${mem.address_detail }
-				</div>
-		 	</div>
-		 	<div>	
-				<div>
-					목표금액: <input id="goal_fund1" value="${dto.max_price }" readonly="readonly">원<br>
-					남은금액: <input id="goal_fund" value="${dto.max_price - dto.current_price }" readonly="readonly">원<br>
-					후원금액: <input name="donation" id="_funding" type="text" placeholder="후원금액">원
-				</div>
-				
-				<input type="radio" name="howfund" value="포인트기부">포인트기부 &nbsp;&nbsp;
-				<input type="radio" name="howfund" value="결제기부">결제기부
-				
-				<div id="pointCheck" style="display: none;">
-					사용 POINT <input name="d_point" id="fundingPt" type="text" placeholder="0">  / 보유 POINT <input id="_point" type="text" value="${mem.point }" readonly="readonly"> 
-					<input id="pointBtn" type="button" value="포인트사용">
-				</div>	
-	
-				<div>
-					총 후원금액 : <input id="funding" type="text" readonly="readonly"> 원
-				</div>
-				<input type="checkbox" class="check">전체선택 <br>
-				<input type="checkbox" id="check1" class="checkB">PetMeeting 이용약관 동의 <a href="">상세보기</a>
-				<input type="checkbox" id="check2" class="checkB">개인정보 수집/이용 동의 <a href="">상세보기</a>
-			 </div>
-			<div>
-				<input  id="check_module" type="button" value="기부 하기">
-				<input id="close" type="button" value="닫기">
-			</div>
-		 </div>	
-	</div>
-	</div>
+		<table class="payTable">
+			<tr>
+				<th>이름</th>
+				<td>${mem.name }</td>
+			</tr>
+			<tr>
+				<th>휴대폰 번호</th>
+				<td>${mem.phone }</td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td>${mem.address }</td>
+			</tr>
+			<tr>
+				<th>상세주소</th>
+				<td>${mem.address_detail }</td>
+			</tr>
+			<tr>
+				<th>목표금액</th>
+				<td><input value='<fmt:formatNumber value="${dto.max_price }" pattern="#,###"/>' readonly="readonly"> 원</td>
+				<input type="hidden" id="goal_fund1" value="${dto.max_price }">
+			</tr>
+			<tr>
+				<th>남은금액</th>
+				<td><input value='<fmt:formatNumber value="${dto.max_price - dto.current_price }" pattern="#,###"/>' readonly="readonly"> 원</td>
+				<input type="hidden" id="goal_fund" value="${dto.max_price - dto.current_price }">
+			</tr>
+			<tr>
+				<th>후원금액</th>
+				<td><input class="number" id="_funding" type="text"  placeholder="후원금액" > 원</td>
+				<input type="hidden" name=donation id="realfund">
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input style="display: inline" type="radio" name="howfund" value="포인트기부">포인트기부 &nbsp;&nbsp;
+					<input style="display: inline" type="radio" name="howfund" value="결제기부">결제기부
+				</td>
+			</tr>
+			<tr id="pointCheck" style="display: none">
+				<th>사용POINT / 보유POINT</th>
+				<td><input name="d_point" id="fundingPt" type="text" placeholder="0">  /  <input id="_point" type="text" value="${mem.point }" readonly="readonly">
+				<input id="pointBtn" type="button" value="포인트사용">
+				</td>
+			</tr>
+			<tr>
+				<th>결제금액</th>
+				<td><input id="funding" type="text" readonly="readonly"> 원</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="checkbox" class="check">전체선택 <br>
+					<input type="checkbox" id="check1" class="checkB">PetMeeting 이용약관 동의 <a href="">상세보기</a>&nbsp;&nbsp;&nbsp;
+					<input type="checkbox" id="check2" class="checkB">개인정보 수집/이용 동의 <a href="">상세보기</a>
+				</td>
+			</tr>
+		</table>
+		<div class="PayBtn">
+			<input class="PBtn" id="check_module" type="button" value="후원하기"> &nbsp;&nbsp;&nbsp;&nbsp;
+			<input  class="PBtn" id="close" type="button" value="취소">				
+		</div>
+	</div>	
+</div>
+</div>
 </form>
 
 
 <script>
+
+$(document).on("keyup", "input[type=text].number", function () {
+    var $this = $(this);
+    var num = $this.val().replace(/[^0-9]/g,"");
+ 
+    var parts = num.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    $this.val(parts.join("."));
+});
+
 /* 약관동의 */
 $(".check").click(function() {
 	$(".checkB").prop('checked', this.checked);
@@ -127,9 +156,11 @@ $(".check").click(function() {
 
 /* 기부방법결정 */
 $("input[name=howfund]").click(function() {
+	var num = $(".number").val().replace(/[^\d]+/g, "");
+	$("#realfund").val(parseInt(num));
 	
 	var goal = parseInt($("#goal_fund").val()); //목표 금액
-	var _funding = parseInt($("#_funding").val()); //후원 금액
+	var _funding = parseInt($("#realfund").val()); //후원 금액
 	var point = parseInt($("#fundingPt").val()); //사용 포인트
 	var havepoint = parseInt($("#_point").val()); //보유포인트
 	var funding = parseInt($("#funding").val()); //총 후원금액
@@ -142,34 +173,38 @@ $("input[name=howfund]").click(function() {
 		alert("후원금액은 1,000,000원 이하까지 가능합니다.");
 		$("#_funding").focus();
 	}
-	
-    if( goal >= _funding && _funding <= 1000000){	
+	if( goal >= _funding && _funding <= 1000000){	
     	var b = $("input[name=howfund]:checked").val();
-    	alert(b);
-		 if(b == "포인트기부"){
-			  $("#pointCheck").css("display","");
-			  $("#funding").val("");
+    	//alert(b);
+		if(b == "포인트기부"){
+			$("#pointCheck").css("display","");
+			$("#funding").val("");
 		  }
 		  else if(b != "포인트기부"){
-			  $("#pointCheck").css("display","none");
+			var num = $(".number").val().replace(/[^\d]+/g, "");
+			$("#realfund").val(parseInt(num));
+			$("#pointCheck").css("display","none");
 		  }
 		  if(b == "결제기부"){
 			  //alert( $("#_funding").val() );
-			  $("#funding").val( $("#_funding").val() );  
-			  $("#_funding").on("propertychange change keyup paste input", function() {
-		    					var currentVal = $(this).val();
-		    					$("#funding").val( currentVal );  
-		  		});
+			$("#funding").val( $("#_funding").val() );  
+			$("#_funding").on("propertychange change keyup paste input", function() {
+ 					var currentVal = $(this).val();
+ 					$("#funding").val( currentVal );  
+		  	});
 		   }
-	}
+		}
 });
 
 /* 포인트사용 버튼 클릭시 */
 $("#pointBtn").click(function() {
 	
-	alert("클릭");
+	//alert("클릭");
+	var num = $(".number").val().replace(/[^\d]+/g, "");
+	$("#realfund").val(parseInt(num));
+	
 	var goal = parseInt($("#goal_fund").val()); //목표 금액
-	var _funding = parseInt($("#_funding").val()); //후원 금액
+	var _funding = parseInt($("#realfund").val()); //후원 금액
 	var point = parseInt($("#fundingPt").val()); //사용 포인트
 	var havepoint = parseInt($("#_point").val()); //보유포인트
 	var funding = parseInt($("#funding").val()); //총 후원금액
@@ -178,7 +213,7 @@ $("#pointBtn").click(function() {
 		alert("사용하실 POINT를 입력해주세요");
 		$("#funding").val("");
 		$("#fundingPt").focus();
-		}
+	}
 	if($("#fundingPt").val() < 500){
 		alert("포인트는 500점 이상부터 사용가능합니다");
 		$("#fundingPt").focus();
@@ -193,7 +228,7 @@ $("#pointBtn").click(function() {
 		$("#fundingPt").focus();
 	}
 	if( _funding >= point && havepoint >= point && point >= 500){
-		$("#funding").val($("#_funding").val() - $("#fundingPt").val());
+		$("#funding").val($("#realfund").val() - $("#fundingPt").val());
 	}
 });
 
@@ -204,6 +239,9 @@ $("#close").click(function() {
 
 /* 기부하기 버튼 눌렀을때 (point사용  / 결제 API) */
 $("#check_module").click(function () {
+	
+	var num = $("#funding").val().replace(/[^\d]+/g, "");
+	$("#funding").val(parseInt(num));
 	
 	if($("input[name=d_point]").val() == null || $("input[name=d_point]").val() == ""){
 		$("input[name=d_point]").val(0);
@@ -218,11 +256,8 @@ $("#check_module").click(function () {
 	//alert( $("#goal_fund").val());
 	var a = $("#check1").is(":checked");
 	var b = $("#check2").is(":checked");
-	if(a == false){
+	if(a == false || b == false){
 		alert("[이용약관 동의] 를 해주세요");
-	}
-	if(b == false){
-		alert("[개인정보 수집/이용동의] 를 해주세요");
 	}
 	if(_funding>1000000){
 		alert("후원금액은 1,000,000원 이하까지 가능합니다.");
@@ -329,8 +364,6 @@ $("#check_module").click(function () {
 			}
 	 }
 	});
-
 </script>
-
 </body>
 </html>

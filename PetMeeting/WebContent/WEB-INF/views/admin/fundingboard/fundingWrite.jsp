@@ -11,6 +11,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	
+	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/admin_resources/css/admin_common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/admin_resources/css/fundingboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/fundingboard_resources/css/fundingboard.css">
@@ -129,37 +131,30 @@ $(document).ready(function() {
 		        		}
 		        	}
 		  });
-		});
+});
 	
 	
-	function sendFile(file, editor) {
-	    // 파일 전송을 위한 폼생성
-			data = new FormData();
-		    data.append("file", file);
-		    $.ajax({ // ajax를 통해 파일 업로드 처리
-		        data : data,
-		        type : "POST",
-		        url : "img.do",
-		        cache : false,
-		        contentType : false,
-		        enctype: 'multipart/form-data',
-		        processData : false,
-		        success : function(data) { // 처리가 성공할 경우
-	            // 에디터에 이미지 출력
-		        	$(editor).summernote('editor.insertImage', data);
-		        },
-		        error : function () {
-		        	alert("error");
-				}
-		    });
-		}
-	
-</script>
-
-
-
-
-<script type="text/javascript">
+function sendFile(file, editor) {
+    // 파일 전송을 위한 폼생성
+		data = new FormData();
+	    data.append("file", file);
+	    $.ajax({ // ajax를 통해 파일 업로드 처리
+	        data : data,
+	        type : "POST",
+	        url : "img.do",
+	        cache : false,
+	        contentType : false,
+	        enctype: 'multipart/form-data',
+	        processData : false,
+	        success : function(data) { // 처리가 성공할 경우
+            // 에디터에 이미지 출력
+	        	$(editor).summernote('editor.insertImage', data);
+	        },
+	        error : function () {
+	        	alert("error");
+			}
+	    });
+}
 
 $("#subBtn").click(function() {
 	var num = $(".number").val().replace(/[^\d]+/g, "");
@@ -219,7 +214,7 @@ $("#_Sdate").datepicker({
 	      autoHide: true,
 	      yearFirst: true,
 	      yearSuffix: '년'            
-	   });
+});
 	   
 /*Sdate 설정*/
 $('#_Sdate').on('pick.datepicker', function (e) {

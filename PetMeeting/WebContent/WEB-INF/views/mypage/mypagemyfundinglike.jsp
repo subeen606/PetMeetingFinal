@@ -27,22 +27,16 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
    <div id="main">
       <div class="inner">
         <h2>나의 후원 내역</h2>
-       <hr> 
+       <hr>
        
-       <div id="attend-tap">
-		<font>후원</font>
-         </div>
-		 
-       
-       
-           <div class="searchbar">
+           <div class="fund-searchbar">
             <form id="frm">
                   <input type="text" class="input-text" value="" name="keyword" id="_keyword" placeholder="후원명을 입력하세요">
                    <img alt="d" src="./mypage_resources/mypage_s/images/searchIcon1.png" class="imgBtn" id="searchBtn">
             </form>
            </div>
           
-  
+         <br><br>
       <div class="attend" id="_attend">
    
         <c:if test="${empty fundinglist  }">

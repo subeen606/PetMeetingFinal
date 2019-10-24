@@ -206,7 +206,7 @@ INSERT INTO PM_REFUND(SEQ, EMAIL, ORDER_SEQ, REFUND_SELECT, REASON, REASON_DETAI
 VALUES(PM_REFUND_SEQ.NEXTVAL, #{email}, #{order_seq}, #{refund_select}, #{reason}, #{reason_detail}, #{filename}, SYSDATE)
 </insert>
  
-<!-- 반품일 때 status = 1, 교환일 때 status = 3 -->
+<!-- 반품일 때 status = 1, 교환일 때 status = 4 -->
 <update id="updateStatus" parameterType="com.petmeeting.joy.store.model.OrderDto">
 UPDATE PM_ORDER SET 
 <if test="refund_select == '반품'">
@@ -317,7 +317,19 @@ SELECT REFUND_SEQ, EMAIL, ORDERNUMBER, RNAME, ORDER_SEQ, REFUND_SELECT, REASON, 
 FROM (SELECT ROW_NUMBER()OVER(ORDER BY REFUND_DATE DESC) RNUM, O.REFUND_SEQ, R.EMAIL, D.RNAME, O.ORDERNUMBER, R.ORDER_SEQ, R.REFUND_SELECT, R.REASON, R.REASON_DETAIL, O.STATUS, R.FILENAME, R.REFUND_DATE
 	FROM PM_REFUND R, PM_ORDER O, PM_ORDERDETAIL D
 	WHERE O.SEQ = R.ORDER_SEQ
-	AND O.ORDERNUMBER = D.ORDERNUMBER)		
+	AND O.ORDERNUMBER = D.ORDERNUMBER
+		<if test="sorting_category != '' and sorting_category != null">
+		AND O.STATUS = #{sorting_category}
+		</if>
+		<if test="s_keyword != '' and s_keyword != null">
+			<if test="search_category == '주문번호'">
+			AND O.ORDERNUMBER LIKE '%' || #{s_keyword} || '%'
+			</if>
+			<if test="search_category == '주문자명'">
+			AND D.RNAME LIKE '%' || #{s_keyword} || '%'
+			</if>
+		</if>
+		)		
 WHERE RNUM BETWEEN #{start} AND #{end}
 </select>
 
@@ -328,7 +340,19 @@ SELECT NVL(COUNT(*), 0) AS CNT
 FROM (SELECT ROW_NUMBER()OVER(ORDER BY REFUND_DATE DESC) RNUM, O.REFUND_SEQ, R.EMAIL, D.RNAME, O.ORDERNUMBER, R.ORDER_SEQ, R.REFUND_SELECT, R.REASON, R.REASON_DETAIL, O.STATUS, R.FILENAME, R.REFUND_DATE
 	FROM PM_REFUND R, PM_ORDER O, PM_ORDERDETAIL D
 	WHERE O.SEQ = R.ORDER_SEQ
-	AND O.ORDERNUMBER = D.ORDERNUMBER)
+	AND O.ORDERNUMBER = D.ORDERNUMBER
+		<if test="sorting_category != '' and sorting_category != null">
+		AND O.STATUS = #{sorting_category}
+		</if>
+		<if test="s_keyword != '' and s_keyword != null">
+			<if test="search_category == '주문번호'">
+			AND O.ORDERNUMBER LIKE '%' || #{s_keyword} || '%'
+			</if>
+			<if test="search_category == '주문자명'">
+			AND D.RNAME LIKE '%' || #{s_keyword} || '%'
+			</if>
+		</if>
+	)
 </select>
 
 <update id="updateRefundSeq" parameterType="com.petmeeting.joy.store.model.OrderDto">
@@ -415,4 +439,10 @@ WHERE D.ORDERNUMBER = O.ORDERNUMBER
 GROUP BY PRODUCTNAME)
 WHERE RNUM BETWEEN 1 AND 5
 </select>
+
+<!-- 반품완료 업데이트 -->
+<update id="updateRefundComplete" parameterType="java.lang.Integer">
+UPDATE PM_ORDER SET STATUS = 3
+WHERE REFUND_SEQ = #{refund_seq}
+</update> 
 </mapper>

@@ -62,7 +62,7 @@
 							</div>
 							&nbsp;&nbsp;&nbsp;
 							<div class="searchbar">
-								<input type="hidden" name="pageNumber" id="_pageNumber" value="${sparam.pageNumber }">
+								<input type="hidden" name="pageNumber" id="_pageNumber" value="${pageNumber }">
 								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)? 0:recordCountPerPage }">
 										
 										<select name="selection" id="_selection">
