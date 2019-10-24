@@ -169,5 +169,9 @@ public interface OrderDao {
 	 */
 	public void updateRefundComplete(int refund_seq);
 	
+	/**
+	 * 교환 완료 업데이트
+	 */
+	public void updateChangeComplete(int refund_seq);
 	
 }

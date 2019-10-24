@@ -499,6 +499,16 @@ public class StoreAdminController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "adproductchange.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public void adproductchange(int refund_seq) {
+		System.out.println("------------------------------------ adproductchange 들왔다! ");
+	
+		System.out.println("adpoructchange refund_seq : " + refund_seq);
+		
+		orderService.updateChangeComplete(refund_seq);
+	}
+	
 		
 	@RequestMapping(value = "adproductdetail.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adproductdetail(Model model, String pcode) {

@@ -306,5 +306,11 @@ public class OrderServiceImpl implements OrderService {
 	public void updateRefundComplete(int refund_seq) {
 		orderDao.updateRefundComplete(refund_seq);
 	}
+
+	@Override
+	public void updateChangeComplete(int refund_seq) {
+		orderDao.updateChangeComplete(refund_seq);
+	}
+	
 	
 }

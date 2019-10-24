@@ -200,6 +200,9 @@ public class OrderDaoImpl implements OrderDao {
 		sqlSession.update(ns + "updateRefundComplete", refund_seq);
 	}
 	
-	
+	@Override
+	public void updateChangeComplete(int refund_seq) {
+		sqlSession.update(ns + "updateChangeComplete", refund_seq);
+	}
 	
 }
