@@ -301,7 +301,7 @@ $(".status-refund").click(function () {
    	  "reason": detail,
       "ordernumber" : ordernumber,
       "refund_seq" : refund_seq,
-      "amount": 10
+      "amount": totalprice
     },
 	error: function () {
 		alert("error");

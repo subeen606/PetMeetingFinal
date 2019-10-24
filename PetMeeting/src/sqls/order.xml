@@ -444,5 +444,12 @@ WHERE RNUM BETWEEN 1 AND 5
 <update id="updateRefundComplete" parameterType="java.lang.Integer">
 UPDATE PM_ORDER SET STATUS = 3
 WHERE REFUND_SEQ = #{refund_seq}
-</update> 
+</update>
+
+<!-- order number로 orderdetail 정보찾기 -->
+<select id="getOrderDetail" parameterType="java.lang.String" resultType="com.petmeeting.joy.store.model.OrderInfoDto">
+SELECT * FROM PM_ORDERDETAIL
+WHERE ORDERNUMBER=#{ordernumber}
+</select>
+
 </mapper>
