@@ -38,8 +38,7 @@ import com.petmeeting.joy.funding.model.FundinglikeBean;
 import com.petmeeting.joy.funding.model.fundingBean;
 
 import com.petmeeting.joy.funding.util.FUpUtil;
-
-
+import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
 import com.petmeeting.joy.funding.model.FundingDto;

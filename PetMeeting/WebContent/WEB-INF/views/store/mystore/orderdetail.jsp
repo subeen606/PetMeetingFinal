@@ -201,22 +201,30 @@ text-align: left;
 											배송중
 										</c:if>
 										<c:if test="${list.status eq 2}">
-											배송완료
+											<c:if test="${list.refund_status eq 0 }">
+												배송완료
+											</c:if>
+											<c:if test="${list.refund_status eq 1 }">
+												반품 대기중
+											</c:if>
+											<c:if test="${list.refund_status eq 2 }">
+												반품 진행중
+											</c:if>
+											<c:if test="${list.refund_status eq 3 }">
+												<font style="color: #b70000">반품완료</font>
+											</c:if>
+											<c:if test="${list.refund_status eq 4 }">
+												교환 대기중
+											</c:if>
+											<c:if test="${list.refund_status eq 5 }">
+												교환 진행중
+											</c:if>
+											<c:if test="${list.refund_status eq 6 }">
+												<font style="color: #b70000">교환완료</font>
+											</c:if>
 										</c:if>
 										<c:if test="${list.status eq 3}">
 											주문 취소
-										</c:if>
-										<c:if test="${list.status eq 4}">
-											반품 대기
-										</c:if>
-										<c:if test="${list.status eq 5}">
-											반품 완료
-										</c:if>
-										<c:if test="${list.status eq 6}">
-											교환 대기
-										</c:if>
-										<c:if test="${list.status eq 7}">
-											교환 완료
 										</c:if>
 									</td>
 								</tr>
@@ -242,7 +250,7 @@ text-align: left;
 						</tr>
 						<tr>
 							<th>수령인 연락처</th>
-							<td><fmt:formatNumber var="phone" value="${list.rphone }" pattern="###,####,####" />
+							<td><fmt:formatNumber var="phone" value="${list.rphone.trim() }" pattern="###,####,####" />
 								0<c:out value="${fn:replace(phone, ',', '-')}" />
 							</td>
 						</tr>
