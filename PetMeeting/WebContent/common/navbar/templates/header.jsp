@@ -121,11 +121,9 @@
     
     <!-- jquery plugins here-->
     <!-- jquery -->
-
-   	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+   	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>	  
     <!-- popper js -->
-    <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/common/navbar/js/popper.min.js"></script>    
     <!-- bootstrap js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/bootstrap.min.js"></script>
     <!-- counterup js -->
@@ -139,7 +137,7 @@
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/common/navbar/js/custom.js"></script>
 
-    
+   
     
     <script type="text/javascript">
     $(function () {
