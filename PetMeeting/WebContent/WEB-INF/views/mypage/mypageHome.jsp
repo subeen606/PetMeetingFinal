@@ -1,20 +1,9 @@
 <%@page import="com.petmeeting.joy.playboard.model.PlayboardDto"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%!public String dot3(String msg){
-	String str = "";
-	if(msg.length() >= 17){
-		str = msg.substring(0,15);	// 0에서 9까지
-		str += "...";
-	}else{
-		str = msg.trim();
-	}
-	return str;
-}%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,13 +11,10 @@
 <title>나의페이지 홈</title>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/mypagehome/css/mypage_home.css?after">
-
 <link href='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.css' rel='stylesheet' />
 <link href='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.css' rel='stylesheet' />
-
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.js'></script>
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.js'></script>
-
 
 <%
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
@@ -77,63 +63,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <body class="is-preload">
- <header class="header_area">
-    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
-    </header>
-<!-- Wrapper -->
-<div id="wrapper">
-
-  <!-- Main -->
-	<div id="main">
-		<div class="inner">
-		  <h2>나의페이지 홈</h2>
-		 	<hr>
-			<section class="main-container">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-12 two-boxes">
-							<div class="right-box">
-								<div class="col-md-12 member-card">
-									<div class="grade-container">
-									<img class="gradeimg" alt="${userGrade.filename }" 
-									src="${pageContext.request.contextPath}/mypage_resources/mypage_j/images/${userGrade.filename }">
-									<span class="gradename" >${userGrade.grade_name }</span>
+	<header class="header_area">
+		<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+	</header>
+	<!-- Wrapper -->
+	<div id="wrapper">
+	  <!-- Main -->
+		<div id="main">
+			<div class="inner">
+			  <h2>나의페이지 홈</h2>
+				<hr>
+				<section class="main-container">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12 two-boxes">
+								<div class="right-box">
+									<div class="col-md-12 member-card">
+										<div class="grade-container">
+											<img class="gradeimg" alt="${userGrade.filename }" 
+											src="${pageContext.request.contextPath}/mypage_resources/mypage_j/images/${userGrade.filename }">
+											<span class="gradename" >${userGrade.grade_name }</span>
+										</div>
+										<div class="details">
+											<div class="card-detail">
+												<div class="card-detail-title">
+													현재 포인트
+												</div>
+												<div class="card-detail-content">
+													${userdto.point} 
+												</div>
+											</div>
+											<div class="card-detail">
+												<div class="card-detail-title">
+													누적 포인트
+												</div>
+												<div class="card-detail-content">
+													${userdto.totalpoint} 
+												</div>
+											</div>
+											<div class="card-detail">
+												<div class="card-detail-title">
+													작성한 글
+												</div>
+												<div class="card-detail-content">
+													${writingCount } 
+												</div>
+											</div>
+											<div class="card-detail">
+												<div class="card-detail-title">
+													작성한 댓글
+												</div>
+												<div class="card-detail-content">
+													${commentCount }
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="details">
-										<div class="card-detail">
-											<div class="card-detail-title">
-												현재 포인트
-											</div>
-											<div class="card-detail-content">
-												${userdto.point} 
-											</div>
-										</div>
-										<div class="card-detail">
-											<div class="card-detail-title">
-												누적 포인트
-											</div>
-											<div class="card-detail-content">
-												${userdto.totalpoint} 
-											</div>
-										</div>
-										<div class="card-detail">
-											<div class="card-detail-title">
-												작성한 글
-											</div>
-											<div class="card-detail-content">
-												${writingCount } 
-											</div>
-										</div>
-										<div class="card-detail">
-											<div class="card-detail-title">
-												작성한 댓글
-											</div>
-											<div class="card-detail-content">
-												${commentCount }
-											</div>
-										</div>
-									</div>
-								</div>
 								<div class="col-md-12 my-description">
 									<div class="accordion vertical">
 									    <ul>
@@ -144,9 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
 									            
 									        	
 									            </div>
-									             
-
-												 
 									        </li>
 									        <li>
 									            <input type="radio" id="radio-2" name="radio-accordion" />
@@ -205,12 +187,10 @@ document.addEventListener('DOMContentLoaded', function() {
 									            <label for="radio-3">이번주 모임</label>
 										            <div class="content">
 									          			<div id='calendar'></div>
-									        
-			            </div>
-			        </li>
-			    </ul>
-			</div>
-									
+									          	  </div>
+									        </li>
+									    </ul>
+									</div>					
 								</div>
 							</div>
 							<div class="left-box">
