@@ -618,15 +618,15 @@ function pay() {
 		var orderNo = '<%=orderNumber%>';
 		var delivery = 2500;
 		if (type == 'one') {
-		//	alert("if type = one")
+			alert("if type = one")
 
 			IMP.request_pay({
 				pg : 'KG inicis',
 				pay_method : 'card',
 				merchant_uid : <%=orderNumber%>,
 				name : '주문명:' + product_name,
-				amount : price_total + delivery - useP,
-			//	amount : 10,
+				/* amount : price_total + delivery - useP, */
+				amount : 10,
 				buyer_email : email,
 				buyer_name : name,
 				buyer_tel : phone,
@@ -673,8 +673,8 @@ function pay() {
 					pay_method : 'card',
 					merchant_uid : <%=orderNumber%>,
 					name : '주문명:' + _product_name + '외 ' + tot.length + '개' ,
- 					amount : total_p + delivery - useP,
-//					amount : 10,
+// 					amount : total_p + delivery - useP,
+					amount : 10,
 					buyer_email : email,
 					buyer_name : name,
 					buyer_tel : phone,
@@ -697,7 +697,7 @@ function pay() {
 				// 					alert(tot.length);
 									var formD = $("#multiorder-form"+i).serialize();
 								
-				//					alert(formD);
+									alert(formD);
 									
 									$.ajax({
 										url : "cartorderAf.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송

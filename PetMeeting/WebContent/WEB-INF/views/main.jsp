@@ -22,67 +22,21 @@
    
     <!-- banner part start -->
     <section class="banner_part">
-    
-    	<!-- Slideshow container -->
-		<div class="slideshow-container">
-		
-		  <!-- Full-width images with number and caption text -->
-		  <div class="mySlides fade">
-		    <div class="numbertext">1 / 3</div>
-		    <img src="${pageContext.request.contextPath}/common/img/slide(1).jpg" width="100%">
-		    <div class="text">Caption Text</div>
-		  </div>
-		
-		  <div class="mySlides fade">
-		    <div class="numbertext">2 / 3</div>
-		    <img src="${pageContext.request.contextPath}/common/img/slide(2).jpg">
-		    <div class="text">Caption Two</div>
-		  </div>
-		
-		  <div class="mySlides fade">
-		    <div class="numbertext">3 / 3</div>
-		     <img src="${pageContext.request.contextPath}/common/img/slide(3).jpg">
-		    <div class="text">Caption Three</div>
-		  </div>
-		
-		  <!-- Next and previous buttons -->
-		  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-		</div>		
+     
+           
+			
 		
     </section>
-    
-
      
-  <!--::footer part start::-->    
-  	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-  <!-- footer part end-->
+     
+    
+     
+     
+    <!--::footer part start::-->    
+    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+    <!-- footer part end-->
     
 <script type="text/javascript">
-
-var slideIndex = 1;
-showSlides();
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  
-  slides[slideIndex-1].style.display = "block";
-}
-
-
-
 $(document).ready(function () {
 	 Notification.requestPermission(function (status) {
 	   // This allows to use Notification.permission with Chrome/Safari

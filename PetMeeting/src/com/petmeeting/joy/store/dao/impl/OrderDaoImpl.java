@@ -199,14 +199,7 @@ public class OrderDaoImpl implements OrderDao {
 	public void updateRefundComplete(int refund_seq) {
 		sqlSession.update(ns + "updateRefundComplete", refund_seq);
 	}
-	@Override
-	public OrderInfoDto getOrderDetail(String ordernumber) {
-		return sqlSession.selectOne(ns + "getOrderDetail", ordernumber);
-	}
 	
-	@Override
-	public void updateChangeComplete(int refund_seq) {
-		sqlSession.update(ns + "updateChangeComplete", refund_seq);
-	}
+	
 	
 }

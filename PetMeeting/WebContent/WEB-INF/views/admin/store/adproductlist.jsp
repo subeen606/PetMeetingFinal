@@ -14,21 +14,6 @@ input[type=checkbox] { display:none; }
 input[type=checkbox] + label { 
 	display: inline-block; 
 	cursor: pointer;
-	height: 24px;
-	line-height: 24px;
-	padding-left: 24px; 
-	background: url("./store_resources/images/unrecommend.png") no-repeat; 
-	background-position: left;
-}
-
-input[type=checkbox]:checked + label { 
-	background: url("./store_resources/images/recommend.png") no-repeat; 
-	background-position: left;
-}
-
-input[type=checkbox]#soldout-check + label { 
-	display: inline-block; 
-	cursor: pointer;
 	height: 22px;
 	line-height: 22px;
 	padding-left: 22px; 
@@ -36,7 +21,7 @@ input[type=checkbox]#soldout-check + label {
 	background-position: left;
 }
 
-input[type=checkbox]#soldout-check:checked + label { 
+input[type=checkbox]:checked + label { 
 	background: url("./store_resources/images/checked.png") no-repeat; 
 	background-position: left;
 }

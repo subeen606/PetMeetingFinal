@@ -169,15 +169,5 @@ public interface OrderDao {
 	 */
 	public void updateRefundComplete(int refund_seq);
 	
-	/**
-	 * 교환 완료 업데이트
-	 */
-	public void updateChangeComplete(int refund_seq);
-	
-	/**
-	 * 주문번호로 주문정보 불러오기
-	 */
-	public OrderInfoDto getOrderDetail(String ordernumber);
-	
 	
 }
