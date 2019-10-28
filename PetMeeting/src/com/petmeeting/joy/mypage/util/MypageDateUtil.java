@@ -80,7 +80,7 @@ public class MypageDateUtil {
 	public String getDateString1() {
 		String week = null;
 		SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-		System.out.println("요일 확인 좀 합시다 " + date1.getDay());
+	
 		switch(date1.getDay()) {
 			case 0:
 				week = " (일)";
@@ -111,7 +111,7 @@ public class MypageDateUtil {
 	public String getDateString2() {
 		String week = null;
 		SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-		System.out.println("요일 확인 좀 합시다 " + date2.getDay());
+		
 		switch(date2.getDay()) {
 			case 0:
 				week = " (일)";
@@ -179,7 +179,6 @@ public class MypageDateUtil {
 			e.printStackTrace();
 		} 		
 	
-		System.out.println(today.getTime()+86400000 +"  " +stringDate.getTime());
 		int todayNum = (int) (today.getTime()/10000000);
 		int DateNum =  (int) (stringDate.getTime()/10000000);
 		if(todayNum == DateNum) {

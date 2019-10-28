@@ -22,11 +22,14 @@
 <title>나의페이지 홈</title>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/mypagehome/css/mypage_home.css?after">
+
 <link href='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.css' rel='stylesheet' />
 <link href='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.css' rel='stylesheet' />
 
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.js'></script>
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.js'></script>
+
+
 <%
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
 	List<PlayboardDto> makelist = (List<PlayboardDto>) request.getAttribute("mymakeList");
@@ -53,9 +56,20 @@ document.addEventListener('DOMContentLoaded', function() {
 			<%
 			 }
 			 %>
-			 locale : 'ko'
+			 locale : 'ko',
+			 eventClick: function(info) {
+					var pdate = info.event.start;
+					var today = new Date();
+					if(today.getTime()>pdate.getTime()){
+						alert("마감된 소모임입니다.");					
+					}
+					else{
+						var seq = info.event.id;
+						location.href="detailPlay.do?seq="+seq;
+						
+					}
+				}
 	});
-
 	calendar.render();
 }); 
 </script>
@@ -189,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									        <li>
 									            <input type="radio" id="radio-3" name="radio-accordion"  checked="checked"/>
 									            <label for="radio-3">이번주 모임</label>
-									            <div class="content">
+										            <div class="content">
 									          			<div id='calendar'></div>
 									        
 			            </div>
@@ -202,84 +216,82 @@ document.addEventListener('DOMContentLoaded', function() {
 							<div class="left-box">
 									 <label for="flwer-play-activity">나의 구독하는 사람 최신 소모임</label>
 									 <div class="flwer-activity">
-									<table id="flwer-play-activity">
-									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
-									<col width="15%"><col width="55%"><col width="25%">
-									<c:if test="${ empty flwerAllPlayList }">
-									<tr>
-										<td>이번주의 팔로워 글이 없습니다.</td>
-									</tr>
-									</c:if>
-									<jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
-									<c:if test="${ not empty flwerAllPlayList }">
-										<tr>
-										<th>팔로잉</th>
-										<th>소모임 정보</th>
-										<th>모임 예정일</th>
-										</tr>
-										<c:forEach items="${flwerAllPlayList }" var="play" varStatus="i">
-											<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
-											<tr>
-											<td>
-											<c:if test="${empty play.myprofile_img || play.myprofile_img eq ''}">
-                                    		<img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
-                                    		</c:if>
-                                    		<c:if test="${not empty play.myprofile_img  }">
-                                    		<img src="${play.myprofile_img }" class="list-profileimg">
-                                    		</c:if>
-												<br>
-												${play.nickname }
-											</td>
-											
-											<td align="left">
-												${play.sort }
-												<br>
-												${play.category }&nbsp;${play.title }
-											</td>
-											
-											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
-											</tr>
-										</c:forEach>
-									</c:if>
-									</table>
+											<table id="flwer-play-activity">
+												<col width="15%"><col width="55%"><col width="25%">
+													<c:if test="${ empty flwerAllPlayList }">
+													<tr>
+														<td>이번주의 팔로워 글이 없습니다.</td>
+													</tr>
+													</c:if>
+													<jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
+													<c:if test="${ not empty flwerAllPlayList }">
+														<input type="hidden" id="totalData" value="${flwerAllPlayList.size() }">
+														<tr>
+															<th>팔로잉</th>
+															<th>소모임 정보</th>
+															<th>모임 예정일</th>
+														</tr>
+													<c:forEach items="${flwerAllPlayList }" var="play" varStatus="i">
+															<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
+															<tr>
+																<td>
+																	<c:if test="${empty play.myprofile_img || play.myprofile_img eq ''}">
+												                   		<img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
+												                   	</c:if>
+												                   	<c:if test="${not empty play.myprofile_img  }">
+												                   		<img src="${play.myprofile_img }" class="list-profileimg">
+												                   	</c:if>
+																<br>
+																${play.nickname }
+																</td>
+																<td align="left">
+																	${play.sort }
+																	<br>
+																	<font class="goDetail" seq="${play.seq }">[${play.category }]&nbsp;${play.title }</font>
+																</td>
+																<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
+															</tr>
+													</c:forEach>
+												</c:if>
+												</table>
 									</div>
 									
-									 <label for="flwer-play-activity">나의 구독하는 사람 최신 게시글</label>
+									 <label for="flwer-free-activity">나의 구독하는 사람 최신 게시글</label>
 									 <div class="flwer-activity">
-									<table id="flwer-free-activity">
-									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
-									<col width="15%"><col width="55%"><col width="25%">
-									<c:if test="${ empty flwerFreeList }">
-									<tr>
-										<td>이번주의 팔로워 글이 없습니다.</td>
-									</tr>
-									</c:if>
-									<c:if test="${ not empty flwerFreeList }">
-										<tr>
-										<th>팔로잉</th>
-										<th>게시글 정보</th>
-										<th>작성일</th>
-										</tr>
-										<c:forEach items="${flwerFreeList }" var="free" varStatus="i">
-											<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
+											<table id="flwer-free-activity">
+											<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
+											<col width="15%"><col width="55%"><col width="25%">
+											<c:if test="${ empty flwerFreeList }">
 											<tr>
-											<td>
-												<img src="${free.myprofile_img }" class="list-profileimg">
-												<br>
-												${free.nickname }
-											</td>
-											
-											<td align="left">
-												${free.sort }
-												<br>
-												${free.category }&nbsp;${free.title }
-											</td>
-											
-											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
+												<td>이번주의 팔로워 글이 없습니다.</td>
 											</tr>
-										</c:forEach>
-									</c:if>
-									</table>
+											</c:if>
+											<c:if test="${ not empty flwerFreeList }">
+												<tr>
+												<th>팔로잉</th>
+												<th>게시글 정보</th>
+												<th>작성일</th>
+												</tr>
+												<c:forEach items="${flwerFreeList }" var="free" varStatus="i">
+													<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
+													<tr>
+													<td>
+														<img src="${free.myprofile_img }" class="list-profileimg">
+														<br>
+														${free.nickname }
+													</td>
+													
+													<td align="left">
+														${free.sort }
+														<br>
+														${free.category }&nbsp;${free.title }
+													</td>
+													
+													<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
+													</tr>
+												</c:forEach>
+											</c:if>
+											</table>
 									</div>
 							</div>
 					</div>
@@ -296,7 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
 </div>
-
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -330,10 +341,13 @@ $(document).ready(function(){
 	}
 	%>
 	
-	
 	var frmdata = $("#frm").serialize();
 	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
 	
+	$(".goDetail").on("click", function(){
+		var seq = $(this).attr("seq");
+		location.href="detailPlay.do?seq="+seq;
+	});
 });
 
 
