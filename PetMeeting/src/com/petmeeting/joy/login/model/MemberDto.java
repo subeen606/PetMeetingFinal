@@ -19,7 +19,7 @@ public class MemberDto implements Serializable {
 	private int reportcount;	//신고수
 	private int auth;	// 회원구분 : 1 일반회원 3 본인인증회원 5 블랙리스트회원 8 관리자
 	
-	private int savepoint;
+	private int savepoint;	
 	private int use_point;
 	
 	public MemberDto() {

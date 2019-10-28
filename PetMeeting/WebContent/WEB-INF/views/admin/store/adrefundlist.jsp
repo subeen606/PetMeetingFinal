@@ -165,7 +165,7 @@ color: #818181;
 											<span class="status-refund" style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }" detail="${list.reason_detail }" refund_seq=${list.refund_seq }>반품진행</span>
 										</c:if>
 										<c:if test="${list.status eq 4 }">
-										<span class="status-change"  style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }">교환진행</span>
+										<span class="status-change"  style="cursor: pointer; color: #B50000;" ordernumber="${list.ordernumber }" refund_seq=${list.refund_seq }>교환진행</span>
 										</c:if>
 									</div>
 									<div class="content-order-product texts" style="padding-left: 25px;">
@@ -285,39 +285,52 @@ $(".refund_detail").click(function() {
 
 
 $(".status-refund").click(function () {
-	var ordernumber = $(this).attr("ordernumber");
-	var totalprice = $("#totalprice").val();
-	var detail = $(this).attr("detail");
-	var refund_seq = $(this).attr("refund_seq");
-	
-//	alert("order" + ordernumber);
-// 	alert("tp " + totalprice);
-// 	alert("detail " + detail);
-	
-	$.ajax({
-    url : "adcancelpay.do",
-    type : "POST",
-    data : {
-   	  "reason": detail,
-      "ordernumber" : ordernumber,
-      "refund_seq" : refund_seq,
-      "amount": 10
-    },
-	error: function () {
-		alert("error");
-	}
-   }).done(function(result) { // 환불 성공시 로직 
-	   alert(result);
-   });
-});
-
- $(".status-change").click(function () {
+	if(confirm("반품 및 환불을 정말로 진행하시겠습니까?")) {
 		var ordernumber = $(this).attr("ordernumber");
 		var totalprice = $("#totalprice").val();
-		alert("order" + ordernumber);
-		alert("tp " + totalprice);
- });
+		var detail = $(this).attr("detail");
+		var refund_seq = $(this).attr("refund_seq");
+		
+	//	alert("order" + ordernumber);
+	// 	alert("tp " + totalprice);
+	// 	alert("detail " + detail);
+		
+		$.ajax({
+	    url : "adcancelpay.do",
+	    type : "POST",
+	    data : {
+	   	  "reason": detail,
+	      "ordernumber" : ordernumber,
+	      "refund_seq" : refund_seq,
+	      "amount": totalprice
+	    },
+		error: function () {
+			alert("error");
+		}
+	   }).done(function(result) {
+		   alert(result);
+	   });
+	}
+});
 
+// 교환 완료
+ $(".status-change").click(function () {
+	var refund_seq = $(this).attr("refund_seq");
+
+	$.ajax({
+		url : "adproductchange.do",
+		type : "POST",
+		data : "refund_seq=" + refund_seq,
+		success : function () {
+			alert("교환 처리가 완료되었습니다.");
+			
+			location.reload();
+		},
+		error: function () {
+			alert("err");
+		}
+	});
+ });
 
 
 // 리뷰 이미지 클릭 시 모달 띄우기
@@ -364,7 +377,7 @@ $(document).on("click", ".content-refund-img img", function () {
    $.each($('#slider-wrap ul li'), function() { 
       //create a pagination
       var li = document.createElement('li');
-      $('#pagination-wrap ul').append(li);    
+      $('#pagination-wrap ul').append(li);
    });
    
    //counter
@@ -385,7 +398,6 @@ $(document).on("click", ".content-refund-img img", function () {
 	   countSlides(pos, totalSlides);
 	   pagination(pos);
 	}
-	
 	
 	/************
 	SLIDE RIGHT
@@ -427,7 +439,6 @@ $('#slider-wrap').hover(
 	
 });
 
-
 // Slider page option
 function countSlides(pos, totalSlides){
    $('#counter').html(pos+1 + ' / ' + totalSlides);
@@ -442,6 +453,7 @@ function goPage( type, pageNumber ) {
 	$("#_pageNumber").val(pageNumber);
 	$("#search-form").attr("action", "adrefundlist.do").submit();
 };
+
 
 </script>
 
