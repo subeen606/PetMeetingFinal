@@ -473,4 +473,73 @@
 		) A
 	</insert>
 
+
+      <select id="memleavelistadmin" parameterType="com.petmeeting.joy.admin.model.Memberleaveparam"
+          resultType="com.petmeeting.joy.admin.model.Memberleaveparam">
+            
+            SELECT EMAIL, REASON FROM
+			(SELECT ROW_NUMBER()OVER(ORDER BY EMAIL DESC)AS RNUM,
+			EMAIL,REASON FROM PM_LEAVEMEMBER
+			WHERE 1=1 
+			
+				<if test="category == '시간'">
+				AND REASON LIKE '%시간%'
+				</if>
+				<if test="category == '정보부족'">
+				AND REASON LIKE '%정보부족%'
+				</if>
+				<if test="category == '스팸'">
+				AND REASON LIKE '%스팸%'
+				</if>
+				<if test="category == '이메일변경'">
+				AND REASON LIKE '%이메일변경%'
+				</if>
+				<if test="category == '기타'">
+				AND REASON LIKE '%기타%'
+				</if>
+				<if test="category == '관리자권한'">
+				AND REASON LIKE '%관리자%'
+				</if>
+				<if test="search_category == '이메일' and keyword!= null and keyword!='' " >
+				AND EMAIL LIKE '%'||#{keyword}||'%'
+				</if>
+		
+			)
+			WHERE RNUM BETWEEN ${start} AND ${end}	     
+      </select>
+
+
+      <select id="memleavelistcountadmin" parameterType="com.petmeeting.joy.admin.model.Memberleaveparam"
+          resultType="java.lang.Integer">
+            
+            SELECT COUNT(*) FROM
+			(SELECT ROW_NUMBER()OVER(ORDER BY EMAIL DESC)AS RNUM,
+			EMAIL,REASON FROM PM_LEAVEMEMBER
+			WHERE 1=1 
+			<if test="category == '시간'">
+			AND REASON LIKE '%시간%'
+			</if>
+			<if test="category == '정보부족'">
+			AND REASON LIKE '%정보부족%'
+			</if>
+			<if test="category == '스팸'">
+			AND REASON LIKE '%스팸%'
+			</if>
+			<if test="category == '이메일변경'">
+			AND REASON LIKE '%이메일변경%'
+			</if>
+			<if test="category == '기타'">
+			AND REASON LIKE '%기타%'
+			</if>
+			<if test="category == '관리자권한'">
+			AND REASON LIKE '%관리자%'
+			</if>
+			<if test="search_category == '이메일' and keyword!= null and keyword!='' " >
+			AND EMAIL LIKE '%'||#{keyword}||'%'
+			</if>
+			)  
+		
+      </select>
+
+
 </mapper>

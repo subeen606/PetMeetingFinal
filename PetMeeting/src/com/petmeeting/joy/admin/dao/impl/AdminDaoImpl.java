@@ -14,11 +14,13 @@ import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.funding.model.FMsgDto;
 
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
@@ -225,5 +227,17 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<MypageMemberleave> memleave(Memberleaveparam param) {
+		return sqlSession.selectList(namespace+"memleavelistadmin", param);
+	}
+
+	@Override
+	public int memleavecount(Memberleaveparam param) {
+		return sqlSession.selectOne(namespace+"memleavelistcountadmin", param);
+	}
+	
+	
 
 }

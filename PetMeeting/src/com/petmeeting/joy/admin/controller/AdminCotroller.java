@@ -27,6 +27,7 @@ import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
@@ -38,8 +39,7 @@ import com.petmeeting.joy.funding.model.FundinglikeBean;
 import com.petmeeting.joy.funding.model.fundingBean;
 
 import com.petmeeting.joy.funding.util.FUpUtil;
-
-
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
 import com.petmeeting.joy.funding.model.FundingDto;
@@ -453,4 +453,59 @@ public class AdminCotroller {
 	public void fundingStaUp() {
 		
 	}
+	
+	/*회원탈퇴 통계 */
+	@RequestMapping(value = "adminMemleavegraph.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String adminMemleavegraph(Model model, Memberleaveparam param){
+			
+			int page = param.getPageNumber();
+			int start = page * param.getRecordCountPerPage() + 1;
+			int end = (page + 1) * param.getRecordCountPerPage();
+			
+			param.setStart(start);
+			param.setEnd(end);
+	
+			System.out.println("회원탈퇴통계1"+param.toString());
+			//검색할 때마다 초기화 해주기 위한 존재
+			Memberleaveparam mparam = new Memberleaveparam("", //category
+														   "", //keyword
+														   "", //search_category
+														   0, //pageNumber
+														   0, //recordCountPerPage
+														   start,
+														   end);
+			
+			//초기화 해주는 중
+			int totalRecordCount = adminService.memleavecount(mparam);
+			List<MypageMemberleave> leavelist = adminService.memleave(mparam);
+			
+			//그러고 값 넣는 중
+			totalRecordCount = adminService.memleavecount(param);
+			leavelist = adminService.memleave(param);
+			
+			model.addAttribute("pageNumber", page);
+			model.addAttribute("list", leavelist);
+			model.addAttribute("pageCountPerScreen", 10);
+			model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+			model.addAttribute("totalRecordCount", totalRecordCount);
+			model.addAttribute("searchbean", param);
+			
+		/*
+		 * 
+		 * if(param.getStart()==0) { param.setStart(1); param.setEnd(10);
+		 * List<MypageMemberleave> list=adminService.memleave(param); int
+		 * totalcount=adminService.memleavecount(param);
+		 * System.out.println("토탈"+totalcount);
+		 * 
+		 * 
+		 * model.addAttribute("totalcount",totalcount); model.addAttribute("list",
+		 * list); model.addAttribute("searchbean", param);
+		 * 
+		 * }
+		 */
+		
+		
+		return "admin/memberleave/memleavegraph";
+	}
+	
 }
