@@ -10,7 +10,7 @@
 
 
 <%
-response.sendRedirect("main.do");
+response.sendRedirect("goMain.do");
 %>
 
 

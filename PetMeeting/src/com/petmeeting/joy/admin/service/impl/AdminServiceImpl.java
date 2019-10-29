@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.petmeeting.joy.admin.dao.AdminDao;
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
 import com.petmeeting.joy.admin.model.ReportDto;
@@ -198,7 +199,32 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	
+	//////////////////////////////////// 행사게시판 ////////////////////////////////////
+	@Override
+	public void insertEventboard(EventboardDto eventDto) {
+		adminDao.insertEventboard(eventDto);
+	}	
+
+	@Override
+	public List<EventboardDto> getEventList() {
+		return adminDao.getEventList();
+	}
 	
+	@Override
+	public EventboardDto getEventDetail(int seq) {
+		return adminDao.getEventDetail(seq);
+	}
+	
+	@Override
+	public void eventDelete(int seq) {
+		adminDao.eventDelete(seq);
+	}
+
+	@Override
+	public void eventUpdate(EventboardDto eventDto) {
+		adminDao.eventUpdate(eventDto);
+	}
+
 	
 	
 	
@@ -221,7 +247,7 @@ public class AdminServiceImpl implements AdminService {
 			
 		return adminDao.addFunding(fundDto);
 	}
-	
+
 	@Override
 	public List<FundingDto> getFundingList(fundingBean fbean) {
 		List<FundingDto> list = adminDao.getFundingList(fbean);
