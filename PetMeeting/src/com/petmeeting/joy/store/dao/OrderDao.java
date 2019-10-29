@@ -170,9 +170,30 @@ public interface OrderDao {
 	public void updateRefundComplete(int refund_seq);
 	
 	/**
+	 * 교환 완료 업데이트
+	 */
+	public void updateChangeComplete(int refund_seq);
+	
+	/**
 	 * 주문번호로 주문정보 불러오기
 	 */
 	public OrderInfoDto getOrderDetail(String ordernumber);
+	
+	
+	/**
+	 * 오늘의 주문 수
+	 */
+	public int getTodayOrder();
+
+	/**
+	 * 배송대기 상품 수
+	 */
+	public int getDeliveryWait();
+	
+	/**
+	 * 배송중인 상품 수
+	 */
+	public int getDeliveryIng();
 	
 	
 }

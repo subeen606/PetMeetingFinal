@@ -7,13 +7,13 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
 import com.petmeeting.joy.admin.model.NoticeBoardDto;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.funding.model.DayBean;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
-import com.petmeeting.joy.funding.model.FundingmemDto;
-import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.fundingBean;
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -57,5 +57,16 @@ public interface AdminService {
 	public int noticeListcount(fundingBean bean);
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
+	
+	//회원탈퇴
+	public List<MypageMemberleave> memleave(Memberleaveparam param);
+	public int memleavecount(Memberleaveparam param);
+	
+	
+	// 관리자 메인
+	public int getTodayPlay();
+	public int getTodayEndFunding();
+
+	public List<AdminMemberDto> getReportTop5();
 
 }

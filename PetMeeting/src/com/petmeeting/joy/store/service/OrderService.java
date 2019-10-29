@@ -71,6 +71,14 @@ public interface OrderService {
 	public String getProductSalesTop5Json();
 	
 	public void updateRefundComplete(int refund_seq);
+
+	public void updateChangeComplete(int refund_seq);
 	
 	public OrderInfoDto getOrderDetail(String ordernumber);
+	
+	public int getTodayOrder();
+	
+	public int getDeliveryWait();
+	
+	public int getDeliveryIng();
 }

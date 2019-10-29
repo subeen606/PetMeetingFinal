@@ -308,6 +308,6 @@ td.goDetail{
 #revmsgbox th, #sendmsgbox th{
 	background-color: #f1eeeb54;
 }
-#sendmsgbox th,td{
+#sendmsgbox th, #sendmsgbox td {
 	line-height:42px;
 }

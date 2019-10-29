@@ -90,7 +90,7 @@
 	<input type="radio" name="List" id="List2" value="_ing" <c:if test="${ing_end == '_ing' }">checked</c:if>><label for="List2">진행중인 후원</label>
 	<input type="radio" name="List" id="List3" value="_end" <c:if test="${ing_end == '_end' }">checked</c:if>><label for="List3">마감된 후원</label>
 </div>
-※모든 후원은 자정에 마감됩니다.
+※모든 후원은 마감일 자정에 마감됩니다.
 
 <c:if test="${empty list }">
 	<div>
@@ -158,10 +158,6 @@
 	</div>
 
 </div>
-
-<!--::footer part start::-->    
-	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-<!-- footer part end-->
 
 <script>
 $(document).ready(function() {	 

@@ -209,7 +209,7 @@ $(function() {
 					}
 					if( num == 8 ) {
 						console.log("관리자계정");
-						$("#login-form").attr("method","POST").attr("action","adminMain.do").submit();
+						location.href="adminMain.do";
 					}
 				},fail : function(error) {
 					alert(JSON.stringify(error));

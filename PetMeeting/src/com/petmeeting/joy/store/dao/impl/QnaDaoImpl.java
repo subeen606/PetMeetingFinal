@@ -79,4 +79,9 @@ public class QnaDaoImpl implements QnaDao {
 		sqlSession.update(ns + "updateAnswer", ans);
 	}
 	
+	@Override
+	public int getTodayQuestion() {
+		return sqlSession.selectOne(ns + "getTodayQuestion");
+	}
+	
 }

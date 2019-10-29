@@ -10,17 +10,15 @@ import com.petmeeting.joy.admin.dao.AdminDao;
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
-
-import com.petmeeting.joy.funding.model.FMsgDto;
-
 import com.petmeeting.joy.admin.model.MemberSearchBean;
 import com.petmeeting.joy.admin.model.NoticeBoardDto;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
-
+import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
-import com.petmeeting.joy.playboard.model.MsgDto;
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -234,6 +232,31 @@ public class AdminDaoImpl implements AdminDao {
 	public void noticeDelete(int seq) {
 		sqlSession.delete(namespace + "noticeDelete", seq);
 		
+	}
+
+	@Override
+	public List<MypageMemberleave> memleave(Memberleaveparam param) {
+		return sqlSession.selectList(namespace+"memleavelistadmin", param);
+	}
+
+	@Override
+	public int memleavecount(Memberleaveparam param) {
+		return sqlSession.selectOne(namespace+"memleavelistcountadmin", param);
+	}
+	
+	@Override
+	public int getTodayPlay() {
+		return sqlSession.selectOne(namespace + "getTodayPlay");
+	}
+
+	@Override
+	public int getTodayEndFunding() {
+		return sqlSession.selectOne(namespace + "getTodayEndFunding");
+	}
+
+	@Override
+	public List<AdminMemberDto> getReportTop5() {
+		return sqlSession.selectList(namespace + "getReportTop5");
 	}
 
 }

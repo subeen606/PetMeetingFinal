@@ -85,7 +85,7 @@ text-align: center;
 									<c:if test="${vs.count eq 1 }">
 										<td rowspan="${fn:length(mylist) }">2,500원</td>
 									</c:if>
-									<td><fmt:formatNumber value="${list.price * list.quantity }" pattern="#,###"/>원</td>
+									<td>${list.price * list.quantity }</td>
 									<td>
 										<c:if test="${list.status eq 0}">
 											배송준비중
@@ -94,30 +94,22 @@ text-align: center;
 											배송중
 										</c:if>
 										<c:if test="${list.status eq 2}">
-											<c:if test="${list.refund_status eq 0 }">
-												배송완료
-											</c:if>
-											<c:if test="${list.refund_status eq 1 }">
-												반품 대기중
-											</c:if>
-											<c:if test="${list.refund_status eq 2 }">
-												반품 진행중
-											</c:if>
-											<c:if test="${list.refund_status eq 3 }">
-												<font style="color: #b70000">반품완료</font>
-											</c:if>
-											<c:if test="${list.refund_status eq 4 }">
-												교환 대기중
-											</c:if>
-											<c:if test="${list.refund_status eq 5 }">
-												교환 진행중
-											</c:if>
-											<c:if test="${list.refund_status eq 6 }">
-												<font style="color: #b70000">교환완료</font>
-											</c:if>
+											배송완료
 										</c:if>
 										<c:if test="${list.status eq 3}">
 											주문 취소
+										</c:if>
+										<c:if test="${list.status eq 4}">
+											반품 대기
+										</c:if>
+										<c:if test="${list.status eq 5}">
+											반품 완료
+										</c:if>
+										<c:if test="${list.status eq 6}">
+											교환 대기
+										</c:if>
+										<c:if test="${list.status eq 7}">
+											교환 완료
 										</c:if>
 									</td>
 								</tr>
@@ -147,7 +139,7 @@ text-align: center;
 						</tr>
 						<tr>
 							<td class="orderhead"><span>수령인연락처</span></td>
-							<td style="text-align: left;"><fmt:formatNumber var="phone" value="${list.rphone.trim() }" pattern="###,####,####" />
+							<td style="text-align: left;"><fmt:formatNumber var="phone" value="${list.rphone }" pattern="###,####,####" />
 								0<c:out value="${fn:replace(phone, ',', '-')}" />
 							</td>
 						</tr>
