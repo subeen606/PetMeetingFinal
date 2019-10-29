@@ -369,8 +369,12 @@
 		AND	CURRENT_PRICE <![CDATA[<]]> MAX_PRICE
 		</if>
 		<if test="f_categorys == '마감'">
-		AND EDATE <![CDATA[<]]> SYSDATE
-		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE		
+		AND (EDATE <![CDATA[<]]> SYSDATE
+		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE)	
+		</if>
+		
+		<if test="f_keyword != null and f_keyword !=''">
+		AND TITLE LIKE '%'||#{f_keyword}||'%'
 		</if>
 		)
 		WHERE RNUM BETWEEN ${start} AND ${end}			
@@ -387,8 +391,11 @@
 		AND	CURRENT_PRICE <![CDATA[<]]> MAX_PRICE
 		</if>
 		<if test="f_categorys == '마감'">
-		AND EDATE <![CDATA[<]]> SYSDATE
-		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE		
+		AND (EDATE <![CDATA[<]]> SYSDATE
+		OR CURRENT_PRICE <![CDATA[=]]> MAX_PRICE)	
+		</if>
+		<if test="f_keyword != null and f_keyword !=''">
+		AND TITLE LIKE '%'||#{f_keyword}||'%'
 		</if>
 	</select>
 	
@@ -472,5 +479,47 @@
 		</foreach>
 		) A
 	</insert>
+	
+	<!-- 공지 글쓰기 -->
+	<insert id="noticeWrite" parameterType="com.petmeeting.joy.admin.model.NoticeBoardDto">
+		INSERT INTO PM_NOTICEBOARD(SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT)
+		VALUES(PM_NOTICEBOARD_SEQ.NEXTVAL, 'NOTICE', #{email}, #{title}, #{content}, SYSDATE, 0)
+	</insert>
+	
+	<!-- 공지 리스트 -->
+	<select id="getnoticeList" resultType="com.petmeeting.joy.admin.model.NoticeBoardDto" parameterType="com.petmeeting.joy.funding.model.fundingBean">
+		SELECT * FROM(SELECT ROW_NUMBER()OVER(ORDER BY REGDATE DESC)AS RNUM, SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT 
+		FROM PM_NOTICEBOARD
+		WHERE 1=1
+		<if test="f_keyword != null and f_keyword != ''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%'	
+		</if>
+		)
+		WHERE RNUM BETWEEN ${start} AND ${end}
+	</select>
+	
+	<!-- 공지리스트 페이징 -->
+	<select id="noticeListcount" resultType="java.lang.Integer" parameterType="com.petmeeting.joy.funding.model.fundingBean">
+		SELECT COUNT(*) FROM(SELECT ROW_NUMBER()OVER(ORDER BY REGDATE)AS RNUM, SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT 
+		FROM PM_NOTICEBOARD
+		WHERE 1=1
+		<if test="f_keyword != null and f_keyword != ''">
+			AND TITLE LIKE '%'||#{f_keyword}||'%'	
+		</if>
+		)
+	</select>
+	
+	<!-- 공지 디테일 -->
+	<select id="noticeDetail" parameterType="java.lang.Integer" resultType="com.petmeeting.joy.admin.model.NoticeBoardDto">
+		SELECT SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT
+		FROM PM_NOTICEBOARD
+		WHERE SEQ=#{seq}
+	</select>
+	
+	<!-- 공지삭제 -->
+	<delete id="noticeDelete" parameterType="java.lang.Integer">
+		DELETE FROM PM_NOTICEBOARD
+		WHERE SEQ=#{seq}
+	</delete>
 
 </mapper>

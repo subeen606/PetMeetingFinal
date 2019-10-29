@@ -27,6 +27,7 @@ import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
@@ -254,6 +255,169 @@ public class AdminCotroller {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*funding 관리자*/
 	@RequestMapping(value = "adminFundingList.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminFundingList(Model model, fundingBean fbean) {
@@ -270,16 +434,14 @@ public class AdminCotroller {
 			end = totalfundingCount;
 		}
 		fbean.setEnd(end);
-		
-		System.out.println("펀딩 리스트에 들어온 admin: " + fbean.toString());
-		
+
 		List<FundingDto> flist = adminService.getFundingList(fbean);
-		
 		
 		System.out.println("펀딩 admin리스트 수: " + totalfundingCount);
 		
 		model.addAttribute("flist", flist);
 		model.addAttribute("f_categorys", fbean.getF_categorys());
+		model.addAttribute("f_keyword", fbean.getF_keyword());
 			
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);
@@ -446,10 +608,64 @@ public class AdminCotroller {
 		adminService.fundingStaDel(seq);
 	}
 	
-	/*funding 내역서 수정*/
-	@ResponseBody
-	@RequestMapping(value = "fundingStaUp.do",method = {RequestMethod.GET,RequestMethod.POST})
-	public void fundingStaUp() {
+	/*공지 게시판*/
+	@RequestMapping(value = "noticeList.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeListHome(fundingBean bean, Model model) {
+		/* System.out.println("공지게시판 들어온 bean: " + bean.toString()); */
+		int totalCount = adminService.noticeListcount(bean);
+		int sn = bean.getPageNumber();
 		
+		int start = sn * bean.getRecordCountPerPage() + 1;
+		bean.setStart(start);
+		int end = (sn + 1) * bean.getRecordCountPerPage();
+		if( end > totalCount ) {
+			end  = totalCount;
+		}
+		bean.setEnd(end);
+		List<NoticeBoardDto> list = adminService.getnoticeList(bean);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("f_keyword", bean.getF_keyword());
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", bean.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalCount);
+		
+		return "admin/noticeboard/noticeList";
+	}
+	
+	@RequestMapping(value = "noticeWrite.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeWrite() {
+		return "admin/noticeboard/noticeWrite";
+	}
+	
+	@RequestMapping(value = "noticeWriteAf.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeWriteAf(NoticeBoardDto dto) {
+		System.out.println("공지dto[controller] = " + dto.toString());
+		adminService.noticeWrite(dto);
+		
+		return "redirect:/noticeList.do";
+	}
+	
+	@RequestMapping(value = "noticeDetail.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeDetail(int seq, Model model) {
+		NoticeBoardDto dto = adminService.noticeDetail(seq);
+		model.addAttribute("dto", dto);
+		return "admin/noticeboard/noticeDetail";
+	}
+	
+	@RequestMapping(value = "noticeDelete.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeDelete(HttpServletRequest req) {
+		
+		String [] Sseq = req.getParameterValues("seq");
+		int[] seq = new int[Sseq.length];
+		
+		for(int i=0; i<Sseq.length; i++) {
+			seq[i] = Integer.parseInt(Sseq[i]);
+			System.out.println("들어온 seq : " + seq[i] );
+
+			adminService.noticeDelete(seq[i]);
+			}
+		return "redirect:/noticeList.do";
 	}
 }

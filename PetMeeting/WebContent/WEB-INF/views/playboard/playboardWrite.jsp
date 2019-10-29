@@ -12,12 +12,10 @@
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
     
 	<!-- datepicker -->
-<<<<<<< HEAD
+
 	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">	
-=======
 	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">
 	
->>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
 
 	<!-- 도로명 주소 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

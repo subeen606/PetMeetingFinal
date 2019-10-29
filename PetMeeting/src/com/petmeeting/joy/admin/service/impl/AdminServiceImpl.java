@@ -11,6 +11,7 @@ import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.funding.model.DayBean;
@@ -328,5 +329,30 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void fundingStaDel(int seq) {
 		adminDao.fundingStaDel(seq);
+	}
+
+	@Override
+	public void noticeWrite(NoticeBoardDto dto) {
+		adminDao.noticeWrite(dto);
+	}
+
+	@Override
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean) {
+		return adminDao.getnoticeList(bean);
+	}
+
+	@Override
+	public int noticeListcount(fundingBean bean) {
+		return adminDao.noticeListcount(bean);
+	}
+
+	@Override
+	public NoticeBoardDto noticeDetail(int seq) {
+		return adminDao.noticeDetail(seq);
+	}
+
+	@Override
+	public void noticeDelete(int seq) {
+		adminDao.noticeDelete(seq);
 	}
 }

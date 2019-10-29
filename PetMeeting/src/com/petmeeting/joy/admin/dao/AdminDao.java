@@ -8,6 +8,7 @@ import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.funding.model.FMsgDto;
 
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 
@@ -31,11 +32,6 @@ public interface AdminDao {
 	
 	public PlayboardDto getPlayboardDetail(int seq);
 
-
-	public List<BoardReportDto> getBoardReportReason(BoardReportDto reportDto);
-	
-	public void deleteBoardReport(BoardReportDto reportDto);
-	public void minusReportCount(BoardReportDto reportDto);
 
 	public List<BoardReportDto> getBoardReportReason(ReportDto reportDto);
 	
@@ -80,5 +76,12 @@ public interface AdminDao {
 	
 	public void sendMsgFund(List<FMsgDto> msgList);
 	public void revMsgFund(List<FMsgDto> msgList);
+	
+	/*notice*/
+	public void noticeWrite(NoticeBoardDto dto);
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean);
+	public int noticeListcount(fundingBean bean);
+	public NoticeBoardDto noticeDetail(int seq);
+	public void noticeDelete(int seq);
 
 }
