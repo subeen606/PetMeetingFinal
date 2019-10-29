@@ -104,7 +104,7 @@
 				
 				<div class="pagingWrap">
 					<jsp:include page="/WEB-INF/views/admin/member/paging.jsp" flush="false">													
-							<jsp:param name="pageNumber" value="${searchBean.currPage }" />
+							<jsp:param name="pageNumber" value="1" />
 							<jsp:param name="totalRecordCount" value="${totalRowCount }" />
 							<jsp:param name="pageCountPerScreen" value="10" />
 							<jsp:param name="recordCountPerPage" value="10" />

@@ -204,7 +204,7 @@ opacity:0.6;
 .freetable tr{
 	height:60px;
 	border-bottom:solid 0.1px;
-	border-color:#e5e5e5;
+	border-color:#dce0dc;
 }
 
 .freetable th{
@@ -213,10 +213,18 @@ opacity:0.6;
 }
 
 .freeindex{
+	
 	background-color:#ced4cf;
 	display:inline-block;
 	width:25px;
 	height:25px;
 	border-radius:100%;
 
+}
+.freetable td{
+ background-color:#ebe9e7;
+}
+
+.sectiontbody:hover{
+	 background-color:#564533;
 }

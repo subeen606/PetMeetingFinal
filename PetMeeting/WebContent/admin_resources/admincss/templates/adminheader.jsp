@@ -92,6 +92,7 @@
                         <i class="menu-icon fas fa-user-cog"></i>회원 관리</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fas fa-users"></i><a href="adminMemberList.do">회원 목록</a></li>
+                            <li><i class="menu-icon fas fa-chart-pie"></i><a href="adminMemleavegraph.do">회원탈퇴 통계</a></li>
                         </ul>
                         <a href="noticeList.do"><i class="menu-icon fa fa-laptop"></i>notice</a>
 					</li>

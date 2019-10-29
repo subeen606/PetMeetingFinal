@@ -1,9 +1,20 @@
 <%@page import="com.petmeeting.joy.playboard.model.PlayboardDto"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%!public String dot3(String msg){
+	String str = "";
+	if(msg.length() >= 17){
+		str = msg.substring(0,15);	// 0에서 9까지
+		str += "...";
+	}else{
+		str = msg.trim();
+	}
+	return str;
+}%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +24,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/mypagehome/css/mypage_home.css?after">
 <link href='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.css' rel='stylesheet' />
 <link href='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.css' rel='stylesheet' />
+
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/core/main.js'></script>
 <script src='${pageContext.request.contextPath}/mypage_resources/mypagehome/fullcalendar/list/main.js'></script>
-
 <%
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
 	List<PlayboardDto> makelist = (List<PlayboardDto>) request.getAttribute("mymakeList");
@@ -42,20 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			<%
 			 }
 			 %>
-			 locale : 'ko',
-			 eventClick: function(info) {
-					var pdate = info.event.start;
-					var today = new Date();
-					if(today.getTime()>pdate.getTime()){
-						alert("마감된 소모임입니다.");					
-					}
-					else{
-						var seq = info.event.id;
-						location.href="detailPlay.do?seq="+seq;
-						
-					}
-				}
+			 locale : 'ko'
 	});
+
 	calendar.render();
 }); 
 </script>
@@ -63,62 +63,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <body class="is-preload">
-	<header class="header_area">
-		<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
-	</header>
-	<!-- Wrapper -->
-	<div id="wrapper">
-	  <!-- Main -->
-		<div id="main">
-			<div class="inner">
-			  <h2>나의페이지 홈</h2>
-				<hr>
-				<section class="main-container">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-md-12 two-boxes">
-								<div class="right-box">
-									<div class="col-md-12 member-card">
-										<div class="grade-container">
-											<img class="gradeimg" alt="${userGrade.filename }" 
-											src="${pageContext.request.contextPath}/mypage_resources/mypage_j/images/${userGrade.filename }">
-											<span class="gradename" >${userGrade.grade_name }</span>
+ <header class="header_area">
+    	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
+    </header>
+<!-- Wrapper -->
+<div id="wrapper">
+
+  <!-- Main -->
+	<div id="main">
+		<div class="inner">
+		  <h2>나의페이지 홈</h2>
+		 	<hr>
+			<section class="main-container">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12 two-boxes">
+							<div class="right-box">
+								<div class="col-md-12 member-card">
+									<div class="grade-container">
+									<img class="gradeimg" alt="${userGrade.filename }" 
+									src="${pageContext.request.contextPath}/mypage_resources/mypage_j/images/${userGrade.filename }">
+									<span class="gradename" >${userGrade.grade_name }</span>
+									</div>
+									<div class="details">
+										<div class="card-detail">
+											<div class="card-detail-title">
+												현재 포인트
+											</div>
+											<div class="card-detail-content">
+												${userdto.point} 
+											</div>
 										</div>
-										<div class="details">
-											<div class="card-detail">
-												<div class="card-detail-title">
-													현재 포인트
-												</div>
-												<div class="card-detail-content">
-													${userdto.point} 
-												</div>
+										<div class="card-detail">
+											<div class="card-detail-title">
+												누적 포인트
 											</div>
-											<div class="card-detail">
-												<div class="card-detail-title">
-													누적 포인트
-												</div>
-												<div class="card-detail-content">
-													${userdto.totalpoint} 
-												</div>
+											<div class="card-detail-content">
+												${userdto.totalpoint} 
 											</div>
-											<div class="card-detail">
-												<div class="card-detail-title">
-													작성한 글
-												</div>
-												<div class="card-detail-content">
-													${writingCount } 
-												</div>
+										</div>
+										<div class="card-detail">
+											<div class="card-detail-title">
+												작성한 글
 											</div>
-											<div class="card-detail">
-												<div class="card-detail-title">
-													작성한 댓글
-												</div>
-												<div class="card-detail-content">
-													${commentCount }
-												</div>
+											<div class="card-detail-content">
+												${writingCount } 
+											</div>
+										</div>
+										<div class="card-detail">
+											<div class="card-detail-title">
+												작성한 댓글
+											</div>
+											<div class="card-detail-content">
+												${commentCount }
 											</div>
 										</div>
 									</div>
+								</div>
 								<div class="col-md-12 my-description">
 									<div class="accordion vertical">
 									    <ul>
@@ -129,6 +130,9 @@ document.addEventListener('DOMContentLoaded', function() {
 									            
 									        	
 									            </div>
+									             
+
+												 
 									        </li>
 									        <li>
 									            <input type="radio" id="radio-2" name="radio-accordion" />
@@ -185,109 +189,108 @@ document.addEventListener('DOMContentLoaded', function() {
 									        <li>
 									            <input type="radio" id="radio-3" name="radio-accordion"  checked="checked"/>
 									            <label for="radio-3">이번주 모임</label>
-										            <div class="content">
+									            <div class="content">
 									          			<div id='calendar'></div>
-									          	  </div>
-									        </li>
-									    </ul>
-									</div>					
+									        
+			            </div>
+			        </li>
+			    </ul>
+			</div>
+									
 								</div>
 							</div>
 							<div class="left-box">
 									 <label for="flwer-play-activity">나의 구독하는 사람 최신 소모임</label>
 									 <div class="flwer-activity">
-											<table id="flwer-play-activity">
-												<col width="15%"><col width="55%"><col width="25%">
-													<c:if test="${ empty flwerAllPlayList }">
-													<tr>
-														<td>이번주의 팔로워 글이 없습니다.</td>
-													</tr>
-													</c:if>
-													<jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
-													<c:if test="${ not empty flwerAllPlayList }">
-														<input type="hidden" id="totalData" value="${flwerAllPlayList.size() }">
-														<tr>
-															<th>팔로잉</th>
-															<th>소모임 정보</th>
-															<th>모임 예정일</th>
-														</tr>
-													<c:forEach items="${flwerAllPlayList }" var="play" varStatus="i">
-															<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
-															<tr>
-																<td>
-																	<c:if test="${empty play.myprofile_img || play.myprofile_img eq ''}">
-												                   		<img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
-												                   	</c:if>
-												                   	<c:if test="${not empty play.myprofile_img  }">
-												                   		<img src="${play.myprofile_img }" class="list-profileimg">
-												                   	</c:if>
-																<br>
-																${play.nickname }
-																</td>
-																<td align="left">
-																	${play.sort }
-																	<br>
-																	<font class="goDetail" seq="${play.seq }">[${play.category }]&nbsp;${play.title }</font>
-																</td>
-																<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
-															</tr>
-													</c:forEach>
-												</c:if>
-												</table>
+									<table id="flwer-play-activity">
+									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
+									<col width="15%"><col width="55%"><col width="25%">
+									<c:if test="${ empty flwerAllPlayList }">
+									<tr>
+										<td>이번주의 팔로워 글이 없습니다.</td>
+									</tr>
+									</c:if>
+									<jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
+									<c:if test="${ not empty flwerAllPlayList }">
+										<tr>
+										<th>팔로잉</th>
+										<th>소모임 정보</th>
+										<th>모임 예정일</th>
+										</tr>
+										<c:forEach items="${flwerAllPlayList }" var="play" varStatus="i">
+											<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
+											<tr>
+											<td>
+											<c:if test="${empty play.myprofile_img || play.myprofile_img eq ''}">
+                                    		<img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
+                                    		</c:if>
+                                    		<c:if test="${not empty play.myprofile_img  }">
+                                    		<img src="${play.myprofile_img }" class="list-profileimg">
+                                    		</c:if>
+												<br>
+												${play.nickname }
+											</td>
+											
+											<td align="left">
+												${play.sort }
+												<br>
+												${play.category }&nbsp;${play.title }
+											</td>
+											
+											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
+											</tr>
+										</c:forEach>
+									</c:if>
+									</table>
 									</div>
 									
-									 <label for="flwer-free-activity">나의 구독하는 사람 최신 게시글</label>
+									 <label for="flwer-play-activity">나의 구독하는 사람 최신 게시글</label>
 									 <div class="flwer-activity">
-											<table id="flwer-free-activity">
-											<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
-											<col width="15%"><col width="55%"><col width="25%">
-											<c:if test="${ empty flwerFreeList }">
+									<table id="flwer-free-activity">
+									<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
+									<col width="15%"><col width="55%"><col width="25%">
+									<c:if test="${ empty flwerFreeList }">
+									<tr>
+										<td>이번주의 팔로워 글이 없습니다.</td>
+									</tr>
+									</c:if>
+									<c:if test="${ not empty flwerFreeList }">
+										<tr>
+										<th>팔로잉</th>
+										<th>게시글 정보</th>
+										<th>작성일</th>
+										</tr>
+										<c:forEach items="${flwerFreeList }" var="free" varStatus="i">
+											<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
 											<tr>
-												<td>이번주의 팔로워 글이 없습니다.</td>
+											<td>
+												<img src="${free.myprofile_img }" class="list-profileimg">
+												<br>
+												${free.nickname }
+											</td>
+											
+											<td align="left">
+												${free.sort }
+												<br>
+												${free.category }&nbsp;${free.title }
+											</td>
+											
+											<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
 											</tr>
-											</c:if>
-											<c:if test="${ not empty flwerFreeList }">
-												<tr>
-												<th>팔로잉</th>
-												<th>게시글 정보</th>
-												<th>작성일</th>
-												</tr>
-												<c:forEach items="${flwerFreeList }" var="free" varStatus="i">
-													<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
-													<tr>
-													<td>
-														<img src="${free.myprofile_img }" class="list-profileimg">
-														<br>
-														${free.nickname }
-													</td>
-													
-													<td align="left">
-														${free.sort }
-														<br>
-														${free.category }&nbsp;${free.title }
-													</td>
-													
-													<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
-													</tr>
-												</c:forEach>
-											</c:if>
-											</table>
+										</c:forEach>
+									</c:if>
+									</table>
 									</div>
 							</div>
 					</div>
 				</div>
 			</div>
 			</section>
-					<!--::footer part start::-->
-				<br>
-			<footer>
-			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-			</footer> 
-		<!-- footer part end-->
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
 </div>
+
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -321,13 +324,10 @@ $(document).ready(function(){
 	}
 	%>
 	
+	
 	var frmdata = $("#frm").serialize();
 	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
 	
-	$(".goDetail").on("click", function(){
-		var seq = $(this).attr("seq");
-		location.href="detailPlay.do?seq="+seq;
-	});
 });
 
 

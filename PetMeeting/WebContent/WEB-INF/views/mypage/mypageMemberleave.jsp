@@ -478,12 +478,12 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
   </li>
   
   <li>
-    <input type="radio" id="t-option" name="selector" value="시간너무많이쏟음">
+    <input type="radio" id="t-option" name="selector" value="시간">
     <label for="t-option">해당 사이트에 너무 많은 시간을 할애하여서 </label>
 
 </li>
  <li>
-    <input type="radio" id="c-option" name="selector" value="스팸너무많음">
+    <input type="radio" id="c-option" name="selector" value="스팸">
     <label for="t-option">해당 사이트에 부적절한 광고 혹은 사용자가 많아서 </label>
 
 </li>

@@ -27,6 +27,7 @@ import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
@@ -38,8 +39,7 @@ import com.petmeeting.joy.funding.model.FundinglikeBean;
 import com.petmeeting.joy.funding.model.fundingBean;
 
 import com.petmeeting.joy.funding.util.FUpUtil;
-
-
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
 import com.petmeeting.joy.funding.model.FundingDto;
@@ -453,4 +453,28 @@ public class AdminCotroller {
 	public void fundingStaUp() {
 		
 	}
+	
+	/*회원탈퇴 통계 */
+	@RequestMapping(value = "adminMemleavegraph.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String adminMemleavegraph( Model model,Memberleaveparam param){
+			System.out.println("회원탈퇴통계1"+param.toString());
+			
+			if(param.getStart()==0) {
+				param.setStart(1);
+				param.setEnd(10);
+				List<MypageMemberleave> list=adminService.memleave(param);
+				int totalcount=adminService.memleavecount(param);
+				System.out.println("토탈"+totalcount);
+				
+				
+				model.addAttribute("totalcount",totalcount);
+				model.addAttribute("list", list);
+				model.addAttribute("searchbean", param);
+				
+			}
+		
+		
+		return "admin/memberleave/memleavegraph";
+	}
+	
 }
