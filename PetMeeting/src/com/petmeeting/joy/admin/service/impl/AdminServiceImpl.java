@@ -15,17 +15,14 @@ import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.funding.model.DayBean;
+import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
-import com.petmeeting.joy.funding.model.FundingmemDto;
-import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.Util.DateUtil;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
-
-import oracle.security.o5logon.a;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -343,5 +340,21 @@ public class AdminServiceImpl implements AdminService {
 	public int memleavecount(Memberleaveparam param) {
 		return adminDao.memleavecount(param);
 	}
+	
+	@Override
+	public int getTodayPlay() {
+		return adminDao.getTodayPlay();
+	}
+
+	@Override
+	public int getTodayEndFunding() {
+		return adminDao.getTodayEndFunding();
+	}
+
+	@Override
+	public List<AdminMemberDto> getReportTop5() {
+		return adminDao.getReportTop5();
+	}
+	
 	
 }

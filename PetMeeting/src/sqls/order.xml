@@ -445,4 +445,35 @@ WHERE RNUM BETWEEN 1 AND 5
 UPDATE PM_ORDER SET STATUS = 3
 WHERE REFUND_SEQ = #{refund_seq}
 </update> 
+
+<update id="updateChangeComplete" parameterType="java.lang.Integer">
+UPDATE PM_ORDER_DETAIL SET STATUS = 6
+WHERE REFUND_SEQ = #{refund_seq}
+</update> 
+
+<!-- order number로 orderdetail 정보찾기 -->
+<select id="getOrderDetail" parameterType="java.lang.String" resultType="com.petmeeting.joy.store.model.OrderInfoDto">
+SELECT * FROM PM_ORDER
+WHERE ORDERNUMBER=#{ordernumber}
+</select>
+
+<!-- 오늘의 주문수 -->
+<select id="getTodayOrder" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) FROM PM_ORDER
+WHERE SUBSTR(ORDERDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
+</select>
+
+<!-- 배송대기 상품 수 -->
+<select id="getDeliveryWait" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) FROM PM_ORDER
+WHERE STATUS = 0
+</select>
+
+<!-- 배송중인 상품 수 -->
+<select id="getDeliveryIng" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) FROM PM_ORDER
+WHERE STATUS = 1
+</select>
+
+
 </mapper>
