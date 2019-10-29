@@ -20,6 +20,7 @@
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
 	List<PlayboardDto> makelist = (List<PlayboardDto>) request.getAttribute("mymakeList");
 	String jsonData = (String)request.getAttribute("jsonData");
+	System.out.println("jsonData 체크 : " + jsonData);
 %>
 
 <script>
@@ -212,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
 															<th>모임 예정일</th>
 														</tr>
 													<c:forEach items="${flwerAllPlayList }" var="play" varStatus="i">
-															<jsp:setProperty property="date1" name="dateUtil" value="${play.pdate }"/>
+															<jsp:setProperty property="date2" name="dateUtil" value="${play.pdate }"/>
 															<tr>
 																<td>
 																	<c:if test="${empty play.myprofile_img || play.myprofile_img eq ''}">
@@ -227,9 +228,9 @@ document.addEventListener('DOMContentLoaded', function() {
 																<td align="left">
 																	${play.sort }
 																	<br>
-																	<font class="goDetail" seq="${play.seq }">[${play.category }]&nbsp;${play.title }</font>
+																	<font class="goDetail" seq="${play.seq }"  isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">[${play.category }]&nbsp;${play.title }</font>
 																</td>
-																<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
+																<td><jsp:getProperty property="dateString2" name="dateUtil"/></td>
 															</tr>
 													</c:forEach>
 												</c:if>
@@ -326,7 +327,14 @@ $(document).ready(function(){
 	
 	$(".goDetail").on("click", function(){
 		var seq = $(this).attr("seq");
-		location.href="detailPlay.do?seq="+seq;
+		var isEnd = $(this).attr("isEnd");
+		
+		if(isEnd == 0){
+			alert("마감된 소모임입니다.");
+		}
+		else{			
+			location.href="detailPlay.do?seq="+seq;
+		}
 	});
 });
 
