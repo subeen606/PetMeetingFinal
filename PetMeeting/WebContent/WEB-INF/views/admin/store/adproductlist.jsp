@@ -25,6 +25,21 @@ input[type=checkbox]:checked + label {
 	background: url("./store_resources/images/checked.png") no-repeat; 
 	background-position: left;
 }
+
+input[type=checkbox].recommend-check + label { 
+	display: inline-block; 
+	cursor: pointer;
+	height: 24px;
+	line-height: 24px;
+	padding-left: 24px; 
+	background: url("./admin_resources/images/unrecommend.png") no-repeat; 
+	background-position: left;
+}
+
+input[type=checkbox].recommend-check:checked + label { 
+	background: url("./admin_resources/images/recommend.png") no-repeat; 
+	background-position: left;
+}
 </style>
 </head>
 <body>

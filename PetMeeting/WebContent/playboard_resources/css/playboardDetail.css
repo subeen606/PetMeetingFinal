@@ -8,6 +8,7 @@ body{
 div{
 	font-family: 'NanumSquareRound';
 }
+
 .btn1{
 	width: 80px;
 	height: 40px;
@@ -20,6 +21,8 @@ div{
 	padding: 5px;
 	cursor: pointer;
 	transition: 0.3s;
+	margin-left: auto;
+	margin-right: auto;
 }
 .btn1:hover{background-color: rgba(0,0,0,0.06);}
 
@@ -35,6 +38,8 @@ div{
     cursor: pointer;
     background-color: #ff844f;
     transition: 0.3s;
+    margin-left: auto;
+	margin-right: auto;
 }
 .btn2:hover{background-color: #fb7033;}
 
@@ -50,15 +55,16 @@ div{
     cursor: pointer;
     background-color: #b5b5b5;
     transition: 0.3s;
+     margin-left: auto;
+	margin-right: auto;
 }
 .btn3:hover{background-color: #9a9999;}
 
-
-
 .makerBtns{
 	text-align: right;
-	padding-bottom: 10px;
+	padding-bottom: 20px;
 	padding-top: 15px;
+	margin-top: 100px;
 }
 
 .thumbnail-img{
@@ -238,7 +244,7 @@ div{
 .playQnA{
 	width: 100%;
 	padding-top: 100px;
-	margin-bottom: 150px;
+	margin-bottom: 300px;
 }
 .QnA-area{
 	padding-top: 20px;

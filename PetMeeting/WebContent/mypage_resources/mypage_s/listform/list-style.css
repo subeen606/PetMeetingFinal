@@ -42,18 +42,18 @@ button {
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
-    background-color: transparent;
+	background-color: transparent;
 	display: inline-block;
 	padding: 8px 20px;
-	color:  #ff9c3d!important;
-	border: 2px solid  #ff9c3d;
+	color: #8893cc!important;
+	border: 2px solid  #8893cc;
 	transition: all 0.5s;
 	cursor:pointer;
 }
 .primary-button a:hover,
 button:hover {
 	color: #fff!important;
-	background-color: #ff9c3d;
+	background-color: #8893cc;
 }
 
 .playicon{

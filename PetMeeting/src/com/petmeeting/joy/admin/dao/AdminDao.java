@@ -2,16 +2,15 @@ package com.petmeeting.joy.admin.dao;
 
 import java.util.List;
 
+import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
-
-import com.petmeeting.joy.funding.model.FMsgDto;
-
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
-import com.petmeeting.joy.admin.model.AdminMemberDto;
-
+import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
@@ -34,11 +33,6 @@ public interface AdminDao {
 	
 	public PlayboardDto getPlayboardDetail(int seq);
 
-
-	public List<BoardReportDto> getBoardReportReason(BoardReportDto reportDto);
-	
-	public void deleteBoardReport(BoardReportDto reportDto);
-	public void minusReportCount(BoardReportDto reportDto);
 
 	public List<BoardReportDto> getBoardReportReason(ReportDto reportDto);
 	
@@ -63,7 +57,19 @@ public interface AdminDao {
 	public void deleteMemberReport(ReportDto reportDto);
 	public void minusMemberReportCount(ReportDto reportDto);
 	
-
+	
+	/* eventboard */
+	public void insertEventboard(EventboardDto eventDto);
+	
+	public List<EventboardDto> getEventList();
+	
+	public EventboardDto getEventDetail(int seq);
+	
+	public void eventDelete(int seq);
+	
+	public void eventUpdate(EventboardDto eventDto);
+	
+	
 	/*funding*/
 	public boolean addFunding(FundingDto dto);
 	public List<FundingDto> getFundingList(fundingBean fbean);
@@ -88,4 +94,16 @@ public interface AdminDao {
 	public List<MypageMemberleave> memleave(Memberleaveparam param);
 	public int memleavecount(Memberleaveparam param);
 
+	/*notice*/
+	public void noticeWrite(NoticeBoardDto dto);
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean);
+	public int noticeListcount(fundingBean bean);
+	public NoticeBoardDto noticeDetail(int seq);
+	public void noticeDelete(int seq);
+
+	/* main */
+	public int getTodayPlay();
+	public int getTodayEndFunding();
+	
+	public List<AdminMemberDto> getReportTop5();
 }

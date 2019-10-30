@@ -30,4 +30,7 @@ public interface QnaService {
 	public void deleteQna(int seq);
 	
 	public void updateAnswer(AnswerDto ans);
+	
+	public int getTodayQuestion();
+
 }

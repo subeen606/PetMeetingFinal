@@ -71,7 +71,7 @@
 											<option>내용</option>
 											<option>일시</option>
 										</select> <input type="text" class="input-text" value="" name="keyword" id="_keyword" autocomplete="off">
-										 <img alt="d" src="./mypage_resources/mypage_s/images/searchIcon3.png" class="imgBtn" id="searchBtn">
+										 <img alt="d" src="./mypage_resources/mypage_s/images/searchIcon1.png" class="imgBtn" id="searchBtn">
 									</div>
 								</div>
 							</form>
