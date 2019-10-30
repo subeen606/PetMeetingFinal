@@ -215,18 +215,16 @@ $(function () {
 	});
 	
 	$("#makePlayBtn").click(function () {
-		
-		/*
+
 		if(${login.auth } != 3){
 			var check = ("본인인증이 완료되어야 모임을 주죄하실 수 있습니다.\n본인인증을 하시겠습니까?");
 			if(check == true){
-				
-			}else{
-				
+				location.href="mypagePhoneCheck.do";
 			}
+		}else if(${login.auth } == 3){
+			location.href="makePlay.do";
 		}
-		*/
-		location.href="makePlay.do";
+
 	});
 	
 	$("#loadmore").click(function () {

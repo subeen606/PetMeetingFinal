@@ -117,13 +117,26 @@ a{
 #deleteBtn{
 	border: none;
 	outline: none;
-	width: 50px;
+	width: 70px;
     height: 35px;
 	border-radius: 0.5em;
 	font-size: 15px; 
 	background-color: #AF4034;
 	color: #fff;
-	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+	font-weight: normal;
+}
+/* 수정버튼 */
+#updateBtn{
+	border: none;
+	outline: none;
+	width: 70px;
+    height: 35px;
+	border-radius: 0.5em;
+	font-size: 15px; 
+	background-color: #64b35d;
+	color: #fff;
 	margin-left: 10px;
 	cursor: pointer;
 	font-weight: normal;

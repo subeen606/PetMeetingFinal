@@ -369,7 +369,7 @@ $(function () {
 			return false;
 		}
 		
-		$("#boardWriteFrm").attr("action", "makePlayAf.do").submit();
+		$("#boardWriteFrm").attr("action", "adminEventWriteAf.do").submit();
 	});
 });
 

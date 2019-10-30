@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
 import com.petmeeting.joy.admin.model.NoticeBoardDto;
@@ -54,7 +55,19 @@ public interface AdminDao {
 	public void deleteMemberReport(ReportDto reportDto);
 	public void minusMemberReportCount(ReportDto reportDto);
 	
-
+	
+	/* eventboard */
+	public void insertEventboard(EventboardDto eventDto);
+	
+	public List<EventboardDto> getEventList();
+	
+	public EventboardDto getEventDetail(int seq);
+	
+	public void eventDelete(int seq);
+	
+	public void eventUpdate(EventboardDto eventDto);
+	
+	
 	/*funding*/
 	public boolean addFunding(FundingDto dto);
 	public List<FundingDto> getFundingList(fundingBean fbean);
