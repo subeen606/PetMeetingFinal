@@ -81,4 +81,8 @@ public interface OrderService {
 	public int getDeliveryWait();
 	
 	public int getDeliveryIng();
+	
+	public int getCancel();
+	
+	public int getREreqCount(int status);
 }

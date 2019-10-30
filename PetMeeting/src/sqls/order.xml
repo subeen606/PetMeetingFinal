@@ -464,5 +464,21 @@ SELECT NVL(COUNT(*), 0) FROM PM_ORDER
 WHERE STATUS = 1
 </select>
 
+<!-- 취소된 주문 수 -->
+<select id="getCancel" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) FROM PM_ORDER
+WHERE STATUS = 3
+</select>
+
+<!-- 반품/교환 신청된 주문 수 -->
+<select id="getREreqCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0)
+FROM (SELECT R.SEQ
+		FROM PM_REFUND R, PM_ORDER_DETAIL O
+		WHERE R.SEQ = O.REFUND_SEQ
+			AND O.STATUS = #{status}
+		GROUP BY R.SEQ)
+</select>
+
 
 </mapper>

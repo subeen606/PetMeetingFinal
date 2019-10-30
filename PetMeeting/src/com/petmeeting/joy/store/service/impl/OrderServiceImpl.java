@@ -328,6 +328,16 @@ public class OrderServiceImpl implements OrderService {
 	public int getDeliveryIng() {
 		return orderDao.getDeliveryIng();
 	}
+
+	@Override
+	public int getCancel() {
+		return orderDao.getCancel();
+	}
+
+	@Override
+	public int getREreqCount(int status) {
+		return orderDao.getREreqCount(status);
+	}
 	
 	
 }

@@ -195,5 +195,15 @@ public interface OrderDao {
 	 */
 	public int getDeliveryIng();
 	
+	/**
+	 * 취소된 주문 수
+	 */
+	public int getCancel();
+	
+	
+	/**
+	 * 반품/교환 신청 수
+	 */
+	public int getREreqCount(int status);
 	
 }

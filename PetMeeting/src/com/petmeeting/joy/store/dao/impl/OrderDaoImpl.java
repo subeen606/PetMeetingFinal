@@ -220,6 +220,14 @@ public class OrderDaoImpl implements OrderDao {
 	public int getDeliveryIng() {
 		return sqlSession.selectOne(ns + "getDeliveryIng");
 	}
+	@Override
+	public int getCancel() {
+		return sqlSession.selectOne(ns + "getCancel");
+	}
+	@Override
+	public int getREreqCount(int status) {
+		return sqlSession.selectOne(ns + "getREreqCount", status);
+	}
 	
 	
 	
