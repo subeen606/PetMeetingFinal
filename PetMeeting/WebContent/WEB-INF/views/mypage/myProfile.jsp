@@ -135,7 +135,7 @@ $(document).ready(function(){
 	comintro = comintro.split('<br/>').join("\r\n");
 	$('textarea').val(comintro);
 	
-	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
+	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/point.png' class='input-icon'>");
 	//$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
 	
 	var gender = $("#gender").val();

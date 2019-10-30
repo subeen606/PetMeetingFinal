@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6, a, span{
     padding: 0px 8px 1px 8px;
     margin-left: 5px;
     font-size: 9pt;
-    color: #ff9c3d;
+    color: #c2d7e1;
     font-weight: 900;
     background-color: #4c4740;
     -webkit-border-radius: 50px;
@@ -447,7 +447,7 @@ h1, h2, h3, h4, h5, h6, a, span{
 }
 
 #menu ul a:hover, #menu ul span:hover {
-	color: #ff9c3d;
+	color: #c2d7e1;
 }
 
 #menu ul a.opener, #menu ul span.opener {
@@ -482,7 +482,7 @@ h1, h2, h3, h4, h5, h6, a, span{
 }
 
 #menu ul a.opener:hover:before, #menu ul span.opener:hover:before {
-	color: #ff9c3d;
+	color: #c2d7e1;
 }
 
 #menu ul a.opener.active+ul, #menu ul span.opener.active+ul {
@@ -497,7 +497,7 @@ h1, h2, h3, h4, h5, h6, a, span{
 }
 
 #menu>ul>li {
-	border-top: solid 1px #ff9c3d;
+	border-top: solid 1px #585e7d;
 	margin: 0.5em 0 0 0;
 	padding: 0.5em 0 0 0;
 }
