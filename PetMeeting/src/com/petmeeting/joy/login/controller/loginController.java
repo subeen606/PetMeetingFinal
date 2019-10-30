@@ -175,6 +175,11 @@ public class loginController {
 		}
 		if( user != null && user.getAuth() == 8 ) {
 			num = 8; // "관리자 계정";
+			// 로그인시 유저정보 가져오기
+						MemberDto loginuser = memService.getUser(user.getEmail());
+						// 세션생성		
+						req.getSession().setAttribute("login", loginuser);		
+						System.out.println("loginAf.do>>> 관리자ver 로그인 세션생성");
 		}		
 		
 		return num;
