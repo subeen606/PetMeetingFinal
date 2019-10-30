@@ -407,5 +407,10 @@ public class AdminServiceImpl implements AdminService {
 	public List<AdminMemberDto> getReportTop5() {
 		return adminDao.getReportTop5();
 	}
+
+	@Override
+	public void noticeUpdate(NoticeBoardDto dto) {
+		adminDao.noticeUpdate(dto);
+	}
 	
 }

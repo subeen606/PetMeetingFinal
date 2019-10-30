@@ -100,6 +100,7 @@ public interface AdminDao {
 	public int noticeListcount(fundingBean bean);
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
+	public void noticeUpdate(NoticeBoardDto dto);
 
 	/* main */
 	public int getTodayPlay();

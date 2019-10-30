@@ -293,4 +293,9 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectList(namespace + "getReportTop5");
 	}
 
+	@Override
+	public void noticeUpdate(NoticeBoardDto dto) {
+		sqlSession.update(namespace + "noticeUpdate", dto);
+	}
+
 }

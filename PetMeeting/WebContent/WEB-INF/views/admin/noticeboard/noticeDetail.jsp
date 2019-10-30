@@ -23,7 +23,7 @@
 <!-- Content -->
 <div class="content">
 <div class="container">
-<div class="mainTitle">공지 상세보기</div>
+<div class="mainTitle"><a href="#none">공지 상세보기</a></div>
 
 <form id="frm">
 <input type="hidden" id="seq" name="seq" value="${dto.seq }">
@@ -33,8 +33,12 @@
 			<td>${dto.title }</td>
 		</tr>
 		<tr>
+			<th>공지유형</th>
+			<td>${dto.category }</td>
+		</tr>
+		<tr>
 			<th>등록일</th>
-			<td><fmt:formatDate value="${dto.regdate }"  pattern="yyyy-MM-dd hh:mm:ss"/> </td>
+			<td><fmt:formatDate value="${dto.regdate }"  pattern="yyyy-MM-dd HH:mm:ss"/> </td>
 		</tr>
 		<tr>
 			<th>조회수</th>
@@ -48,8 +52,8 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<input type="button" id="delBtn" value="삭제">
-				<input type="button" id="upBtn" value="수정">
+				<input type="button" id="delBtn2" value="삭제">
+				<input type="button" id="upBtn2" value="수정">
 				<input type="button" id="listBtn" value="목록" onclick="location.href='noticeList.do'">
 			</td>
 		</tr>
@@ -61,6 +65,21 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+$("#delBtn2").click(function() {
+	if (confirm("삭제하시겠습니까?") == true){    //확인
+		location.href="noticeDelete.do?seq="+$("#seq").val();
+	}else{   //취소
+	    return;
+	}
+});
+
+$("#upBtn2").click(function() {
+	$("#frm").attr({"action":"noticeUpdate.do","method":"POST"}).submit();
+});
+
+</script>
 
 </body>
 </html>
