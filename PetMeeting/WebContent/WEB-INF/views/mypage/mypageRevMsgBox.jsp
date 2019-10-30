@@ -104,7 +104,9 @@
 									<td colspan="6" align="center"><p>쪽지가 없습니다.</p></td>
 								</tr>
 							</c:if>
+							 <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 							<c:forEach items="${myrevmsglist }" var="rev" varStatus="i">
+							<jsp:setProperty property="strDate" name="dateUtil" value="${rev.senddate }"/>
 								<tr>
 									<td><input type="checkbox" id="_del" class="delck" seq="${rev.seq }"></td>
 									<c:if test="${rev.important eq 0 }">
@@ -125,7 +127,7 @@
 					
 									<td class="goDetail" seq="${rev.seq }">${rev.content }</td>
 									<td>${rev.nickname }</td>
-									<td>${rev.senddate }</td>
+									<td><jsp:getProperty property="strDateFormat" name="dateUtil"/></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -147,6 +149,12 @@
 						</div>
 					</div>
 			</section>
+			<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
