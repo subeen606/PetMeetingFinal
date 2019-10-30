@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypagemylike/css/mypagemyfreeboardlike.css">
 </head>
-
 <body>
  <header class="header_area">
     	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
@@ -74,16 +73,16 @@
 		  <table class="freetable" >
 		  <col width="9%"><col width="41%"><col width="12.5%"><col width="12.5%"><col width="12.5%"><col width="12.5%">
 		   <tr>
-		      <th><span class="freenum">번호</span></th>
-		      <th><span class="freetitle">제목</span></th>
-		      <th><span class="freeboard">유형</span></th>
-		      <th><span class="freecategory">분류</span></th>
-		      <th><span class="freeemail">작성자</span></th>
-		      <th><span class="freelike">좋아요</span></th>
+		      <th>번호</th>
+		      <th>제목</th>
+		      <th>유형</th>
+		      <th>분류</th>
+		      <th>작성자</th>
+		      <th>좋아요</th>
 		   </tr>
 		   <c:forEach items="${freelist}" var="attend" varStatus="i">
-		   <tbody id="section${i.index}" onclick="freeboarddetail()" >
-          		<tr class="sectiontr">
+		   <tbody id="section${i.index}">
+          		<tr>
           		  <td><span class="freeindex">${i.index+1}</span></td>
           		  <td>${attend.title}</td>
           		  <td><c:if test="${'DOG' eq attend.board_code}">강아지</c:if>
@@ -118,10 +117,6 @@
 </div>   
 
 <script type="text/javascript">
-
-function freeboarddetail(){
-	alert("dd");
-}
 
 $("#js-btn-wrap").click(function () {
 	 

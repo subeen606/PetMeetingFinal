@@ -92,6 +92,13 @@
 						</div>
 					</div>
 			</section>
+			
+				<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>

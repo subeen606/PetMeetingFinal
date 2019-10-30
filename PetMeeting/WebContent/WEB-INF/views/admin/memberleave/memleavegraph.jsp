@@ -29,8 +29,8 @@
 		<div class="mainTitle">회원 탈퇴 목록</div>
 		
 			<form id="searchFrm">
-			
-				<select name="category">
+				<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)? 0:pageNumber }">
+				<select name="category" id="_category">
 					<option value="전체">전체보기</option>
 					<option value="시간">시간부족</option>
 					<option value="스팸">스팸 </option>
@@ -42,11 +42,11 @@
 				
 				
 				<div class="searchWrap">
-				<select name="search_category">
+				<select name="search_category" id="_search_category">
 					<option value="선택">검색 분류</option>
 					<option value="이메일">이메일</option>
 				</select>
-				<input type="search" name="keyword">
+				<input type="search" name="keyword" id="_keyword">
 				<button type="button" id="searchBtn" class="search-btn"></button>
 				</div>
 			</form>
@@ -86,10 +86,10 @@
        </table>
 				<div class="pagingWrap">
 				<jsp:include page="/WEB-INF/views/admin/memberleave/paging.jsp" flush="false">													
-							<jsp:param name="pageNumber" value="0" />
-							<jsp:param name="totalRecordCount" value="${totalcount}" />
-							<jsp:param name="pageCountPerScreen" value="10" />
-							<jsp:param name="recordCountPerPage" value="10" />
+							<jsp:param name="pageNumber" value="${pageNumber }" />
+							<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+							<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }"/>
+							<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>		
 					</jsp:include>
 				</div>
 			
@@ -98,6 +98,13 @@
 </div>
 
 <script type="text/javascript">
+
+	var selected = "${searchbean.category}";
+	if(selected == ""){
+		$("#_category").val("전체").attr("selected",true);
+	}else{
+		$("#_category").val(selected).attr("selected",true);		
+	}
 
 $("select[name='category']").on("change", function () {
 
@@ -111,6 +118,8 @@ $("#searchBtn").on("click", function () {
 		$("input[name='search_txt']").focus();
 		return false;
 	}  else{
+		$("#_pageNumber").val(0);
+		$("#_category").val("${searchbean.category}");
 		$("#searchFrm").attr({"action":"adminMemleavegraph.do", "method":"post"}).submit();
 	}
 	   
@@ -122,6 +131,15 @@ $(".infoBtn").click(function () {
 	window.open("adminMemberDetail.do?email="+$(this).attr("email"), "memberDetail", option);
 });
 
+// 페이징
+function goPage(pageNumber){
+	$("#_pageNumber").val(pageNumber);
+	$("#_recordCountPerPage").val("${searchbean.recordCountPerPage}");
+	$("#_category").val("${searchbean.category}");
+	$("#_search_category").val("${searchbean.search_category}");
+	$("#_keyword").val("${searchbean.keyword}");
+	$("#searchFrm").attr({"action":"adminMemleavegraph.do", "method":"post"}).submit();
+}
 
 </script>
 </body>

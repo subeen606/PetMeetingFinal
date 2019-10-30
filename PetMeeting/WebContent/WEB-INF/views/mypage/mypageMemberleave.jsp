@@ -24,6 +24,8 @@
 				<div class="row">
 					<div class="col-md-12">
 			<div class="mypageMain">
+				<h2>회원탈퇴</h2>
+				<hr>
 			<!-- 회원탈퇴 오는 코드 시작 부분 -->
 		<form id="msform">
 			 <ul id="progressbar">
@@ -478,12 +480,12 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
   </li>
   
   <li>
-    <input type="radio" id="t-option" name="selector" value="시간">
+    <input type="radio" id="t-option" name="selector" value="시간너무많이쏟음">
     <label for="t-option">해당 사이트에 너무 많은 시간을 할애하여서 </label>
 
 </li>
  <li>
-    <input type="radio" id="c-option" name="selector" value="스팸">
+    <input type="radio" id="c-option" name="selector" value="스팸너무많음">
     <label for="t-option">해당 사이트에 부적절한 광고 혹은 사용자가 많아서 </label>
 
 </li>
@@ -509,6 +511,14 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 						</div>
 					</div>
 			</section>
+			
+				<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
+			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>

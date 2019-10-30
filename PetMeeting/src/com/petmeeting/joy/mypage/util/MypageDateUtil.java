@@ -1,5 +1,6 @@
 package com.petmeeting.joy.mypage.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +13,7 @@ public class MypageDateUtil {
 	private Date date1;
 	private Date date2;
 	private Date date3;
+	private String strDate;
 	
 	private String title;
 	private String location;
@@ -51,6 +53,12 @@ public class MypageDateUtil {
 		this.date3 = date3;
 	}
 	
+	public String getStrDate() {
+		return strDate;
+	}
+	public void setStrDate(String strDate) {
+		this.strDate = strDate;
+	}
 	
 	public static String ReduceTitle(String title) {	
 		String str = "";		
@@ -72,7 +80,7 @@ public class MypageDateUtil {
 	public String getDateString1() {
 		String week = null;
 		SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-		System.out.println("요일 확인 좀 합시다 " + date1.getDay());
+	
 		switch(date1.getDay()) {
 			case 0:
 				week = " (일)";
@@ -103,7 +111,7 @@ public class MypageDateUtil {
 	public String getDateString2() {
 		String week = null;
 		SimpleDateFormat ppdate = new SimpleDateFormat("yyyy년 MM월 dd일");
-		System.out.println("요일 확인 좀 합시다 " + date2.getDay());
+		
 		switch(date2.getDay()) {
 			case 0:
 				week = " (일)";
@@ -159,5 +167,29 @@ public class MypageDateUtil {
 		dd.get(Calendar.MONTH)+1+""+
 		dd.get(Calendar.DATE)+"";
 		return s;
+	}
+	
+	public String getStrDateFormat() {
+		 SimpleDateFormat pdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		 Date today = new Date();
+		 Date stringDate = new Date();
+		try {
+			stringDate = pdate.parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 		
+	
+		int todayNum = (int) (today.getTime()/10000000);
+		int DateNum =  (int) (stringDate.getTime()/10000000);
+		if(todayNum == DateNum) {
+			return MypageTimeUtil.calculateTime(stringDate);
+		}
+		else {			
+			SimpleDateFormat ppdate = new SimpleDateFormat("yyyy-MM-dd");
+			return ppdate.format(stringDate);
+			
+		}
+		
+		
 	}
 }

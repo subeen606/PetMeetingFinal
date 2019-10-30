@@ -11,33 +11,21 @@ int pageNumber;				// 현재 페이지 0~9	[1]~[10]
 int pageCountPerScreen; 	// 스크린당 페이지 수 = 10
 int recordCountPerPage; 	// 한 페이지에 표시할 글 수 
 
-String st1 = request.getParameter("totalRecordCount");
-if(st1 == null){
-	totalRecordCount = 0;
-}else{
-	totalRecordCount = Integer.parseInt(st1);
-}
+String st1 = request.getAttribute("totalRecordCount").toString();
+if(st1 == null)	totalRecordCount = 0;
+else			totalRecordCount = Integer.parseInt(st1);	
 
-String st2 = request.getParameter("pageNumber");
-if(st2 == null){	/* 0이 1페이지가 됨 */
-	pageNumber = 0;
-}else{
-	pageNumber = Integer.parseInt(st2);
-}
+String st2 = request.getAttribute("pageNumber").toString();
+if(st2 == null)	pageNumber = 0;
+else			pageNumber = Integer.parseInt(st2);	
 
-String st3 = request.getParameter("pageCountPerScreen");
-if(st3 == null){
-	pageCountPerScreen = 0;
-}else{
-	pageCountPerScreen = Integer.parseInt(st3);
-}
+String st3 = request.getAttribute("pageCountPerScreen").toString();
+if(st3 == null)	pageCountPerScreen = 0;
+else			pageCountPerScreen = Integer.parseInt(st3);	
 
-String st4 = request.getParameter("recordCountPerPage");
-if(st4 == null){
-	recordCountPerPage = 0;
-}else{
-	recordCountPerPage = Integer.parseInt(st4);
-}
+String st4 = request.getAttribute("recordCountPerPage").toString();
+if(st4 == null)	recordCountPerPage = 0;
+else			recordCountPerPage = Integer.parseInt(st4);
 
 
 // 총 페이지 수 구하기
