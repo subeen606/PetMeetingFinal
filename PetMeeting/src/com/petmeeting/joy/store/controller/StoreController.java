@@ -364,6 +364,14 @@ public class StoreController {
 	@RequestMapping(value = "productorderAf.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public void productorderAf(OrderBean oBean, OrderDto dto, OrderInfoDto oiDto, ProductOptionDto poDto, MemberDto mDto, Model model, HttpServletRequest req){
 		System.out.println("------------------------------------ productorderAf 들왔다! ");
+
+		
+		if(oiDto.getRequire() == "" || oiDto.getRequire() == null) {
+			oiDto.setRequire("부재시 문 앞에 부탁드립니다");
+			orderService.addOrderDetail(oiDto);
+		}else {
+			orderService.addOrderDetail(oiDto);
+		}
 		
 		int seq = orderService.getProductOptionSeq(oBean);
 		dto.setProduct_option_seq(seq);
@@ -374,15 +382,7 @@ public class StoreController {
 
 		System.out.println("------------------------------------ productorderAf dto : " + dto.toString());
 		
-		
-		orderService.addOrder(dto);
-
-		if(oiDto.getRequire() == "" || oiDto.getRequire() == null) {
-			oiDto.setRequire("부재시 문 앞에 부탁드립니다");
-			orderService.addOrderDetail(oiDto);
-		}else {
-			orderService.addOrderDetail(oiDto);
-		}
+		orderService.addOrder(dto);		
 		
 		int orderP = orderService.getOrderPoint(oiDto);
 		

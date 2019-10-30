@@ -193,4 +193,10 @@ SET CONTENT=#{content}
 WHERE SEQ=#{seq}
 </update>
 
+<!-- 오늘의 문의수 -->
+<select id="getTodayQuestion" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) FROM PM_QUESTION 
+WHERE SUBSTR(REGDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
+</select>
+
 </mapper>

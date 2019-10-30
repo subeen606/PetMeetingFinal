@@ -192,12 +192,41 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(ns + "getTodaySales");
 	}
 	@Override
-	public List<SalesDto> getProductSalesTop5() {
-		return sqlSession.selectList(ns + "getProductSalesTop5");
+	public List<SalesDto> getProductSales() {
+		return sqlSession.selectList(ns + "getProductSales");
 	}
 	@Override
 	public void updateRefundComplete(int refund_seq) {
 		sqlSession.update(ns + "updateRefundComplete", refund_seq);
+	}
+	@Override
+	public OrderInfoDto getOrderDetail(String ordernumber) {
+		return sqlSession.selectOne(ns + "getOrderDetail", ordernumber);
+	}
+	
+	@Override
+	public void updateChangeComplete(int refund_seq) {
+		sqlSession.update(ns + "updateChangeComplete", refund_seq);
+	}
+	@Override
+	public int getTodayOrder() {
+		return sqlSession.selectOne(ns + "getTodayOrder");
+	}
+	@Override
+	public int getDeliveryWait() {
+		return sqlSession.selectOne(ns + "getDeliveryWait");
+	}
+	@Override
+	public int getDeliveryIng() {
+		return sqlSession.selectOne(ns + "getDeliveryIng");
+	}
+	@Override
+	public int getCancel() {
+		return sqlSession.selectOne(ns + "getCancel");
+	}
+	@Override
+	public int getREreqCount(int status) {
+		return sqlSession.selectOne(ns + "getREreqCount", status);
 	}
 	
 	

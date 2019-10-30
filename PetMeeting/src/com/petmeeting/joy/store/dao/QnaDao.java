@@ -55,4 +55,8 @@ public interface QnaDao {
 	public void updateAnswer(AnswerDto ans);
 	
 	
+	/**
+	 * 오늘의 문의 내역 수
+	 */
+	public int getTodayQuestion();
 }

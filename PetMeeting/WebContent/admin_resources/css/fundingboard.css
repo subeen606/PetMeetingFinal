@@ -103,3 +103,6 @@
     font-weight: 600;
     color: gray;
 }
+#selected{
+	width: 180px;
+}

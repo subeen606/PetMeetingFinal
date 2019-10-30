@@ -76,4 +76,9 @@ public class QnaServiceImpl implements QnaService {
 		qnaDao.updateAnswer(ans);
 	}
 	
+	@Override
+	public int getTodayQuestion() {
+		return qnaDao.getTodayQuestion();
+	}
+	
 }
