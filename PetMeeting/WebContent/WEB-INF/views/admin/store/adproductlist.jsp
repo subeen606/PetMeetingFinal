@@ -14,15 +14,15 @@ input[type=checkbox] { display:none; }
 input[type=checkbox] + label { 
 	display: inline-block; 
 	cursor: pointer;
-	height: 22px;
-	line-height: 22px;
-	padding-left: 22px; 
-	background: url("./store_resources/images/noncheck-mark.png") no-repeat; 
+	height: 24px;
+	line-height: 24px;
+	padding-left: 24px; 
+	background: url("./admin_resources/images/unrecommend.png") no-repeat; 
 	background-position: left;
 }
 
 input[type=checkbox]:checked + label { 
-	background: url("./store_resources/images/checked.png") no-repeat; 
+	background: url("./admin_resources/images/recommend.png") no-repeat; 
 	background-position: left;
 }
 </style>
