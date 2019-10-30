@@ -1975,7 +1975,7 @@ ul {
 
 /* line 104, /Applications/MAMP/htdocs/palash/cl/august 2019/198 Animal adoption/198 Animal adoption html/sass/_menu.scss */
 .main_menu {
-  background-color: #ff9c3d;
+  background-color: #585e7d;/*  #ff9c3d; */
 }
 
 /* line 106, /Applications/MAMP/htdocs/palash/cl/august 2019/198 Animal adoption/198 Animal adoption html/sass/_menu.scss */
@@ -2089,7 +2089,7 @@ ul {
   position: fixed;
   z-index: 9999 !important;
   width: 100%;
-  background-color: #ff9c3d;
+  background-color: #585e7d; /* #ff9c3d; */
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
   top: 0;
 }
@@ -2131,7 +2131,7 @@ ul {
 
 /* line 237, /Applications/MAMP/htdocs/palash/cl/august 2019/198 Animal adoption/198 Animal adoption html/sass/_menu.scss */
 .dropdown .dropdown-menu .dropdown-item:hover {
-  background-color: #ffe7c1; /* #feca3d; */
+  background-color: #ebecf1; /* #feca3d; */
  /*  color: #fff !important; */
 }
 
