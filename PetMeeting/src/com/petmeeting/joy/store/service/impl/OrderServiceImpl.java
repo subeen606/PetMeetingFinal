@@ -286,8 +286,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public String getProductSalesTop5Json() {
-		List<SalesDto> list = orderDao.getProductSalesTop5();
+	public String getProductSalesJson() {
+		List<SalesDto> list = orderDao.getProductSales();
 		String json = "[";
 		for (int i = 0; i < list.size(); i++) {
 			SalesDto sales = list.get(i);

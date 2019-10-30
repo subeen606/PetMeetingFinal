@@ -162,7 +162,7 @@ public interface OrderDao {
 	/**
 	 * 매출 상위 5개 제품 이름과 매출액 가져오기
 	 */
-	public List<SalesDto> getProductSalesTop5();
+	public List<SalesDto> getProductSales();
 	
 	/**
 	 * 환불 완료 업데이트

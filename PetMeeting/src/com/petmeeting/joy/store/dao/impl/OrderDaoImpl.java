@@ -192,8 +192,8 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(ns + "getTodaySales");
 	}
 	@Override
-	public List<SalesDto> getProductSalesTop5() {
-		return sqlSession.selectList(ns + "getProductSalesTop5");
+	public List<SalesDto> getProductSales() {
+		return sqlSession.selectList(ns + "getProductSales");
 	}
 	@Override
 	public void updateRefundComplete(int refund_seq) {
