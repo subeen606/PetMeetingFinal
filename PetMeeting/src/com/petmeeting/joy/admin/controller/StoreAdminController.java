@@ -86,9 +86,9 @@ public class StoreAdminController {
 		model.addAttribute("jsonEtc", jsonEtc);
 		
 		// 상위 5개 매출 제품
-		String jsonTop5 = orderService.getProductSalesTop5Json();
-		System.out.println("jsonTop5 : " + jsonTop5);
-		model.addAttribute("jsonTop5", jsonTop5);
+		String json = orderService.getProductSalesJson();
+		System.out.println("json : " + json);
+		model.addAttribute("json", json);
 		
 		return "admin/store/adstore";
 	}
