@@ -281,7 +281,7 @@ public class AdminCotroller {
 			jsonData = jsonData.substring(0, jsonData.lastIndexOf(","));
 			jsonData += "]";		
 		}
-		System.out.println("jsonData체크" + jsonData);
+	//	System.out.println("jsonData체크" + jsonData);
 		
 		model.addAttribute("jsonData", jsonData);
 		model.addAttribute("eventList", eventList);
@@ -383,7 +383,7 @@ public class AdminCotroller {
 			e.printStackTrace();
 		}
 		
-		System.out.println("insert할 pdto : " + eventDto.toString());
+	//	System.out.println("insert할 pdto : " + eventDto.toString());
 		adminService.insertEventboard(eventDto);
 		
 		return "redirect:/adminEventBoard.do";
@@ -475,7 +475,7 @@ public class AdminCotroller {
 		}
 		System.out.println("filename : " + filename);
 			
-		System.out.println("update할 pdto : " + eventDto.toString());
+	//	System.out.println("update할 pdto : " + eventDto.toString());
 		adminService.eventUpdate(eventDto);
 		return "redirect:/adminEventBoard.do";
 	}
