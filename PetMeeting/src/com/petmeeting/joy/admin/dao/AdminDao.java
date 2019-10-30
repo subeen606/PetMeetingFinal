@@ -2,20 +2,19 @@ package com.petmeeting.joy.admin.dao;
 
 import java.util.List;
 
+import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
-
-import com.petmeeting.joy.funding.model.FMsgDto;
-
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
-import com.petmeeting.joy.admin.model.AdminMemberDto;
-
+import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
-import com.petmeeting.joy.playboard.model.MsgDto;
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -32,11 +31,6 @@ public interface AdminDao {
 	
 	public PlayboardDto getPlayboardDetail(int seq);
 
-
-	public List<BoardReportDto> getBoardReportReason(BoardReportDto reportDto);
-	
-	public void deleteBoardReport(BoardReportDto reportDto);
-	public void minusReportCount(BoardReportDto reportDto);
 
 	public List<BoardReportDto> getBoardReportReason(ReportDto reportDto);
 	
@@ -93,5 +87,21 @@ public interface AdminDao {
 	
 	public void sendMsgFund(List<FMsgDto> msgList);
 	public void revMsgFund(List<FMsgDto> msgList);
+	
+	/*notice*/
+	public void noticeWrite(NoticeBoardDto dto);
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean);
+	public int noticeListcount(fundingBean bean);
+	public NoticeBoardDto noticeDetail(int seq);
+	public void noticeDelete(int seq);
 
+	/*회원탈퇴*/
+	public List<MypageMemberleave> memleave(Memberleaveparam param);
+	public int memleavecount(Memberleaveparam param);
+	
+	/* main */
+	public int getTodayPlay();
+	public int getTodayEndFunding();
+	
+	public List<AdminMemberDto> getReportTop5();
 }

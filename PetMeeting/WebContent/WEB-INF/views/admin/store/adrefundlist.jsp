@@ -141,7 +141,7 @@ color: #818181;
 										반품진행
 									</c:if>
 									<c:if test="${list.status eq 3 }"> 	
-										반품완료
+										<font color="#E5433E" style="font-weight: bold">반품완료</font>
 									</c:if>
 									<c:if test="${list.status eq 4 }">
 										<%-- <span class="status-change"  style="cursor: pointer;" orderno="${list.ordernumber }">교환대기</span> --%>
@@ -151,7 +151,7 @@ color: #818181;
 										교환진행
 									</c:if>
 									<c:if test="${list.status eq 6 }">
-										교환완료
+										<font color="#01b700" style="font-weight: bold">교환완료</font>
 									</c:if>
 									
 								</td>

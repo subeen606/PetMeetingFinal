@@ -180,4 +180,20 @@ public interface OrderDao {
 	public OrderInfoDto getOrderDetail(String ordernumber);
 	
 	
+	/**
+	 * 오늘의 주문 수
+	 */
+	public int getTodayOrder();
+
+	/**
+	 * 배송대기 상품 수
+	 */
+	public int getDeliveryWait();
+	
+	/**
+	 * 배송중인 상품 수
+	 */
+	public int getDeliveryIng();
+	
+	
 }

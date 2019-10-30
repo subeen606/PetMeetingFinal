@@ -2,16 +2,12 @@ package com.petmeeting.joy.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.petmeeting.joy.admin.dao.AdminDao;
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.playboard.Util.DateUtil;
@@ -39,22 +36,22 @@ import com.petmeeting.joy.playboard.model.PlayboardDateBean;
 import com.petmeeting.joy.funding.model.DayBean;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
-import com.petmeeting.joy.funding.model.FundinglikeBean;
 import com.petmeeting.joy.funding.model.fundingBean;
-
 import com.petmeeting.joy.funding.util.FUpUtil;
 import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.util.MypageDateUtil;
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
-import com.petmeeting.joy.funding.model.FundingDto;
-import com.petmeeting.joy.funding.model.fundingBean;
-
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardHashTagDto;
 import com.petmeeting.joy.playboard.model.PlayboardQnADto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 import com.petmeeting.joy.playboard.service.PlayboardService;
+import com.petmeeting.joy.store.model.QnaBean;
+import com.petmeeting.joy.store.model.QnaParam;
+import com.petmeeting.joy.store.service.OrderService;
+import com.petmeeting.joy.store.service.QnaService;
 
 @Controller
 public class AdminCotroller {
@@ -65,8 +62,43 @@ public class AdminCotroller {
 	@Autowired
 	PlayboardService playboardService;
 	
+	@Autowired
+	QnaService qnaService;
+	
+	@Autowired
+	OrderService orderService;
+	
+	
 	@RequestMapping(value = "adminMain.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String adminMain() {
+	public String adminMain(Model model, QnaParam param) {
+
+		/*PetMeeting*/
+		int todayPlayCount = adminService.getTodayPlay();			// 오늘 올라온 소모임 게시글 수
+		int todayEndFundCount = adminService.getTodayEndFunding();		// 오늘 마감된 펀딩 수
+		
+		model.addAttribute("todayPlayCount", todayPlayCount);
+		model.addAttribute("todayEndFundCount", todayEndFundCount);
+		
+		List<AdminMemberDto> reportlist = adminService.getReportTop5();
+		model.addAttribute("reportlist", reportlist);
+		
+		/* Store */ 
+		int todayQnACount = qnaService.getTodayQuestion();			// 오늘의 문의 내역 수
+		int todayOrderCount = orderService.getTodayOrder();			// 오늘 주문 건수 
+		int deliveryWaitCount = orderService.getDeliveryWait();		// 배송대기중 건수
+		int deliveryIngCount = orderService.getDeliveryIng();		// 배송중 건수
+		
+		param.setStart(1);
+		param.setEnd(5);
+		List<QnaBean> qlist = qnaService.getQnalistAll(param);
+		
+		model.addAttribute("todayQnACount", todayQnACount);
+		model.addAttribute("todayOrderCount", todayOrderCount);
+		model.addAttribute("deliveryWaitCount", deliveryWaitCount);
+		model.addAttribute("deliveryIngCount", deliveryIngCount);
+		model.addAttribute("qlist", qlist);
+		
+		
 		return "admin/adminMain";
 	}
 	
@@ -260,6 +292,7 @@ public class AdminCotroller {
 	}
 	
 	
+
 	/* 이벤트 게시판 */
 	@RequestMapping(value = "adminEventBoard.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String adminEventBoard(Model model) {
@@ -483,10 +516,7 @@ public class AdminCotroller {
 		
 		
 		
-		
-		
-		
-		
+
 	/*funding 관리자*/
 	@RequestMapping(value = "adminFundingList.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminFundingList(Model model, fundingBean fbean) {
@@ -503,16 +533,14 @@ public class AdminCotroller {
 			end = totalfundingCount;
 		}
 		fbean.setEnd(end);
-		
-		System.out.println("펀딩 리스트에 들어온 admin: " + fbean.toString());
-		
+
 		List<FundingDto> flist = adminService.getFundingList(fbean);
-		
 		
 		System.out.println("펀딩 admin리스트 수: " + totalfundingCount);
 		
 		model.addAttribute("flist", flist);
 		model.addAttribute("f_categorys", fbean.getF_categorys());
+		model.addAttribute("f_keyword", fbean.getF_keyword());
 			
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);
@@ -679,10 +707,119 @@ public class AdminCotroller {
 		adminService.fundingStaDel(seq);
 	}
 	
-	/*funding 내역서 수정*/
-	@ResponseBody
-	@RequestMapping(value = "fundingStaUp.do",method = {RequestMethod.GET,RequestMethod.POST})
-	public void fundingStaUp() {
+	/*공지 게시판*/
+	@RequestMapping(value = "noticeList.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeListHome(fundingBean bean, Model model) {
+		/* System.out.println("공지게시판 들어온 bean: " + bean.toString()); */
+		int totalCount = adminService.noticeListcount(bean);
+		int sn = bean.getPageNumber();
 		
+		int start = sn * bean.getRecordCountPerPage() + 1;
+		bean.setStart(start);
+		int end = (sn + 1) * bean.getRecordCountPerPage();
+		if( end > totalCount ) {
+			end  = totalCount;
+		}
+		bean.setEnd(end);
+		List<NoticeBoardDto> list = adminService.getnoticeList(bean);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("f_keyword", bean.getF_keyword());
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", bean.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalCount);
+		
+		return "admin/noticeboard/noticeList";
 	}
+	
+	@RequestMapping(value = "noticeWrite.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeWrite() {
+		return "admin/noticeboard/noticeWrite";
+	}
+	
+	@RequestMapping(value = "noticeWriteAf.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeWriteAf(NoticeBoardDto dto) {
+		System.out.println("공지dto[controller] = " + dto.toString());
+		adminService.noticeWrite(dto);
+		
+		return "redirect:/noticeList.do";
+	}
+	
+	@RequestMapping(value = "noticeDetail.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeDetail(int seq, Model model) {
+		NoticeBoardDto dto = adminService.noticeDetail(seq);
+		model.addAttribute("dto", dto);
+		return "admin/noticeboard/noticeDetail";
+	}
+	
+	@RequestMapping(value = "noticeDelete.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeDelete(HttpServletRequest req) {
+		
+		String [] Sseq = req.getParameterValues("seq");
+		int[] seq = new int[Sseq.length];
+		
+		for(int i=0; i<Sseq.length; i++) {
+			seq[i] = Integer.parseInt(Sseq[i]);
+			System.out.println("들어온 seq : " + seq[i] );
+
+			adminService.noticeDelete(seq[i]);
+			}
+		return "redirect:/noticeList.do";
+	}
+	
+	/*회원탈퇴 통계 */
+	@RequestMapping(value = "adminMemleavegraph.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String adminMemleavegraph(Model model, Memberleaveparam param){
+			
+			int page = param.getPageNumber();
+			int start = page * param.getRecordCountPerPage() + 1;
+			int end = (page + 1) * param.getRecordCountPerPage();
+			
+			param.setStart(start);
+			param.setEnd(end);
+	
+			System.out.println("회원탈퇴통계1"+param.toString());
+			//검색할 때마다 초기화 해주기 위한 존재
+			Memberleaveparam mparam = new Memberleaveparam("", //category
+														   "", //keyword
+														   "", //search_category
+														   0, //pageNumber
+														   0, //recordCountPerPage
+														   start,
+														   end);
+			
+			//초기화 해주는 중
+			int totalRecordCount = adminService.memleavecount(mparam);
+			List<MypageMemberleave> leavelist = adminService.memleave(mparam);
+			
+			//그러고 값 넣는 중
+			totalRecordCount = adminService.memleavecount(param);
+			leavelist = adminService.memleave(param);
+			
+			model.addAttribute("pageNumber", page);
+			model.addAttribute("list", leavelist);
+			model.addAttribute("pageCountPerScreen", 10);
+			model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+			model.addAttribute("totalRecordCount", totalRecordCount);
+			model.addAttribute("searchbean", param);
+			
+		/*
+		 * 
+		 * if(param.getStart()==0) { param.setStart(1); param.setEnd(10);
+		 * List<MypageMemberleave> list=adminService.memleave(param); int
+		 * totalcount=adminService.memleavecount(param);
+		 * System.out.println("토탈"+totalcount);
+		 * 
+		 * 
+		 * model.addAttribute("totalcount",totalcount); model.addAttribute("list",
+		 * list); model.addAttribute("searchbean", param);
+		 * 
+		 * }
+		 */
+		
+		
+		return "admin/memberleave/memleavegraph";
+	}
+	
 }

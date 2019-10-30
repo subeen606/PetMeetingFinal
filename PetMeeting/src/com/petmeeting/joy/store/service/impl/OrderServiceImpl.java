@@ -196,13 +196,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderInfoDto> getAdminOrderList(OrderParam param) {
 		List<OrderInfoDto> olist = orderDao.getAdminOrderList(param);
-		System.out.println("ser : " + olist.toString());
 		
 		if(olist != null) {
 			for (int i = 0; i < olist.size(); i++) {
 				OrderInfoDto oiDto = olist.get(i);
 				List<OrderInfoDto> details = orderDao.getOrderDetailList(oiDto);
-				System.out.println("ser det : " + details.toString());
 				
 				if(details.size() == 1) {
 					oiDto.setOrdername(details.get(0).getProductname());
@@ -315,5 +313,21 @@ public class OrderServiceImpl implements OrderService {
 	public OrderInfoDto getOrderDetail(String ordernumber) {
 		return orderDao.getOrderDetail(ordernumber);
 	}
+
+	@Override
+	public int getTodayOrder() {
+		return orderDao.getTodayOrder();
+	}
+
+	@Override
+	public int getDeliveryWait() {
+		return orderDao.getDeliveryWait();
+	}
+
+	@Override
+	public int getDeliveryIng() {
+		return orderDao.getDeliveryIng();
+	}
+	
 	
 }

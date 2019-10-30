@@ -11,16 +11,15 @@ import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
-
-import com.petmeeting.joy.funding.model.FMsgDto;
-
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
-
+import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
-import com.petmeeting.joy.playboard.model.MsgDto;
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -241,22 +240,56 @@ public class AdminDaoImpl implements AdminDao {
 		sqlSession.insert(namespace + "revMsgFundMem" , msgList);
 	}
 
+
 	@Override
-	public void deleteBoardReport(BoardReportDto reportDto) {
-		// TODO Auto-generated method stub
+	public void noticeWrite(NoticeBoardDto dto) {
+		sqlSession.insert(namespace + "noticeWrite", dto);
+	}
+
+	@Override
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean) {
+		return sqlSession.selectList(namespace + "getnoticeList", bean);
+	}
+
+	@Override
+	public int noticeListcount(fundingBean bean) {
+		return sqlSession.selectOne(namespace + "noticeListcount", bean);
+	}
+
+	@Override
+	public NoticeBoardDto noticeDetail(int seq) {
+		return sqlSession.selectOne(namespace + "noticeDetail", seq);
+	}
+
+	@Override
+	public void noticeDelete(int seq) {
+		sqlSession.delete(namespace + "noticeDelete", seq);
 		
 	}
 
 	@Override
-	public List<BoardReportDto> getBoardReportReason(BoardReportDto reportDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MypageMemberleave> memleave(Memberleaveparam param) {
+		return sqlSession.selectList(namespace+"memleavelistadmin", param);
 	}
 
 	@Override
-	public void minusReportCount(BoardReportDto reportDto) {
-		// TODO Auto-generated method stub
-		
+	public int memleavecount(Memberleaveparam param) {
+		return sqlSession.selectOne(namespace+"memleavelistcountadmin", param);
+	}
+	
+	@Override
+	public int getTodayPlay() {
+		return sqlSession.selectOne(namespace + "getTodayPlay");
+	}
+
+	@Override
+	public int getTodayEndFunding() {
+		return sqlSession.selectOne(namespace + "getTodayEndFunding");
+	}
+
+	@Override
+	public List<AdminMemberDto> getReportTop5() {
+		return sqlSession.selectList(namespace + "getReportTop5");
 	}
 
 }

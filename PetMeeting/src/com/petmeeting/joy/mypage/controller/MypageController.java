@@ -614,12 +614,13 @@ public class MypageController {
             if(!myattendList.isEmpty()){
                
                for (PlayboardDto pdto : myattendList) {
-            jsonData += "{title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
+            		jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
+        
                }
             }
-            if(!myattendList.isEmpty()){
-               for (PlayboardDto pdto : myattendList) {
-            jsonData += "{title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
+            if(!mymakeList.isEmpty()){
+               for (PlayboardDto pdto : mymakeList) {
+            	   jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
                }      
             }
             if(jsonData.equals("[")){
@@ -699,6 +700,7 @@ public class MypageController {
            
          return "mypage/mypageHome";
       }
+      
 		
 		// 마이페이지 메인홈화면으로 이동
 		@RequestMapping(value = "mypagehomePointHistoryList.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -1110,8 +1112,7 @@ public class MypageController {
 		
 		@RequestMapping(value = "mypagefundinglist.do", method= {RequestMethod.GET, RequestMethod.POST})
 		public String mypageFundinglist(MypageListParam listparam, HttpServletRequest req, Model model) throws Exception {
-			//TODO
-			
+		
 			 MemberDto member = (MemberDto)req.getSession().getAttribute("login");
 			 listparam.setEmail(member.getEmail());
 			 List<FundingDto> fundinglist = mypageService.getMyFundingList(listparam);

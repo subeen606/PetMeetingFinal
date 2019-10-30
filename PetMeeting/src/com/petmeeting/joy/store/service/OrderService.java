@@ -75,4 +75,10 @@ public interface OrderService {
 	public void updateChangeComplete(int refund_seq);
 	
 	public OrderInfoDto getOrderDetail(String ordernumber);
+	
+	public int getTodayOrder();
+	
+	public int getDeliveryWait();
+	
+	public int getDeliveryIng();
 }

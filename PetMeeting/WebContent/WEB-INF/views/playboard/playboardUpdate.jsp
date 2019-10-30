@@ -9,10 +9,15 @@
  <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    
 	<!-- datepicker -->
-	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">	
+	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">
+	
+
 	<!-- 도로명 주소 -->
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>	
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
 	<!-- CKEditor -->
 	<script src="${pageContext.request.contextPath}/playboard_resources/ckeditor/ckeditor.js"></script>
 	

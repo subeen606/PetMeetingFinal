@@ -18,8 +18,7 @@
 <jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>    
 <!-- Header part end-->
     
-       
-   
+
    <!-- banner part start -->
    <section class="banner_part">
    
@@ -117,11 +116,7 @@
    </div>
    
    
-   
-   
-   	
-   
-     
+
 <!--::footer part start::-->    
 <jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
 <!-- footer part end-->
@@ -130,7 +125,6 @@
 <script src="${pageContext.request.contextPath}/common/navbar/js/slideshow.js"></script>    
 
 <script type="text/javascript">
-
 /* 최신 소모임 제목 클릭 스크립트 */
 $(document).on('click', '.playboardAnchor', function(){
 	if("${login.email }" == ""){
@@ -140,6 +134,8 @@ $(document).on('click', '.playboardAnchor', function(){
 		location.href="detailPlay.do?seq="+$(this).attr("seq");
 	}
 });
+
+
 
 $(document).ready(function () {
 	 Notification.requestPermission(function (status) {

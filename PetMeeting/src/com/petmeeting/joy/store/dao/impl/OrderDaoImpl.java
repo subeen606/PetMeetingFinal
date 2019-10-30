@@ -208,5 +208,19 @@ public class OrderDaoImpl implements OrderDao {
 	public void updateChangeComplete(int refund_seq) {
 		sqlSession.update(ns + "updateChangeComplete", refund_seq);
 	}
+	@Override
+	public int getTodayOrder() {
+		return sqlSession.selectOne(ns + "getTodayOrder");
+	}
+	@Override
+	public int getDeliveryWait() {
+		return sqlSession.selectOne(ns + "getDeliveryWait");
+	}
+	@Override
+	public int getDeliveryIng() {
+		return sqlSession.selectOne(ns + "getDeliveryIng");
+	}
+	
+	
 	
 }

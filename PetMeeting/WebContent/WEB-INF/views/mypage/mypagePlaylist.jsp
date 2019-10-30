@@ -77,7 +77,7 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-4">
-                      <img src="/PetMeeting/playboardUpload/${attend.filename }"" alt="" class="mysize">
+                      <img src="/PetMeeting/playboardUpload/${attend.filename }" alt="" class="mysize">
               <!--     <img src="${attend.filename }" alt=""> -->  
                   </div>
                   <div class="col-md-4">
