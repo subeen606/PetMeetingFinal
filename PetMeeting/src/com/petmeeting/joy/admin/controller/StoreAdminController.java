@@ -134,7 +134,7 @@ public class StoreAdminController {
 		System.out.println("------------------------------------ adproductaddAf ProductDto : " + pro.toString());
 		proService.addProduct(pro);
 		
-		return "redirect:/adstore.do";
+		return "redirect:/adproductoption.do";
 	}
 	
 	@RequestMapping(value = "adproductoption.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -158,7 +158,7 @@ public class StoreAdminController {
 			}
 		}
 		
-		return "redirect:/adstore.do";
+		return "redirect:/adproductlist.do";
 	}
 	
 	@ResponseBody
