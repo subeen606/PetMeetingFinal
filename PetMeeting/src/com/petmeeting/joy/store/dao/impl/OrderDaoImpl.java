@@ -192,8 +192,8 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(ns + "getTodaySales");
 	}
 	@Override
-	public List<SalesDto> getProductSalesTop5() {
-		return sqlSession.selectList(ns + "getProductSalesTop5");
+	public List<SalesDto> getProductSales() {
+		return sqlSession.selectList(ns + "getProductSales");
 	}
 	@Override
 	public void updateRefundComplete(int refund_seq) {
@@ -219,6 +219,14 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public int getDeliveryIng() {
 		return sqlSession.selectOne(ns + "getDeliveryIng");
+	}
+	@Override
+	public int getCancel() {
+		return sqlSession.selectOne(ns + "getCancel");
+	}
+	@Override
+	public int getREreqCount(int status) {
+		return sqlSession.selectOne(ns + "getREreqCount", status);
 	}
 	
 	

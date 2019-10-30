@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.petmeeting.joy.admin.dao.AdminDao;
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.funding.model.FMsgDto;
@@ -18,6 +20,7 @@ import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
+import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -133,7 +136,39 @@ public class AdminDaoImpl implements AdminDao {
 	public void minusMemberReportCount(ReportDto reportDto) {
 		sqlSession.update(namespace+"minusMemberReportCount", reportDto);
 	}
+	
+	
+	
+	/* eventboard */
+	@Override
+	public void insertEventboard(EventboardDto eventDto) {
+		sqlSession.insert(namespace+"insertEventboard", eventDto);		
+	}
 
+	@Override
+	public List<EventboardDto> getEventList() {
+		return sqlSession.selectList(namespace+"getEventList");
+	}
+
+	@Override
+	public EventboardDto getEventDetail(int seq) {
+		return sqlSession.selectOne(namespace+"getEventDetail", seq);
+	}
+	
+	@Override
+	public void eventDelete(int seq) {
+		sqlSession.delete(namespace+"eventDelete", seq);		
+	}
+
+	@Override
+	public void eventUpdate(EventboardDto eventDto) {
+		sqlSession.update(namespace+"eventUpdate", eventDto);
+	}
+
+	
+	
+	
+	
 	/* funding */
 	@Override
 	public boolean addFunding(FundingDto dto) {
@@ -206,21 +241,30 @@ public class AdminDaoImpl implements AdminDao {
 		sqlSession.insert(namespace + "revMsgFundMem" , msgList);
 	}
 
+
 	@Override
-	public void deleteBoardReport(BoardReportDto reportDto) {
-		// TODO Auto-generated method stub
-		
+	public void noticeWrite(NoticeBoardDto dto) {
+		sqlSession.insert(namespace + "noticeWrite", dto);
 	}
 
 	@Override
-	public List<BoardReportDto> getBoardReportReason(BoardReportDto reportDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean) {
+		return sqlSession.selectList(namespace + "getnoticeList", bean);
 	}
 
 	@Override
-	public void minusReportCount(BoardReportDto reportDto) {
-		// TODO Auto-generated method stub
+	public int noticeListcount(fundingBean bean) {
+		return sqlSession.selectOne(namespace + "noticeListcount", bean);
+	}
+
+	@Override
+	public NoticeBoardDto noticeDetail(int seq) {
+		return sqlSession.selectOne(namespace + "noticeDetail", seq);
+	}
+
+	@Override
+	public void noticeDelete(int seq) {
+		sqlSession.delete(namespace + "noticeDelete", seq);
 		
 	}
 
@@ -247,6 +291,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<AdminMemberDto> getReportTop5() {
 		return sqlSession.selectList(namespace + "getReportTop5");
+	}
+
+	@Override
+	public void noticeUpdate(NoticeBoardDto dto) {
+		sqlSession.update(namespace + "noticeUpdate", dto);
 	}
 
 }

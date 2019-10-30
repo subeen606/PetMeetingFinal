@@ -23,21 +23,21 @@
 <div class="content">
 <div class="container">
 
-<div class="mainTitle">후원 목록</div>	
+<div class="mainTitle"><a href="adminFundingList.do">후원 목록</a></div>	
 	<jsp:useBean id="dates" class="com.petmeeting.joy.funding.util.DateUtil"/>
-	
-	<input type="button" id="makefund" value="funding 만들기" onclick="location.href='fundingWrite.do'">
 
 <form id="frm">
-
-	<select id="selec" name= "f_categorys" onchange="sele()">
-		<option value="전체" <c:if test="${f_categorys == '전체' }">selected</c:if>>전체목록</option>
-		<option value="진행" <c:if test="${f_categorys == '진행' }">selected</c:if>>진행중인 후원</option>
-		<option value="마감" <c:if test="${f_categorys == '마감' }">selected</c:if>>마감된 후원</option>
-	</select>
-	<input id="search_title" name="f_keyword" type="text" placeholder="후원명을 입력해주세요" <c:if test="${f_keyword != null}"> value='${f_keyword}'</c:if> > 
-	<input id="searchBtn" type="button" value="검색">
-			
+	<input type="button" id="makefund" value="funding 만들기" onclick="location.href='fundingWrite.do'">
+	<div class="searchdiv">
+		<select id="selec" name= "f_categorys" onchange="sele()">
+			<option value="전체" <c:if test="${f_categorys == '전체' }">selected</c:if>>전체목록</option>
+			<option value="진행" <c:if test="${f_categorys == '진행' }">selected</c:if>>진행중인 후원</option>
+			<option value="마감" <c:if test="${f_categorys == '마감' }">selected</c:if>>마감된 후원</option>
+		</select>
+		<input id="search_title" name="f_keyword" type="text" placeholder="후원명을 입력해주세요" <c:if test="${f_keyword != null}"> value='${f_keyword}'</c:if> > 
+		<input id="searchBtn" type="button" class="search-btn">
+	</div>	
+		
 	<table class="boardTable">
 		<thead>
 			<tr>

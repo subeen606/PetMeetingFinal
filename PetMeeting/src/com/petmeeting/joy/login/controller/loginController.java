@@ -30,9 +30,9 @@ public class loginController {
 	MemberService memService;
 
 
-	@RequestMapping (value="main.do", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping (value="goMain.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String goMain() {
-		return "main";
+		return "redirect:/main.do";
 	}
 	
 	@RequestMapping (value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -49,7 +49,7 @@ public class loginController {
 		req.getSession().removeAttribute("mypet");
 		System.out.println("login, userProfile 세션 제거 --> 로그아웃완료");
 		
-		return "main";
+		return "redirect:/main.do";
 	}
 	
 	// 프로필 닉네임 수정시 닉네임체크		
@@ -175,6 +175,11 @@ public class loginController {
 		}
 		if( user != null && user.getAuth() == 8 ) {
 			num = 8; // "관리자 계정";
+			// 로그인시 유저정보 가져오기
+						MemberDto loginuser = memService.getUser(user.getEmail());
+						// 세션생성		
+						req.getSession().setAttribute("login", loginuser);		
+						System.out.println("loginAf.do>>> 관리자ver 로그인 세션생성");
 		}		
 		
 		return num;

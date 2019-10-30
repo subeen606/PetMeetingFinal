@@ -7,11 +7,13 @@
 
 .search-btn {
 	width: 24px;
-	height: 24px;
-	border: 0;
-	padding: 0;
-	background: url("../images/search.png");
-	transform: translate(0, 5px);
+    height: 24px;
+    border: 0;
+    padding: 0;
+    background-image: url(../images/search.png);
+    background-color: #fff;
+    transform: translate(0, 5px);
+    background-repeat: no-repeat;
 }
 
 .search-select {

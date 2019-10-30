@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.petmeeting.joy.admin.dao.AdminDao;
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
@@ -199,7 +201,32 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	
+	//////////////////////////////////// 행사게시판 ////////////////////////////////////
+	@Override
+	public void insertEventboard(EventboardDto eventDto) {
+		adminDao.insertEventboard(eventDto);
+	}	
+
+	@Override
+	public List<EventboardDto> getEventList() {
+		return adminDao.getEventList();
+	}
 	
+	@Override
+	public EventboardDto getEventDetail(int seq) {
+		return adminDao.getEventDetail(seq);
+	}
+	
+	@Override
+	public void eventDelete(int seq) {
+		adminDao.eventDelete(seq);
+	}
+
+	@Override
+	public void eventUpdate(EventboardDto eventDto) {
+		adminDao.eventUpdate(eventDto);
+	}
+
 	
 	
 	
@@ -222,7 +249,7 @@ public class AdminServiceImpl implements AdminService {
 			
 		return adminDao.addFunding(fundDto);
 	}
-	
+
 	@Override
 	public List<FundingDto> getFundingList(fundingBean fbean) {
 		List<FundingDto> list = adminDao.getFundingList(fbean);
@@ -330,6 +357,31 @@ public class AdminServiceImpl implements AdminService {
 	public void fundingStaDel(int seq) {
 		adminDao.fundingStaDel(seq);
 	}
+
+	@Override
+	public void noticeWrite(NoticeBoardDto dto) {
+		adminDao.noticeWrite(dto);
+	}
+
+	@Override
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean) {
+		return adminDao.getnoticeList(bean);
+	}
+
+	@Override
+	public int noticeListcount(fundingBean bean) {
+		return adminDao.noticeListcount(bean);
+	}
+
+	@Override
+	public NoticeBoardDto noticeDetail(int seq) {
+		return adminDao.noticeDetail(seq);
+	}
+
+	@Override
+	public void noticeDelete(int seq) {
+		adminDao.noticeDelete(seq);
+	}
 	
 	@Override
 	public List<MypageMemberleave> memleave(Memberleaveparam param) {
@@ -355,6 +407,10 @@ public class AdminServiceImpl implements AdminService {
 	public List<AdminMemberDto> getReportTop5() {
 		return adminDao.getReportTop5();
 	}
-	
+
+	@Override
+	public void noticeUpdate(NoticeBoardDto dto) {
+		adminDao.noticeUpdate(dto);
+	}
 	
 }

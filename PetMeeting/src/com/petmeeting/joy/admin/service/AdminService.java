@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.funding.model.DayBean;
@@ -38,7 +40,19 @@ public interface AdminService {
 	public List<ReportDto> getMemberReportReason(String email);
 	
 	public void deleteMemberReport(ReportDto reportDto);
+
+	/* Funding */
 	
+	public void insertEventboard(EventboardDto eventDto);
+	
+	public List<EventboardDto> getEventList();
+	
+	public EventboardDto getEventDetail(int seq);
+	
+	public void eventDelete(int seq);
+	
+	public void eventUpdate(EventboardDto eventDto);
+
 	public boolean addFunding(FundingDto dto, DayBean bean);
 	public List<FundingDto> getFundingList(fundingBean fbean);
 	public int getFundingCount(fundingBean fbean);
@@ -51,11 +65,17 @@ public interface AdminService {
 	public void sendMsgUpfund(List<FundMemberDto> mList, String title);
 	public void fundingStaDel(int seq);
 	
+	/* Notice */
+	public void noticeWrite(NoticeBoardDto dto);
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean);
+	public int noticeListcount(fundingBean bean);
+	public NoticeBoardDto noticeDetail(int seq);
+	public void noticeDelete(int seq);
+	public void noticeUpdate(NoticeBoardDto dto);
 	
 	//회원탈퇴
 	public List<MypageMemberleave> memleave(Memberleaveparam param);
 	public int memleavecount(Memberleaveparam param);
-	
 	
 	// 관리자 메인
 	public int getTodayPlay();

@@ -170,14 +170,15 @@ SELECT USE_POINT FROM PM_ORDER
 WHERE ORDERNUMBER = #{ordernumber}
 </select>
 
-<!-- 반품 및 교환 (배송완료된 상품만) -->
+<!-- 반품 및 교환 가능한 주문번호 불러오기 (배송완료된 상품만) -->
 <select id="getRefundList" parameterType="java.lang.String" resultType="com.petmeeting.joy.store.model.OrderInfoDto">
-SELECT D.ORDERNUMBER, D.EMAIL, D.RNAME, D.RPOSTCODE, D.RADDRESS, D.RADDRESS_DETAIL, D.RPHONE, D.REQUIRE, D.STATUS, D.TOTALPRICE, D.USE_POINT, O.STATUS AS REFUND_STATUS
-FROM PM_ORDER D, PM_ORDER_DETAIL O
-WHERE D.ORDERNUMBER = O.ORDERNUMBER 
-AND D.STATUS = 2
-AND O.STATUS = 0
-AND D.EMAIL=#{email}
+SELECT O.ORDERNUMBER
+FROM PM_ORDER O, PM_ORDER_DETAIL D
+WHERE O.ORDERNUMBER = D.ORDERNUMBER
+AND O.STATUS = 2
+AND D.STATUS = 0
+AND O.EMAIL=#{email}
+GROUP BY O.ORDERNUMBER
 </select>
 
 <!-- 선택한 주문번호로 반품상품 선택하기 위한 리스트 -->
@@ -414,11 +415,9 @@ RIGHT JOIN TMP_TODAY
 ON ORDERDATE = TODAY
 </select>
 
-<!-- 제품별 상위 5개 매출 -->
-<select id="getProductSalesTop5" resultType="com.petmeeting.joy.store.model.SalesDto">
-SELECT PRODUCTNAME, SALES
-FROM (
-SELECT ROW_NUMBER()OVER(ORDER BY SUM(PRODUCT_TOTAL) DESC) AS RNUM, PRODUCTNAME, SUM(PRODUCT_TOTAL) AS SALES
+<!-- 제품별 매출액 -->
+<select id="getProductSales" resultType="com.petmeeting.joy.store.model.SalesDto">
+SELECT PRODUCTNAME, SUM(PRODUCT_TOTAL) AS SALES
 FROM (
 SELECT D.ORDERNUMBER, D.ORDERDATE, D.TOTALPRICE, P.PRODUCTCODE, P.PRODUCTNAME, P.CATEGORY, O.TOTALPRICE AS PRODUCT_TOTAL
 FROM PM_ORDER D, PM_ORDER_DETAIL O, PM_PRODUCT_OPTION PO, PM_PRODUCT P
@@ -427,8 +426,8 @@ WHERE D.ORDERNUMBER = O.ORDERNUMBER
 	AND D.STATUS != 3
 	AND O.STATUS = 0
 	AND PO.PRODUCTCODE = P.PRODUCTCODE)
-GROUP BY PRODUCTNAME)
-WHERE RNUM BETWEEN 1 AND 5
+GROUP BY PRODUCTNAME
+ORDER BY SALES DESC
 </select>
 
 <!-- 반품완료 업데이트 -->
@@ -464,6 +463,22 @@ WHERE STATUS = 0
 <select id="getDeliveryIng" resultType="java.lang.Integer">
 SELECT NVL(COUNT(*), 0) FROM PM_ORDER
 WHERE STATUS = 1
+</select>
+
+<!-- 취소된 주문 수 -->
+<select id="getCancel" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0) FROM PM_ORDER
+WHERE STATUS = 3
+</select>
+
+<!-- 반품/교환 신청된 주문 수 -->
+<select id="getREreqCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+SELECT NVL(COUNT(*), 0)
+FROM (SELECT R.SEQ
+		FROM PM_REFUND R, PM_ORDER_DETAIL O
+		WHERE R.SEQ = O.REFUND_SEQ
+			AND O.STATUS = #{status}
+		GROUP BY R.SEQ)
 </select>
 
 

@@ -44,6 +44,7 @@
 				
 				<select name="sortingType">
 					<option value="선택" selected="selected">전체보기</option>
+					<option value="신고">신고된 게시글</option>
 					<option value="삭제">삭제된 게시글</option>
 					<option value="마감">마감된 게시글</option>
 				</select>
