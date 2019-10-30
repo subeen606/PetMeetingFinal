@@ -64,9 +64,17 @@
     font-size: 15px;
     background-color: #6cbd62;
     color: #fff;
-    margin-bottom: 20px;
-    float: right;
     cursor: pointer;
+}
+#search_title{
+	border: none;
+	border-bottom: 1px solid black;	
+}
+#searchBtn{
+	cursor: pointer;
+}
+.searchdiv{
+	float: right;
 }
 #end{
 	color: #e61a1a;
@@ -104,5 +112,9 @@
     color: gray;
 }
 #selected{
-	width: 180px;
+	width: 175px;
+}
+.advericon{
+	width: 40px;
+    margin-right: 20px;
 }

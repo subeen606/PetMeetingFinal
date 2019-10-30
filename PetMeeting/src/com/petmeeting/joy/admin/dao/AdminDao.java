@@ -81,6 +81,7 @@ public interface AdminDao {
 	public int noticeListcount(fundingBean bean);
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
+	public void noticeUpdate(NoticeBoardDto dto);
 
 	/*회원탈퇴*/
 	public List<MypageMemberleave> memleave(Memberleaveparam param);

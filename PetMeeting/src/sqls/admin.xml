@@ -482,15 +482,18 @@
 	
 	<!-- 공지 글쓰기 -->
 	<insert id="noticeWrite" parameterType="com.petmeeting.joy.admin.model.NoticeBoardDto">
-		INSERT INTO PM_NOTICEBOARD(SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT)
-		VALUES(PM_NOTICEBOARD_SEQ.NEXTVAL, 'NOTICE', #{email}, #{title}, #{content}, SYSDATE, 0)
+		INSERT INTO PM_NOTICEBOARD(SEQ, BOARD_CODE, CATEGORY, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT)
+		VALUES(PM_NOTICEBOARD_SEQ.NEXTVAL, 'NOTICE',#{category} ,#{email}, #{title}, #{content}, SYSDATE, 0)
 	</insert>
 	
 	<!-- 공지 리스트 -->
 	<select id="getnoticeList" resultType="com.petmeeting.joy.admin.model.NoticeBoardDto" parameterType="com.petmeeting.joy.funding.model.fundingBean">
-		SELECT * FROM(SELECT ROW_NUMBER()OVER(ORDER BY REGDATE DESC)AS RNUM, SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT 
+		SELECT * FROM(SELECT ROW_NUMBER()OVER(ORDER BY REGDATE DESC)AS RNUM, SEQ, BOARD_CODE, CATEGORY, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT 
 		FROM PM_NOTICEBOARD
 		WHERE 1=1
+		<if test="f_categorys != null and f_categorys !=''">
+			AND CATEGORY LIKE '%'||#{f_categorys}||'%'
+		</if>
 		<if test="f_keyword != null and f_keyword != ''">
 			AND TITLE LIKE '%'||#{f_keyword}||'%'	
 		</if>
@@ -500,9 +503,12 @@
 	
 	<!-- 공지리스트 페이징 -->
 	<select id="noticeListcount" resultType="java.lang.Integer" parameterType="com.petmeeting.joy.funding.model.fundingBean">
-		SELECT COUNT(*) FROM(SELECT ROW_NUMBER()OVER(ORDER BY REGDATE)AS RNUM, SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT 
+		SELECT COUNT(*) FROM(SELECT ROW_NUMBER()OVER(ORDER BY REGDATE)AS RNUM, SEQ, BOARD_CODE, CATEGORY, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT 
 		FROM PM_NOTICEBOARD
 		WHERE 1=1
+		<if test="f_categorys != null and f_categorys !=''">
+			AND CATEGORY LIKE '%'||#{f_categorys}||'%'
+		</if>
 		<if test="f_keyword != null and f_keyword != ''">
 			AND TITLE LIKE '%'||#{f_keyword}||'%'	
 		</if>
@@ -511,7 +517,7 @@
 	
 	<!-- 공지 디테일 -->
 	<select id="noticeDetail" parameterType="java.lang.Integer" resultType="com.petmeeting.joy.admin.model.NoticeBoardDto">
-		SELECT SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT
+		SELECT SEQ, BOARD_CODE, CATEGORY, EMAIL, TITLE, CONTENT, REGDATE, READCOUNT
 		FROM PM_NOTICEBOARD
 		WHERE SEQ=#{seq}
 	</select>
@@ -521,6 +527,14 @@
 		DELETE FROM PM_NOTICEBOARD
 		WHERE SEQ=#{seq}
 	</delete>
+	
+	<!-- 공지수정 -->
+	<update id="noticeUpdate" parameterType="com.petmeeting.joy.admin.model.NoticeBoardDto">
+		UPDATE PM_NOTICEBOARD
+		SET 
+		CATEGORY=#{category}, TITLE=#{title}, CONTENT=#{content}, REGDATE=SYSDATE
+		WHERE SEQ=#{seq}
+	</update>
 
 
       <select id="memleavelistadmin" parameterType="com.petmeeting.joy.admin.model.Memberleaveparam"
