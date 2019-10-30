@@ -2,10 +2,15 @@ package com.petmeeting.joy.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +25,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
 import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
+import com.petmeeting.joy.playboard.Util.DateUtil;
+import com.petmeeting.joy.playboard.model.MyProfileDto;
+import com.petmeeting.joy.playboard.model.PlayMemDto;
+import com.petmeeting.joy.playboard.model.PlayboardDateBean;
 import com.petmeeting.joy.funding.model.DayBean;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.funding.util.FUpUtil;
+import com.petmeeting.joy.login.model.MemberDto;
+import com.petmeeting.joy.mypage.util.MypageDateUtil;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
@@ -110,7 +122,7 @@ public class AdminCotroller {
 		}
 		
 		int totalRowCount = adminService.getPlayboardTotalRowCount(search);
-	//	System.out.println("소모임 총 글 수 : " + totalRowCount);
+		System.out.println("소모임 총 글 수 : " + totalRowCount);
 		
 		search.setStartRow((search.getCurrPage() * 10) + 1);
 		
@@ -283,169 +295,231 @@ public class AdminCotroller {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/* 이벤트 게시판 */
+	@RequestMapping(value = "adminEventBoard.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String adminEventBoard(Model model) {
+		List<EventboardDto> eventList = adminService.getEventList();
+		
+		String jsonData = "[";
+		if(!eventList.isEmpty()) {
+			for (EventboardDto edto : eventList) {
+				jsonData += "{id:"+edto.getSeq()+", title:'"+edto.getTitle()
+				 		+"', start:'"+MypageDateUtil.ConvertDate(edto.getEvent_sdate())
+				 		+"', end:'"+MypageDateUtil.ConvertDate(edto.getEvent_edate())
+				 		+"'},";
+			}
+		}
+		if(jsonData.equals("[")){
+			jsonData = "";			
+		}
+		else{
+			jsonData = jsonData.substring(0, jsonData.lastIndexOf(","));
+			jsonData += "]";		
+		}
+	//	System.out.println("jsonData체크" + jsonData);
+		
+		model.addAttribute("jsonData", jsonData);
+		model.addAttribute("eventList", eventList);
+		return "admin/eventboard/eventboardList";
+	}
+	
+	@RequestMapping(value = "adminEventWrite.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String adminEventWrite() {
+		return "admin/eventboard/eventWrite";
+	}
+	
+	// CK Editor 속 파일 업로드
+	@RequestMapping(value="adminEventfileupload.do", method={RequestMethod.GET,RequestMethod.POST})
+	public void fileUpload(@RequestParam MultipartFile upload, 
+							HttpServletRequest req, HttpServletResponse resp) throws Throwable {
+		
+		resp.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html; charset=utf-8"); 
+		
+		String filename = upload.getOriginalFilename();
+		System.out.println("admin 행사등록//  원본 filename : " + filename);
+		
+		int index = filename.lastIndexOf(".");
+		String filetype = filename.substring(index);
+		System.out.println("admin 행사등록//  파일 유형 : "+filetype);
+		
+		filename = UUID.randomUUID().toString() + filetype;
+		System.out.println("admin 행사등록//  UUID filename : " + filename);
+		
+		String fupload = req.getServletContext().getRealPath("/eventboardUpload");
+		System.out.println("admin 행사등록//  fupload : " + fupload);
+		
+		File file = new File(fupload + "/" + filename);
+		
+		try {
+			// 실제 파일 업로드 되는 부분
+			FileUtils.writeByteArrayToFile(file, upload.getBytes());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		PrintWriter pw = resp.getWriter();
+		
+		String callback = req.getParameter("CKEditorFuncNum");
+		System.out.println("callback : " + callback);
+		
+		String fileUrl = req.getContextPath()+"/eventboardUpload/"+filename;
+		
+		String script="<script>window.parent.CKEDITOR.tools.callFunction(";
+	    script +=callback;
+	    script +=",'";
+	    script +=fileUrl;
+	    script +="','이미지를 업로드 했습니다.') ";
+	    script +="</script>";
+	    
+	    pw.println(script);
+	    pw.flush();
+
+	}
+	
+	// 글쓰기 완료 후
+	@RequestMapping(value="adminEventWriteAf.do", method={RequestMethod.GET,RequestMethod.POST})
+	public String playboardWriteAf(EventboardDto eventDto, PlayboardDateBean datebean, 
+								   @RequestParam(value = "fileload", required = false)MultipartFile fileload, HttpServletRequest req) {
+		
+		System.out.println(eventDto.toString());
+		System.out.println(datebean.toString());	
+		
+		// Date형식으로 변환
+		Date sdate = DateUtil.toDate(datebean.getPyear(), datebean.getPmonth(), datebean.getPday());
+		Date edate = DateUtil.toDate(datebean.getEyear(), datebean.getEmonth(), datebean.getEday());
+		eventDto.setEvent_sdate(sdate);
+		eventDto.setEvent_edate(edate);
+		
+		// 썸네일 첨부파일의 원본 파일명
+		String filename = fileload.getOriginalFilename();
+		System.out.println("썸네일 원본 filename : " + filename);
+		
+		// 첨부파일의 파일 유형 얻어내기
+		int index = filename.lastIndexOf(".");
+		String filetype = filename.substring(index);
+		System.out.println("썸네일 파일 유형 : "+filetype);
+		
+		// 파일명 중복방지를 위한 UUID 사용
+		filename = UUID.randomUUID().toString() + filetype;
+		System.out.println("썸네일 UUID filename : " + filename);
+		eventDto.setFilename(filename);
+		
+		// 업로드 경로
+		String fupload = req.getServletContext().getRealPath("/eventboardUpload");
+		System.out.println("썸네일 fupload : " + fupload);
+		
+		File file = new File(fupload + "/" + filename);
+		
+		try {
+			// 실제 파일 업로드 되는 부분
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	//	System.out.println("insert할 pdto : " + eventDto.toString());
+		adminService.insertEventboard(eventDto);
+		
+		return "redirect:/adminEventBoard.do";
+	}
+	
+	@RequestMapping(value = "adminEventDetail.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String adminEventDetail(int seq, Model model) {
+		System.out.println("디테일 볼 seq :  " + seq);
+		EventboardDto eventDto = adminService.getEventDetail(seq);
+		model.addAttribute("detail", eventDto);
+		return "admin/eventboard/eventDetail";
+	}
+		
+	@RequestMapping(value = "adminEventDelete.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String adminEventDelete(int seq) {
+		System.out.println("삭제할 행사 seq : " + seq);
+		adminService.eventDelete(seq);
+		return "redirect:/adminEventBoard.do";
+	}
+	
+	@RequestMapping(value = "adminEventUpdate.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String adminEventUpdate(int seq, Model model) {
+		EventboardDto eventDto = adminService.getEventDetail(seq);
+		
+		PlayboardDateBean date = new PlayboardDateBean();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(eventDto.getEvent_sdate());
+		date.setPyear(cal.get(Calendar.YEAR));
+		date.setPmonth(cal.get(Calendar.MONTH) + 1);
+		date.setPday(cal.get(Calendar.DATE));
+		
+		cal.setTime(eventDto.getEvent_edate());
+		date.setEyear(cal.get(Calendar.YEAR));
+		date.setEmonth(cal.get(Calendar.MONTH) + 1);
+		date.setEday(cal.get(Calendar.DATE));
+		
+		model.addAttribute("dateBean", date);
+		
+		model.addAttribute("detail", eventDto);
+		return "admin/eventboard/eventUpdate";
+	}	
+	
+	@RequestMapping(value="adminEventUpdateAf.do", method={RequestMethod.GET,RequestMethod.POST})
+	public String adminEventUpdateAf(EventboardDto eventDto, PlayboardDateBean datebean,
+			   @RequestParam(value = "fileload", required = false)MultipartFile fileload, HttpServletRequest req) {
+		
+		System.out.println(eventDto.toString());
+		System.out.println(datebean.toString());		
+
+		// Date형식으로 변환
+		Date sdate = DateUtil.toDate(datebean.getPyear(), datebean.getPmonth(), datebean.getPday());
+		Date edate = DateUtil.toDate(datebean.getEyear(), datebean.getEmonth(), datebean.getEday());
+		eventDto.setEvent_sdate(sdate);
+		eventDto.setEvent_edate(edate);
+		
+		// 썸네일 첨부파일의 원본 파일명
+		String filename = ""; 
+
+		if(fileload.isEmpty()) {
+			filename = eventDto.getFilename();
+			System.out.println("수정파일 없음");
+		}else {
+			filename = fileload.getOriginalFilename();
+			System.out.println("파일명: " + filename);
+			// 첨부파일의 파일 유형 얻어내기
+			int index = filename.lastIndexOf(".");
+			String filetype = filename.substring(index);
+			System.out.println("썸네일 파일 유형 : "+filetype);
+			
+			// 파일명 중복방지를 위한 UUID 사용
+			filename = UUID.randomUUID().toString() + filetype;
+			System.out.println("썸네일 UUID filename : " + filename);
+			eventDto.setFilename(filename);
+			
+			// 업로드 경로
+			String fupload = req.getServletContext().getRealPath("/eventboardUpload");
+			System.out.println("썸네일 fupload : " + fupload);
+			
+			File file = new File(fupload + "/" + filename);
+			
+			try {
+				// 실제 파일 업로드 되는 부분
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		System.out.println("filename : " + filename);
+			
+	//	System.out.println("update할 pdto : " + eventDto.toString());
+		adminService.eventUpdate(eventDto);
+		return "redirect:/adminEventBoard.do";
+	}
+		
+		
+		
+		
+
 	/*funding 관리자*/
 	@RequestMapping(value = "adminFundingList.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminFundingList(Model model, fundingBean fbean) {

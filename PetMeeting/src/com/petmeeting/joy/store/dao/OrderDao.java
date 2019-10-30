@@ -162,7 +162,7 @@ public interface OrderDao {
 	/**
 	 * 매출 상위 5개 제품 이름과 매출액 가져오기
 	 */
-	public List<SalesDto> getProductSalesTop5();
+	public List<SalesDto> getProductSales();
 	
 	/**
 	 * 환불 완료 업데이트
@@ -195,5 +195,15 @@ public interface OrderDao {
 	 */
 	public int getDeliveryIng();
 	
+	/**
+	 * 취소된 주문 수
+	 */
+	public int getCancel();
+	
+	
+	/**
+	 * 반품/교환 신청 수
+	 */
+	public int getREreqCount(int status);
 	
 }

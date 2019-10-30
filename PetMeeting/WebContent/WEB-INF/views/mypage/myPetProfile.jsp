@@ -245,7 +245,7 @@ function typeChange( value ) {
 }
 
 $(document).ready(function(){
-   $(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
+   $(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/point.png' class='input-icon'>");
    
    $.ajax({
       url : "checkpetprofile.do",

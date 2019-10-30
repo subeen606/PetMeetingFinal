@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
 import com.petmeeting.joy.admin.model.NoticeBoardDto;
@@ -41,6 +42,17 @@ public interface AdminService {
 	public void deleteMemberReport(ReportDto reportDto);
 
 	/* Funding */
+	
+	public void insertEventboard(EventboardDto eventDto);
+	
+	public List<EventboardDto> getEventList();
+	
+	public EventboardDto getEventDetail(int seq);
+	
+	public void eventDelete(int seq);
+	
+	public void eventUpdate(EventboardDto eventDto);
+
 	public boolean addFunding(FundingDto dto, DayBean bean);
 	public List<FundingDto> getFundingList(fundingBean fbean);
 	public int getFundingCount(fundingBean fbean);
@@ -64,7 +76,6 @@ public interface AdminService {
 	//회원탈퇴
 	public List<MypageMemberleave> memleave(Memberleaveparam param);
 	public int memleavecount(Memberleaveparam param);
-	
 	
 	// 관리자 메인
 	public int getTodayPlay();

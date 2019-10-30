@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="Admin">
-<!-- 소모임 목록 -->
+	<!-- 소모임 목록 -->
 	<select id="getPlayboardList" parameterType="com.petmeeting.joy.playboard.model.PlayboardSearchBean" resultType="com.petmeeting.joy.playboard.model.PlayboardDto">
 		SELECT SEQ, BOARD_CODE, EMAIL, TITLE, CONTENT, FILENAME, LOCATION, LOCATION_DETAIL, CATEGORY, 
 			   PRICE, PEOPLE, PERSONCOUNT, READCOUNT, LIKECOUNT, REPORTCOUNT, PDATE, EDATE, REGDATE, DEL
@@ -23,6 +23,9 @@
 				<if test="sortingType == '마감'">
 					AND EDATE <![CDATA[<=]]> SYSDATE
 				</if>	
+				<if test="sortingType == '신고'">
+					AND REPORTCOUNT <![CDATA[>]]> 0
+				</if>
 				<if test="searchCategory == '작성자'">
 					AND EMAIL LIKE '%'||#{searchText}||'%'  
 				</if>
@@ -60,6 +63,9 @@
 				<if test="sortingType == '마감'">
 					AND EDATE <![CDATA[<=]]> SYSDATE
 				</if>	
+				<if test="sortingType == '신고'">
+					AND REPORTCOUNT <![CDATA[>]]> 0
+				</if>
 				<if test="searchCategory == '작성자'">
 					AND EMAIL LIKE '%'||#{searchText}||'%'  
 				</if>
@@ -348,6 +354,45 @@
 		FROM PM_PETPROFILE
 		WHERE EMAIL=#{email}
 	</select>
+	
+	
+	<!-- 행사게시판 글 등록 -->
+	<insert id="insertEventboard" parameterType="com.petmeeting.joy.admin.model.EventboardDto">
+		INSERT INTO PM_EVENTBOARD(SEQ, TITLE, CONTENT, FILENAME, LOCATION, LOCATION_DETAIL, EVENT_SDATE, EVENT_EDATE, REGDATE)
+		VALUES(PM_EVENTBOARD_SEQ.NEXTVAL, #{title}, #{content}, #{filename}, #{location}, #{location_detail}, #{event_sdate}, #{event_edate}, SYSDATE)	
+	</insert>
+	
+	<!-- 행사게시판 글 목록 -->
+	<select id="getEventList" resultType="com.petmeeting.joy.admin.model.EventboardDto">
+		SELECT SEQ, TITLE, CONTENT, FILENAME, LOCATION, LOCATION_DETAIL, EVENT_SDATE, EVENT_EDATE, REGDATE
+		FROM PM_EVENTBOARD
+	</select>
+	
+	<!-- 행사게시판 디테일 -->
+	<select id="getEventDetail" parameterType="java.lang.Integer" resultType="com.petmeeting.joy.admin.model.EventboardDto">
+		SELECT SEQ, TITLE, CONTENT, FILENAME, LOCATION, LOCATION_DETAIL, EVENT_SDATE, EVENT_EDATE, REGDATE
+		FROM PM_EVENTBOARD
+		WHERE SEQ=#{seq}
+	</select>
+	
+	<!-- 행사게시판 삭제 -->
+	<delete id="eventDelete" parameterType="java.lang.Integer">
+		DELETE 
+		FROM PM_EVENTBOARD
+		WHERE SEQ=#{seq}
+	</delete>
+	
+	<!-- 행사게시판 수정 -->
+	<update id="eventUpdate" parameterType="com.petmeeting.joy.admin.model.EventboardDto">
+		UPDATE PM_EVENTBOARD
+		SET TITLE=#{title}, CONTENT=#{content}, FILENAME=#{filename}, LOCATION=#{location}, LOCATION_DETAIL=#{location_detail},  
+			EVENT_SDATE=#{event_sdate}, EVENT_EDATE=#{event_edate}
+		WHERE SEQ=#{seq}
+	</update>
+	
+	
+	
+	
 
 
 	<!-- fundingList 추가 -->
@@ -537,6 +582,31 @@
 	</update>
 
 
+      
+      
+      <!-- 오늘 올라온 소모임 수 -->
+	<select id="getTodayPlay" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0) FROM PM_PLAYBOARD
+		WHERE SUBSTR(REGDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
+	</select>
+	
+	<!-- 오늘 마감된 후원 수-->
+	<select id="getTodayEndFunding" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0) FROM PM_FUNDINGBOARD
+		WHERE SUBSTR(EDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
+	</select>
+	
+	<!-- 많이 신고 된 순으로 회원 5명 -->
+	<select id="getReportTop5" resultType="com.petmeeting.joy.admin.model.AdminMemberDto">
+		SELECT EMAIL, NAME, NICKNAME, REPORTCOUNT
+		FROM (SELECT ROW_NUMBER()OVER(ORDER BY REPORTCOUNT DESC) AS RNUM, EMAIL, NAME, NICKNAME, REPORTCOUNT
+			FROM PM_MEMBER
+			WHERE REPORTCOUNT > 0)
+			WHERE RNUM BETWEEN 1 AND 5
+		ORDER BY REPORTCOUNT DESC
+	</select>
+
+
       <select id="memleavelistadmin" parameterType="com.petmeeting.joy.admin.model.Memberleaveparam"
           resultType="com.petmeeting.joy.admin.model.Memberleaveparam">
             
@@ -603,28 +673,6 @@
 			)  
 		
       </select>
-      
-      
-      <!-- 오늘 올라온 소모임 수 -->
-	<select id="getTodayPlay" resultType="java.lang.Integer">
-		SELECT NVL(COUNT(*), 0) FROM PM_PLAYBOARD
-		WHERE SUBSTR(REGDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
-	</select>
-	
-	<!-- 오늘 마감된 후원 수-->
-	<select id="getTodayEndFunding" resultType="java.lang.Integer">
-		SELECT NVL(COUNT(*), 0) FROM PM_FUNDINGBOARD
-		WHERE SUBSTR(EDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
-	</select>
-	
-	<!-- 많이 신고 된 순으로 회원 5명 -->
-	<select id="getReportTop5" resultType="com.petmeeting.joy.admin.model.AdminMemberDto">
-		SELECT EMAIL, NAME, NICKNAME, REPORTCOUNT
-		FROM (SELECT ROW_NUMBER()OVER(ORDER BY REPORTCOUNT DESC) AS RNUM, EMAIL, NAME, NICKNAME, REPORTCOUNT
-			FROM PM_MEMBER
-			WHERE REPORTCOUNT > 0)
-			WHERE RNUM BETWEEN 1 AND 5
-		ORDER BY REPORTCOUNT DESC
-	</select>
+
 
 </mapper>

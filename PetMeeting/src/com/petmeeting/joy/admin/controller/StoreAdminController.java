@@ -86,9 +86,9 @@ public class StoreAdminController {
 		model.addAttribute("jsonEtc", jsonEtc);
 		
 		// 상위 5개 매출 제품
-		String jsonTop5 = orderService.getProductSalesTop5Json();
-		System.out.println("jsonTop5 : " + jsonTop5);
-		model.addAttribute("jsonTop5", jsonTop5);
+		String json = orderService.getProductSalesJson();
+		System.out.println("json : " + json);
+		model.addAttribute("json", json);
 		
 		return "admin/store/adstore";
 	}
@@ -134,7 +134,7 @@ public class StoreAdminController {
 		System.out.println("------------------------------------ adproductaddAf ProductDto : " + pro.toString());
 		proService.addProduct(pro);
 		
-		return "redirect:/adstore.do";
+		return "redirect:/adproductoption.do";
 	}
 	
 	@RequestMapping(value = "adproductoption.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -158,7 +158,7 @@ public class StoreAdminController {
 			}
 		}
 		
-		return "redirect:/adstore.do";
+		return "redirect:/adproductlist.do";
 	}
 	
 	@ResponseBody

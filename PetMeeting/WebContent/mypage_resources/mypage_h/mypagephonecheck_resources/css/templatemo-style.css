@@ -8,6 +8,7 @@ font-family: 'NanumSquareRound'!important;
 
 body {
 	font-family:'NanumSquareRound'!important;
+	
 }
 
 #msform fieldset {
@@ -27,6 +28,8 @@ body {
 #msform fieldset.step1 {
 	background: #9e9e9e3b;
 	width:300px;
+	margin-left:500px;
+	margin-top:70px;
 }
 
 #msform input, #msform textarea {
@@ -72,4 +75,8 @@ button {
 button:hover {
 	color: #fff;
 	background-color: #ff9c3d;
+}
+
+.mypageMain{
+	margin-bottom:150px;
 }

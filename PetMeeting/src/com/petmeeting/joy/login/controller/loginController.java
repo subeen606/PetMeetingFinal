@@ -30,9 +30,9 @@ public class loginController {
 	MemberService memService;
 
 
-	@RequestMapping (value="main.do", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping (value="goMain.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String goMain() {
-		return "main";
+		return "redirect:/main.do";
 	}
 	
 	@RequestMapping (value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -49,7 +49,7 @@ public class loginController {
 		req.getSession().removeAttribute("mypet");
 		System.out.println("login, userProfile 세션 제거 --> 로그아웃완료");
 		
-		return "main";
+		return "redirect:/main.do";
 	}
 	
 	// 프로필 닉네임 수정시 닉네임체크		
