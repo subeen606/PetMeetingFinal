@@ -177,14 +177,12 @@
     	</div>   
     </div>
 </form>
-<<<<<<< HEAD
+
    <!--::footer part start::--> 
     	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
     <!-- footer part end-->
     
-=======
 
->>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
 <script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
 <script type="text/javascript">
 $(function () {

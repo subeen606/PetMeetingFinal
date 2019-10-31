@@ -60,6 +60,8 @@ public interface AdminDao {
 	public void insertEventboard(EventboardDto eventDto);
 	
 	public List<EventboardDto> getEventList();
+	public List<EventboardDto> getMonthlyEventList(String date);
+	
 	
 	public EventboardDto getEventDetail(int seq);
 	

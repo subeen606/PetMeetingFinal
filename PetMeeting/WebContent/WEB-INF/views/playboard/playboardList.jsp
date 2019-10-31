@@ -125,7 +125,7 @@
 	                           
 	                           <c:if test="${pList.reportcount < 3 }">
 	                            <a class="titleAnchor" seq="${pList.seq }">
-	                          	 <img src="${pageContext.request.contextPath}/playboardUpload/${pList.filename }" width="100%" height="250px">
+	                          	 <img src="${pageContext.request.contextPath}/playboardUpload/${pList.filename }" class="thumbnail-img" >
 	                            </a>	 
 	                           </c:if>
 	                                                    
