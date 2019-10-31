@@ -57,24 +57,28 @@ h1, h2, h3, h4, h5, h6{
     border: 0px;
     border-radius: 100px;
     width: fit-content;
-    background-color: #2b2b2b;
+    background-color: #ff9c3d; /* #2b2b2b */
     height: auto;
     padding: 10px 20px 10px 20px;
-
     float: right;
 }
 
-
-#nickChk_btn {
+.nickchange {
 	color: #fff;
     border: 0px;
     border-radius: 100px;
     height: auto;
-    background-color: #2b2b2b;
+    background-color: #a2a2a2;
     padding: 2px 13px;
 }
 
+.nickChgMsg {
+	margin-left: 105px;
+}
 
+.ectpetinput {
+	float: right;
+} 
 
 .mypageHomebox_1>.input_row {
 /*	background-color: #f3f3f3;

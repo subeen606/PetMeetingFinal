@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 프로필</title>
+<title>나의 펫 프로필</title>
 <script   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/jquery.form.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/mypage_j/css/myprofile.css">
@@ -56,7 +56,7 @@
                      <div class="col-md-6 right-content myprofile-container">
                            <input name="email" type="hidden" value="${login.email }">
                            <input name="petprofile_img" type="hidden" value="${mypet.petprofile_img }">
-                           
+                           <%-- <input name="petintro" type="hidden" value="${mypet.petintro}"> --%>                           
                            <div class="mypageHomebox_1">
                               <div class="input_row">
                                  <p class="input_title">펫 이름</p>                     
@@ -102,7 +102,8 @@
                                  <p class="input_title">무게</p>
                                  <span>
                                  <select name="petweight" class="petselectbox">
-                                    <option value="5kg미만">5kg미만</option>
+                                 	<option value="1kg미만">1kg미만</option>
+                                    <option value="1~5kg">1~5kg</option>
                                     <option value="5~10kg">5~10kg</option>
                                     <option value="10~15kg">10~15kg</option>   
                                     <option value="15~20kg">15~20kg</option>   
@@ -113,8 +114,8 @@
                            </div>
                            <div class="mypageHomebox_1">
                               <div class="input_row">
-                              <p class="input_title">펫 소개</p>
-                                 <textarea name="petintro" placeholder="나의 펫에 대한 소개를 작성해주세요"></textarea>
+                              <p class="input_title">펫 소개&nbsp;<font size="2em">(100자 이내로 작성해주세요)</font></p>
+                                 <textarea name="petintro" placeholder="나의 펫을 소개해 주세요"></textarea>
                               </div>                                 
                            </div>
                      
@@ -126,8 +127,8 @@
                      
                            <div class="mypageHomebox_1">
                               <div class="input_row">
-                                 <p class="input_title">펫 프로필 이미지</p>
-                                 <div class="input_content">                    
+                                 <p class="input_title">펫 프로필 이미지</p>         
+                                 <div class="input_content">                        
                                     <img id="img_preView" class="img_preView" alt="이미지없음" src="./mypage_resources/mypage_j/images/petprofile_icon.png" align="center"/>
                                                                                                 
                                     <!-- 프로필세션의 프로필이미지 있는경우 -->
@@ -175,9 +176,9 @@
                                  <select name="petdetail" id="_petdetail" class="petselectbox">
                                  </select>
                                  
-                                 <input name="petdetail" class="ectpet displayis" type="text" size="50px" value="">
-                                 <font class="ectpetinput displayis" color="darkgray">( 강아지,고양이 외의 경우 종을 기입해 주세요. )</font>
+                                 <input name="petdetail" class="ectpet displayis" type="text" size="50px" value="">                                 
                                  </span>
+                                 <p><font class="ectpetinput displayis" color="darkgray">( 강아지,고양이 외의 경우 종을 기입해 주세요. )</font></p>
                               </div>
                            </div>
                      </div>
@@ -187,7 +188,7 @@
             </div>
             <div class="mypageHomebox_1">
                            <div class="input_row">
-                              <button class="profile_Btn displayis" id="myProfile_insertBtn">프로필 등록하기</button>
+                              <button class="profile_Btn displayis" id="petProfile_insertBtn">프로필 등록하기</button>
                               <button class="profile_Btn displayis" id="petProfile_updateSubBtn">프로필 수정완료</button>                  
                            </div>
                         </div>
@@ -228,7 +229,7 @@
       $("select[name=petweight]").val(petweight).prop("selected", true);
       $("input:checkbox[id='_petsex"+petsex+"']").prop("checked", true);
       $("input:checkbox[id='_pettnr"+pettnr+"']").prop("checked", true);
-      $("textarea[name=petintro]").val(petintro);
+      $("textarea").val(petintro);
       
       if(pettype === "기타"){
          $("input[name=petdetail]").val(petdetail);
@@ -237,16 +238,14 @@
    </script>
 </c:if>
 
-
+<script	src="${pageContext.request.contextPath}/mypage_resources/mypage_j/js/submit_checking.js"></script> <!-- 등록,수정 submit시 공백 체크함수 -->
 <script type="text/javascript">
-function typeChange( value ) {
-   //$("input[name=petage]").val( Number(value) );
-   alert( $("input[name=petage]").val() );
-}
+$(document).ready(function(){  
 
-$(document).ready(function(){
-   $(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
-   
+	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
+	if( $("input[name=petage]").val() == 0){
+		$("input[name=petage]").val('');
+	}
    $.ajax({
       url : "checkpetprofile.do",
       async: false,
@@ -263,6 +262,8 @@ $(document).ready(function(){
          }
          if(!checkIS){
             console.log("PM_CHECK_PETPROFILE 등록안되어있음");
+            $("#petProfile_insertBtn").removeClass("displayis");
+            $("#petProfile_updateSubBtn").addClass("displayis");
             categoryChange('강아지');   //초기 펫타입 강아지로 설정
          }
       },
@@ -270,18 +271,11 @@ $(document).ready(function(){
          alert(JSON.stringify(error));         
       }
    });
-    
-
-   $('input[name=petname]').focus(function(){
-       
-       $('input[name=petname]').addClass("value");
-   });
-
-   
-
 });
 
-//select제어
+
+
+// select제어
 function categoryChange(seltype) {
    // 하위 선택사항 ajax로 받아와소.. 배열에 집어넣어야 한다....
    var dogtype = ["미입력", "말티즈", "미니핀", "요크셔테리어", "불독"];
@@ -325,23 +319,36 @@ function categoryChange(seltype) {
    $("#_petdetail option:eq(0)").attr("selected", "selected");
 }
 
-//checkbox제어
-$("#_petsex0").on("click",function(){
-   $("#_petsex1").prop("checked",false);
+// checkbox제어
+$("#_petsex0").change(function(){
+    if( $("#_petsex0").is(":checked") ){
+    	$("#_petsex1").prop("checked",false);
+    }else{
+    	$("#_petsex1").prop("checked",true);
+    }
+});
+$("#_petsex1").change(function(){
+    if( $("#_petsex1").is(":checked") ){
+    	$("#_petsex0").prop("checked",false);
+    }else{
+    	$("#_petsex0").prop("checked",true);
+    }
+});
+$("#_pettnr0").change(function(){
+    if( $("#_pettnr0").is(":checked") ){
+    	$("#_pettnr1").prop("checked",false);
+    }else{
+    	$("#_pettnr1").prop("checked",true);
+    }
+});
+$("#_pettnr1").change(function(){
+    if( $("#_pettnr1").is(":checked") ){
+    	$("#_pettnr0").prop("checked",false);
+    }else{
+    	$("#_pettnr0").prop("checked",true);
+    }
 });
 
-$("#_petsex1").on("click",function(){
-   $("#_petsex0").prop("checked",false);
-});
-
-$("#_pettnr1").on("click",function(){
-   $("#_pettnr0").prop("checked",false);
-   
-});
-$("#_pettnr0").on("click",function(){
-   $("#_pettnr1").prop("checked",false);
-   
-});
 
 //파일업로드시 미리보기
 $("input[name=fileload]").change(function() {
@@ -360,15 +367,11 @@ function readURL(input) {
 
 // 펫 프로필 등록 submit
 $('#petProfile_insertBtn').on("click",function(){
-	var inrtoval = $('textarea').val();
-	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-	$('textarea').val(inrtoval);
-   // Get form
-   var petProfileForm = $("#_petProfileForm")[0];
-   //alert("petProfileForm = " + petProfileForm);
-   
-   // FormData object 생성
-   var data = new FormData(petProfileForm);
+
+	if ( petprosubmitChk() == false) return false;
+	
+	var petProfileForm = $("#_petProfileForm")[0];
+	var data = new FormData(petProfileForm);
 
    // 등록과 수정 모두 이뤄지는 컨트롤러로 이동
    $.ajax({
@@ -396,12 +399,11 @@ $('#petProfile_insertBtn').on("click",function(){
 
 // 펫프로필 수정 submit
 $('#petProfile_updateSubBtn').on("click",function(){
-	var inrtoval = $('textarea').val();
-	inrtoval = inrtoval.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-	$('textarea').val(inrtoval);
 	
-   var petProfileForm = $("#_petProfileForm")[0];
-   var data = new FormData(petProfileForm);
+	if ( petprosubmitChk() == false) return false;
+	
+	var petProfileForm = $("#_petProfileForm")[0];
+	var data = new FormData(petProfileForm);
   
    $.ajax({
       url : "updatepetProfile.do",
@@ -424,38 +426,72 @@ $('#petProfile_updateSubBtn').on("click",function(){
    });
 });
 
+// 표현식 
+var check_num = /[0-9]/; // 숫자
+var check_eng = /[a-zA-Z]/; // 문자
+var check_spc = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/; 
+/*특수문자*/ 
+var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글체크
 
-
-// 스크립트 제어
-$('input[name=petname]').on('keyup', function(event) {    
-   if($(this).val().length > 8) {
-      $('.petalert_name').text("이름은 8자 이하로 작성해 주세요.");
-      $('.petalert_name').removeClass("displayis");
-      //alert("펫이름은 8자 이하로 작성해 주세요.");
-        //$(this).val($(this).val().substring(0, 8));
+// keyup 이벤트
+$('input[name=petname]').on('keyup', function(event) {  
+	
+	var regexp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣a-zA-Z0-9\-_]/gi;
+	var nameval = $(this).val();
+	
+	if($(this).val().length > 15) {
+      alert("참 좋은 이름이지만 너무 기네요! 15자 이하로 작성해주세요.");
+      $(this).val($(this).val().substring(0, 15));
     }
-   if($(this).val().length <= 8) {
-      $('.petalert_name').addClass("displayis");
-   }
+	if( regexp.test( nameval ) ){
+		alert("한,영,숫자, 특수문자 -,_만 입력가능 합니다");
+		$(this).val(nameval.replace(regexp, ''));
+	}
+	
 });
 
 $('input[name=petage]').on('keyup', function(event) {    
-   if($(this).val().length > 2) {
-      $('.petalert_age').text("십장생..?");
-      $('.petalert_age').removeClass("displayis");
-    }
-   if($(this).val().length < 3) {
-      $('.petalert_age').addClass("displayis");
-    }
-   
-   var regexp = /[^0-9]/gi;
-    var v = $(this).val();
+	var regexp = /[^0-9]/gi;
+	var ageval = $(this).val();
+	
+	if( $(this).val().length > 2 && $(this).val().length < 4) {
+		var result = confirm("당신의 펫이 십장생에 속하거나 좀비라면 99이상 입력이 가능합니다.");
+		if(!result){
+			$(this).val($(this).val().substring(0, 2));
+		}		
+	}
+	
+	if( regexp.test( ageval ) ){
+		alert("숫자만 입력 가능합니다");
+		$(this).val(ageval.replace(regexp, ''));
+	}
+});
 
-    if ( regexp.test(v) ) {
-       $('.petalert_age').text("숫자만 입력가능 합니다.\n-(하이픈)을 제외한 숫자만 입력하여 주세요.");
-        //$(this).val(v.replace(regexp, ''));
-    }
-   
+$('.ectpet').on('keyup', function(event) {  
+	//var regexp = /[^가-힣a-zA-Z\-_]/gi;
+	
+	var str = $(this).val();
+	
+	if( check_kor.test(str) && !check_num.test(str) && !check_eng.test(str) && !check_spc.test(str) ){ 
+		return true; 
+	}
+	else if( check_num.test(str) ){ 
+		alert("한글, 영문만 입력 가능합니다.");
+		$(this).val( str.replace(check_num, '') );
+		return false; 
+	}
+	else if( check_spc.test(str) ){
+		alert("한글, 영문만 입력 가능합니다.");
+		$(this).val( str.replace(check_spc, '') );
+		return false;
+	}	
+});
+
+$('textarea[name=petintro]').on('keyup', function(event) {
+	if( $(this).val().length > 100) {
+		alert("소개글은 100자 이내로 작성해주세요.");
+		$(this).val($(this).val().substring(0, 100));
+	}
 });
 
 
