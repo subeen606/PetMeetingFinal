@@ -367,7 +367,7 @@ $(function () {
 			return false;
 		}
 		
-		$("#boardWriteFrm").attr("action", "adminEventWriteAf.do").submit();
+		$("#boardWriteFrm").attr("action", "makePlayAf.do").submit();
 	});
 });
 

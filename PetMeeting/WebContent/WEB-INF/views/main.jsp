@@ -28,8 +28,9 @@
 	  <!-- Full-width images with number and caption text -->
 	  <div class="mySlides fade">
 	    <div class="numbertext">1 / 3</div>
-	    <img src="${pageContext.request.contextPath}/common/img/slide(1).jpg" width="100%">
-	   
+	    <a href="productdetail.do?pcode=ETC0006">
+	    <img src="${pageContext.request.contextPath}/common/img/slide(1).png" width="100%">
+	    </a>
 	  </div>
 	
 	  <div class="mySlides fade">
