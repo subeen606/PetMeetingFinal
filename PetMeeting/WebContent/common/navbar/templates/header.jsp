@@ -76,42 +76,27 @@
             </div>
         </div>
         
-         <!-- 로그인/회원가입/마이페이지 등 로그인 정보 나타내는 div -->
-        <div id="loginInfo">
-            <input type="hidden" class='nowmymsg' value="-1">
-        	<c:if test="${not empty login }">
-        		<font>[ ${login.nickname } ]님, 환영합니다.</font>
-        		<a href="mypagehome.do">마이페이지</a>
-        		<a href="logout.do">로그아웃</a>
-        		
-        		<!-- 
-        		<a href="javascript:kakaologout(this);">로그아웃</a>
-        		
-        		<script type="text/javascript">
-        		
-        		function kakaologout() {
-        			Kakao.init('2f90f741a7fa19bb40a6b2cc2d08fd28');
-            		Kakao.Auth.logout(function(obj) {
-            			if(obj==true){
-            				//로그아웃 완료
-            				alert("로그아웃완료");
-            				location.href="logout.do";
-            			}else{
-            				//로그아웃안됬을때
-            				alert("로그아웃실패");
-            			}
-            		});
-				};        		
-        		</script>
-        		 -->
-        	</c:if>
-        	
-        	<c:if test="${empty login }">
-        		<a href="login.do" target="_self">로그인</a>
-        	</c:if>
-           
-        </div>
         
+        <!-- 
+       		<a href="javascript:kakaologout(this);">로그아웃</a>
+       		
+       		<script type="text/javascript">
+       		
+       		function kakaologout() {
+       			Kakao.init('2f90f741a7fa19bb40a6b2cc2d08fd28');
+           		Kakao.Auth.logout(function(obj) {
+           			if(obj==true){
+           				//로그아웃 완료
+           				alert("로그아웃완료");
+           				location.href="logout.do";
+           			}else{
+           				//로그아웃안됬을때
+           				alert("로그아웃실패");
+           			}
+           		});
+			};        		
+       		</script>
+       		 -->
               
 
         <div class="main_menu">

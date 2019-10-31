@@ -775,7 +775,7 @@ $(function() {
 		}else {
 			alert("회원가입클릭");
 			var accountString = $("#account-form").serialize() ;
-			/*
+			
 			$.ajax({
 				url : "accountAf.do",
 				method : "post",
@@ -812,7 +812,7 @@ $(function() {
 					alert(JSON.stringify(error));
 				}
 			});
-			*/
+			
 		}
 	});
 	
