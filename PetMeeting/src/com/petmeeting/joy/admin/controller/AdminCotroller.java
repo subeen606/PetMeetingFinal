@@ -713,7 +713,7 @@ public class AdminCotroller {
 	/*공지 게시판*/
 	@RequestMapping(value = "noticeList.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String noticeListHome(fundingBean bean, Model model) {
-		/* System.out.println("공지게시판 들어온 bean: " + bean.toString()); */
+		System.out.println("공지게시판 들어온 bean: " + bean.toString());
 		int totalCount = adminService.noticeListcount(bean);
 		int sn = bean.getPageNumber();
 		
@@ -728,6 +728,7 @@ public class AdminCotroller {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("f_keyword", bean.getF_keyword());
+		model.addAttribute("f_categorys", bean.getF_categorys());
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", bean.getRecordCountPerPage());
@@ -770,6 +771,22 @@ public class AdminCotroller {
 			}
 		return "redirect:/noticeList.do";
 	}
+	
+	/*공지게시판 수정*/
+	@RequestMapping(value = "noticeUpdate.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeUpdate(int seq,Model model) {
+		NoticeBoardDto dto = adminService.noticeDetail(seq);
+		model.addAttribute("dto", dto);
+		return "admin/noticeboard/noticeUpdate";
+	}
+	
+	@RequestMapping(value = "noticeUpdateAf.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeUpdateAf(NoticeBoardDto dto) {
+		System.out.println("수정 Af에 들어온 dto: " +dto.toString());
+		adminService.noticeUpdate(dto);
+		return "redirect:/noticeList.do";
+	}
+	
 	
 	/*회원탈퇴 통계 */
 	@RequestMapping(value = "adminMemleavegraph.do",method = {RequestMethod.GET,RequestMethod.POST})

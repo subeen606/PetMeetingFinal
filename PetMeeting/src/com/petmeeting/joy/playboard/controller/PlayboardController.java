@@ -2,8 +2,6 @@ package com.petmeeting.joy.playboard.controller;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +26,6 @@ import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.mypage.model.MypageFollowDto;
 import com.petmeeting.joy.playboard.Util.DateUtil;
 import com.petmeeting.joy.playboard.Util.PlayboardUtil;
-import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
 import com.petmeeting.joy.playboard.model.PlayboardCheckBean;

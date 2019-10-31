@@ -20,6 +20,7 @@ import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
+import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -295,6 +296,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<AdminMemberDto> getReportTop5() {
 		return sqlSession.selectList(namespace + "getReportTop5");
+	}
+
+	@Override
+	public void noticeUpdate(NoticeBoardDto dto) {
+		sqlSession.update(namespace + "noticeUpdate", dto);
 	}
 
 }

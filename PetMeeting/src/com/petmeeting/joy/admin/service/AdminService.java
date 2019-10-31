@@ -40,6 +40,8 @@ public interface AdminService {
 	public List<ReportDto> getMemberReportReason(String email);
 	
 	public void deleteMemberReport(ReportDto reportDto);
+
+	/* Funding */
 	
 	public void insertEventboard(EventboardDto eventDto);
 	
@@ -52,10 +54,7 @@ public interface AdminService {
 	public void eventDelete(int seq);
 	
 	public void eventUpdate(EventboardDto eventDto);
-	
-	
-	
-	
+
 	public boolean addFunding(FundingDto dto, DayBean bean);
 	public List<FundingDto> getFundingList(fundingBean fbean);
 	public int getFundingCount(fundingBean fbean);
@@ -68,16 +67,17 @@ public interface AdminService {
 	public void sendMsgUpfund(List<FundMemberDto> mList, String title);
 	public void fundingStaDel(int seq);
 	
+	/* Notice */
 	public void noticeWrite(NoticeBoardDto dto);
 	public List<NoticeBoardDto> getnoticeList(fundingBean bean);
 	public int noticeListcount(fundingBean bean);
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
+	public void noticeUpdate(NoticeBoardDto dto);
 	
 	//회원탈퇴
 	public List<MypageMemberleave> memleave(Memberleaveparam param);
 	public int memleavecount(Memberleaveparam param);
-	
 	
 	// 관리자 메인
 	public int getTodayPlay();

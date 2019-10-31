@@ -614,13 +614,13 @@ public class MypageController {
             if(!myattendList.isEmpty()){
                
                for (PlayboardDto pdto : myattendList) {
-            		jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
+            		jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#8893cc' },";
         
                }
             }
             if(!mymakeList.isEmpty()){
                for (PlayboardDto pdto : mymakeList) {
-            	   jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
+            	   jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#c2d7e1' },";
                }      
             }
             if(jsonData.equals("[")){
@@ -1039,12 +1039,12 @@ public class MypageController {
 			if(!joinlist.isEmpty()){
 				
 				for (PlayboardDto pdto : joinlist) {
-					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ff9c3d' },";
+					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#8893cc' },";
 				}
 			}
 			if(!makelist.isEmpty()){
 				for (PlayboardDto pdto : makelist) {
-					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#ffe7c1' },";
+					jsonData += "{id:"+pdto.getSeq()+",title:'" + MypageDateUtil.ReduceTitle(pdto.getTitle()) + "', start:'" + MypageDateUtil.ConvertDate(pdto.getPdate()) + "', backgroundColor:'#c2d7e1' },";
 				}		
 			}
 			if(jsonData.equals("[")){

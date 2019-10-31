@@ -159,9 +159,9 @@
 
 						</div>
 						<div class="followEmailicon">
-							<img alt=""
+							<%-- <img alt=""
 								src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/mail1.png"
-								onclick="followemail()"> 
+								onclick="followemail()">  --%>
 							<!-- <div class="icon-bar">
 								<a class="active" href="#"><i class="fa fa-home"></i></a> <a
 									href="#"><i class="fa fa-search"></i></a> <a href="#"><i
@@ -188,7 +188,7 @@
                         <li class="sendmessage" onclick="myfollowsendmsg('<%=dto.getNickname()%>','<%=dto.getEmail()%>')"><a><img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/noteemail.png" > 쪽지 보내기</a></li>
                         <li class="viewlist" onclick="viewlist('<%=dto.getEmail()%>' )"> <a><img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/evaluate.png" onclick="">참여중인 모임</a></li>
                         <li class="viewFollow" onclick="viewFollow('<%=dto.getEmail()%>')"><a><img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/conversation.png" onclick="">팔로우/팔로잉 보기</a></li>
-                        <li class="nonnotice"><a><img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/bell.png" onclick=""> 알람 끄기</a></li>
+                        
                       </ul>
                       <input type="hidden" class="pmodal" value="0">
                    
@@ -297,6 +297,13 @@
 						</div>
 					</div>
 			</section>
+			<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
+			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
@@ -480,12 +487,13 @@
 				var spage = nowpage * 6 + 1; //7
 				var epage = spage + 6; //13
 				$(".nowpage").val(Number(nowpage) + 1);
-
-				//  alert(spage);
-				//  alert(epage);
+                 
+				
+				  
+			
 
 				for (var i = spage; i < epage; i++) {
-					$("#followbox" + i).show();
+					$("#followbox" + i).fadeIn(1000);
 				}
 
 				var totallist = $(".totalhidden").val();
@@ -495,38 +503,10 @@
 				}
 
 				$('html, body').animate({
-					scrollTop : $('.morelist').offset().top
+					scrollTop : $('#followbox'+spage).offset().top
 				}, 'slow');
 
-				/* 
-				var box=$(".box").length;
-				var page=Math.floor(box/6);
-				alert(box);
-				alert(page);
-				$.ajax({
-				 type:"POST",
-				 url:"mypagefollowmore.do",
-				 async: false,
-				 data:{"s_category":$(".s_category").val() ,
-					 "page":page ,
-					 "s_keyword":$("#searchtext").val()
-					  },
-				  success:function(data){
-				  	alert(data);
-				  	$.each(data, function (idx,val) {
-				  	
-						console.log(idx+"" +val.email);
-						$("<div class='box box1' id='followbox"+(idx+box+1)+"'>"+(box+idx)+"<div>").insertAfter("#followbox"+(box+idx));		
-				          //$(".mypagecancel").clone().appendTo("#followbox"+(idx+box+1));
-						
-					})
-				       
-				  },error:function(){
-				  	alert("실패");
-				  }
-				 
-				})
-				 */
+			
 			});
 
 			//구독 취소 버튼
@@ -543,7 +523,7 @@
 
 			//쪽지 보내기 버튼
 			function followemail() {
-				alert("쪽지 보내기");
+			//	alert("쪽지 보내기");
 			}
 		</script>
 </body>

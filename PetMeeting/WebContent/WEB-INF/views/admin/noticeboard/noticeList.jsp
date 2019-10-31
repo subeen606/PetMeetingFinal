@@ -23,15 +23,25 @@
 <div class="content">
 <div class="container">
 
-<div class="mainTitle">공지</div>
+<div class="mainTitle"><a href="noticeList.do">공지</a></div>
 
 <form id="frm">
+	<input type="button" id="makefund" value="공지 작성" onclick="location.href='noticeWrite.do'">
 
-<input type="text" name="f_keyword" placeholder="글 제목" <c:if test="${f_keyword != null }">value='${f_keyword }'</c:if>> 
-<input type="button" id="searchBtn" value="검색">
-
-<input type="button" value="공지 작성" onclick="location.href='noticeWrite.do'">
-
+	<div class="searchdiv">
+		<select id="selected" name="f_categorys" onchange="selec()">
+			<option value=""<c:if test="${f_categorys == '' }">selected</c:if>>공지유형 선택</option>
+			<option value="전체 공지"<c:if test="${f_categorys == '전체 공지' }">selected</c:if>>전체 공지</option>
+			<option value="소모임 공지"<c:if test="${f_categorys == '소모임 공지' }">selected</c:if>>소모임 공지</option>
+			<option value="자유게시판 공지"<c:if test="${f_categorys == '자유게시판 공지' }">selected</c:if>>자유게시판 공지</option>
+			<option value="후원 공지"<c:if test="${f_categorys == '후원 공지' }">selected</c:if>>후원 공지</option>
+			<option value="굿즈샵 공지"<c:if test="${f_categorys == '굿즈샵 공지' }">selected</c:if>>굿즈샵 공지</option>
+		</select>
+		
+		<input type="text" name="f_keyword" id="search_title" placeholder="제목" <c:if test="${f_keyword != null }">value='${f_keyword }'</c:if>> 
+		<input type="button" id="searchBtn" class="search-btn">
+	</div>
+	
 	<table class="boardTable">
 		<thead>
 			<tr>
@@ -43,11 +53,16 @@
 		</thead>
 		
 		<tbody>
+			<c:if test="${empty list }">
+			<tr>
+				<td colspan="2" align="center">해당 공지가 없습니다.</td>
+			</tr>
+			</c:if>
 			<c:forEach items="${list }" var="list" varStatus="vs">
 			<tr>
 				<td><input type="checkbox" name="seq" value="${list.seq }"></td>
 				<td>${vs.count }</td>
-				<td><a href="noticeDetail.do?seq=${list.seq }">${list.title }</a></td>
+				<td><a href="noticeDetail.do?seq=${list.seq }">[ ${list.category} ] ${list.title }</a></td>
 				<td><fmt:formatDate value="${list.regdate }" pattern="[yyyy-MM-dd]"/></td>
 			</tr>
 			</c:forEach>
@@ -75,6 +90,12 @@
 </div>
 
 <script type="text/javascript">
+function selec() {
+	$("#_pageNumber").val(0);
+	$("#frm").attr({"action":"noticeList.do","method":"post"}).submit();
+}
+
+
 $("input[name=allcheck]").click(function() {
 	if($("input[name=allcheck]").prop("checked")){
 		$("input[name=seq]").prop("checked",true);
