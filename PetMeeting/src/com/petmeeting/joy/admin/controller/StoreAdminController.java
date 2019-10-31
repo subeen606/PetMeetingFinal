@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,7 @@ import com.petmeeting.joy.store.service.ProductService;
 import com.petmeeting.joy.store.service.QnaService;
 import com.petmeeting.joy.store.service.ReviewService;
 import com.petmeeting.joy.util.FileUtility;
+import com.petmeeting.joy.util.URLConn;
 
 @Controller
 public class StoreAdminController {
@@ -84,9 +86,9 @@ public class StoreAdminController {
 		model.addAttribute("jsonEtc", jsonEtc);
 		
 		// 상위 5개 매출 제품
-		String jsonTop5 = orderService.getProductSalesTop5Json();
-		System.out.println("jsonTop5 : " + jsonTop5);
-		model.addAttribute("jsonTop5", jsonTop5);
+		String json = orderService.getProductSalesJson();
+		System.out.println("json : " + json);
+		model.addAttribute("json", json);
 		
 		return "admin/store/adstore";
 	}
@@ -132,7 +134,7 @@ public class StoreAdminController {
 		System.out.println("------------------------------------ adproductaddAf ProductDto : " + pro.toString());
 		proService.addProduct(pro);
 		
-		return "redirect:/adstore.do";
+		return "redirect:/adproductoption.do";
 	}
 	
 	@RequestMapping(value = "adproductoption.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -156,7 +158,7 @@ public class StoreAdminController {
 			}
 		}
 		
-		return "redirect:/adstore.do";
+		return "redirect:/adproductlist.do";
 	}
 	
 	@ResponseBody
@@ -436,6 +438,10 @@ public class StoreAdminController {
 		
 		param.setStart(start);
 		param.setEnd(end);
+
+		System.out.println(param.toString());
+		System.out.println("trc " + totalRecordCount);
+		System.out.println("pn " + pageNumber);
 		
 		List<RefundDto> rlist = orderService.getAdminRefundList(param);
 		System.out.println("RLIST : " + rlist.toString());		
@@ -470,9 +476,27 @@ public class StoreAdminController {
 	
 	@ResponseBody
 	@RequestMapping(value = "adcancelpay.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public void adcancelpay() {
+	public String adcancelpay(RefundDto refund, int amount) {
 		System.out.println("------------------------------------ adcancelpay 들왔다! ");
-
+		System.out.println("------------------------------------ adcancelpay RefundDto : " + refund.toString());
+		System.out.println("------------------------------------ adcancelpay amount : " + amount);
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("merchant_uid", refund.getOrdernumber());
+		json.put("reason", refund.getReason());
+		json.put("amount", amount);
+		
+		URLConn conn = new URLConn("http://192.168.0.7", 9050);
+		String result = conn.urlPost(json);
+		
+		if(result.equals("refund complete")) {
+			orderService.updateRefundComplete(refund.getRefund_seq());
+			System.out.println("환불완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		}
+		
+		return result;
+		
 	}
 	
 		

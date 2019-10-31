@@ -67,6 +67,14 @@
 						</div>
 					</div>
 			</section>
+			
+			<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
+			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>
@@ -126,11 +134,6 @@ $("#phonecheckbtn").click(function () {
 		},
 		success:function(data){
 			
-		
-		//alert("성공");
-	    
-		//랜덤 함수 받아왔음 !
-		//alert(data);
 		
 		
 		//인증번호를 위 히든값에 넣어 줌 
@@ -214,15 +217,10 @@ $("#checkphonecheckbtn").click(function () {
 	var realnum=$("#randnum").val();
 	var usernum=$(".checkphonenumber").val();
     //alert("유저가 쓴 인증번호"+ $(".checkphonenumber").val());
-    
-    
+       
        if(realnum==usernum){
-    	 alert("인증번호 일치");
-    	 
-    	 //일치해서 auth 변경 !
-    	 
-    	 
-    	location.href="mypagecertification.do";
+    	    	 
+    location.href="mypagehome.do";
     	 
        }else{
     	  alert("인증번호 불일치");

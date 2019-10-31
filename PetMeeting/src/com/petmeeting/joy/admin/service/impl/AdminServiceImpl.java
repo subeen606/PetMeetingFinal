@@ -1,6 +1,7 @@
 package com.petmeeting.joy.admin.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,25 +10,29 @@ import org.springframework.stereotype.Service;
 import com.petmeeting.joy.admin.dao.AdminDao;
 import com.petmeeting.joy.admin.model.AdminMemberDto;
 import com.petmeeting.joy.admin.model.BoardReportDto;
+import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
+import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.funding.model.DayBean;
+import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
-import com.petmeeting.joy.funding.model.FundingmemDto;
-import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.fundingBean;
+import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.Util.DateUtil;
+import com.petmeeting.joy.playboard.Util.PlayboardUtil;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
-
-import oracle.security.o5logon.a;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	
+
+
 	@Autowired
 	AdminDao adminDao;
 	
@@ -198,7 +203,45 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	
+	//////////////////////////////////// 행사게시판 ////////////////////////////////////
+	@Override
+	public void insertEventboard(EventboardDto eventDto) {
+		adminDao.insertEventboard(eventDto);
+	}	
+
+	@Override
+	public List<EventboardDto> getEventList() {
+		return adminDao.getEventList();
+	}
 	
+	@Override
+	public List<EventboardDto> getMonthlyEventList(String date) {
+		return adminDao.getMonthlyEventList(date);
+	}
+
+	@Override
+	public EventboardDto getEventDetail(int seq) {
+		
+		EventboardDto eventDto = adminDao.getEventDetail(seq);
+		
+		if(DateUtil.isProgress(eventDto.getEvent_sdate(), eventDto.getEvent_edate())) {
+			eventDto.setProgressCheck(true);
+		}else {
+			eventDto.setProgressCheck(false);
+		}
+		return eventDto;
+	}
+	
+	@Override
+	public void eventDelete(int seq) {
+		adminDao.eventDelete(seq);
+	}
+
+	@Override
+	public void eventUpdate(EventboardDto eventDto) {
+		adminDao.eventUpdate(eventDto);
+	}
+
 	
 	
 	
@@ -221,7 +264,7 @@ public class AdminServiceImpl implements AdminService {
 			
 		return adminDao.addFunding(fundDto);
 	}
-	
+
 	@Override
 	public List<FundingDto> getFundingList(fundingBean fbean) {
 		List<FundingDto> list = adminDao.getFundingList(fbean);
@@ -329,4 +372,60 @@ public class AdminServiceImpl implements AdminService {
 	public void fundingStaDel(int seq) {
 		adminDao.fundingStaDel(seq);
 	}
+
+	@Override
+	public void noticeWrite(NoticeBoardDto dto) {
+		adminDao.noticeWrite(dto);
+	}
+
+	@Override
+	public List<NoticeBoardDto> getnoticeList(fundingBean bean) {
+		return adminDao.getnoticeList(bean);
+	}
+
+	@Override
+	public int noticeListcount(fundingBean bean) {
+		return adminDao.noticeListcount(bean);
+	}
+
+	@Override
+	public NoticeBoardDto noticeDetail(int seq) {
+		return adminDao.noticeDetail(seq);
+	}
+
+	@Override
+	public void noticeDelete(int seq) {
+		adminDao.noticeDelete(seq);
+	}
+	
+	@Override
+	public List<MypageMemberleave> memleave(Memberleaveparam param) {
+		return adminDao.memleave(param);
+	}
+
+	@Override
+	public int memleavecount(Memberleaveparam param) {
+		return adminDao.memleavecount(param);
+	}
+	
+	@Override
+	public int getTodayPlay() {
+		return adminDao.getTodayPlay();
+	}
+
+	@Override
+	public int getTodayEndFunding() {
+		return adminDao.getTodayEndFunding();
+	}
+
+	@Override
+	public List<AdminMemberDto> getReportTop5() {
+		return adminDao.getReportTop5();
+	}
+
+	@Override
+	public void noticeUpdate(NoticeBoardDto dto) {
+		adminDao.noticeUpdate(dto);
+	}
+	
 }

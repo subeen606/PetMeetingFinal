@@ -440,43 +440,47 @@ AND f.EMAIL = m.EMAIL
 
 <!-- 받은 쪽지함  -->  
 <select id="getRevMsgList" parameterType="com.petmeeting.joy.mypage.model.MypageMsgParam" resultType="com.petmeeting.joy.mypage.model.MypageMsgDto">
-SELECT m.NICKNAME, r.*
-FROM PM_MEMBER m, 
-(SELECT SEQ, TO_EMAIL, FROM_EMAIL, CONTENT, SENDDATE, READDATE, IMPORTANT, READCHECK
-FROM (SELECT ROW_NUMBER()OVER(ORDER BY SENDDATE DESC) AS RNUM, SEQ, TO_EMAIL, FROM_EMAIL, CONTENT, SENDDATE, READDATE, IMPORTANT, READCHECK FROM PM_REVMSG
-WHERE TO_EMAIL=#{email}
+SELECT * FROM
+(SELECT m.NICKNAME, ROW_NUMBER()OVER(ORDER BY r.SENDDATE DESC) AS RNUM, r.*
+FROM PM_MEMBER m, (SELECT 
+SEQ, TO_EMAIL, FROM_EMAIL, CONTENT, SENDDATE, READDATE, IMPORTANT, READCHECK FROM PM_REVMSG
+WHERE TO_EMAIL=#{email} ORDER BY SENDDATE DESC) r
+WHERE m.EMAIL = r.FROM_EMAIL
 <if test="important != null and important !=''">
-<if test="important == '중요'">AND IMPORTANT=1</if>
+<if test="important == '중요'">AND r.IMPORTANT=1</if>
 </if>
 <if test="readcheck != null and readcheck !=''">
-<if test="readcheck == '읽지않음'">AND READCHECK=0</if>
+<if test="readcheck == '읽지않음'">AND r.READCHECK=0</if>
 </if>
-ORDER BY SENDDATE DESC) 
-WHERE RNUM BETWEEN #{start} AND #{end}) r
-WHERE m.EMAIL = r.FROM_EMAIL
 <if test="selection != null and selection !='' and keyword != null and keyword !='' ">
 <if test="selection == '보낸 사람'"> AND m.NICKNAME LIKE '%'||#{keyword}||'%' </if>
 <if test="selection == '내용'">AND r.CONTENT LIKE '%'||#{keyword}||'%' </if>
 <if test="selection == '일시'">AND TO_CHAR(r.SENDDATE, 'YYYY-MM-DD') LIKE '%'||#{keyword}||'%' </if>
 </if>
+) REV
+WHERE REV.RNUM BETWEEN #{start} AND #{end}
+
 </select>
 
 
 <select id="getAllRevMsg" parameterType="com.petmeeting.joy.mypage.model.MypageMsgParam" resultType="java.lang.Integer">
 SELECT NVL(COUNT(*),0) FROM PM_REVMSG
-WHERE TO_EMAIL=#{email}
-<if test="selection != null and selection !='' and keyword != null and keyword !='' ">
-<if test="selection == '보낸 사람'"> AND FROM_EMAIL LIKE '%'||#{keyword}||'%' </if>
-<if test="selection == '내용'">AND CONTENT LIKE '%'||#{keyword}||'%' </if>
-<if test="selection == '일시'">AND TO_CHAR(SENDDATE, 'YYYY-MM-DD') LIKE '%'||#{keyword}||'%' </if>
-</if>
+WHERE 1=1
 <if test="important != null and important !=''">
 <if test="important == '중요'">AND IMPORTANT=1</if>
 </if>
 <if test="readcheck != null and readcheck !=''">
 <if test="readcheck == '읽지않음'">AND READCHECK=0</if>
 </if>
-ORDER BY SENDDATE DESC
+<if test="selection != null and selection !='' and keyword != null and keyword !='' ">
+<if test="selection == '보낸 사람'">
+AND FROM_EMAIL IN (SELECT EMAIL FROM PM_MEMBER WHERE NICKNAME LIKE '%'||#{keyword}||'%' )
+</if>
+<if test="selection == '내용'">AND CONTENT LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '일시'">AND TO_CHAR(SENDDATE, 'YYYY-MM-DD') LIKE '%'||#{keyword}||'%' </if>
+</if>
+AND TO_EMAIL=#{email}
+
 </select>
 
 <select id="getAllUnreadMsg" parameterType="com.petmeeting.joy.mypage.model.MypageMsgParam" resultType="java.lang.Integer">
@@ -514,31 +518,33 @@ WHERE SEQ = #{seq}
 
 <!-- 보낸 쪽지함  -->  
 <select id="getSendMsgList" parameterType="com.petmeeting.joy.mypage.model.MypageMsgParam" resultType="com.petmeeting.joy.mypage.model.MypageMsgDto">
-SELECT m.NICKNAME, s.*
-FROM PM_MEMBER m, 
-(SELECT SEQ, TO_EMAIL, FROM_EMAIL, CONTENT, SENDDATE, READDATE, IMPORTANT, READCHECK
-FROM (SELECT ROW_NUMBER()OVER(ORDER BY SENDDATE DESC) AS RNUM, SEQ, TO_EMAIL, FROM_EMAIL, CONTENT, SENDDATE, READDATE, IMPORTANT, READCHECK FROM PM_SENDMSG
-WHERE FROM_EMAIL=#{email}
-ORDER BY SENDDATE DESC) A
-WHERE RNUM BETWEEN #{start} AND #{end}) s
+SELECT * FROM
+(SELECT m.NICKNAME, ROW_NUMBER()OVER(ORDER BY s.SENDDATE DESC) AS RNUM, s.*
+FROM PM_MEMBER m, (SELECT 
+SEQ, TO_EMAIL, FROM_EMAIL, CONTENT, SENDDATE, READDATE, IMPORTANT, READCHECK FROM PM_SENDMSG
+WHERE FROM_EMAIL=#{email} ORDER BY SENDDATE DESC) s
 WHERE m.EMAIL = s.TO_EMAIL
 <if test="selection != null and selection !='' and keyword != null and keyword !='' ">
 <if test="selection == '받는 사람'"> AND m.NICKNAME LIKE '%'||#{keyword}||'%' </if>
 <if test="selection == '내용'">AND s.CONTENT LIKE '%'||#{keyword}||'%' </if>
 <if test="selection == '일시'">AND TO_CHAR(s.SENDDATE, 'YYYY-MM-DD') LIKE '%'||#{keyword}||'%' </if>
 </if>
+) SEND
+WHERE SEND.RNUM BETWEEN #{start} AND #{end}
 </select>  
 
 
 <select id="getAllSendMsg" parameterType="com.petmeeting.joy.mypage.model.MypageMsgParam" resultType="java.lang.Integer">
 SELECT NVL(COUNT(*),0) FROM PM_SENDMSG
-WHERE FROM_EMAIL=#{email}
+WHERE 1=1
 <if test="selection != null and selection !='' and keyword != null and keyword !='' ">
-<if test="selection == '받는 사람'"> AND TO_EMAIL LIKE '%'||#{keyword}||'%' </if>
+<if test="selection == '받는 사람'">
+AND TO_EMAIL IN (SELECT EMAIL FROM PM_MEMBER WHERE NICKNAME LIKE '%'||#{keyword}||'%' )
+</if>
 <if test="selection == '내용'">AND CONTENT LIKE '%'||#{keyword}||'%' </if>
 <if test="selection == '일시'">AND TO_CHAR(SENDDATE, 'YYYY-MM-DD') LIKE '%'||#{keyword}||'%' </if>
 </if>
-ORDER BY SENDDATE DESC
+AND FROM_EMAIL=#{email}
 </select>
 
 

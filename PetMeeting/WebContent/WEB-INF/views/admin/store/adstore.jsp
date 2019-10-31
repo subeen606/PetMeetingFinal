@@ -102,10 +102,7 @@ Highcharts.chart('product-Top5', {
         type: 'column'
     },
     title: {
-        text: '최고매출 상품 TOP5'
-    },
-    subtitle: {
-        text: '매출 상위 5개 상품'
+        text: '제품별 매출액'
     },
     xAxis: {
         type: 'category'
@@ -131,7 +128,7 @@ Highcharts.chart('product-Top5', {
         {
             name: "Sales",
             colorByPoint: true,
-            data: ${jsonTop5 }
+            data: ${json }
         }
     ]
 });

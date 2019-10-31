@@ -51,7 +51,7 @@
 									<option>내용</option>
 									<option>일시</option>
 								</select> <input type="text" class="input-text" value="" name="keyword" id="_keyword" autocomplete="off">
-						 <img alt="d" src="./mypage_resources/mypage_s/images/searchIcon3.png" class="imgBtn" id="searchBtn">
+						 <img alt="d" src="./mypage_resources/mypage_s/images/searchIcon1.png" class="imgBtn" id="searchBtn">
 							</div>
 						</div>
 					</form>
@@ -83,17 +83,20 @@
 									<td colspan="6" align="center"><p>쪽지가 없습니다.</p></td>
 								</tr>
 							</c:if>
+							 <jsp:useBean id="dateUtil" class="com.petmeeting.joy.mypage.util.MypageDateUtil"/>
 							<c:forEach items="${mysendmsglist }" var="send" varStatus="i">
 								<tr>
 									<td><input type="checkbox" id="_del" class="delck" seq="${send.seq }"></td>									
 									<td class="goDetail" seq="${send.seq }">${send.content }</td>
 									<td>${send.nickname }</td>
-									<td>${send.senddate }</td>
+										<jsp:setProperty property="strDate" name="dateUtil" value="${send.senddate }"/>
+									<td><jsp:getProperty property="strDateFormat" name="dateUtil"/></td>
 									<c:if test="${send.readcheck eq 0 }">
 										<td><font>읽지않음</font></td>
 									</c:if>
 									<c:if test="${send.readcheck eq 1 }">
-										<td>${send.readdate }</td>
+									<jsp:setProperty property="strDate" name="dateUtil" value="${send.readdate }"/>
+										<td><jsp:getProperty property="strDateFormat" name="dateUtil"/></td>
 									</c:if>
 									<c:if test="${send.readcheck eq 0 }">
 										<td><font class="cancel" seq="${send.seq }"><b>발송취소</b></font></td>
@@ -122,6 +125,12 @@
 						</div>
 					</div>
 			</section>
+			<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+		<!-- footer part end-->
 		</div>
 	</div>
  		<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>

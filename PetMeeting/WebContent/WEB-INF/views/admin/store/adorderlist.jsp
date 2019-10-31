@@ -87,7 +87,7 @@ text-align: center;
 											배송중
 										</c:if> 
 										<c:if test="${list.status eq 2 }">
-											배송완료
+											<font color="#E5433E" style="font-weight: bold">배송완료</font>
 										</c:if> 
 										<c:if test="${list.status eq 3 }">
 											주문취소
@@ -98,7 +98,7 @@ text-align: center;
 							<tr>
 								<td colspan="6">
 								<jsp:include page="/WEB-INF/views/store/mystore/paging.jsp" flush="false">
-										<jsp:param name="" value="type" />
+										<jsp:param name="type" value="" />
 										<jsp:param name="pageNumber" value="${pageNumber }" />
 										<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
 										<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
@@ -148,7 +148,7 @@ $(function () {
 });
 
 $(".status-change").hover(function () {
-	$(this).css("color", "#B50000");
+	$(this).css("color", "#01b700");
 	$(this).html("배송시작");
 }, function () {
 	$(this).css("color", "#000000");

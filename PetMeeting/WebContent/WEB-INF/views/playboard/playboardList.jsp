@@ -120,12 +120,12 @@
 	                    <div class="play-items">
 	                        <div class="play-img set-bg">                           
 	                           <c:if test="${pList.reportcount >= 3 }">
-	                           	<a class="reportAnchor"><img src="${pageContext.request.contextPath}/playboard_resources/img/reportmark.png" width="100%" height="250px"></a>
+	                           	<a class="reportAnchor"><img class="thumbnail-img" src="${pageContext.request.contextPath}/playboard_resources/img/reportmark.png"></a>
 	                           </c:if>
 	                           
 	                           <c:if test="${pList.reportcount < 3 }">
 	                            <a class="titleAnchor" seq="${pList.seq }">
-	                          	 <img src="${pageContext.request.contextPath}/playboardUpload/${pList.filename }" width="100%" height="250px">
+	                          	 <img src="${pageContext.request.contextPath}/playboardUpload/${pList.filename }" class="thumbnail-img" >
 	                            </a>	 
 	                           </c:if>
 	                                                    
@@ -159,7 +159,11 @@
      </c:if>
     
     </div>
-
+    
+    
+<!--::footer part start::--> 
+	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+<!-- footer part end-->
 
 <script type="text/javascript">
 $(function () {
@@ -177,24 +181,12 @@ $(function () {
 		alert("신고로 인해 관리자가 심사 중인 게시글 입니다.");
 	});
 
-/*
-	
-	$(".titleAnchor").on("click", function () {		
-		if("${login.email }" == ""){
-			alert("로그인을 하셔야 글을 보실 수 있습니다.");
-			location.href="login.do";
-		}else{
-			location.href="detailPlay.do?seq="+$(this).attr("seq");
-		}
-	});
-*/	
 	if("${searchBean.playCategory }" == ""){
 		$("select[name='playCategory']").val("선택").attr("selected", "selected");
 	}else{
 		$("select[name='playCategory']").val("${searchBean.playCategory }").attr("selected", "selected");
 	}
-	
-	
+		
 	$("select[name='searchCategory']").val("${searchBean.searchCategory }").attr("selected", "selected");
 	$("input[name='searchText']").val("${searchBean.searchText }");
 	$("select[name='sortingType']").val("${searchBean.sortingType }").attr("selected", "selected");
@@ -223,18 +215,16 @@ $(function () {
 	});
 	
 	$("#makePlayBtn").click(function () {
-		
-		/*
+
 		if(${login.auth } != 3){
-			var check = ("본인인증이 완료되어야 모임을 주죄하실 수 있습니다.\n본인인증을 하시겠습니까?");
+			var check = confirm("본인인증이 완료되어야 모임을 주죄하실 수 있습니다.\n본인인증을 하시겠습니까?");
 			if(check == true){
-				
-			}else{
-				
+				location.href="mypagePhoneCheck.do";
 			}
+		}else if(${login.auth } == 3){
+			location.href="makePlay.do";
 		}
-		*/
-		location.href="makePlay.do";
+
 	});
 	
 	$("#loadmore").click(function () {
@@ -307,7 +297,7 @@ $(function () {
 					str += "</div>";
 				});
 				
-				$(".row").last().append(str);
+				$(".playboardContainer .row").last().append(str);
 				if(parseInt($("input[name='endRow']").val()) == ${totoalRowCount }){
 					$("#loadmore").hide();
 				}

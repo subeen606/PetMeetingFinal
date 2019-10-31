@@ -10,8 +10,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-	 <!-- 도로명 주소 -->
+
+	<!-- 지도 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=689cdd3b092f29b4c71fe175d367652c&libraries=services"></script>
   
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
@@ -21,17 +21,17 @@
 </head>
 <body>
 
-<!--::header part start::-->
-   <header class="header_area">
-   	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
-   </header>
+<!--::header part start::--> 
+   	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/> 
 <!-- Header part end-->
+
 <c:if test="${login eq null}">
 	<script type="text/javascript">
 		alert("세션이 종료되었습니다. 다시 로그인 하세요");
 		location.href="login.do";
 	</script>
 </c:if>
+
 <div class="container">
 	<div class="makerBtns">
 		<c:if test="${login.email eq detail.email }">
@@ -42,7 +42,7 @@
 	<div class="playInfo">
 		<div class="playInfoLeft">
 			<div class="thumbnail">
-				<img alt="" src="${pageContext.request.contextPath}/playboardUpload/${detail.filename }" width="100%" height="400px">
+				<img class="thumbnail-img"src="${pageContext.request.contextPath}/playboardUpload/${detail.filename }">
 			</div>
 			 <div class="playTitle">
 			 	<div style="width: 93%; float: left;">[${detail.category }] ${detail.title } </div>
@@ -363,7 +363,9 @@
 	</form>
 </div>
 
-
+   <!--::footer part start::--> 
+    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+    <!-- footer part end-->
 <script type="text/javascript">
 $(function () {	
 		
@@ -457,7 +459,7 @@ $(function () {
 				//	alert("성공");
 					if(data.trim() == "okay"){
 						var option = "width = 550, height = 500, top = 100, left = 300, location = no, resizeable = no";
-						window.open("boardReport.do?seq="+${detail.seq }, "report", option);
+						window.open("boardReport.do?seq=${detail.seq }", "report", option);
 					}else if(data.trim() == "no"){
 						alert("신고는 한 번만 가능합니다");
 					}
@@ -535,33 +537,28 @@ $(function () {
 	
 
 	/* 닉네임 클릭시 드롭다운 div 보이게 하기  */
-	$(".dropdown").click(function () {
+	$(".dropdown").click(function () {			
+		$("#memberProfileFrm input[name='nickname']").val($(this).attr("nickname"));
+		$("#memberProfileFrm input[name='bad_email']").val($(this).attr("email"));
+		$("#memberProfileFrm input[name='email']").val("${login.email }");
 		
-		
-			$("#memberProfileFrm input[name='nickname']").val($(this).attr("nickname"));
-			$("#memberProfileFrm input[name='bad_email']").val($(this).attr("email"));
-			$("#memberProfileFrm input[name='email']").val("${login.email }");
-			
-			var left = $(this).offset().left;
-			var top = $(this).offset().top + $(this).height();
+		var left = $(this).offset().left;
+		var top = $(this).offset().top + $(this).height();
 
-			if($(".memberDropDown").length > 1){
-				$(".memberDropDown").css("display", "none");
-				$(".memberDropDown").css({
-					"display": "block",
-					"left": left,
-					"top": top
-				});
-			}else{
-				$(".memberDropDown").css({
-					"display": "block",
-					"left": left,
-					"top": top
-				});
-			}		 		
-		
-		
-		
+		if($(".memberDropDown").length > 1){
+			$(".memberDropDown").css("display", "none");
+			$(".memberDropDown").css({
+				"display": "block",
+				"left": left,
+				"top": top
+			});
+		}else{
+			$(".memberDropDown").css({
+				"display": "block",
+				"left": left,
+				"top": top
+			});
+		}		 			
 	});
 	
 	/* 스크롤 움직일 경우 드롭다운 div 제거 */

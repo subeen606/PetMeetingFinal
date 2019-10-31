@@ -9,9 +9,11 @@
  <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
-<!--     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
     
 	<!-- datepicker -->
+
+	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">	
 	<link  href="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.css?after" rel="stylesheet">
 	
 
@@ -175,6 +177,11 @@
     	</div>   
     </div>
 </form>
+
+   <!--::footer part start::--> 
+    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+    <!-- footer part end-->
+    
 
 <script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
 <script type="text/javascript">

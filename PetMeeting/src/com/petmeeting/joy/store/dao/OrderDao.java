@@ -162,7 +162,48 @@ public interface OrderDao {
 	/**
 	 * 매출 상위 5개 제품 이름과 매출액 가져오기
 	 */
-	public List<SalesDto> getProductSalesTop5();
+	public List<SalesDto> getProductSales();
 	
+	/**
+	 * 환불 완료 업데이트
+	 */
+	public void updateRefundComplete(int refund_seq);
+	
+	/**
+	 * 교환 완료 업데이트
+	 */
+	public void updateChangeComplete(int refund_seq);
+	
+	/**
+	 * 주문번호로 주문정보 불러오기
+	 */
+	public OrderInfoDto getOrderDetail(String ordernumber);
+	
+	
+	/**
+	 * 오늘의 주문 수
+	 */
+	public int getTodayOrder();
+
+	/**
+	 * 배송대기 상품 수
+	 */
+	public int getDeliveryWait();
+	
+	/**
+	 * 배송중인 상품 수
+	 */
+	public int getDeliveryIng();
+	
+	/**
+	 * 취소된 주문 수
+	 */
+	public int getCancel();
+	
+	
+	/**
+	 * 반품/교환 신청 수
+	 */
+	public int getREreqCount(int status);
 	
 }

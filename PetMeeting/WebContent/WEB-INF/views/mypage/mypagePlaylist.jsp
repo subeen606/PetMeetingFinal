@@ -77,7 +77,7 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-4">
-                      <img src="/PetMeeting/playboardUpload/${attend.filename }"" alt="" class="mysize">
+                      <img src="/PetMeeting/playboardUpload/${attend.filename }" alt="" class="mysize">
               <!--     <img src="${attend.filename }" alt=""> -->  
                   </div>
                   <div class="col-md-4">
@@ -171,6 +171,12 @@
 			 <input type="hidden" class="totallist2" value="${mymakeList.size()}">
 			 <div id="js-btn-wrap2" onclick="moreBtn(2)" class="btn-wrap"><a href="javascript:;" class="moreBtn" style="color:#23527c">LOAD MORE</a> </div>
             </div>
+		<!--::footer part start::-->
+		<br>
+	<footer>
+	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+	</footer> 
+<!-- footer part end-->
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>

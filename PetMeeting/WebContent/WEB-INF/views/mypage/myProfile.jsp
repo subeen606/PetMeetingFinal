@@ -133,12 +133,19 @@
 <script	src="${pageContext.request.contextPath}/mypage_resources/mypage_j/js/submit_checking.js"></script> <!-- 등록,수정 submit시 공백 체크함수 -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
-	$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
 
 	if( $("input[name=myage]").val() == 0){
 		$("input[name=myage]").val('');
 	}
+	 
+	var comintro = $('textarea').val();
+	comintro = comintro.split('<br/>').join("\r\n");
+	$('textarea').val(comintro);
+	
+	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/point.png' class='input-icon'>");
+	//$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
+	
+
 	
 	var gender = $("#gender").val();	
 	if(gender == 0){

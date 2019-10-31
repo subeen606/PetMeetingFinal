@@ -240,12 +240,9 @@
 
 <script	src="${pageContext.request.contextPath}/mypage_resources/mypage_j/js/submit_checking.js"></script> <!-- 등록,수정 submit시 공백 체크함수 -->
 <script type="text/javascript">
-$(document).ready(function(){  
-
-	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/orange.png' class='input-icon'>");
-	if( $("input[name=petage]").val() == 0){
-		$("input[name=petage]").val('');
-	}
+$(document).ready(function(){
+   $(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/point.png' class='input-icon'>");
+   
    $.ajax({
       url : "checkpetprofile.do",
       async: false,
