@@ -161,6 +161,14 @@
 	
 	
 	<div class="playContent">
+		<div class="infoTitle"><span class="bigTxt">모임 예상비용</span></div>
+		<div class="price-area">
+			<fmt:formatNumber type="number" maxFractionDigits="3" value="${detail.price }"/>원
+			<div class="priceInfo">
+				모임 예상비용은 주최자가 정한 금액으로, 모임시 증가 혹은 감소될 수 있습니다. 
+			</div>
+		</div>
+		
 		<div class="infoTitle"><span class="bigTxt">모임 소개</span></div>
 		<div class="detail-area">
 			${detail.content }

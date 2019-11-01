@@ -166,7 +166,7 @@
 </c:forEach>		 
 
 	<div class="moreList">
-		<span class="more_list"> more </span> 
+		<button type="button" id="loadmore">LOAD MORE</button>
 	</div>
 
 </div>
@@ -180,16 +180,17 @@ $(document).ready(function() {
 	$(".fundingContainer").slice(0,5).show();
 
 	if($(".fundingContainer:hidden").length == 0 ){
-			$(".more_list").css("display","none");
+			$("#loadmore").css("display","none");
 		}else{
-			$(".more_list").click(function(e) {
+			$("#loadmore").click(function(e) {
 				e.preventDefault();
 				$(".fundingContainer:hidden").slice(0,5).show();
 					if($(".fundingContainer:hidden").length == 0 ){
-						$(".more_list").css("display","none");
+						$("#loadmore").css("display","none");
 					}
-				});
-			}
+				});		
+		}
+	
 	var ingEnd = "${ing_end}";
 	if(ingEnd == ""){
 		$("#List2").attr("checked","checked");
