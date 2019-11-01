@@ -28,8 +28,9 @@
 	  <!-- Full-width images with number and caption text -->
 	  <div class="mySlides fade">
 	    <div class="numbertext">1 / 3</div>
-	    <img src="${pageContext.request.contextPath}/common/img/slide(1).jpg" width="100%">
-	   
+	    <a href="productdetail.do?pcode=ETC0006">
+	    <img src="${pageContext.request.contextPath}/common/img/slide(1).png" width="100%">
+	    </a>
 	  </div>
 	
 	  <div class="mySlides fade">
@@ -57,15 +58,20 @@
 			<div class="boardTitle">다가오는 반려동물 행사</div>
 			<c:forEach items="${eventList }" var="eList">
 				<div class="eventRow">		
+					
 					<div class="eventDate">			
 					<fmt:formatDate value="${eList.event_sdate }"  pattern="MM월 dd일"/>
 					</div>
-					${eList.title }		
+					<a class="eventAnchor" seq="${eList.seq }">${eList.title }</a>	
 					
 				</div>
 			</c:forEach>
 			</div>
+			<div align="center">
+	    	<button type="button" class="goBoard" id="goEventboard" onclick="location.href='eventBoard.do'">VIEW MORE</button>
+	  		</div>
 		</div>
+		 
    </div>
    
    
@@ -85,11 +91,12 @@
 		    		</a>
 		    	</c:forEach>
 		    
-		    </c:if>		    
-	    </div>
-	    <div align="center">
+		    </c:if>		
+		    <div align="center">
 	    	<button type="button" class="goBoard" id="goPlayboard" onclick="location.href='playboard.do'">VIEW MORE</button>
+	    	</div>    
 	    </div>
+	    
 	  </div>
     
 
@@ -106,10 +113,11 @@
 		    	</c:forEach>
 		    
 		    </c:if>
-	    </div>
-	     <div align="center">
+		     <div align="center">
 	    	<button type="button" class="goBoard" id="goFreeboard">VIEW MORE</button>
-	     </div>
+	     	</div>
+	    </div>
+	    
 	  </div>
   
     </div>   
@@ -135,6 +143,9 @@ $(document).on('click', '.playboardAnchor', function(){
 	}
 });
 
+$(".eventAnchor").click(function () {
+	location.href="eventDetail.do?seq="+$(this).attr("seq");
+});
 
 
 $(document).ready(function () {

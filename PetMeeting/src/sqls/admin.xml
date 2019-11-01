@@ -368,6 +368,14 @@
 		FROM PM_EVENTBOARD
 	</select>
 	
+	<!-- 행사게시판 목록(월별) -->
+	<select id="getMonthlyEventList" parameterType="java.lang.String" resultType="com.petmeeting.joy.admin.model.EventboardDto">
+		SELECT SEQ, TITLE, CONTENT, FILENAME, LOCATION, LOCATION_DETAIL, EVENT_SDATE, EVENT_EDATE, REGDATE
+		FROM PM_EVENTBOARD
+		WHERE TO_CHAR(EVENT_SDATE,'YYYYMM')=#{date}
+		ORDER BY EVENT_SDATE ASC
+	</select>
+	
 	<!-- 행사게시판 디테일 -->
 	<select id="getEventDetail" parameterType="java.lang.Integer" resultType="com.petmeeting.joy.admin.model.EventboardDto">
 		SELECT SEQ, TITLE, CONTENT, FILENAME, LOCATION, LOCATION_DETAIL, EVENT_SDATE, EVENT_EDATE, REGDATE
@@ -581,8 +589,12 @@
 		WHERE SEQ=#{seq}
 	</update>
 
-
-      
+	<!-- 공지 ReadCount -->
+      <update id="noticeReadCount" parameterType="java.lang.Integer">
+      UPDATE PM_NOTICEBOARD
+      SET READCOUNT = READCOUNT+1
+      WHERE SEQ=#{seq}
+      </update>
       
       <!-- 오늘 올라온 소모임 수 -->
 	<select id="getTodayPlay" resultType="java.lang.Integer">

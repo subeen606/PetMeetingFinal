@@ -151,6 +151,11 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
+	public List<EventboardDto> getMonthlyEventList(String date) {
+		return sqlSession.selectList(namespace+"getMonthlyEventList", date);
+	}
+
+	@Override
 	public EventboardDto getEventDetail(int seq) {
 		return sqlSession.selectOne(namespace+"getEventDetail", seq);
 	}
@@ -296,6 +301,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public void noticeUpdate(NoticeBoardDto dto) {
 		sqlSession.update(namespace + "noticeUpdate", dto);
+	}
+
+	@Override
+	public void noticeReadCount(int seq) {
+		sqlSession.update(namespace + "noticeReadCount", seq);
 	}
 
 }

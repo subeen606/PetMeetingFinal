@@ -167,6 +167,8 @@
 
 .newBoard{
 	padding: 30px;
+	margin-top: 100px;
+	margin-bottom: 100px;
 }
 
 .boardTitle{
@@ -208,6 +210,7 @@
 	transition: 0.3s;
 	font-size: 13px;
 	font-family: "Quicksand", sans-serif;
+	margin-top: 50px;
 }
 .goBoard:hover{
 	background-color: black;
@@ -228,7 +231,7 @@
 
 /* 메인 행사 */
 .eventBoard{
-	margin-top: 50px;
+	margin-top: 150px;
 	padding: 30px;
 }
 .eventRow{
@@ -245,4 +248,7 @@
     padding-right: 20px;
     margin-right: 20px;
     color: gray;
+}
+.eventAnchor{
+	 cursor: pointer;
 }

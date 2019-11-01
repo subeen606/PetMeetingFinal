@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetMeeting - 관리자</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<!-- 셀렉트박스 이미지넣기 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/dd.css" />
