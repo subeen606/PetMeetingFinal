@@ -1,7 +1,6 @@
 package com.petmeeting.joy.mypage.controller;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -854,7 +852,7 @@ public class MypageController {
 				
 				String fullpath = uploadfolder + "/" + newfilename;
 				System.out.println("fullpath == " + fullpath);
-				
+			
 				File file = new File(fullpath);
 				
 				try {

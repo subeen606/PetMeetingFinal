@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								</div>
 							</div>
 							<div class="left-box">
-									 <label for="flwer-play-activity">나의 구독하는 사람 최신 소모임</label>
+									 <label for="flwer-play-activity">팔로잉 최신 소모임</label>
 									 <div class="flwer-activity">
 											<table id="flwer-play-activity">
 												<col width="15%"><col width="55%"><col width="25%">
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												</table>
 									</div>
 									
-									 <label for="flwer-free-activity">나의 구독하는 사람 최신 게시글</label>
+									 <label for="flwer-free-activity">팔로잉 최신 게시글</label>
 									 <div class="flwer-activity">
 											<table id="flwer-free-activity">
 											<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
@@ -310,14 +310,14 @@ $(document).ready(function(){
 	<%
 	for(int i = 0; i< makelist.size();i++){
 	%>
-		$(".ffe7c1").text("모집");
+		$(".c2d7e1").text("모집");
 	<%
 	}
 	%>
 	<%
 	for(int i = 0; i< joinlist.size();i++){
 	%>
-		$(".ff9c3d").text("참여");
+		$(".8893cc").text("참여");
 	<%
 	}
 	%>
