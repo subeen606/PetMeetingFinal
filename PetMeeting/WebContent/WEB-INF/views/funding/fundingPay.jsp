@@ -164,6 +164,12 @@ $("input[name=howfund]").click(function() {
 	var point = parseInt($("#fundingPt").val()); //사용 포인트
 	var havepoint = parseInt($("#_point").val()); //보유포인트
 	var funding = parseInt($("#funding").val()); //총 후원금액
+	
+	if($(".number").val() == "" || $(".number").val() == null){
+		alert("후원금액을 입력해주세요");
+		$("#_funding").focus();
+		$("input[name=howfund]").prop("checked",false);
+	}else{
 
 	if( goal < _funding ){
 		alert("목표금액이 초과된 금액입니다\n다시 입력해주세요.");
@@ -173,9 +179,10 @@ $("input[name=howfund]").click(function() {
 		alert("후원금액은 1,000,000원 이하까지 가능합니다.");
 		$("#_funding").focus();
 	}
+	
 	if( goal >= _funding && _funding <= 1000000){	
     	var b = $("input[name=howfund]:checked").val();
-    	//alert(b);
+    	
 		if(b == "포인트기부"){
 			$("#pointCheck").css("display","");
 			$("#funding").val("");
@@ -194,6 +201,7 @@ $("input[name=howfund]").click(function() {
 		  	});
 		   }
 		}
+	}
 });
 
 /* 포인트사용 버튼 클릭시 */

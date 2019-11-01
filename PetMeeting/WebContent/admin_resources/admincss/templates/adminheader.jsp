@@ -58,7 +58,13 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-table"></i>자유 게시판</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fas fa-edit"></i><a href="forms-basic.html">자유게시판 관리</a></li>
+                            <li><i class="fas fa-edit"></i><a href="forms-basic.html">자유게시판 관리</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-volume-up"></i>공지 게시판</a>
+                        <ul class="sub-menu children dropdown-menu">
+                           <li><i class="fas fa-edit"></i><a href="noticeList.do">공지게시판 관리</a></li>
                         </ul>
                     </li>
                      <li class="menu-item-has-children dropdown">
@@ -101,7 +107,6 @@
                             <li><i class="menu-icon fas fa-users"></i><a href="adminMemberList.do">회원 목록</a></li>
                             <li><i class="menu-icon fas fa-chart-pie"></i><a href="adminMemleavegraph.do">회원탈퇴 통계</a></li>
                         </ul>
-                        <a href="noticeList.do"><i class="menu-icon fa fa-laptop"></i>공지 게시판</a>
 					</li>
                 </ul>
             </div><!-- /.navbar-collapse -->

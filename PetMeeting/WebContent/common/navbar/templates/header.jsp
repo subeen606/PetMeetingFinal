@@ -86,6 +86,9 @@
                                     <li class="nav-item active">
                                         <a class="nav-link active" href="main.do">Home</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="noticeboard.do" class="nav-link">공지</a>
+                                    </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                          	자유게시판
