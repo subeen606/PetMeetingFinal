@@ -21,6 +21,26 @@ public class DateUtil {
 		//오늘이 마지막날 보다 큰가?
 		return Integer.parseInt(StringCal(t))>=Integer.parseInt(StringCal(c));
 	}
+	
+	public static boolean isProgress(java.util.Date startDate, java.util.Date endDate) {
+		Calendar start = Calendar.getInstance();
+		start.setTime(startDate);
+		
+		Calendar end = Calendar.getInstance();
+		end.setTime(endDate);
+		
+		Calendar today =Calendar.getInstance();
+		System.out.println(" 시작일 : "+Integer.parseInt(StringCal(start)));
+		System.out.println(" 오늘 : "+Integer.parseInt(StringCal(today)));
+		System.out.println(" 종료일 : "+Integer.parseInt(StringCal(end)));
+		if(Integer.parseInt(StringCal(start)) <= Integer.parseInt(StringCal(today)) 
+				&& Integer.parseInt(StringCal(today)) <= Integer.parseInt(StringCal(end))){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	//칼렌더를 20120807형식으로 만들기
 	public static String StringCal(Calendar dd){
 		String s=dd.get(Calendar.YEAR)+""+

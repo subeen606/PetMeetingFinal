@@ -55,7 +55,7 @@
 		<tbody>
 			<c:if test="${empty list }">
 			<tr>
-				<td colspan="2" align="center">해당 공지가 없습니다.</td>
+				<td colspan="3" align="center">해당 공지가 없습니다.</td>
 			</tr>
 			</c:if>
 			<c:forEach items="${list }" var="list" varStatus="vs">

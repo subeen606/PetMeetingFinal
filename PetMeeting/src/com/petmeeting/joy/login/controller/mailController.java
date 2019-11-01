@@ -1,5 +1,6 @@
 package com.petmeeting.joy.login.controller;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.petmeeting.joy.login.service.MemberService;
-import com.petmeeting.joy.login.service.MailService;
 
 @Controller
 public class mailController {
@@ -43,8 +42,10 @@ public class mailController {
     	
 	    	int rannum = new Random().nextInt(100000) + 10000; // 10000 ~ 99999
 	        String authCode = String.valueOf(rannum);
-	        req.getSession().setAttribute("joinCode", authCode);
-	 
+	        System.out.println("발급된 인증키 = " + authCode);
+	       
+	        req.getSession().setAttribute("authCode", authCode);
+	        
 	        String subject = "이메일 인증 코드 발급 안내 입니다.";
 	        //StringBuilder text = new StringBuilder();        
 	        //text.append("귀하의 이메일 인증 코드는 " + authCode + " 입니다.");
@@ -72,7 +73,27 @@ public class mailController {
     	
     }
     
-    
+    //이메일인증코드 비교
+    @ResponseBody
+    @RequestMapping (value="emailAuthCodeCheck.do", method= {RequestMethod.GET, RequestMethod.POST})
+    public boolean emailAuthCodeCheck(String authCodeUSer, HttpServletRequest req) {
+    	System.out.println("emailAuth.do ---------------------");
+    	System.out.println("authCodeUSer = " + authCodeUSer);
+    	
+        String authCode = (String)req.getSession().getAttribute("authCode");
+        System.out.println("authCode = " + authCode);
+        
+        
+        if(!authCode.equals(authCodeUSer)) {
+            System.out.println("인증번호 일치하지 않습니다.");
+            
+            req.setAttribute("msg", "인증번호가 일치하지 않습니다");
+            return false;
+        }else {
+        	 System.out.println("인증번호 일치");
+        	return true;
+        }       
+    }
  
     
     

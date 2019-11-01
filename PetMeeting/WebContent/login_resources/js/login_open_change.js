@@ -32,7 +32,6 @@ $("document").ready(function () {
 			//alert("회원가입 폼 열림");
 			$("#login").parent().parent().addClass("slide-up");
 			parent.removeClass("slide-up");
-				
 		}
 	});
 	

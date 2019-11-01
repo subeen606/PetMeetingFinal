@@ -33,26 +33,38 @@
  </header>
  <!-- Header part end-->
  
+	<div class="mainTitle">
+		<div class="container">
+			<div class="row align-content-center">
+                <div class="col-lg-7 col-xl-6">
+					<div class="banner_text">
+		    			<h5>PetMeeting</h5>
+		    			<h1>후원</h1>
+		    			<h5>소중한 아이들에게 사랑을 나눠주세요</h5>                        
+					</div>    
+				</div>
+			</div>
+		</div>
+	</div>
  
 <div class="container">
-	
 	<div id="wrapper">
 		<div id="slider-wrap">
 			<ul id="slider">     
 	         <li>          
-				<img src="./fundingboard_resources/img/dog.jpg">
+				<img src="./fundingboard_resources/img/dogcat.jpg">
 	     	 </li>
 	         <li>          
-				<img src="./fundingboard_resources/img/dog2.jpg">
+				<img src="./fundingboard_resources/img/pets.jpg">
 	     	 </li>
      	     <li>          
-				<img src="./fundingboard_resources/img/cat.jpg">
+				<img src="./fundingboard_resources/img/twodog.jpg">
      	  	 </li>
      	     <li>          
-				<img src="./fundingboard_resources/img/cat2.jpg">
+				<img src="./fundingboard_resources/img/ham.jpg">
      	  	 </li>
       	     <li>          
-				<img src="./fundingboard_resources/img/ham.jpg">
+				<img src="./fundingboard_resources/img/stwodog.jpg">
      	  	 </li>  
 			</ul>
 	          
@@ -90,7 +102,7 @@
 	<input type="radio" name="List" id="List2" value="_ing" <c:if test="${ing_end == '_ing' }">checked</c:if>><label for="List2">진행중인 후원</label>
 	<input type="radio" name="List" id="List3" value="_end" <c:if test="${ing_end == '_end' }">checked</c:if>><label for="List3">마감된 후원</label>
 </div>
-※모든 후원은 마감일 자정에 마감됩니다.
+※모든 후원은 자정에 마감됩니다.
 
 <c:if test="${empty list }">
 	<div>
@@ -154,26 +166,31 @@
 </c:forEach>		 
 
 	<div class="moreList">
-		<span class="more_list"> more </span> 
+		<button type="button" id="loadmore">LOAD MORE</button>
 	</div>
 
 </div>
+
+<!--::footer part start::-->    
+	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+<!-- footer part end-->
 
 <script>
 $(document).ready(function() {	 
 	$(".fundingContainer").slice(0,5).show();
 
 	if($(".fundingContainer:hidden").length == 0 ){
-			$(".more_list").css("display","none");
+			$("#loadmore").css("display","none");
 		}else{
-			$(".more_list").click(function(e) {
+			$("#loadmore").click(function(e) {
 				e.preventDefault();
 				$(".fundingContainer:hidden").slice(0,5).show();
 					if($(".fundingContainer:hidden").length == 0 ){
-						$(".more_list").css("display","none");
+						$("#loadmore").css("display","none");
 					}
-				});
-			}
+				});		
+		}
+	
 	var ingEnd = "${ing_end}";
 	if(ingEnd == ""){
 		$("#List2").attr("checked","checked");

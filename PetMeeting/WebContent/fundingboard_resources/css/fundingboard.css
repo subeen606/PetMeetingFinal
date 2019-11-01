@@ -23,18 +23,18 @@ label{
 	font-weight: bold;
 	text-align: center;
 	font-size: 12pt;
-	color: #141f1e;
-	border : 3px solid #fe9c3f;
+	color: #585e7d;
+	border : 3px solid #6671ab;
 	border-radius: 0.3rem;
 	cursor:pointer;
 }
 label:hover{
-	color: #c33737;
+	color: #212121;
 	cursor:pointer;
 }
 input:checked + label{
-	color:#c33737;
-	background-color: antiquewhite;
+	color: #212121;
+    background-color: #c2d7e1;
 	
 }
 .radioDiv{
@@ -42,7 +42,6 @@ input:checked + label{
 }
 
 .fundingContainer{
-	
 	display: flex;
     padding-bottom: 4rem;
     padding-top: 6rem;
@@ -83,7 +82,7 @@ input:checked + label{
 .dday{
 	font-size: 15pt;
     font-weight: bold;
-    color: #ef6262;
+    color: #445acc;
 }
 	
 .listTitle{
@@ -99,7 +98,7 @@ input:checked + label{
 	margin-bottom: 0.7rem;
 	font-size: 22px;
 	font-weight: bold;
-	color: #883c3c;
+	color: #6b3232;
 }
 
 .listText{
@@ -170,7 +169,7 @@ input:checked + label{
     font-weight: bold;
     margin-top: 7rem;
     margin-bottom: 7rem;
-    background-color: #fff5f2;
+    background-color: #f7f7f7;
     border-radius: 10px;
     text-align: center;
 }
@@ -187,14 +186,14 @@ input:checked + label{
 	margin-top: 11rem;
 	font-size: 15pt;
 	padding: 40px 10px;
-	border-top: 1px dotted #ff9c3d;
+	border-top: 1px dotted #585e7d;
 }
 .deBtn{
 	margin-top: 3.3rem;
 	text-align: center;
 }
 .deRead{
-	border-bottom: 1px dotted #ff9c3d;
+	border-bottom: 1px dotted #585e7d;
     padding-bottom: 50px;
     text-align: center;
 }
@@ -223,6 +222,9 @@ input:checked + label{
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.mainTitle{
+	background-color: #fff1b9;
 }
     
 /* Modal Content/Box */
@@ -351,7 +353,9 @@ text-align: right;
 
 .moreList{
 	text-align: center;
-    background-color: #ebf0f5;
+   /*  background-color: #ebf0f5; */
+   margin-bottom: 200px;
+   margin-top: 50px;
 }
 .more_list{
 	font-size: 15pt;
@@ -365,17 +369,17 @@ text-align: right;
 .fundEnd{
     font-size: 22pt;
     font-weight: 600;
-    color: #ff0000c7;
+    color: #c70707bd;
   
 }
 .graph{
 	width: 300px;
-	height: 30px; background: #efe6e6; border-radius: 4px;
+	height: 30px; background: #fdf1f1; border-radius: 4px;
 	padding-bottom: 5px;
 }
 .graph span{
 	display: block; /* padding:0 10px; */ height: 30px; line-height: 30px;
-	text-align: right; background:#ef6262; border-radius: 6px;
+	text-align: right; background:#e85757cc; border-radius: 6px;
 	box-sizing: border-box; color: #fff; animation:stack 2s 1;
 	font-weight: bold;
 }
@@ -418,7 +422,7 @@ text-align: right;
     font-size: 16px;
     height: 50px;
     width: 180px;
-    background-color: #f7e6e1;
+    background-color: #8ecae6;
     color: #343a40;
     font-weight: 600;
 }
@@ -426,9 +430,9 @@ text-align: right;
 	border: 2px solid;
     width: 120px;
     padding: 8px;
-    border-color: #ff9c3d;
-    background-color: #f1f1f1;
-    border-radius: 10em;
+    border-color: #6671ab;
+    background-color: #dbdef14a;
+    border-radius: 0.9em;
 }
 .more{
 	margin-left: 9px;
@@ -440,15 +444,14 @@ text-align: right;
     border-radius: 10px;
     height: 30px;
     width: 100px;
-    border-color: #fe9c3f;
+    border-color: #585e7d;
 	
 }
 #search_title{
     height: 40px;
     width: 200px;
-    border: 2px solid;
-    border-color: #fe9c3f;
-    border-radius: 5px;
+    border: none;
+    border-bottom: 1px solid #585e7d;
     font-size: 16px;
     color: #020202;
     font-weight: 600;
@@ -458,8 +461,8 @@ text-align: right;
     border: none;
     outline: none;
     border-radius: 5px;
-    font-size: 16px;
-    background-color: #fe9c3f;
+    font-size: 13pt;
+    background-color: #e0d9d2;
     color: #343a40;
     font-weight: 600;
 }
@@ -563,5 +566,16 @@ h2{ color: #7f8c8d; font-family: Neucha, Arial, sans serif; font-size:18px; marg
     transition: all 0.3s cubic-bezier(1,.01,.32,1); 
 }
 
-
-
+/* loadmore 버튼 */
+#loadmore{
+	margin-left:auto;
+	margin-right:auto;
+	width: 150px;
+    height: 50px;
+    border-radius: 20em;
+    outline: none;
+    border: none;
+    color: #fff;
+    background-color: #585e7d;
+    box-shadow: 1px 2px 5px #e6e6df;
+}

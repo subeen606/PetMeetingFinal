@@ -47,6 +47,8 @@ public interface AdminService {
 	
 	public List<EventboardDto> getEventList();
 	
+	public List<EventboardDto> getMonthlyEventList(String date);
+	
 	public EventboardDto getEventDetail(int seq);
 	
 	public void eventDelete(int seq);
@@ -72,6 +74,7 @@ public interface AdminService {
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
 	public void noticeUpdate(NoticeBoardDto dto);
+	public void noticeReadCount(int seq);
 	
 	//회원탈퇴
 	public List<MypageMemberleave> memleave(Memberleaveparam param);

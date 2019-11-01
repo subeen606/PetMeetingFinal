@@ -32,7 +32,7 @@ String[] index = request.getParameterValues("index");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 주문</title>
+<title>PetMeeting Store</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

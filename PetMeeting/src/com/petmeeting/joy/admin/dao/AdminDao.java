@@ -62,6 +62,8 @@ public interface AdminDao {
 	public void insertEventboard(EventboardDto eventDto);
 	
 	public List<EventboardDto> getEventList();
+	public List<EventboardDto> getMonthlyEventList(String date);
+	
 	
 	public EventboardDto getEventDetail(int seq);
 	
@@ -101,6 +103,7 @@ public interface AdminDao {
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
 	public void noticeUpdate(NoticeBoardDto dto);
+	public void noticeReadCount(int seq);
 
 	/* main */
 	public int getTodayPlay();

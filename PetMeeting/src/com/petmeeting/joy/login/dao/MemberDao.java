@@ -10,7 +10,7 @@ public interface MemberDao {
 	
 	public void addMember(MemberDto mem);	
 	
-	public void addSetMyProfile(MemberDto mem);
+	public void addSetMyProfile(String email);
 	
 	public boolean kakaoProfileImgUpdate(KakaoParam param);
 	
@@ -39,7 +39,13 @@ public interface MemberDao {
 	// 로그인유저 펫프로필 가져오기
 	public MyPetProfileDto getLoginUserPetProfile(String email);
 	
-//	public MemberDto checkNickname(String nickname);
+	// 이메일 중복체크
+	public MemberDto checkEmail(String email);
+	// 닉네임 중복체크	
+	public MemberDto checkNickname(String nickname);
 	//public boolean snsAddMember(KakaoParam param); // sns 가입
+	
+	
+	
 	
 }

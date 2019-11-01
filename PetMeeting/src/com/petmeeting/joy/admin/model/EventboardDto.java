@@ -19,6 +19,8 @@ public class EventboardDto implements Serializable {
 	private Date event_edate;
 	private Date regdate;
 	
+	private boolean progressCheck;
+	
 	public EventboardDto() {
 	}
 
@@ -108,13 +110,21 @@ public class EventboardDto implements Serializable {
 		this.regdate = regdate;
 	}
 
+	public boolean isProgressCheck() {
+		return progressCheck;
+	}
+
+	public void setProgressCheck(boolean progressCheck) {
+		this.progressCheck = progressCheck;
+	}
+
 	@Override
 	public String toString() {
 		return "EventboardDto [seq=" + seq + ", title=" + title + ", content=" + content + ", filename=" + filename
 				+ ", location=" + location + ", location_detail=" + location_detail + ", event_sdate=" + event_sdate
-				+ ", event_edate=" + event_edate + ", regdate=" + regdate + "]";
+				+ ", event_edate=" + event_edate + ", regdate=" + regdate + ", progressCheck=" + progressCheck + "]";
 	}
-	
-	
+
+
 
 }

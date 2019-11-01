@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetMeeting Store - 배송조회</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/store_resources/css/tracking.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>

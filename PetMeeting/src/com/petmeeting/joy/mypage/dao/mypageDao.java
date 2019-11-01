@@ -112,19 +112,24 @@ public interface mypageDao {
 	//  PM_CHECK_MYPROFILE 에 유저등록 (point추가진행)
 	public boolean addMyProfileCheck(String email);
 	
-	// 프로필업데이트 시 포인트추가
+	// 프로필등록 시 포인트추가 -------------
 	public boolean addProfilePoint(String email);
-		
+		// 포인트 히스토리 테이블에 추가
+		public boolean addprofilePointHistory(String email);
+	
+	
 	// 펫프로필 등록 여부확인
 	public boolean check_petprofile(String email);
 	
 	// 펫프로필 등록
 	public boolean insertPetProfile(MyPetProfileDto petdto);
+		// 포인트 히스토리 테이블에 추가
+		public boolean addpetPointHistory(String email);
 	
 	// 펫프로필체크 테이블에 유저등록 
 	public boolean addPetProfileCheck(String email);
 	
-	// 펫프로필 등록 포인트 지급
+	// 펫프로필 등록 포인트 지급 -------------
 	public boolean addPetProfilePoint(String email);
 	
 	// 펫프로필 수정
@@ -132,6 +137,10 @@ public interface mypageDao {
 	
 	// 로그인유저 펫프로필 가져오기
 	public MyPetProfileDto getLoginUserPetProfile(String email);
+	
+	
+	
+	
 	
 	// 포인트내역리스트 총수
 	public int getAllPointList(MypagePointListParam pageingparam);
