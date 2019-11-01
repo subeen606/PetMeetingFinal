@@ -24,13 +24,7 @@
     	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
     </header>
     <!-- Header part end-->
-    <c:if test="${login eq null}">
-	<script type="text/javascript">
-		alert("세션이 종료되었습니다. 다시 로그인 하세요");
-		location.href="login.do";
-	</script>
-	
-	</c:if>
+
     <div class="mainTitle">
         <div class="container">
             <div class="row align-content-center">
@@ -216,12 +210,12 @@ $(function () {
 	
 	$("#makePlayBtn").click(function () {
 
-		if(${login.auth } != 3){
+		if("${login.auth }" != "3"){
 			var check = confirm("본인인증이 완료되어야 모임을 주죄하실 수 있습니다.\n본인인증을 하시겠습니까?");
 			if(check == true){
 				location.href="mypagePhoneCheck.do";
 			}
-		}else if(${login.auth } == 3){
+		}else if("${login.auth }" == "3"){
 			location.href="makePlay.do";
 		}
 
