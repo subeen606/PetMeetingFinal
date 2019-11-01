@@ -125,7 +125,7 @@
 	                           
 	                           <c:if test="${pList.reportcount < 3 }">
 	                            <a class="titleAnchor" seq="${pList.seq }">
-	                          	 <img src="${pageContext.request.contextPath}/playboardUpload/${pList.filename }" width="100%" height="250px">
+	                          	 <img src="${pageContext.request.contextPath}/playboardUpload/${pList.filename }" class="thumbnail-img" >
 	                            </a>	 
 	                           </c:if>
 	                                                    
@@ -217,7 +217,7 @@ $(function () {
 	$("#makePlayBtn").click(function () {
 
 		if(${login.auth } != 3){
-			var check = ("본인인증이 완료되어야 모임을 주죄하실 수 있습니다.\n본인인증을 하시겠습니까?");
+			var check = confirm("본인인증이 완료되어야 모임을 주죄하실 수 있습니다.\n본인인증을 하시겠습니까?");
 			if(check == true){
 				location.href="mypagePhoneCheck.do";
 			}

@@ -21,24 +21,29 @@
 			<div class="form-holder">
 				<form id="account-form" name="accountform" autocomplete="off">
 					<input type="hidden" name="myprofile_img" value="">
-					
+					<input type="hidden" name="accessToken" value="">
 					
 					<!-- 이메일 -->
-					<input type="text" class="email_input" name="email" placeholder="* 이메일(userid@sitename.com)">
-					<!-- <a href=""><img id="emailCheck-Btn" disabled="disabled" alt="" src="https://image.flaticon.com/icons/png/128/60/60731.png" width="10px" height="10px"></a> -->		
-					<!-- <input type="button" id="emailCheck-Btn" class="checked_input" value="이메일인증"> -->
+					<input type="text" class="email_input" name="email" placeholder="* 이메일(userid@sitename.com)">					
 					<button type="button" id="emailCheck-Btn" class="checked_input" disabled="disabled">이메일인증</button>
 				
+					<!-- 이메일 인증코드 확인 -->
+					<input type="text" class="authCode_input displayis" placeholder="인증코드를 입력하세요">				
+					<button type="button" class="checked_input displayis" id="authCodeCheck-Btn">인증확인</button>
+					
 					<!-- 비밀번호 -->
-					<input type="password" class="input" name="pwd" placeholder="* 비밀번호">
-						
-					<input type="text" class="input" name="nickname" placeholder="* 닉네임 " >
-					<!-- <button type="button" id="nicknameCheck-Btn" class="checked_input" disabled="disabled">사용하기</button> -->
+					<input type="password" class="input" name="pwd" placeholder="* 비밀번호(영,숫자,특수문자포함 8~16자리)">
+					<input type="password" class="pwd_input" placeholder="비밀번호확인">
+					<input type="text" value="" class="pwdCheckMsg" disabled="disabled">
+					
+					<!-- 닉네임 -->
+					<input type="text" class="nickname_input" name="nickname" placeholder="* 닉네임 " >
+					<button type="button" id="nicknameCheck-Btn" class="checked_input">사용하기</button>
 					
 					<input type="text" class="input" name="name" placeholder="* 이름">
 					
 					<input type="text" class="postcode_input" id="sample6_postcode" name="postcode" placeholder="우편번호" readonly="readonly">
-					<input type="button" class="checked_input" onclick="sample6_execDaumPostcode()" value="우편번호검색">
+					<input type="button" class="checked_input" id="postcodeSearch" onclick="sample6_execDaumPostcode()" value="우편번호검색">
 					
 					<input type="text" class="input" id="sample6_address" name="address" placeholder="주소" readonly="readonly">
 					<input type="text" class="input" id="sample6_detailAddress" name="address_detail" placeholder="상세주소">
@@ -46,7 +51,7 @@
 					<input type="text" class="input" name="phone" onKeyup="inputPhoneNumber(this);" maxlength="13" placeholder="* 연락처(13자리이내)" pattern="(010)-\d{3,4}-\d{4}">
 				</form>
 			</div>
-			<button type="button" class="submit-btn" id="account-btn">회원가입</button>
+			<button type="button" class="submit-btn" id="account-btn" disabled="disabled">회원가입</button>
 		</div>
 
 		<div class="modal-body">
@@ -186,10 +191,10 @@ function inputPhoneNumber(obj) {
 }
 
 
-
-
 /* 
-회원가입 버튼 활성/비활성
+
+
+// 회원가입 버튼 활성/비활성
 if(account_email.val() != '' && account_pwd.val() != ''	&& account_nickname.val() != ''
  			&& account_name.val() != '' && address.val() != ''
  					&& phone.val() != '' ){
@@ -198,10 +203,10 @@ if(account_email.val() != '' && account_pwd.val() != ''	&& account_nickname.val(
 	$("#account-btn").css("background-color","#ff9c3d");
 }
 
-*/
 
 
 
+ */
 
  
 

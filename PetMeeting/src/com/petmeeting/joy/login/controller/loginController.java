@@ -49,34 +49,59 @@ public class loginController {
 		req.getSession().removeAttribute("mypet");
 		System.out.println("login, userProfile 세션 제거 --> 로그아웃완료");
 		
-		return "redirect:/main.do";
+
+		memService.kakaoLogout( (String)req.getSession().getAttribute("access_Token") );
+		
+		/*
+		req.getSession().removeAttribute("access_Token");
+		req.getSession().removeAttribute("Kakaouserid");
+		System.out.println("access_Token, userId 세션 제거 --> 카카오 로그아웃완료");
+	    */
+		return "main";
 	}
 	
-	// 프로필 닉네임 수정시 닉네임체크		
-	/*
+	
 	@ResponseBody
-	@RequestMapping(value = "checkNickname.do", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
-	public String nicknameCheck( MemberDto mem ) {
-		System.out.println("checkNickname.do --------------------------------");
+	@RequestMapping(value = "checkEmail.do", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
+	public String checkEmail( String email ){
+		System.out.println("checkEmail.do --------------------------------");
+		System.out.println("입력한 email = " + email);
 		
-		String nickname = mem.getNickname();
-		System.out.println("유저가 입력한 닉네임 : "+ nickname);
-		
-		MemberDto memdto = memService.checkNickname( nickname );
+		MemberDto memdto = memService.checkEmail(email);
 		
 		if(memdto == null) {
-			return "사용 가능한 닉네임 입니다.";
+			System.out.println("저장되지않은 email, 사용가능");			
+			return "ok";
 		}else {
-			return "이미 존재하는 닉네임 입니다.";
+			System.out.println("계정존재. 입력한 email 사용불가");
+			return "notok";
 		}
 		
 	}
-	*/
+	
+	// 닉네임체크
+	@ResponseBody
+	@RequestMapping(value = "checkNickname.do", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
+	public String checkNickname( String nickname ) {
+		System.out.println("checkNickname.do --------------------------------");
+		System.out.println("입력한 nickname = " + nickname);
+		
+		MemberDto memdto = memService.checkNickname(nickname);
+		
+		if(memdto == null) {
+			System.out.println("저장되지않은 nickname, 사용가능");			
+			return "ok";
+		}else {
+			System.out.println("계정존재. 입력한 nickname 사용불가");
+			return "notok";
+		}
+	}
+	
 	
 	@RequestMapping (value="account.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String account(KakaoParam param, Model model) {
 		
-		model.addAttribute("kakaoparam", param);		
+		model.addAttribute("kakaoparam", param);
 		
 		return "login/account";
 	}	
@@ -119,10 +144,10 @@ public class loginController {
 	@ResponseBody
 	@RequestMapping(value = "snsLoginCheck.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public int snsLoginCheck( KakaoParam param, Model model, HttpServletRequest req) {
-		System.out.println("snsLoginCheck.do 넘어온 param : " + param.toString() );
+		System.out.println("snsLoginCheck.do ------------------- 넘어온 param : " + param.toString() );
 		
 		MemberDto user = memService.kakaologinCheck(param);
-	
+		
 		int num;
 		boolean leaveCheck = memService.leaveMemCheck(param.getEmail());		
 		
@@ -131,6 +156,7 @@ public class loginController {
 		}
 		else {
 			num = 1; // "가입되어 있는 계정";
+			req.getSession().setAttribute("access_Token",param.getAccessToken());
 		}
 		
 		if(leaveCheck) {
@@ -144,7 +170,7 @@ public class loginController {
 		}
 		if( user != null && user.getAuth() == 8 ) {
 			num = 8; // "관리자 계정";
-		}		
+		}
 		
 		return num;	
 	}

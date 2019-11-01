@@ -10,8 +10,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-	 <!-- 도로명 주소 -->
+
+	<!-- 지도 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=689cdd3b092f29b4c71fe175d367652c&libraries=services"></script>
   
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
@@ -459,7 +459,7 @@ $(function () {
 				//	alert("성공");
 					if(data.trim() == "okay"){
 						var option = "width = 550, height = 500, top = 100, left = 300, location = no, resizeable = no";
-						window.open("boardReport.do?seq="+${detail.seq }, "report", option);
+						window.open("boardReport.do?seq=${detail.seq }", "report", option);
 					}else if(data.trim() == "no"){
 						alert("신고는 한 번만 가능합니다");
 					}

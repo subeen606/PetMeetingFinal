@@ -1,6 +1,7 @@
 package com.petmeeting.joy.admin.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.Util.DateUtil;
+import com.petmeeting.joy.playboard.Util.PlayboardUtil;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -213,8 +215,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public List<EventboardDto> getMonthlyEventList(String date) {
+		return adminDao.getMonthlyEventList(date);
+	}
+
+	@Override
 	public EventboardDto getEventDetail(int seq) {
-		return adminDao.getEventDetail(seq);
+		
+		EventboardDto eventDto = adminDao.getEventDetail(seq);
+		
+		if(DateUtil.isProgress(eventDto.getEvent_sdate(), eventDto.getEvent_edate())) {
+			eventDto.setProgressCheck(true);
+		}else {
+			eventDto.setProgressCheck(false);
+		}
+		return eventDto;
 	}
 	
 	@Override

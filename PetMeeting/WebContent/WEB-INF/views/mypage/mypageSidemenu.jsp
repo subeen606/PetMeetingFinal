@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <% String fupload = "/mypage_resources/myprofile/userProfileIMG/"; //프로젝트 내부 경로
@@ -12,8 +11,7 @@
 <head>
 
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <link
@@ -26,7 +24,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/css/fontawesome.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/css/templatemo-style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/css/owl.css">
-
 
 </head>
 
