@@ -20,10 +20,8 @@ public class SendEmail {
 		  String post     = "587";
 		  final String user   = "petmeetingjoy@gmail.com";
 		  final String password  = "vptalxld1";
-//		  String to     = "ruserive@gmail.com";
 		 
 		  boolean b = false;
-		  // Get the session object
 		  Properties props = new Properties();
 		  props.put("mail.smtp.host", host);
 		  props.put("mail.smtp.port", post);

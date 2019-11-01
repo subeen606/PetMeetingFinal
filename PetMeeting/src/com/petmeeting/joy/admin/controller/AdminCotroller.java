@@ -523,7 +523,7 @@ public class AdminCotroller {
 	/*funding 관리자*/
 	@RequestMapping(value = "adminFundingList.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminFundingList(Model model, fundingBean fbean) {
-		System.out.println("펀딩 리스트에 들어온 admin: " + fbean.toString());
+		//System.out.println("펀딩 리스트에 들어온 admin: " + fbean.toString());
 		
 		int totalfundingCount = adminService.getFundingCount(fbean);
 		int sn = fbean.getPageNumber();
@@ -561,7 +561,7 @@ public class AdminCotroller {
 		
 		for(int i=0; i<Sseq.length; i++) {
 			seq[i] = Integer.parseInt(Sseq[i]);
-			System.out.println("들어온 seq : " + seq[i] );
+			//System.out.println("들어온 seq : " + seq[i] );
 
 			adminService.deletefunding(seq[i]);
 			}
@@ -610,7 +610,7 @@ public class AdminCotroller {
 	/*수정*/
 	@RequestMapping(value = "fundUpdate.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String fundUpdate(int seq, Model model) {
-		System.out.println("들어옴: " + seq);
+		//System.out.println("들어옴: " + seq);
 		FundingDto dto = adminService.fundingDetail(seq);
 		model.addAttribute("dto", dto);
 		return "admin/fundingboard/fundingUpdate";
@@ -638,12 +638,12 @@ public class AdminCotroller {
 					e.printStackTrace();
 				}
 			
-		System.out.println("수정Af에 들어온 dto: " + dto.toString());
-		System.out.println("수정Af에 들어온 bean: " +bean.toString());
+		//System.out.println("수정Af에 들어온 dto: " + dto.toString());
+		//System.out.println("수정Af에 들어온 bean: " +bean.toString());
 		
 		boolean b = adminService.fundUpdate(dto,bean);
 		if(b) {
-			System.out.println("업데이트 성공");
+			//System.out.println("업데이트 성공");
 			
 			
 			List<FundMemberDto> memList = adminService.whofundingMem(dto.getSeq());
@@ -787,6 +787,40 @@ public class AdminCotroller {
 		return "redirect:/noticeList.do";
 	}
 	
+	/*공지게시판 회원에게 보여줄 리스트*/
+	@RequestMapping(value = "noticeboard.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeboard(fundingBean bean, Model model) {
+
+		int totalCount = adminService.noticeListcount(bean);
+		int sn = bean.getPageNumber();
+		
+		int start = sn * bean.getRecordCountPerPage() + 1;
+		bean.setStart(start);
+		int end = (sn + 1) * bean.getRecordCountPerPage();
+		if( end > totalCount ) {
+			end  = totalCount;
+		}
+		bean.setEnd(end);
+		List<NoticeBoardDto> list = adminService.getnoticeList(bean);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("f_keyword", bean.getF_keyword());
+		model.addAttribute("f_categorys", bean.getF_categorys());
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", bean.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalCount);
+		
+		return "notice/noticeboardList";
+	}
+	
+	@RequestMapping(value = "noticeboardDetail.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeboardDetail(int seq, Model model) {
+		adminService.noticeReadCount(seq);
+		NoticeBoardDto dto = adminService.noticeDetail(seq);
+		model.addAttribute("dto", dto);
+		return "notice/noticeboardDetail";
+	}
 	
 	/*회원탈퇴 통계 */
 	@RequestMapping(value = "adminMemleavegraph.do",method = {RequestMethod.GET,RequestMethod.POST})

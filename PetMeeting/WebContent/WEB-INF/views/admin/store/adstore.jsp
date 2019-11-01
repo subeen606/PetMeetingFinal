@@ -9,7 +9,7 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
-<title>관리자페이지 - 스토어</title>
+<title>PetMeeting - 관리자</title>
 <style type="text/css">
 div.todaySales {
 	text-align: center;

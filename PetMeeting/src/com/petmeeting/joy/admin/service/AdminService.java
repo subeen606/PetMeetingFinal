@@ -74,6 +74,7 @@ public interface AdminService {
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
 	public void noticeUpdate(NoticeBoardDto dto);
+	public void noticeReadCount(int seq);
 	
 	//회원탈퇴
 	public List<MypageMemberleave> memleave(Memberleaveparam param);

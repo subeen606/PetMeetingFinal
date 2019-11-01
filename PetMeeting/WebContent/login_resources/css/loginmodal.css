@@ -16,6 +16,7 @@ html, body {
 }
 
 #kakaologbtn{
+	outline : none;
   border: 0;
   border-radius: 15px;
   display: block;
@@ -49,7 +50,7 @@ html, body {
 
 .form-structor .signup {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   width: 80%;
@@ -138,6 +139,21 @@ html, body {
   margin-right: 0;
  
 }
+.nickname_input{
+	border: 0;
+	outline: none;
+	box-shadow: none;
+	height: 30px;
+	line-height: 30px;
+	padding: 8px 15px;
+	border-bottom: 1px solid #eee;
+	width: 60%; 
+	font-size: 12px;
+	margin-right: 0;
+}
+.nickname_input::placeholder {
+	color: rgba(0, 0, 0, 0.4); 
+}
 .form-structor .signup .form-holder .email_input::placeholder {
 	color: rgba(0, 0, 0, 0.4); 
 }
@@ -155,6 +171,50 @@ html, body {
    color:#ccc6c6;
    border-bottom: 1px solid #eee;
 }
+.form-structor .signup .form-holder .checked_input:hover{
+  transition: all 0.3s ease;
+  background-color: #e8e8e8;
+  color:#000;
+}
+
+#nicknameCheck-Btn:hover{
+  transition: all 0.3s ease;
+  background-color: #e8e8e8;
+  color:#000;
+}
+
+.form-structor .signup .form-holder .authCode_input {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  height: 30px;
+  line-height: 30px;
+  padding: 8px 15px;
+  border-bottom: 1px solid #eee;
+  width: 60%; 
+  font-size: 12px;
+  margin-right: 0;
+ 
+}
+.form-structor .signup .form-holder .pwd_input {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  height: 30px;
+  line-height: 30px;
+  padding: 8px 15px;
+  border-bottom: 1px solid #eee;
+  width: 60%; 
+  font-size: 12px;
+  margin-right: 0;
+ 
+}
+.form-structor .signup .form-holder .authCode_input::placeholder {
+	color: rgba(0, 0, 0, 0.4); 
+}
+.form-structor .signup .form-holder .pwd_input::placeholder {
+	color: rgba(0, 0, 0, 0.4); 
+}
 
 .form-structor .signup .form-holder .input:last-child {
   border-bottom: 0;
@@ -169,7 +229,8 @@ html, body {
 }
 
 .form-structor .signup .submit-btn {
-  background-color: /* rgba(255, 156, 61, 1) */#ff9c3d;
+  outline : none;
+  background-color: #5a5a5a;
   color: rgba(255, 255, 255, 0.7);
   border: 0;
   border-radius: 15px;
@@ -261,7 +322,8 @@ html, body {
   color: rgba(0, 0, 0, 0.4);
 }
 .form-structor .login .center .submit-btn {
-  background-color: #ff9c3d;
+  outline : none;
+  background-color: #585e7d;
   color: rgba(255, 255, 255, 0.7);
   border: 0;
   border-radius: 15px;
@@ -327,4 +389,20 @@ html, body {
 .form-structor .login .center .lg_links .lg_link_find a:hover{
 	cursor: pointer;
 	text-decoration: underline;	
+}
+
+.displayis {
+	display: none;
+}
+
+.pwdCheckMsg {
+    line-height: 44px;
+    border: 0;
+    border-bottom: 1px solid #eee;
+    width: 30%;
+    font-size: 12px;
+    font-weight: bold;
+    float: right;
+    text-align: center;
+    background-color: #fff;
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetMeeting - 관리자</title>
 <style type="text/css">
 .content-tr {
 	display: none;

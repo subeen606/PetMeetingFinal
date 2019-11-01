@@ -589,8 +589,12 @@
 		WHERE SEQ=#{seq}
 	</update>
 
-
-      
+	<!-- 공지 ReadCount -->
+      <update id="noticeReadCount" parameterType="java.lang.Integer">
+      UPDATE PM_NOTICEBOARD
+      SET READCOUNT = READCOUNT+1
+      WHERE SEQ=#{seq}
+      </update>
       
       <!-- 오늘 올라온 소모임 수 -->
 	<select id="getTodayPlay" resultType="java.lang.Integer">

@@ -19,7 +19,7 @@ WHERE EMAIL=#{email}
 </update>
 
 <!-- 회원가입시 MyProfile 초기저장 (카카오, 일반회원 동일) -->
-<insert id="addSetMyProfile" parameterType="com.petmeeting.joy.login.model.MemberDto">
+<insert id="addSetMyProfile" parameterType="java.lang.String">
 INSERT INTO PM_MYPROFILE(EMAIL, MYPROFILE_IMG, MYAGE, MYSEX, MYINTRO)
 VALUES(#{email}, null, null, null, '등록된 소개가 없습니다')
 </insert>
@@ -96,14 +96,20 @@ SELECT EMAIL, PETPROFILE_IMG, PETNAME, PETAGE, PETTYPE, PETDETAIL, PETWEIGHT, PE
 FROM PM_PETPROFILE
 WHERE EMAIL=#{email}
 </select>
-<!-- 
 
+<!-- 이메일중복체크 -->
+<select id="checkEmail" parameterType="java.lang.String" resultType="com.petmeeting.joy.login.model.MemberDto">
+SELECT * 
+FROM PM_MEMBER
+WHERE EMAIL = #{email}
+</select>
+
+<!-- 닉네임중복체크 -->
 <select id="checkNickname" parameterType="java.lang.String" resultType="com.petmeeting.joy.login.model.MemberDto">
 SELECT * 
 FROM PM_MEMBER
 WHERE NICKNAME = #{nickname}
 </select>
 
- -->
 
 </mapper>

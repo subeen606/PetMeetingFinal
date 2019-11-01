@@ -303,4 +303,9 @@ public class AdminDaoImpl implements AdminDao {
 		sqlSession.update(namespace + "noticeUpdate", dto);
 	}
 
+	@Override
+	public void noticeReadCount(int seq) {
+		sqlSession.update(namespace + "noticeReadCount", seq);
+	}
+
 }

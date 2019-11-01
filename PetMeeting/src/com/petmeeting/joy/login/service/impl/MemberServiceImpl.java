@@ -1,5 +1,11 @@
 package com.petmeeting.joy.login.service.impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
 	public void addMember(MemberDto mem) {
 		System.out.println("MemberServiceImpl 파라미터 memdto>> " + mem.toString());		
 		memDao.addMember(mem);
-		memDao.addSetMyProfile(mem);
+		memDao.addSetMyProfile(mem.getEmail());
 	}
 	
 	// 유저 memdto 가져오기
@@ -33,7 +39,6 @@ public class MemberServiceImpl implements MemberService {
 	// 카카오프로필 이미지 있는경우 프로필이미지 주소로 업데이트시킨다
 	@Override
 	public boolean kakaoProfileImgUpdate(KakaoParam param) {
-		
 		return memDao.kakaoProfileImgUpdate(param);
 	}
 
@@ -107,7 +112,49 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 
+	@Override
+	public void kakaoLogout(String access_Token) {
+	    String reqURL = "https://kapi.kakao.com/v1/user/logout";
+	    reqURL = "http://developers.kakao.com/logout";
+	    System.out.println("MypageServiceImpl kakaoLogout 카카오로그아웃 access_Token = " + access_Token);
+	    
+	    try {
+	        URL url = new URL(reqURL);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	       
+	        conn.setRequestMethod("POST");
+	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+	        
+	        int responseCode = conn.getResponseCode();
+	        System.out.println("responseCode : " + responseCode);
+	        
+	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        
+	        String result = "";
+	        String line = "";
+	        
+	        while ((line = br.readLine()) != null) {
+	            result += line;
+	        }
+	        System.out.println(result);
+	        
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+	}
 	
+	// 이메일중복체크
+	@Override
+	public MemberDto checkEmail(String email) {
+		return memDao.checkEmail(email);
+	}
+	
+	// 닉네임 중복체크
+	@Override
+	public MemberDto checkNickname(String nickname) {
+		return memDao.checkNickname(nickname);
+	}
 	
 	
 	

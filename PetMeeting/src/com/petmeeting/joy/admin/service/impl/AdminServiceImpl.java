@@ -427,5 +427,10 @@ public class AdminServiceImpl implements AdminService {
 	public void noticeUpdate(NoticeBoardDto dto) {
 		adminDao.noticeUpdate(dto);
 	}
+
+	@Override
+	public void noticeReadCount(int seq) {
+		adminDao.noticeReadCount(seq);
+	}
 	
 }

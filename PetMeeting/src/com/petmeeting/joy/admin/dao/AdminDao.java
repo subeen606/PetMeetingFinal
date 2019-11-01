@@ -103,6 +103,7 @@ public interface AdminDao {
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
 	public void noticeUpdate(NoticeBoardDto dto);
+	public void noticeReadCount(int seq);
 
 	/* main */
 	public int getTodayPlay();

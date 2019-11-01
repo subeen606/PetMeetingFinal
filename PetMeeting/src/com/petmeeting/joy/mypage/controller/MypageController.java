@@ -1,7 +1,6 @@
 package com.petmeeting.joy.mypage.controller;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -750,7 +748,7 @@ public class MypageController {
 		@RequestMapping(value = "myprofile.do", method = {RequestMethod.GET, RequestMethod.POST})
 		public String myprofile(HttpServletRequest req) {
 			System.out.println("myprofile.do -----------------------------");
-			
+					
 			return "mypage/myProfile";
 		}
 		
@@ -854,7 +852,7 @@ public class MypageController {
 				
 				String fullpath = uploadfolder + "/" + newfilename;
 				System.out.println("fullpath == " + fullpath);
-				
+			
 				File file = new File(fullpath);
 				
 				try {
@@ -907,20 +905,21 @@ public class MypageController {
 		// 프로필 닉네임 수정시 닉네임체크		
 		@ResponseBody
 		@RequestMapping(value = "nicknameCheck.do", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
-		public String nicknameCheck( MyProfileParam paramdto ) {
+		public String nicknameCheck( MyProfileParam paramdto, HttpServletRequest req) {
 			System.out.println("nicknameCheck.do --------------------------------");
 			
-			String nickname = paramdto.getNickname();
-			System.out.println("유저가 입력한 닉네임 : "+ nickname);
-			
+			MemberDto user = (MemberDto)req.getSession().getAttribute("login");
+			String nickname = paramdto.getNickname();			
 			MemberDto memdto = mypageService.checkNicknameExist( nickname );
 			
 			if(memdto == null) {
 				return "사용 가능한 닉네임 입니다.";
+			}
+			else if( user.getNickname().equals(nickname) ){
+				return "현재 사용중인 닉네임 입니다.";
 			}else {
 				return "이미 존재하는 닉네임 입니다.";
-			}
-			
+			}			
 		}
 		
 		// 프로필수정
@@ -1016,10 +1015,10 @@ public class MypageController {
 				req.getSession().setAttribute("userProfile", profiledto);				
 				System.out.println("updateProfile.do>>> 프로필 세션갱신완료");
 				
-				return "";
+				return "프로필 등록 성공";
 			}
 			
-			return "프로필 업데이트에 실패하였습니다...";
+			return "프로필 등록 실패";
 		}
 
 		

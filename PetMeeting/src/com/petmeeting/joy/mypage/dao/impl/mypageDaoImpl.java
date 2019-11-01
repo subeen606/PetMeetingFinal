@@ -211,7 +211,13 @@ public class mypageDaoImpl implements mypageDao {
 	// 프로필 등록 포인트지급
 	@Override
 	public boolean addProfilePoint(String email) {
-		int n = sqlSession.update(ns + "addProfilePoint", email);
+		int n = sqlSession.insert(ns + "addProfilePoint", email);
+		return n>0?true:false;
+	}
+	
+	@Override
+	public boolean addprofilePointHistory(String email) {
+		int n = sqlSession.insert(ns + "addprofilePointHistory", email);
 		return n>0?true:false;
 	}
 	
@@ -239,10 +245,15 @@ public class mypageDaoImpl implements mypageDao {
 	// 펫프로필 등록 포인트 지급
 	@Override
 	public boolean addPetProfilePoint(String email) {
-		int n = sqlSession.update(ns + "addPetProfilePoint", email);
+		int n = sqlSession.insert(ns + "addPetProfilePoint", email);
 		return n>0?true:false;
 	}
 	
+	@Override
+	public boolean addpetPointHistory(String email) {
+		int n = sqlSession.insert(ns + "addpetPointHistory", email);
+		return n>0?true:false;
+	}
 	// 펫프로필 수정
 	@Override
 	public boolean updatePetProfile(MyPetProfileDto petdto) {
