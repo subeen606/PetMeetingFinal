@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
  	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	 
     <link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/bootstrap.min.css">
@@ -26,6 +28,9 @@
     <!-- style CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/style.css">
     <!-- 우리가 추가한 css -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
+    
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css">
 </head>
 <body>
@@ -70,6 +75,28 @@
                 </div>
             </div>
         </div>
+        
+        
+        <!-- 
+       		<a href="javascript:kakaologout(this);">로그아웃</a>
+       		
+       		<script type="text/javascript">
+       		
+       		function kakaologout() {
+       			Kakao.init('2f90f741a7fa19bb40a6b2cc2d08fd28');
+           		Kakao.Auth.logout(function(obj) {
+           			if(obj==true){
+           				//로그아웃 완료
+           				alert("로그아웃완료");
+           				location.href="logout.do";
+           			}else{
+           				//로그아웃안됬을때
+           				alert("로그아웃실패");
+           			}
+           		});
+			};        		
+       		</script>
+       		 -->
               
 
         <div class="main_menu">

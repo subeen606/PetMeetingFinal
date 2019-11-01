@@ -12,7 +12,7 @@ public interface MemberService {
 	// 회원가입
 	public void addMember(MemberDto mem);
 	
-	//해당 서비스에서 프로필 기본 설정도 진행할것!!!!!!!!!!!!!!!
+	// 카카오 회원 가입시 최초카톡프사를 프로필 이미지로 등록
 	public boolean kakaoProfileImgUpdate(KakaoParam param); 	
 	
 	// 가입유저인지 체크
@@ -39,11 +39,14 @@ public interface MemberService {
 	// 로그인유저 펫프로필 가져오기
 	public MyPetProfileDto getLoginUserPetProfile(String email);
 	
-	// 닉네임체크
-//	public MemberDto checkNickname(String nickname);
+	// 이메일중복체크
+	public MemberDto checkEmail(String email);
+	
+	// 닉네임 중복체크
+	public MemberDto checkNickname(String nickname);
 	
 	//public boolean snsAddMember(KakaoParam param); // sns 가입
 	
-	
+	public void kakaoLogout(String access_Token);
 	
 }

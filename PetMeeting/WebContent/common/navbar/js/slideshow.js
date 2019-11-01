@@ -1,6 +1,6 @@
 var slideIndex = 1;
 var autoIndex = 0;
-autoSlides();
+//autoSlides();
 showSlides();
 
 function autoSlides(){

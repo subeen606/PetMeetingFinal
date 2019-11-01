@@ -311,7 +311,7 @@ public class mypageServiceImpl implements mypageService {
 		return mypageDao.check_myprofile(user);
 	}
 
-	// PM_CHECK_MYPROFILE 에 유저등록 (point추가진행)
+	// PM_CHECK_MYPROFILE 에 유저등록 (point추가진행, 포인트 내역에 추가)
 	@Override
 	public boolean addMyProfileCheck(String email) {
 
@@ -320,6 +320,7 @@ public class mypageServiceImpl implements mypageService {
 		if (isS) {
 			// 프로필등록시 포인트추가
 			res = mypageDao.addProfilePoint(email);
+			mypageDao.addprofilePointHistory(email);
 		}
 		return res;
 	}
@@ -328,7 +329,7 @@ public class mypageServiceImpl implements mypageService {
 	@Override
 	public boolean updateProfile(MyProfileParam dto) {
 
-		boolean nickup = mypageDao.updateNickname(dto);
+		boolean nickup = mypageDao.updateNickname(dto);//닉네임업데이트
 
 		if (nickup) {
 			System.out.println("MypageServiceImpl ---- 닉네임업데이트 성공");
@@ -369,6 +370,7 @@ public class mypageServiceImpl implements mypageService {
 			if (checkIs) {
 				// 펫프로필등록시 포인트추가
 				res = mypageDao.addPetProfilePoint(petdto.getEmail());
+				mypageDao.addpetPointHistory(petdto.getEmail());
 			}
 		}
 
@@ -377,7 +379,7 @@ public class mypageServiceImpl implements mypageService {
 		return res;
 	}
 
-	// 프로필 수정
+	// 펫 프로필 수정
 	@Override
 	public boolean updatePetProfile(MyPetProfileDto petdto) {
 		return mypageDao.updatePetProfile(petdto);

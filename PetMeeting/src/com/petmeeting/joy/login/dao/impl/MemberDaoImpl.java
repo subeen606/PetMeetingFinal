@@ -26,8 +26,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
-	public void addSetMyProfile(MemberDto mem) {
-		sqlSession.insert(ns + "addSetMyProfile", mem);
+	public void addSetMyProfile(String email) {
+		sqlSession.insert(ns + "addSetMyProfile", email);
 	}
 
 	@Override
@@ -110,6 +110,17 @@ public class MemberDaoImpl implements MemberDao {
 	public MyPetProfileDto getLoginUserPetProfile(String email) {
 		MyPetProfileDto dto = sqlSession.selectOne(ns + "getLoginUserPetProfile", email);
 		return dto;
+	}
+	
+	// 이메일중복체크
+	@Override
+	public MemberDto checkEmail(String email) {
+		return sqlSession.selectOne(ns + "checkEmail", email);
+	}
+	// 닉네임 중복체크
+	@Override
+	public MemberDto checkNickname(String nickname) {
+		return sqlSession.selectOne(ns + "checkNickname", nickname);
 	}
 	
 	

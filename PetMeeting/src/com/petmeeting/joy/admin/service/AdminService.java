@@ -47,6 +47,8 @@ public interface AdminService {
 	
 	public List<EventboardDto> getEventList();
 	
+	public List<EventboardDto> getMonthlyEventList(String date);
+	
 	public EventboardDto getEventDetail(int seq);
 	
 	public void eventDelete(int seq);
