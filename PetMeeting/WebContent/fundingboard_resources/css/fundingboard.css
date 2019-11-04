@@ -224,7 +224,25 @@ input:checked + label{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .mainTitle{
-	background-color: #fff1b9;
+	border-bottom: 1px solid #f4f4f4;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    margin-bottom: 70px;
+}
+#mainTitle-petmeeting{
+	font-size: 13px;
+	display: block;
+	padding-bottom: 15px;
+}
+#mainTitle-boardname{
+	font-size: 37px;
+	display: block;
+	padding-bottom: 20px;
+	font-weight: bold;
+}
+#mainTitle-info{
+	font-size: 15px;
+	display: block;
 }
     
 /* Modal Content/Box */

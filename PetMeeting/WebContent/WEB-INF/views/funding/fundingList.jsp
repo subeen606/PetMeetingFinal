@@ -33,22 +33,17 @@
  </header>
  <!-- Header part end-->
  
-	<div class="mainTitle">
-		<div class="container">
-			<div class="row align-content-center">
-                <div class="col-lg-7 col-xl-6">
-					<div class="banner_text">
-		    			<h5>PetMeeting</h5>
-		    			<h1>후원</h1>
-		    			<h5>소중한 아이들에게 사랑을 나눠주세요</h5>                        
-					</div>    
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- 게시판 소개 부분 -->
+  	<div class="container">
+   		<div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="./fundingboard_resources/img/donation.png" width="60px">&nbsp;후원</span>
+        <span id="mainTitle-info">여러분들의 참여를 기다리는 아이들에게 사랑을 나눠주세요</span>                                                 
+       </div>
+	 </div>
  
 <div class="container">
-	<div id="wrapper">
+	<!-- <div id="wrapper">
 		<div id="slider-wrap">
 			<ul id="slider">     
 	         <li>          
@@ -68,16 +63,16 @@
      	  	 </li>  
 			</ul>
 	          
-			<!--controls-->
+			controls
 			<div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
 			<div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
 			<div id="pagination-wrap">
 				<ul>
 				</ul>
 			</div>
-			<!--controls-->  
+			controls  
 		</div>
-	</div>
+	</div> -->
 	
 <jsp:useBean id="dates" class="com.petmeeting.joy.funding.util.DateUtil"/>
 <jsp:useBean id="today" class="java.util.Date"/>
