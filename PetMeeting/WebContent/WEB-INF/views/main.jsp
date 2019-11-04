@@ -35,13 +35,13 @@
 	
 	  <div class="mySlides fade">
 	    <div class="numbertext">2 / 3</div>
-	    <img src="${pageContext.request.contextPath}/common/img/slide(2).jpg">
+	    <img src="${pageContext.request.contextPath}/common/img/slide(2).png">
 	   
 	  </div>
 	
 	  <div class="mySlides fade">
 	    <div class="numbertext">3 / 3</div>
-	     <img src="${pageContext.request.contextPath}/common/img/slide(3).jpg">
+	     <a href="eventDetail.do?seq=8"><img src="${pageContext.request.contextPath}/common/img/slide(3).png"></a>
 	   
 	  </div>
 	

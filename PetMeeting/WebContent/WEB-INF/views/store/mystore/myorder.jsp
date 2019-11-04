@@ -464,6 +464,8 @@ $(".s-btn").on("click", function () {
 			data : {"ordernumber" : on},
 			success : function() {
 				alert("주문이 취소됐습니다.");
+				
+				location.reload();
 			},
 			error : function() {
 				alert("err");
