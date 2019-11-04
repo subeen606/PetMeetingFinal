@@ -100,7 +100,7 @@ $("#fundingBtn").click(function() {
 	//alert("jstl 로그인정보: " + email);
 	//alert("jstl 펀딩했는지: " + funding);
 	if(email == ""){
-		alert("후원을 위해서 로그인을 해주세요.");
+		alert("로그인이 필요합니다.");
 	}
 	if( funding == "true" ){
 		alert("이미 후원을 하셨습니다. 지속적인 관심 감사드립니다.");
@@ -115,7 +115,7 @@ $("#likeBtn").click(function() {
 	//alert($("#likecount").text());
 	var email = "${login.email}";
 	if(email == ""){
-		alert("로그인을 해주세요.");
+		alert("로그인이 필요합니다.");
 	}
 	else{
 	 	$.ajax({

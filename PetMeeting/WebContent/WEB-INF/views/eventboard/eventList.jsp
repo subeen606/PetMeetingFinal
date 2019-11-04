@@ -21,6 +21,15 @@
 <jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>    
 <!-- Header part end-->
 
+ <!-- 게시판 소개 부분 -->
+  	<div class="container">
+   		<div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="${pageContext.request.contextPath}/common/img/garlands.png" width="60px;">&nbsp;반려동물 행사 캘린더</span>
+        <span id="mainTitle-info">펫미팅에서 다가오는 반려동물 행사를 안내드립니다!</span>                                                 
+       </div>
+	 </div>
+	 
 <div class="container">
  	<div class="eventWrap">
 		<div class="event-infoWrap">

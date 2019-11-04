@@ -83,7 +83,7 @@
 <script type="text/javascript">
 
 $("#subBtn").click(function() {
-	alert("글쓰기");
+	//alert("글쓰기");
 	$("#frm").attr({"action":"noticeWriteAf.do","method":"POST"}).submit();
 });
 

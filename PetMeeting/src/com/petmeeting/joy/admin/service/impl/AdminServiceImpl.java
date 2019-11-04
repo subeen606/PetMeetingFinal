@@ -1,7 +1,6 @@
 package com.petmeeting.joy.admin.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
-import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.funding.model.DayBean;
@@ -24,7 +23,6 @@ import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.Util.DateUtil;
-import com.petmeeting.joy.playboard.Util.PlayboardUtil;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -411,6 +409,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int getTodayPlay() {
 		return adminDao.getTodayPlay();
+	}
+	
+	@Override
+	public int getTodayFree() {
+		return adminDao.getTodayFree();
 	}
 
 	@Override
