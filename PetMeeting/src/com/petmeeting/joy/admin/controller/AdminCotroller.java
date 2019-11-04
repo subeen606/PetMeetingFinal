@@ -28,24 +28,21 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
-import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
-import com.petmeeting.joy.playboard.Util.DateUtil;
-import com.petmeeting.joy.playboard.model.MyProfileDto;
-import com.petmeeting.joy.playboard.model.PlayMemDto;
-import com.petmeeting.joy.playboard.model.PlayboardDateBean;
 import com.petmeeting.joy.funding.model.DayBean;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.funding.util.FUpUtil;
-import com.petmeeting.joy.login.model.MemberDto;
-import com.petmeeting.joy.mypage.util.MypageDateUtil;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
+import com.petmeeting.joy.mypage.util.MypageDateUtil;
+import com.petmeeting.joy.playboard.Util.DateUtil;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
+import com.petmeeting.joy.playboard.model.PlayboardDateBean;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardHashTagDto;
 import com.petmeeting.joy.playboard.model.PlayboardQnADto;
@@ -77,9 +74,11 @@ public class AdminCotroller {
 
 		/*PetMeeting*/
 		int todayPlayCount = adminService.getTodayPlay();			// 오늘 올라온 소모임 게시글 수
+		int todayFreeCount = adminService.getTodayFree();			// 오늘 올라온 자유게시판 게시글 수
 		int todayEndFundCount = adminService.getTodayEndFunding();		// 오늘 마감된 펀딩 수
 		
 		model.addAttribute("todayPlayCount", todayPlayCount);
+		model.addAttribute("todayFreeCount", todayFreeCount);
 		model.addAttribute("todayEndFundCount", todayEndFundCount);
 		
 		List<AdminMemberDto> reportlist = adminService.getReportTop5();

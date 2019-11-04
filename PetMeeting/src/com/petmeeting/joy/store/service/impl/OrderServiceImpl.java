@@ -338,6 +338,9 @@ public class OrderServiceImpl implements OrderService {
 	public int getREreqCount(int status) {
 		return orderDao.getREreqCount(status);
 	}
-	
-	
-}
+
+	@Override
+	public void updateDeliveryComplete(String ordernumber) {
+		orderDao.updateDeliveryComplete(ordernumber);
+	}
+}	
