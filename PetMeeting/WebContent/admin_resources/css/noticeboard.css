@@ -5,7 +5,24 @@ a.underline:hover{
 }
 
 .mainTitle{
-	background-color: #fff1b9;
+	border-bottom: 1px solid #f4f4f4;
+    padding-top: 70px;
+    padding-bottom: 50px;
+}
+#mainTitle-petmeeting{
+	font-size: 13px;
+	display: block;
+	padding-bottom: 15px;
+}
+#mainTitle-boardname{
+	font-size: 37px;
+	display: block;
+	padding-bottom: 20px;
+	font-weight: bold;
+}
+#mainTitle-info{
+	font-size: 15px;
+	display: block;
 }
 .searchdiv{
 	margin: 20px;
@@ -145,4 +162,8 @@ a.underline:hover{
 }
 .nofrm{
 	margin-top: 90px;
+}
+
+#paging_wrap{
+	margin-bottom: 250px;
 }
