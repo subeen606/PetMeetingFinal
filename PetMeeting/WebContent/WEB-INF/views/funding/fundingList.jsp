@@ -41,6 +41,7 @@
         <span id="mainTitle-info">여러분들의 참여를 기다리는 아이들에게 사랑을 나눠주세요</span>                                                 
        </div>
 	 </div>
+
  
 <div class="container">
 	<!-- <div id="wrapper">
