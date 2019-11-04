@@ -122,9 +122,9 @@
                                          	자유게시판
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="">강아지</a>
-                                            <a class="dropdown-item" href="">고양이</a>
-                                             <a class="dropdown-item" href="">기타 소동물</a>
+                                             <a class="dropdown-item" href="freeboard_listview.do?board_code=DOG">강아지</a>
+                                            <a class="dropdown-item" href="freeboard_listview.do?board_code=CAT">고양이</a>
+                                             <a class="dropdown-item" href="freeboard_listview.do?board_code=ETC">기타 소동물</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">
