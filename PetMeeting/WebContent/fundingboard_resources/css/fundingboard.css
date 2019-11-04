@@ -55,11 +55,14 @@ input:checked + label{
 
 .listimg{
 	width: 450px;
-	height: 250px;
+	height: 300px;
+	object-fit : cover;
+	object-position : center; 
 }
 .listimg2{
 	width: 150px;
     height: 100px;
+    
 }
 
 .listicon{
@@ -225,7 +228,7 @@ input:checked + label{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .mainTitle{
-	background-color: #fff1b9;
+	background-color:  #e6bebede;
 }
     
 /* Modal Content/Box */
@@ -266,17 +269,17 @@ text-align: right;
 
 
 #wrapper{
-    width:850px;
+    width:900px;
     margin:50px auto;
-    height:350px;
+    height:400px;
     position:relative;
     color:#fff;
     text-shadow:rgba(0,0,0,0.1) 2px 2px 0px;    
 }
 
 #slider-wrap{
-    width:850px;
-    height:350px;
+    width:900px;
+    height:400px;
     position:relative;
     overflow:hidden;
 }
@@ -292,8 +295,8 @@ text-align: right;
 #slider-wrap ul#slider li{
     float:left;
     position:relative;
-    width:850px;
-    height:350px;   
+    width:900px;
+    height:400px;   
 }
 
 #slider-wrap ul#slider li > div{
@@ -316,6 +319,8 @@ text-align: right;
     display:block;
     width:100%;
   	height: 100%;
+  	object-fit: cover;
+  	object-position: center;
 }
 
 #fundingbar{
@@ -549,9 +554,9 @@ text-align: right;
 
 
 /*Header*/
-h1, h2{text-shadow:none; text-align:center;}
-h1{ color: #666; text-transform:uppercase;  font-size:36px;}
-h2{ color: #7f8c8d; font-family: Neucha, Arial, sans serif; font-size:18px; margin-bottom:30px;} 
+/* h1, h2{text-shadow:none; text-align:center;}
+h1{ color: #666; text-transform:uppercase;  font-size:36px;} */
+/* h2{ color: #7f8c8d; font-family: Neucha, Arial, sans serif; font-size:18px; margin-bottom:30px;}  */
 
 
 

@@ -38,9 +38,9 @@
 			<div class="row align-content-center">
                 <div class="col-lg-7 col-xl-6">
 					<div class="banner_text">
-		    			<h5>PetMeeting</h5>
-		    			<h1>후원</h1>
-		    			<h5>소중한 아이들에게 사랑을 나눠주세요</h5>                        
+		    			<h5>PetMeeting funding</h5>
+		    			<h1>캠페인</h1>
+		    			<h5>여러분들의 참여를 기다리는 아이들에게 사랑을 나눠주세요</h5>                        
 					</div>    
 				</div>
 			</div>
