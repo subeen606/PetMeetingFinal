@@ -95,7 +95,7 @@
                       <div id="checkExpired-attend${i.index }" personcount="${attend.personcount}" people="${attend.people }" isEnd="<jsp:getProperty property='isEnd3' name='dateUtil'/>">
     	            <img src="./mypage_resources/mypage_s/images/people.png" class="playicon">&nbsp;&nbsp;<font>${attend.personcount}명 참여중  모집인원 ${attend.people }명</font>
                      </div>
-                      <div class="primary-button" seq="${attend.seq }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">
+                      <div class="primary-button" id="checkPdate-attend${i.index }"  seq="${attend.seq }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">
                         <a>Read More</a>
                       </div>
                     </div>
@@ -154,7 +154,7 @@
                       <div id="checkExpired-make${i.index }" personcount="${make.personcount}" people="${make.people }" isEnd="<jsp:getProperty property='isEnd3' name='dateUtil'/>">
     	            <img src="./mypage_resources/mypage_s/images/people.png" class="playicon">&nbsp;&nbsp;<font>${make.personcount}명 참여중  모집인원&nbsp; ${make.people }명</font>
                      </div>
-                      <div class="primary-button"  seq="${make.seq }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">
+                      <div class="primary-button" id="checkPdate-make${i.index }" seq="${make.seq }" isEnd="<jsp:getProperty property='isEnd2' name='dateUtil'/>">
                         <a>Read More</a>
                       </div>
                     </div>
@@ -264,8 +264,8 @@ $(document).ready(function(){
 		var people = $("#checkExpired-attend<%=i%>").attr("people");
 		var personcount =  $("#checkExpired-attend<%=i%>").attr("personcount");
 		var edate =  $("#checkExpired-attend<%=i%>").attr("isEnd");
-		
-		if(edate == 0 || people == personcount){
+		var pdate = $("#checkPdate-attend<%=i%>").attr("isEnd");
+		if( pdate == 0 || edate == 0 || people == personcount){
 			$("#expired-attend<%=i%>").text("  마감 ");	
 		}
 	<%
@@ -276,10 +276,9 @@ $(document).ready(function(){
 	%>
 		var people = $("#checkExpired-make<%=i%>").attr("people");
 		var personcount =  $("#checkExpired-make<%=i%>").attr("personcount");
-		var edate =  $("#checkExpired-attend<%=i%>").attr("isEnd");
-		
-		
-		if(edate == 0 || people == personcount){
+		var edate =  $("#checkExpired-make<%=i%>").attr("isEnd");
+		var pdate = $("#checkPdate-make<%=i%>").attr("isEnd");
+		if( pdate == 0 || edate == 0 || people == personcount){
 			$("#expired-make<%=i%>").text("  마감 ");	
 		}
 	<%
@@ -352,27 +351,9 @@ $(document).ready(function(){
 	});
 	
 	 load('#_attend', '5');
-/* 	 $("#js-btn-wrap .moreBtn").on("click", function () {
-	        load('#_attend', '5', '#js-btn-wrap');
-	 });
-	     */
 	
 });
-/* 
-function load(id, cnt, btn) {
-    var girls_list = id + " .js-load:not(.active)";
-    var girls_length = $(girls_list).length;
-    var girls_total_cnt;
-    if (cnt < girls_length) {
-        girls_total_cnt = cnt;
-    } else {
-        girls_total_cnt = girls_length;
-        $('.moreBtn').hide();
-        $('.btn-wrap').hide()
-    }
-    $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
-}
- */
+
 </script>
 </body>
 </html>

@@ -139,6 +139,9 @@ public class MypageDateUtil {
 
 		return week;
 	}
+	public static String two(String msg){
+		return msg.trim().length()<2?"0"+msg:msg.trim();
+	}
 	
 	public String getSimpleLoc() {
 		
@@ -151,21 +154,21 @@ public class MypageDateUtil {
 		Calendar c=Calendar.getInstance();
 		c.setTime(date2);
 		Calendar t=Calendar.getInstance();
-		//오늘이 마지막날 보다 큰가?
+		
 		return Integer.parseInt(StringCal(t))>Integer.parseInt(StringCal(c))? 0:1;
 	}
 	public int getIsEnd3(){
 		Calendar c=Calendar.getInstance();
 		c.setTime(date3);
 		Calendar t=Calendar.getInstance();
-		//오늘이 마지막날 보다 큰가?
+	
 		return Integer.parseInt(StringCal(t))>Integer.parseInt(StringCal(c))? 0:1;
 	}
 	
 	public static String StringCal(Calendar dd){
 		String s=dd.get(Calendar.YEAR)+""+
-		dd.get(Calendar.MONTH)+1+""+
-		dd.get(Calendar.DATE)+"";
+		two((dd.get(Calendar.MONTH)+1)+"")+""+
+		two(dd.get(Calendar.DATE)+"");
 		return s;
 	}
 	
