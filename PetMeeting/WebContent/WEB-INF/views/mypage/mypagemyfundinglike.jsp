@@ -59,13 +59,13 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
        
         
           <div id="section${i.index}">
-
             
+         
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-4">
-                      <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
+                      <img src="/PetMeeting/fundingFileupload/${fund.thumbnail}" alt="" class="mysize">
               <!--     <img src="${fund.thumbnail }" alt=""> -->  
                   </div>
                   <div class="col-md-4">
@@ -105,6 +105,13 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
              <input type="hidden" class="totallist" value="${fundinglist.size() }"> 
             <div id="js-btn-wrap" class="btn-wrap"><a href="javascript:;" class="moreBtn" style="color:#23527c">LOAD MORE</a> </div> 
             </div>
+            <!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
+            
       </div>
    </div>
    <jsp:include page="/WEB-INF/views/mypage/mypageSidemenu.jsp"/>

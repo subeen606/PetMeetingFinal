@@ -40,34 +40,9 @@
 				 <h2>나의 구독</h2>
 		 <hr>
 				
-			<%-- 	
-				  <div class="topimg">
-				
-					<img class="img1" alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet1.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet2.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet3.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet4.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet1.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet2.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet3.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet4.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet1.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet2.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet3.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet4.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet1.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet2.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet3.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet4.jpg">
-				    <img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet1.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet2.jpg">
-					<img alt="" src="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/images/pet3.jpg">
-				
-
-				
-				</div>
 			
-			 --%>
+			
+		
 				<div class="searchdiv">
 					 <select class="s_category">
 							<option vlaue="email">EMAIL</option>
