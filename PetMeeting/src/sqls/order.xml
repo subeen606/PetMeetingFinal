@@ -436,6 +436,7 @@ UPDATE PM_ORDER_DETAIL SET STATUS = 3
 WHERE REFUND_SEQ = #{refund_seq}
 </update> 
 
+<!-- 교환완료 업데이트 -->
 <update id="updateChangeComplete" parameterType="java.lang.Integer">
 UPDATE PM_ORDER_DETAIL SET STATUS = 6
 WHERE REFUND_SEQ = #{refund_seq}
@@ -480,6 +481,11 @@ FROM (SELECT R.SEQ
 			AND O.STATUS = #{status}
 		GROUP BY R.SEQ)
 </select>
+
+<update id="updateDeliveryComplete" parameterType="java.lang.String">
+UPDATE PM_ORDER SET STATUS = 2
+WHERE ORDERNUMBER = #{ordernumber}
+</update>
 
 
 </mapper>

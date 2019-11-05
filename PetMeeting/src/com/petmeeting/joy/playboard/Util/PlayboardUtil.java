@@ -96,13 +96,13 @@ public class PlayboardUtil {
 		String str = "["+category+"] "+title;		
 		if(str.length() > 18) {
 			if(category.length() > 5 && title.length() > 7) {
-				title = title.substring(0, 9) + "...";	
-			}else if(title.length() > 14) {
-				title = title.substring(0, 14) + "...";	
+				title = title.substring(0, 8) + "...";	
+			}else if(title.length() > 15) {
+				title = title.substring(0, 15) + "...";	
 			}
 		}else {
-			if(title.length() > 14) {
-				title = title.substring(0, 14) + "...";	
+			if(title.length() > 15) {
+				title = title.substring(0, 15) + "...";	
 			}
 		}
 		return title;

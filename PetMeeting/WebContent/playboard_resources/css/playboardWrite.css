@@ -28,12 +28,11 @@ select{
 
 .Title{
 	padding: 25px;
-    border-bottom: 5px solid #583b1e;
+    border-bottom: 3px solid #585e7d;
     font-size: 50px;
-    color: #583b1e;
+    color: #585e7d;
     margin-bottom: 50px;
-  /*   font-family: 'NanumSquare', sans-serif !important; */
-  font-family: 'Black Han Sans', sans-serif;   
+    font-family: 'Black Han Sans', sans-serif;   
     background-color: #f9f9f9;
 }
 
@@ -94,7 +93,7 @@ select{
 	height: 80px;
 }
 
-.writeInput-address input{
+#sample6_address, #sample6_detailAddress{
 	border: none;
 	outline: none;
 	height: 35px;
@@ -106,7 +105,7 @@ select{
 	width: 120px;
     height: 35px;
     border-radius: 3em;
-    background-color: #ff9c3da1;
+    background-color: #8f97bd;
     outline: none;
     color: #fff;
     border: none;
@@ -123,19 +122,19 @@ select{
 	width: 200px;
     height: 50px;
     border-radius: 3em;
-    background-color: #ff9976;
+    background-color: #e0d9d2;
     outline: none;
-    color: #fff;
+    color: #715c54;
     font-weight: bolder;
     border: none;
     font-size: 20px;
     transition: 0.3s;
-    box-shadow: 1px 3px #e07149;
     font-family: 'NanumSquare', sans-serif !important;
 }
 
 #submitBtn:hover{
-	background-color: #ff885f;
+	background-color: #d2c5b8;
+	color: #f9f9f9;
 }
 
 #cancelBtn{
@@ -146,17 +145,17 @@ select{
     border-radius: 3em;
     background-color: #d2d2d2;
     outline: none;
-    color: #fff;
+    color: #5a5a5a;
     font-weight: bolder;
     border: none;
     font-size: 20px;
     transition: 0.3s;
-    box-shadow: 1px 3px #848484;
     font-family: 'NanumSquare', sans-serif !important;
 }
 
 #cancelBtn:hover{
 	background-color: #bdbcbc;
+	color: #f9f9f9;
 }
 
 @media screen and (max-width: 500px) { 

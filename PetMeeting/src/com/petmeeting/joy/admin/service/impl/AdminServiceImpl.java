@@ -12,8 +12,8 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
-import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
 import com.petmeeting.joy.funding.model.DayBean;
@@ -213,8 +213,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public List<EventboardDto> getMonthlyEventList(String date) {
+		return adminDao.getMonthlyEventList(date);
+	}
+
+	@Override
 	public EventboardDto getEventDetail(int seq) {
-		return adminDao.getEventDetail(seq);
+		
+		EventboardDto eventDto = adminDao.getEventDetail(seq);
+		
+		if(DateUtil.isProgress(eventDto.getEvent_sdate(), eventDto.getEvent_edate())) {
+			eventDto.setProgressCheck(true);
+		}else {
+			eventDto.setProgressCheck(false);
+		}
+		return eventDto;
 	}
 	
 	@Override
@@ -397,6 +410,11 @@ public class AdminServiceImpl implements AdminService {
 	public int getTodayPlay() {
 		return adminDao.getTodayPlay();
 	}
+	
+	@Override
+	public int getTodayFree() {
+		return adminDao.getTodayFree();
+	}
 
 	@Override
 	public int getTodayEndFunding() {
@@ -406,6 +424,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<AdminMemberDto> getReportTop5() {
 		return adminDao.getReportTop5();
+	}
+
+	@Override
+	public void noticeUpdate(NoticeBoardDto dto) {
+		adminDao.noticeUpdate(dto);
+	}
+
+	@Override
+	public void noticeReadCount(int seq) {
+		adminDao.noticeReadCount(seq);
 	}
 	
 }

@@ -11,16 +11,33 @@ div{
 }
 
 .mainTitle{
-	background-color: #fff1b9;
+	border-bottom: 1px solid #f4f4f4;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
 }
-
+#mainTitle-petmeeting{
+	font-size: 13px;
+	display: block;
+	padding-bottom: 15px;
+}
+#mainTitle-boardname{
+	font-size: 37px;
+	display: block;
+	padding-bottom: 20px;
+	font-weight: bold;
+}
+#mainTitle-info{
+	font-size: 15px;
+	display: block;
+}
 .playboardContainer{
 	width: 100%;
 	/* padding-left: 7%;
 	padding-right: 7%;  */
 	/* border: 2px solid lime; */
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 250px;
 }
 .playCategoryDiv{
 	text-align: left;
@@ -79,18 +96,18 @@ input{
     width: 200px;
     height: 45px;
     border-radius: 3em;
-    background-color: #ffb976;
+    background-color: #e0d9d2;
     outline: none;
-    color: #fff;
-    font-weight: bolder;
+    color: #715c54;
+    font-weight: 600;
     border: none;
     font-size: 20px;
     transition: 0.3s;
-    box-shadow: 1px 3px #ecaa74;
 }
 
 #makePlayBtn:hover{
-	background-color: #f9a95c;
+	background-color: #d2c5b8;
+	color: #f9f9f9;
 }
 #makePlayBtn:active{
 	 box-shadow: 1px 1px #ecaa74;
@@ -117,7 +134,7 @@ input{
     outline: none;
     border: none;
     color: #fff;
-    background-color: #ff9c3d;
+    background-color: #585e7d;
     box-shadow: 1px 2px 5px #e6e6df;
 }
 

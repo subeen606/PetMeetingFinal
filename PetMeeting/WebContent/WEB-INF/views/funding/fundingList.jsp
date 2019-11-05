@@ -33,39 +33,47 @@
  </header>
  <!-- Header part end-->
  
+	<!-- 게시판 소개 부분 -->
+  	<div class="container">
+   		<div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="./fundingboard_resources/img/donation.png" width="60px">&nbsp;후원</span>
+        <span id="mainTitle-info">여러분들의 참여를 기다리는 아이들에게 사랑을 나눠주세요</span>                                                 
+       </div>
+	 </div>
+
  
 <div class="container">
-	
-	<div id="wrapper">
+	<!-- <div id="wrapper">
 		<div id="slider-wrap">
 			<ul id="slider">     
 	         <li>          
-				<img src="./fundingboard_resources/img/dog.jpg">
+				<img src="./fundingboard_resources/img/dogcat.jpg">
 	     	 </li>
 	         <li>          
-				<img src="./fundingboard_resources/img/dog2.jpg">
+				<img src="./fundingboard_resources/img/pets.jpg">
 	     	 </li>
      	     <li>          
-				<img src="./fundingboard_resources/img/cat.jpg">
+				<img src="./fundingboard_resources/img/twodog.jpg">
      	  	 </li>
      	     <li>          
-				<img src="./fundingboard_resources/img/cat2.jpg">
+				<img src="./fundingboard_resources/img/ham.jpg">
      	  	 </li>
       	     <li>          
-				<img src="./fundingboard_resources/img/ham.jpg">
+				<img src="./fundingboard_resources/img/stwodog.jpg">
      	  	 </li>  
 			</ul>
 	          
-			<!--controls-->
+			controls
 			<div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
 			<div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
 			<div id="pagination-wrap">
 				<ul>
 				</ul>
 			</div>
-			<!--controls-->  
+			controls  
 		</div>
-	</div>
+	</div> -->
 	
 <jsp:useBean id="dates" class="com.petmeeting.joy.funding.util.DateUtil"/>
 <jsp:useBean id="today" class="java.util.Date"/>
@@ -90,7 +98,7 @@
 	<input type="radio" name="List" id="List2" value="_ing" <c:if test="${ing_end == '_ing' }">checked</c:if>><label for="List2">진행중인 후원</label>
 	<input type="radio" name="List" id="List3" value="_end" <c:if test="${ing_end == '_end' }">checked</c:if>><label for="List3">마감된 후원</label>
 </div>
-※모든 후원은 마감일 자정에 마감됩니다.
+※모든 후원은 자정에 마감됩니다.
 
 <c:if test="${empty list }">
 	<div>
@@ -154,26 +162,31 @@
 </c:forEach>		 
 
 	<div class="moreList">
-		<span class="more_list"> more </span> 
+		<button type="button" id="loadmore">LOAD MORE</button>
 	</div>
 
 </div>
+
+<!--::footer part start::-->    
+	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+<!-- footer part end-->
 
 <script>
 $(document).ready(function() {	 
 	$(".fundingContainer").slice(0,5).show();
 
 	if($(".fundingContainer:hidden").length == 0 ){
-			$(".more_list").css("display","none");
+			$("#loadmore").css("display","none");
 		}else{
-			$(".more_list").click(function(e) {
+			$("#loadmore").click(function(e) {
 				e.preventDefault();
 				$(".fundingContainer:hidden").slice(0,5).show();
 					if($(".fundingContainer:hidden").length == 0 ){
-						$(".more_list").css("display","none");
+						$("#loadmore").css("display","none");
 					}
-				});
-			}
+				});		
+		}
+	
 	var ingEnd = "${ing_end}";
 	if(ingEnd == ""){
 		$("#List2").attr("checked","checked");

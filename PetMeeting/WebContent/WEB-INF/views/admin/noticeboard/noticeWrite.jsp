@@ -38,7 +38,7 @@
 <!-- Content -->
 <div class="content">
 <div class="container">
-<div class="mainTitle">공지</div>
+<div class="mainTitle"><img class="advericon" src="admin_resources/img/advertising.png">공지</div>
 
 <form id="frm">
 <input type="hidden" name="email" value="${login.email }">
@@ -46,18 +46,18 @@
 		<tr>
 			<th>공지유형</th>
 			<td>
-				<select id="selected">
-					<option>전체 공지</option>
-					<option>소모임 공지</option>
-					<option>자유게시판 공지</option>
-					<option>후원 공지</option>
-					<option>굿즈샵 공지</option>
+				<select id="selected" name="category">
+					<option value="전체 공지">전체 공지</option>
+					<option value="소모임 공지">소모임 공지</option>
+					<option value="자유게시판 공지">자유게시판 공지</option>
+					<option value="후원 공지">후원 공지</option>
+					<option value="굿즈샵 공지">굿즈샵 공지</option>
 				</select>
 			</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td><input type="text" placeholder="title" name="title"></td>
+			<td><input style="width: 400px;" type="text" placeholder="글 제목" name="title"></td>
 		</tr>
 		<tr>
 			<th colspan="2">내용</th>
@@ -83,7 +83,7 @@
 <script type="text/javascript">
 
 $("#subBtn").click(function() {
-	alert("글쓰기");
+	//alert("글쓰기");
 	$("#frm").attr({"action":"noticeWriteAf.do","method":"POST"}).submit();
 });
 

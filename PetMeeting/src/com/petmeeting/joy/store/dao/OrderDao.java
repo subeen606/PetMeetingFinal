@@ -206,4 +206,5 @@ public interface OrderDao {
 	 */
 	public int getREreqCount(int status);
 	
+	public void updateDeliveryComplete(String ordernumber);
 }

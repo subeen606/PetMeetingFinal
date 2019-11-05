@@ -177,16 +177,29 @@
     	</div>   
     </div>
 </form>
-<<<<<<< HEAD
+
    <!--::footer part start::--> 
     	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
     <!-- footer part end-->
     
-=======
 
->>>>>>> 6b3c6f4e141796a41b6761237a33ed4bc93769e7
 <script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
 <script type="text/javascript">
+$(document).on("keyup", "input[name='price']", function () {
+    var $this = $(this);
+    var num = $this.val().replace(/[^0-9]/g,"");
+ 
+    var parts = num.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    $this.val(parts.join("."));
+    
+    if(num > 100000){
+    	alert("모임비용은 10만원 이하로 설정해 주세요!");
+    	$("input[name='price']").val("");
+    	$("input[name='price']").focus();
+    }
+});
+
 $(function () {
 	var today = new Date();
 	var tomorrow = new Date();
@@ -351,6 +364,10 @@ $(function () {
 			alert("모임 예상비용을 입력해주세요! 예상비용이 없는 경우 0을 입력하시면 됩니다.");
 			$("input[name='price']").focus();
 			return false;
+		}else{
+			 var price = $("input[name='price']").val();
+			 var num = price.replace(/[^0-9]/g,"");
+			 $("input[name='price']").val(num);
 		}
 		
 		if($.trim($("input[name='people']").val()) == ""){
@@ -369,7 +386,8 @@ $(function () {
 			return false;
 		}
 		
-		$("#boardWriteFrm").attr("action", "adminEventWriteAf.do").submit();
+		
+		$("#boardWriteFrm").attr("action", "makePlayAf.do").submit();
 	});
 });
 

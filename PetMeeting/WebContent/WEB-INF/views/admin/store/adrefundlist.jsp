@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetMeeting - 관리자</title>
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 	 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/custom.css">
@@ -251,6 +251,10 @@ $("#search_btn").click(function() {
 	$("#search-form").attr("action", "adrefundlist.do").submit();	
 })
 
+$(".refund_detail").hover(function() {
+	$(".refund_detail").css("cursor", "pointer");
+});
+
 // 주문번호 클릭시 반품 사유 디테일 
 $(".refund_detail").click(function() {
 	var seq = $(this).attr("rseq");
@@ -315,12 +319,13 @@ $(".status-refund").click(function () {
 
 // 교환 완료
  $(".status-change").click(function () {
-	var refund_seq = $(this).attr("refund_seq");
-
+	var seq = $(this).attr("refund_seq");
+	alert("seq : " + seq)
+	
 	$.ajax({
 		url : "adproductchange.do",
 		type : "POST",
-		data : "refund_seq=" + refund_seq,
+		data : "refund_seq=" + seq,
 		success : function () {
 			alert("교환 처리가 완료되었습니다.");
 			

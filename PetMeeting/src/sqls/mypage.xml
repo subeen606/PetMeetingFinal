@@ -314,7 +314,7 @@ FROM PM_PETPROFILE
 WHERE EMAIL=#{email}
 </select>
 
-<!-- 포인트업데이트시  PM_POINT_HISTORY 등록  -->
+<!-- 프로필등록 포인트업데이트시  PM_POINT_HISTORY 등록  -->
 <insert id="addprofilePointHistory" parameterType="java.lang.String">
 INSERT INTO PM_POINT_HISTORY(EMAIL, USEDINFO, USEPOINT, RESULTPOINT, REGDATE, USEDTYPE) 
 VALUES(#{email }, '프로필 등록 지급포인트', 1000, (SELECT POINT FROM PM_MEMBER WHERE EMAIL=#{email }),SYSDATE, 0)

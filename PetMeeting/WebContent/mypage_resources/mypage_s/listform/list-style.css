@@ -45,15 +45,15 @@ button {
 	background-color: transparent;
 	display: inline-block;
 	padding: 8px 20px;
-	color: #8893cc!important;
-	border: 2px solid  #8893cc;
+	color: #585e7d!important;
+	border: 2px solid  #585e7d;
 	transition: all 0.5s;
 	cursor:pointer;
 }
 .primary-button a:hover,
 button:hover {
 	color: #fff!important;
-	background-color: #8893cc;
+	background-color: #585e7d;
 }
 
 .playicon{
