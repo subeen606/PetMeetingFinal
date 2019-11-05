@@ -355,6 +355,7 @@ public class PlayboardController {
 		
 		PlayboardHashTagDto hashs = pService.getHashTags(seq);
 		MyProfileDto profile = pService.getMyProfile(dto.getEmail());
+		System.out.println("프로필이 문젠가? : " + profile.toString());
 		
 		List<PlayMemDto> partList = pService.getPlayMems(seq);
 	//	System.out.println("참여자들 목록 : " + partList.toString());

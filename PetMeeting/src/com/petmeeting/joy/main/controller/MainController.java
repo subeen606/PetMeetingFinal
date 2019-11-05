@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.service.AdminService;
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.main.service.MainService;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
@@ -26,10 +27,14 @@ public class MainController {
 	@RequestMapping(value = "main.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model) {
 		List<PlayboardDto> todayPboard = mainService.getTodayPlayboards();
+		List<FreeboardDto> todayFboard = mainService.getTodayFreeboards();
 		
 		List<EventboardDto> eventList = mainService.getThisMonthEvents();
 		
+		
+		
 		model.addAttribute("todayPlayboard", todayPboard);
+		model.addAttribute("todayFreeboard", todayFboard);
 		model.addAttribute("eventList", eventList);
 		return "main";
 	}

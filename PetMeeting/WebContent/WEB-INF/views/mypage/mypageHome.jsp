@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												                   		<img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
 												                   	</c:if>
 												                   	<c:if test="${not empty play.myprofile_img  }">
-												                   		<img src="${play.myprofile_img }" class="list-profileimg">
+												                   		<img src="upload/${play.myprofile_img }" class="list-profileimg">
 												                   	</c:if>
 																<br>
 																${play.nickname }

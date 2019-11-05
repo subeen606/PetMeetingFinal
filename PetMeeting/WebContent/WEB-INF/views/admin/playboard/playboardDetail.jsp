@@ -35,10 +35,10 @@
 		<tr>
 			<th>작성자</th>
 			<td>
-			<c:if test="${empty profile || empty profile.myprofile_img }">
+			<c:if test="${empty profile.myprofile_img }">
 				<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="50px" height="50px" style="vertical-align: middle">
 			</c:if>
-			<c:if test="${not empty profile || not empty profile.myprofile_img }">
+			<c:if test="${not empty profile.myprofile_img }">
 				<img id="profilePic" src="${pageContext.request.contextPath}/playboard_resources/img/brandon.jpg">
 			</c:if>
 			${detail.email }(${detail.nickname })

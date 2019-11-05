@@ -91,7 +91,7 @@
 						<a id="custom-login-btn" href="javascript:loginWithKakao()">
 						<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" id="kakaologbtn"/>
 						</a>
-						<!-- <a href="http://developers.kakao.com/logout">카카오 로그아웃(임시)</a> -->
+						<a href="http://developers.kakao.com/logout">카카오 로그아웃(임시)</a>
 					</div>
 					
 
