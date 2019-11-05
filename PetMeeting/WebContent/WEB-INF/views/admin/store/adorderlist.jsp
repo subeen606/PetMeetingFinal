@@ -84,7 +84,7 @@ text-align: center;
 											<span class="status-change" style="cursor: pointer;" ordernumber="${list.ordernumber }">배송준비</span>
 										</c:if> 
 										<c:if test="${list.status eq 1 }">
-											배송중
+											<span class="delivery-complete" style="cursor: pointer;" ordernumber="${list.ordernumber }">배송중</span>
 										</c:if> 
 										<c:if test="${list.status eq 2 }">
 											<font color="#E5433E" style="font-weight: bold">배송완료</font>
@@ -166,7 +166,7 @@ $(".status-change").click(function() {
 			type: "POST",
 			data: {"ordernumber" : ordernumber},
 			success: function () {
-				alert("suc");
+// 				alert("suc");
 				$("#search-form").attr("action", "adorderlist.do").submit();
 			},
 			error: function () {
@@ -178,6 +178,35 @@ $(".status-change").click(function() {
 	}
 });
 
+$(".delivery-complete").hover(function () {
+	$(this).css("color", "#D24C0F");
+	$(this).html("배송완료");
+}, function () {
+	$(this).css("color", "#000000");
+	$(this).html("배송중");
+});
+
+$(".delivery-complete").click(function () {
+	if(confirm("배송 완료 상태로 변경하시겠습니까?")){
+		var ordernumber = $(this).attr("ordernumber");
+// 		alert("or : " + ordernumber);
+		
+		$.ajax({
+			url: "adorderlist.do",
+			type: "POST",
+			data: {"deliveryOrdernumber" : ordernumber},
+			success: function () {
+// 				alert("suc");
+				location.reload();
+			},
+			error: function () {
+				alert("err");
+			}
+		})
+	}else{
+		return false;
+	}
+});
 
 function goPage( type, pageNumber ) {
 	$("#_pageNumber").val(pageNumber);

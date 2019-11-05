@@ -602,6 +602,12 @@
 		WHERE SUBSTR(REGDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
 	</select>
 	
+      <!-- 오늘 올라온 자유 게시판 수 -->
+	<select id="getTodayFree" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0) FROM PM_FREEBOARD
+		WHERE SUBSTR(REGDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
+	</select>
+	
 	<!-- 오늘 마감된 후원 수-->
 	<select id="getTodayEndFunding" resultType="java.lang.Integer">
 		SELECT NVL(COUNT(*), 0) FROM PM_FUNDINGBOARD

@@ -229,6 +229,10 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(ns + "getREreqCount", status);
 	}
 	
+	@Override
+	public void updateDeliveryComplete(String ordernumber) {
+		sqlSession.update(ns + "updateDeliveryComplete", ordernumber);
+	}
 	
 	
 }

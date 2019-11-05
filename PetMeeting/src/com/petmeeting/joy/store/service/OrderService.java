@@ -85,4 +85,6 @@ public interface OrderService {
 	public int getCancel();
 	
 	public int getREreqCount(int status);
+	
+	public void updateDeliveryComplete(String ordernumber);
 }
