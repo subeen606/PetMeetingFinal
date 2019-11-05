@@ -11,14 +11,14 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageInfo/css/mypageInfo.css">
 
-    <%
+
+     <%
 		    MemberDto mem=(MemberDto)request.getAttribute("member");		    
      %> 
 		    
-
+		    
 </head>
 <body>
-
 
 	<!-- <div id="mypageInfoupdate"> -->
  <header class="header_area">
@@ -76,7 +76,8 @@
  <input type="text" readonly="readonly" id="phone" value="<%=mem.getPhone()%> ">
  <span>POSTCODE</span>
  <input type="text" readonly="readonly" id="sample6_postcode" class="postcode" value="<%=mem.getPostcode()%>"> 
-  <input type="button"  class="next action-button2"  onclick="sample6_execDaumPostcode()" id="searchpostcode" value="우편번호 찾기">
+ <button type="button"  class="next action-button2"  onclick="sample6_execDaumPostcode()" id="searchpostcode">우편번호 찾기</button>
+<!--   <input type="button"  class="next action-button2"  onclick="sample6_execDaumPostcode()" id="searchpostcode" value="우편번호 찾기"> -->
   <span>ADDRESS</span><input type="text" id="sample6_address" readonly="readonly" class="address" value="<%=mem.getAddress()%>">
 <span>ADDRESSDETAIL</span>
 <input type="text" id="sample6_extraAddress" readonly="readonly" class="addressdetail" value="<%=mem.getAddress_refer()%>">

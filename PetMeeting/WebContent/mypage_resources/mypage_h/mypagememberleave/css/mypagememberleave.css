@@ -25,7 +25,7 @@ body {
 	
   font-family: 'NanumBarunGothic', sans-serif;
   border:dotted 0px white; 
-  background:#ff9c3d;
+  background:#585e7d;
   color:#fff;    
   border-radius:7px 7px 7px 7px;  
   width:115px; height:34px;   
@@ -36,7 +36,7 @@ body {
 
   font-family: 'NanumBarunGothic', sans-serif;
   border:dotted 0px white; 
-  background:#ff9c3d;
+  background:#585e7d;
   color:#fff;    
   border-radius:7px 7px 7px 7px;  
   width:115px; height:34px;   
@@ -93,23 +93,24 @@ body {
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before,  #progressbar li.active:after{
-	background: #ff9c3d;
+	background: #585e7d;
 	color: white;
 }
 
 
 .step2 {
-	background: white;
-	border: 0 none;
+	background:#c2d7e1;
+	border:solid;1px;
+	border-color:#585e7d;
 	border-radius: 3px;
-	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
 	padding: 20px 30px;
-	width: 35%;
+	width: 24%;
 	margin: 0 10%;
-	height:250px;
+	height:200px;
 	/*stacking fieldsets above each other*/
-    margin-top:100px;
-    margin-left:300px;
+    margin-top:50px;
+    margin-left:350px;
+    margin-bottom:100px;
 }
 
 #msform fieldset.step2 input{
@@ -119,7 +120,7 @@ body {
 }
 
 #msform fieldset.step2 span{
-	background: #ff9c3d;
+	background: #585e7d;
     display:inline-block;
     width:120px;
     color:white;
@@ -128,7 +129,7 @@ body {
 
 #msform .action-button2 {
 	width: 100px;
-	background: #ff9c3d;
+	background: #585e7d;
 	font-weight: bold;
 	color: white;
 	border: 0 none;
@@ -139,7 +140,7 @@ body {
 }
 #msform fieldset.step2 input, #msform textarea {
 	padding: 15px;
-	border: 1px solid #ff9c3d;
+	border: 1px solid #585e7d;
 	border-radius: 3px;
 	margin-bottom: 10px;
 	width: 87%;
@@ -150,16 +151,16 @@ body {
 }
 
 #msform fieldset.step2 .action-button {
-	width: 308px;
-	background: #ff9c3d;
+	width: 108px;
+	background: #585e7d;
 	font-weight: bold;
 	color: white;
 	border: 0 none;
 	border-radius: 1px;
-	cursor: pointer;
 	padding: 1px 16px;
-	margin-top:20px;
-	margin: 0px px;
+	margin-top:70px;
+	left:500px;
+
 }
 #msform .action-button:hover, #msform .action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
@@ -184,7 +185,7 @@ body {
 
 .step3 .fs-title {
 border:solid;
-color:orange;
+color:#585e7d;
 margin-top:40px;
 }
 .step2 .fs-subtitle {
@@ -210,7 +211,7 @@ margin-top:40px;
 
 .step3 .fs-subtitle2 {
     font-size:12px;
-	color: #ff9c3d;
+	color: #585e7d;
 	margin-bottom: 20px;
 }
 
@@ -237,7 +238,7 @@ margin-top:30px;
 
 .step3 #fs-subtitle2 {
     font-size:12px;
-	color: #ff9c3d;
+	color: #585e7d;
 	margin-bottom: 20px;
 }
 
@@ -264,6 +265,6 @@ margin-top:30px;
 
 .step4 .fs-title {
 border:solid;
-color:orange;
+color:#585e7d;
 margin-top:60px;
 }

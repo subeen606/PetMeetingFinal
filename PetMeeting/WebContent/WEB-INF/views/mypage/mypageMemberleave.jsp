@@ -65,7 +65,7 @@
             <tr>
               <td>
                 <div>
-                 <font color="#f67001" size=4>01</font> <font size=3>이용약관</font>
+                 <font color="#585e7d" size=4>01</font> <font size=3>이용약관</font>
                 </div>
              </td>
            </tr>
@@ -306,7 +306,7 @@
             <tr>
               <td>
                 <div>
-                 <font color="#f67001" size=4>02</font> <font size=3>개인정보 수집 및 이용에 대한 안내</font>
+                 <font color="#585e7d" size=4>02</font> <font size=3>개인정보 수집 및 이용에 대한 안내</font>
                 </div>
              </td>
            </tr>
@@ -441,7 +441,8 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
  <h2 class="fs-title">본인 인증 STEP2</h2>
     <h3 class="fs-subtitle">현재 비밀번호를 입력 하세요</h3>
     <input type="password" name="pass" class="pwd" placeholder="Password" />
-    <input type="button" name="next" class="next action-button" id="checkpwd" value="Next" />
+    <button type="button" name="next" class="next action-button" id="checkpwd">Next</button>
+ <!--    <input type="button" name="next" class="next action-button" id="checkpwd" value="Next" /> -->
  </fieldset>
 
 

@@ -118,7 +118,7 @@ font-family: 'NanumSquareRound'!important;
 
 
   .followingfollow b{
-	color:#ff9d3d
+	color: #585e7d;
 }
 
 
@@ -132,7 +132,7 @@ font-family: 'NanumSquareRound'!important;
 
 
 .follownickname b{
-	color:#ff9c3d;
+	color: #585e7d;
 }
 .selectsearch {
   position: relative;
@@ -211,11 +211,11 @@ button {
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
-    background-color: transparent;
+	background-color: transparent;
 	display: inline-block;
 	padding: 8px 20px;
-	color:  #ff9c3d;
-	border: 2px solid  #ff9c3d;
+	color: #585e7d;
+	border: 2px solid  #585e7d;
 	transition: all 0.5s;
 	margin-left:400px;
 	margin-top:30px;
@@ -223,7 +223,7 @@ button {
 .primary-button a:hover,
 button:hover {
 	color: #fff;
-	background-color: #ff9c3d;
+	background-color: #585e7d;
 }
 
 
@@ -239,7 +239,7 @@ button:hover {
 }
 .searchbtn:hover{
   background:#fff;
-  color:#ff9c3d;
+  color:#585e7d;
 }
 .searchbtn:before, .searchbtn:after{
   content:'';
@@ -248,7 +248,7 @@ button:hover {
   right:0;
   height:2px;
   width:0;
-  background: #ff9c3d;
+  background: #585e7d;
   transition:400ms ease all;
 }
 .searchbtn:after{
