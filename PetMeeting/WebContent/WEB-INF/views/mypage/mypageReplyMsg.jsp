@@ -65,7 +65,7 @@ $(document).ready(function(){
 	$("#sendBtn").on("click",function(){
 	if(count == 0){
 		$(".check-section").show();
-		window.resizeTo("475","580");
+		window.resizeTo("475","590");
 		$("#sendBtn").html("보내기");
 		$("#recipient").html("받는사람");
 		$("#_content").removeAttr("readonly");

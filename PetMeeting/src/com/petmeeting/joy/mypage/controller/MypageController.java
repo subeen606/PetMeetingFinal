@@ -893,8 +893,9 @@ public class MypageController {
 				
 				// 펫프로필 세션
 				req.getSession().removeAttribute("mypet");				
-				req.getSession().setAttribute("mypet", petprofiledto);
+				req.getSession().setAttribute("mypet", petprofiledto);				
 				System.out.println("updatepetProfile.do>>> 펫프로필 세션갱신완료");
+				System.out.println( "갱신된 펫프로필세션 >>> " + req.getSession().getAttribute("mypet") );
 				
 				return "";
 			}

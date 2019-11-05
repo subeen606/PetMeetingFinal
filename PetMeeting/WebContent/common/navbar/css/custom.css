@@ -201,7 +201,14 @@
 	padding-left: 10px;
 	font-size: 15px;
 }
-.playboardAnchor:hover{
+
+.freeboardAnchor{
+	display: block;
+	margin-bottom: 8px;
+	cursor: pointer;
+	transition: 0.6s;
+	padding-left: 10px;
+	font-size: 15px;
 }
 
 .goBoard{

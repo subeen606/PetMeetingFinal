@@ -130,7 +130,7 @@
 								} else {
 							%>
 				
-							<img alt="" src="<%=dto.getPicture()%>" class="myprofileimg">
+							<img alt="" src="upload/<%=dto.getPicture()%>" class="myprofileimg">
 							<%
 								}
 							%>
