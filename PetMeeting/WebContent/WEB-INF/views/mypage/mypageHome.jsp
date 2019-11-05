@@ -1,3 +1,4 @@
+<%@page import="com.petmeeting.joy.freeboard.model.FreeboardDto"%>
 <%@page import="com.petmeeting.joy.playboard.model.PlayboardDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -19,6 +20,7 @@
 <%
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
 	List<PlayboardDto> makelist = (List<PlayboardDto>) request.getAttribute("mymakeList");
+	List<FreeboardDto> freelist = (List<FreeboardDto>) request.getAttribute("flwerFreeList");
 	String jsonData = (String)request.getAttribute("jsonData");
 	System.out.println("jsonData 체크 : " + jsonData);
 %>
@@ -257,15 +259,20 @@ document.addEventListener('DOMContentLoaded', function() {
 													<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
 													<tr>
 													<td>
-														<img src="${free.myprofile_img }" class="list-profileimg">
+														<c:if test="${empty free.myprofile_img || free.myprofile_img eq ''}">
+												             <img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
+												        </c:if>
+												        <c:if test="${not empty free.myprofile_img  }">
+															<img src="${free.myprofile_img }" class="list-profileimg">
+														</c:if>
 														<br>
 														${free.nickname }
 													</td>
 													
 													<td align="left">
-														${free.sort }
+														[<font id="boardcode${i.index }" seq="${free.seq }" code="${free.board_code }"></font>&nbsp; - &nbsp;${free.category }]
 														<br>
-														${free.category }&nbsp;${free.title }
+														<font class="gofreeDetail" seq="${free.seq }">${free.title }</font>
 													</td>
 													
 													<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
@@ -322,6 +329,27 @@ $(document).ready(function(){
 	}
 	%>
 	
+	<%
+	for(int i = 0; i< freelist.size();i++){
+	%>
+		var code = $("#boardcode<%=i%>").attr("code");
+	
+		if(code == 'DOG'){
+			$("#boardcode<%=i%>").text("강아지");
+		}
+		else if(code =='CAT'){
+			$("#boardcode<%=i%>").text("고양이");
+		}
+		else{
+			$("#boardcode<%=i%>").text("기타 소동물");
+		}
+	<%
+	}
+	%>
+		
+	
+	
+	
 	var frmdata = $("#frm").serialize();
 	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
 	
@@ -335,6 +363,11 @@ $(document).ready(function(){
 		else{			
 			location.href="detailPlay.do?seq="+seq;
 		}
+	});
+	
+	$(".gofreeDetail").on("click", function(){
+		var seq = $(this).attr("seq");	
+		location.href="freeboard_boarddetail.do?seq="+seq;
 	});
 });
 
