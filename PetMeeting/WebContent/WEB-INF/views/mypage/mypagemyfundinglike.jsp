@@ -59,13 +59,13 @@ MemberDto member=(MemberDto) request.getSession().getAttribute("login");
        
         
           <div id="section${i.index}">
-
             
+         
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-4">
-                      <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
+                      <img src="/PetMeeting/fundingFileupload/${fund.thumbnail}" alt="" class="mysize">
               <!--     <img src="${fund.thumbnail }" alt=""> -->  
                   </div>
                   <div class="col-md-4">

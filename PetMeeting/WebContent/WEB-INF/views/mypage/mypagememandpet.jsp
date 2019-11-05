@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/css/profile.css">
+	href="${pageContext.request.contextPath}/mypage_resources/mypage_h/mypageFollow/css/profile.css?after">
 
 </head>
 <body style="overflow-x:hidden; overflow-y:auto;" >
