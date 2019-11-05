@@ -31,19 +31,14 @@
  </header>
  <!-- Header part end-->
  
-	<div class="mainTitle">
-		<div class="container">
-			<div class="row align-content-center">
-                <div class="col-lg-7 col-xl-6">
-					<div class="banner_text">
-		    			<h5>PetMeeting</h5>
-		    			<h1>공지</h1>
-		    			<h5>공지 입니다. 회원님들은 잘 확인해주세요</h5>                        
-					</div>    
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- 게시판 소개 부분 -->
+  	<div class="container">
+   		<div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="${pageContext.request.contextPath}/common/img/megaphone.png" width="60px">&nbsp;공지사항</span>
+        <span id="mainTitle-info">펫미팅에서 알립니다!</span>                                                 
+       </div>
+	 </div>
  
 <div class="container">
 <form id="frm" class="nofrm">

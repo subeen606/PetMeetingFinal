@@ -373,8 +373,9 @@ public class StoreAdminController {
 	
 	
 	@RequestMapping(value = "adorderlist.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String adorderlist(Model model, OrderParam param, String ordernumber) {
+	public String adorderlist(Model model, OrderParam param, String ordernumber, String deliveryOrdernumber) {
 		System.out.println("------------------------------------ adorderlist 들왔다! ");
+		System.out.println("adorder" + param.toString());
 		
 		int pageNumber = param.getPageNumber();
 		int totalRecordCount = orderService.getAdminOrderListCount(param);
@@ -400,9 +401,13 @@ public class StoreAdminController {
 		
 		
 		if(ordernumber != null) {
-			System.out.println("if od : " +ordernumber);
+//			System.out.println("if od : " +ordernumber);
 			orderService.updateOrderStatus(ordernumber);
+		}else if(deliveryOrdernumber != null) {
+//			System.out.println("else if od : " + deliveryOrdernumber);
+			orderService.updateDeliveryComplete(deliveryOrdernumber);
 		}
+		
 		
 		return "admin/store/adorderlist";
 	}
@@ -577,5 +582,14 @@ public class StoreAdminController {
 		jsonMap.put("update", update);
 		
 		return jsonMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "adproductchange.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adproductchange(int refund_seq) {
+		
+		orderService.updateChangeComplete(refund_seq);
+		
+		return "admin/store/adrefundlist";
 	}
 }

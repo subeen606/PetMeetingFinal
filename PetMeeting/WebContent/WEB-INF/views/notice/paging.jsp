@@ -65,7 +65,7 @@ if((pageNumber + 1) % pageCountPerScreen == 0){
 
 %>
 
-<div style="margin:60px; width: 96%; text-align: center;">
+<div style="margin-top:60px; width: 96%; text-align: center;">
 	<!-- << (첫 페이지) -->
 	<a href="#none" title="처음 페이지" onclick="goPage('0')">
 		<img alt="" src="playboard_resources/img/firstPage.png" style="width: 15px; height: 15px; vertical-align: middle;">

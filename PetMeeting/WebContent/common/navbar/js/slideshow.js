@@ -1,6 +1,6 @@
 var slideIndex = 1;
 var autoIndex = 0;
-//autoSlides();
+autoSlides();
 showSlides();
 
 function autoSlides(){
@@ -12,7 +12,7 @@ function autoSlides(){
   autoIndex++;
   if (autoIndex > slides.length) {autoIndex = 1}
   slides[autoIndex-1].style.display = "block";
-  setTimeout(autoSlides, 5000); // Change image every 2 seconds
+  setTimeout(autoSlides, 8000); // Change image every 2 seconds
   slideIndex=autoIndex;
 }
 

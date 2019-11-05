@@ -17,7 +17,7 @@
 	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/playboardDetail.css?after">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/bootstrap.min.css?after">   
-
+ 	<link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/memberDropdown.css">
 </head>
 <body>
 
@@ -163,9 +163,9 @@
 	<div class="playContent">
 		<div class="infoTitle"><span class="bigTxt">모임 예상비용</span></div>
 		<div class="price-area">
-			<fmt:formatNumber type="number" maxFractionDigits="3" value="${detail.price }"/>원
+			<fmt:formatNumber type="number" maxFractionDigits="3" value="${detail.price }"/>원		
 			<div class="priceInfo">
-				모임 예상비용은 주최자가 정한 금액으로, 모임시 증가 혹은 감소될 수 있습니다. 
+				<img src="${pageContext.request.contextPath}/playboard_resources/img/exclamation-mark.png" width="20px" style="vertical-align: sub;">&nbsp;모임 예상비용은 주최자가 정한 금액으로, 모임시 증가 혹은 감소될 수 있습니다. 
 			</div>
 		</div>
 		
@@ -371,9 +371,11 @@
 	</form>
 </div>
 
-   <!--::footer part start::--> 
-    	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-    <!-- footer part end-->
+<!--::footer part start::--> 
+<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+<!-- footer part end-->
+
+<script src="${pageContext.request.contextPath}/common/navbar/js/memberDropdown.js"></script>
 <script type="text/javascript">
 $(function () {	
 		
@@ -543,7 +545,6 @@ $(function () {
 		$("#pagingFrm").attr("action", "detailPlay.do").submit();
 	});
 	
-
 	/* 닉네임 클릭시 드롭다운 div 보이게 하기  */
 	$(".dropdown").click(function () {			
 		$("#memberProfileFrm input[name='nickname']").val($(this).attr("nickname"));
@@ -568,22 +569,7 @@ $(function () {
 			});
 		}		 			
 	});
-	
-	/* 스크롤 움직일 경우 드롭다운 div 제거 */
-	$(window).scroll(function(event){ 
-		$(".memberDropDown").css("display", "none");
-	});	
-	$(".memberProfile").scroll(function(event) {
-		$(".memberDropDown").css("display", "none");
-	});
-	/* 다른 곳 클릭 시 드롭다운 div 제거 */
-	$(window).click(function(event){
-		//alert($(event.target).attr('class'));		
-		if($(event.target).attr('class') != "dropdown"){
-			$(".memberDropDown").css("display", "none");
-		} 
-	});
-	
+
 	/* 드롭다운 멤버 신고 */
 	$("#reportMember").click(function () {
 		//alert($("#memberProfileFrm input[name='nickname']").val());
@@ -591,7 +577,7 @@ $(function () {
 			alert("자기 자신은 신고할 수 없습니다");
 			return false;
 		}else{
-			var formdata = $("#memberProfileFrm").serialize();
+		//	var formdata = $("#memberProfileFrm").serialize();
 		//	$("#memberProfileFrm").attr({"action":"memberReport.do", "method":"post"}).submit();
 		/*	
 			$.ajax({
@@ -615,8 +601,8 @@ $(function () {
 				
 		}		
 	});
-	
-	
+
+
 	/* 드롭다운 쪽지보내기 */
 	$('#writeMsg').on("click",function() {
 		if($("#memberProfileFrm input[name='bad_email']").val() == $("#memberProfileFrm input[name='email']").val()){
@@ -628,7 +614,7 @@ $(function () {
 			window.open(url, name, option);
 		} 
 	});
-	
+
 	/* 드롭다운 프로필보기 */
 	$("#viewMemberProfile").click(function () {
 		var url =  "mypagefollowprofile.do?email="+$("#memberProfileFrm input[name='bad_email']").val();
@@ -637,7 +623,7 @@ $(function () {
 		
 		window.open(url, name, option);
 	});
-	
+
 	/* 드롭다운 팔로우하기 */
 	$("#follow").click(function () {
 		if($("#memberProfileFrm input[name='bad_email']").val() == $("#memberProfileFrm input[name='email']").val()){
@@ -663,6 +649,23 @@ $(function () {
 		}
 		
 	});
+	 
+	/* 스크롤 움직일 경우 드롭다운 div 제거 */
+	$(window).scroll(function(event){ 
+		$(".memberDropDown").css("display", "none");
+	});	
+	$(".memberProfile").scroll(function(event) {
+		$(".memberDropDown").css("display", "none");
+	});
+	/* 다른 곳 클릭 시 드롭다운 div 제거 */
+	$(window).click(function(event){
+		//alert($(event.target).attr('class'));		
+		if($(event.target).attr('class') != "dropdown"){
+			$(".memberDropDown").css("display", "none");
+		} 
+	});
+	
+
 	
 /* 지도 출력 */
 var geocoder = new kakao.maps.services.Geocoder();

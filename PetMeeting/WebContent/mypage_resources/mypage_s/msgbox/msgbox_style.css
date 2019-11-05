@@ -50,6 +50,9 @@ textarea {
 	border-radius: 5px;
 	border: solid 1px #d6dade;
 	padding-left: 10px;
+	resize: none;
+	padding: 10px;
+	outline: none;
 }
 
 .msg-container, .title-container{
@@ -85,6 +88,7 @@ textarea {
     width: 100px;
     border: 0.5px solid #f1eeeb;
     border-radius: 5px;
+    outline: none;
 }
 
 .btn-container>#deleteBtn{
@@ -94,6 +98,7 @@ textarea {
     width: 100px;
 	border: 0.2px solid #eae6e1;
 	border-radius: 5px;
+	 outline: none;
 }
 
 /* WRITE MSG WINDOW */
