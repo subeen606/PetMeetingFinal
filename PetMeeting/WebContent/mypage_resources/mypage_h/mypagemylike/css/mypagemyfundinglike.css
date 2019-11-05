@@ -60,8 +60,8 @@ button:hover {
 	height:30px;
 }
 .mysize{
-	width:500px;
-	height:auto;
+	width:auto;
+	max-height:250px;
 }
 .col-md-6{
 	width:500px!important;
