@@ -75,6 +75,7 @@ $(document).ready(function(){
 		var toEmail = $("#input-rev").val();
 		var content = $("textarea[name='content']").val();
 		if(toEmail == null || toEmail == ""){
+			console.log("입력체크체크체크체크");
 			$("#input-rev").attr("placeholder","받는 사람을 입력해주세요");
 			$("#input-rev").addClass('input-rev-result');
 			$("#input-rev").focus();

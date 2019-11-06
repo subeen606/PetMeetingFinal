@@ -111,5 +111,11 @@ FROM PM_MEMBER
 WHERE NICKNAME = #{nickname}
 </select>
 
+<!-- 비밀번호 변경 -->
+<update id="passwordUpdate" parameterType="com.petmeeting.joy.login.model.MemberDto">
+UPDATE PM_MEMBER
+SET PWD = #{pwd }
+WHERE EMAIL=#{email }
+</update>
 
 </mapper>
