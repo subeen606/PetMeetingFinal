@@ -5,9 +5,9 @@
 <%@page import="com.petmeeting.joy.freeboard.model.CommentDto"%>
 <%@page import="com.petmeeting.joy.freeboard.model.FreeboardDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,174 +15,166 @@
 <meta charset="UTF-8">
 <title>PetMeeting-자유게시판</title>
 <link rel="stylesheet" href="freeboard_resources/css/bootstrap.css">
-<link rel="stylesheet" href="freeboard_resources/css/freeboard_style.css">
+<link rel="stylesheet" href="freeboard_resources/css/freeboard_style.css?after">
 </head>
 <body>
 <!--::header part start::-->
-<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>    
+<jsp:include page="/common/navbar/templates/header.jsp" flush="false" />
 <!-- Header part end-->
 
 <%
-	MemberDto user = (MemberDto)request.getSession().getAttribute("login");
-%>
-<%
-	FreeboardDto dto = (FreeboardDto)request.getAttribute("dto");
-%>
-<%
-	CommentDto cmdto = (CommentDto)request.getAttribute("commentdto");
-%>
+	MemberDto user = (MemberDto) request.getSession().getAttribute("login");
+	FreeboardDto dto = (FreeboardDto) request.getAttribute("dto");
+	CommentDto cmdto = (CommentDto) request.getAttribute("commentdto");
 
-
+	String from2 = dto.getRegdate();
+	SimpleDateFormat transFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	Date to2 = transFormat2.parse(from2);
+%>
 <br><br>
-
-
-
-
 <div class="container">
-
-<%	String from2 = dto.getRegdate();
-  	SimpleDateFormat transFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-   	Date to2 = transFormat2.parse(from2); 	%>
 <br><br>
- <span><strong>${dto.category}</strong></span> <span id="cCnt"></span><br>
- 	<h1>${dto.title}</h1>
- 		
-		<span style="font-size:20px">
-		
-		
-		
-			<c:if test= "${dto.myprofile_img eq null}">
-			<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" style="width:30px; height:30px;" >
+	<span><strong>${dto.category}</strong></span>
+		<h1>${dto.title}</h1>
+		<span style="font-size: 20px">
+			<c:if test="${dto.myprofile_img eq null}">
+				<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" style="width: 30px; height: 30px;">
 			</c:if>
-			<c:if test= "${not empty dto.myprofile_img}">
-			<img src="${pageContext.request.contextPath}/upload/${dto.myprofile_img}" style="width:30px; height:30px;" >
+			 
+			<c:if test="${not empty dto.myprofile_img}">
+				<img src="${pageContext.request.contextPath}/upload/${dto.myprofile_img}" style="width: 30px; height: 30px;">
 			</c:if>
-			<img src="freeboard_resources/gradeimg/${dto.filename}" style="width:25px; height:25px;" >&nbsp;&nbsp;${dto.nickname}
-			</span>
-				<span style="float:right"><img width="30px" id="reportBtn" height="30px" src="freeboard_resources/images/report.png" style="cursor: pointer;" onclick="reportBtn()"></span>
-				<span style="float:right; margin-right: 3px">조회수: ${dto.readcount}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-				<span style="float:right;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-				<span style="float:right">좋아요: <div class="likeke" id="ttest">${dto.likecount}</div></span>
-				<span style="float:right">작성일: <%=transFormat2.format(to2)%>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-				<br><br><br>
-					<span style="min-height:100px;">${dto.content}</span>
-				<br>
+				 <img src="freeboard_resources/gradeimg/${dto.filename}" class="grade-icon">${dto.nickname} 
+		</span> 
+		<span style="float: right"><img id="reportBtn" src="freeboard_resources/images/report.png" style="cursor: pointer;" onclick="reportBtn()"></span>
+		<span style="float: right; margin-right: 3px">조회수:${dto.readcount}&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+		<span style="float: right;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		<span style="float: right">좋아요:<font class="likeke" id="ttest">${dto.likecount}</font></span>
+		<span style="float: right">작성일: <%=transFormat2.format(to2)%>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		<br><br><br> 
+		<span style="min-height: 100px;">${dto.content}</span>
+		<br>
 
 </div>
 
-
 <div class="container">
 <br>
-	<div  style="text-align:center">
+	<div style="text-align: center">
 		<c:if test="${not empty login }">
 			<c:if test="${like == false }">
 				<img class="heartImg" width="30px" height="30px" src="freeboard_resources/images/dislike.png" style="cursor: pointer;" onclick="liketest()">
-		</c:if>
 			</c:if>
+		</c:if>
 		<c:if test="${not empty login }">
-			 <c:if test="${like == true }">
+			<c:if test="${like == true }">
 				<img class="heartImg" width="30px" height="30px" src="freeboard_resources/images/like.png" style="cursor: pointer;" onclick="liketest()">
-		</c:if>
 			</c:if>
-			
-		<input type="button" id="_btnlist" value="글목록" style="background-color:#585e7d;float: right; margin-left:2%; border: 1px solid #585e7d;" onclick="location.href='freeboard_listview.do?board_code=${dto.board_code}'">
-			
-		<c:if test="${dto.email eq login.email}">
-			
-			<input type="button" id="_btnlist" value="삭제" style="background-color:#585e7d; float: right; margin-left:2%; border: 1px solid #585e7d;" onclick="delfb(${dto.seq},'${dto.board_code }')">
-			
-			<input type="button" id="_btnlist" value="수정" style="background-color:#585e7d; float: right; margin-left:2%; border: 1px solid #585e7d;" onclick="location.href='freeboard_boardmodify.do?seq=${dto.seq}'">
-								
 		</c:if>
-							
+		<input type="button" id="_btnlist" value="글목록" style="background-color: #585e7d; float: right; margin-left: 2%; border: 1px solid #585e7d;" onclick="location.href='freeboard_listview.do?board_code=${dto.board_code}'">
 
-
+		<c:if test="${dto.email eq login.email}">
+			<input type="button" id="_btnlist" value="삭제"
+				style="background-color: #585e7d; float: right; margin-left: 2%; border: 1px solid #585e7d;"
+				onclick="delfb(${dto.seq},'${dto.board_code }')">
+				
+			<input type="button" id="_btnlist" value="수정"
+				style="background-color: #585e7d; float: right; margin-left: 2%; border: 1px solid #585e7d;"
+				onclick="location.href='freeboard_boardmodify.do?seq=${dto.seq}'">
+		</c:if>
 	</div>
 </div>
 
-
-
-
 <div>
- <form name="testForm" id="testForm">
-<input type="hidden" name="board_seq" value="${dto.seq}"/>
-<input type="hidden" name="board_code" value="${dto.board_code}"/>
-<input type="hidden" name="email" value="${login.email}"/>
-</form>
-
- <form name="test2Form" id="testForm">
-<input type="hidden" name="board_seq" value="${dto.seq}"/>
-<input type="hidden" name="board_code" value="${dto.board_code}"/>
-<input type="hidden" name="email" value="${login.email}"/>
-</form>
+	<form name="testForm" id="testForm">
+		<input type="hidden" name="board_seq" value="${dto.seq}" /> 
+		<input type="hidden" name="board_code" value="${dto.board_code}" />
+		<input type="hidden" name="email" value="${login.email}" />
+	</form>
 </div>
 <br>
-
+<!-- ===============================코멘트================================ -->
 <%
-	List<CommentDto> cmlist = (List<CommentDto>)request.getAttribute("cmlist");
+	List<CommentDto> cmlist = (List<CommentDto>) request.getAttribute("cmlist");
 %>
 <div class="container">
-    <form id="commentListForm" name="commentListForm" method="post">
-        <div id="commentList">
-        	<br><br>
-        	<div>
-            	<div>
-                <span><strong>댓글</strong></span> <span id="cCnt"></span> <span id="cCnt"></span> <span id="cCnt"></span> <span id="cCnt"></span>
-            	</div>
-            		<div>
-            		 <table class="table" style="word-wrap:break-word;word-break:break-all;">
-        				<thead>
-                            <tr>
-                                <th class="th1"></th>
-                                <th class="th2" style="word-break:break-all"></th>
-                                <th class="th3"></th>
-                                <th class="th4"></th>
-                                <th class="th5"></th>
-                                <th class="th6"></th>
-                                <th class="th7"></th>
-                                <th class="th8"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                         <%
-                         	for(int i = 0; i < cmlist.size(); i++) { 
-                                                 	CommentDto cm = cmlist.get(i);
-                                                 	String from = cm.getRegdate();
-                                                 	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                                                 	Date to = transFormat.parse(from);  
-                                                 	String email = cm.getEmail();
-                                                 	String loginemail = user.getEmail();
-                                                 	
-                                                 	
-                         %>
-                         <%if(cmlist.size() == '0'){%>
-                        	 <tr><td>작성된 댓글이 없습니다.</td></tr>
-                         <%}%>
-                        	<%if(cm.getDel() == 0){ %>
-                            <tr>
-                            	<td rowspan="2">
-                            	<%
-                           if(cm.getDepth() !=0){
-							%>		<img src='freeboard_resources/images/reply.png' width="20px" height="20px" />
-							<%}%>	
-							
-							
-							
-							
-							
-                                <%if(cm.getMyprofile_img() == null) {%>
-                                <img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="50px" class="profilephoto" height="50px" style="position:; margin-right: 50px; float:center;">
-                                <%}else{ %>
-                                <img src="${pageContext.request.contextPath}/upload/<%=cm.getMyprofile_img() %>" class="profilephoto" width="50px" height="50px" style="position:; margin-right: 50px; float:center;">
-                                <%} %>
-                                </td>
-                               	<td style="word-break:break-all"><img src="freeboard_resources/gradeimg/<%=cm.getFilename() %>" style="width:30px; height:30px;" >&nbsp;&nbsp;&nbsp;<%=cm.getNickname() %></td>
-                                <td style="word-break:break-all"><%=transFormat.format(to) %></td>
-                                <td style="word-break:break-all"><div class='cmlike' id='cmlikecount' display='inline' ><%=cm.getLikecount() %></div>&nbsp;&nbsp;&nbsp;<img src="freeboard_resources/images/like.png" width="20px" height="20px" onclick="commentlikecheck(this,<%=cm.getSeq()%>)" style="cursor: pointer;"></td>
-                                <td style="word-break:break-all"><img src=freeboard_resources/images/delete.png width="20px" height="20px" onclick="cmdeletebtn('<%=cm.getEmail() %>',<%=cm.getSeq()%>,${dto.seq},<%=cm.getRef() %>,<%=cm.getStep() %>)" style="cursor: pointer;"></td>
-                            	<td style="word-break:break-all" >
-                            	
-                            	<%if(cm.getEmail() != null){ %>
+	<form id="commentListForm" name="commentListForm" method="post">
+		<div id="commentList">
+		<br><br>
+			<div>
+				<div>
+					<span><strong>댓글</strong></span>
+				</div>
+				<div>
+					<table class="table" style="word-wrap: break-word; word-break: break-all;">
+						<thead>
+							<tr>
+								<th class="th1"></th>
+								<th class="th2" style="word-break: break-all"></th>
+								<th class="th3"></th>
+								<th class="th4"></th>
+								<th class="th5"></th>
+								<th class="th6"></th>
+								<th class="th7"></th>
+								<th class="th8"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = 0; i < cmlist.size(); i++) {
+									CommentDto cm = cmlist.get(i);
+									String from = cm.getRegdate();
+									SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+									Date to = transFormat.parse(from);
+									String email = cm.getEmail();
+									String loginemail = user.getEmail();
+							%>
+							<%
+								if (cmlist.size() == '0') {
+							%>
+							<tr>
+								<td>작성된 댓글이 없습니다.</td>
+							</tr>
+							<%
+								}
+							%>
+							<%
+								if (cm.getDel() == 0) {
+							%>
+							<tr>
+								<td rowspan="2">
+									<%
+									if (cm.getDepth() != 0) {
+									%> 
+										<img src='freeboard_resources/images/reply.png' width="20px" height="20px" /> 
+									<%
+ 									}
+ 									%> 
+									<%
+									 if (cm.getMyprofile_img() == null) {
+									%> 
+ 										<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="50px" class="profilephoto" height="50px" style="position:; margin-right: 50px; float: center;">
+ 									<%
+ 									} else {
+									%> 
+									<img src="${pageContext.request.contextPath}/upload/<%=cm.getMyprofile_img() %>" class="profilephoto"> 
+									<%
+ 									}
+									%>
+								</td>
+								<td style="word-break: break-all">
+								<img src="freeboard_resources/gradeimg/<%=cm.getFilename()%>" class="grade-icon"><%=cm.getNickname()%>
+								</td>
+								<td style="word-break: break-all"><%=transFormat.format(to)%></td>
+								<td style="word-break: break-all">
+									<div class='cmlike' id='cmlikecount' display='inline'><%=cm.getLikecount()%></div>&nbsp;&nbsp;&nbsp;
+									<img src="freeboard_resources/images/like.png" width="20px" height="20px" onclick="commentlikecheck(this,<%=cm.getSeq()%>)" style="cursor: pointer;">
+								</td>
+								<td style="word-break: break-all">
+									<img src=freeboard_resources/images/delete.png width="20px" height="20px" onclick="cmdeletebtn('<%=cm.getEmail() %>',<%=cm.getSeq()%>,${dto.seq},<%=cm.getRef() %>,<%=cm.getStep() %>)" style="cursor: pointer;">
+								</td>
+								<td style="word-break: break-all">
+								
+										<%-- <%if(cm.getEmail() != null){ %>
                             	<%=cm.getEmail() %>
                             	<%=user.getEmail() %>
                             	<%} %>
@@ -194,89 +186,103 @@
                             	<%if(user.getEmail() != null){ %>
                             	<%=user.getEmail() %>
                             	<%} %> 
-                            	
-                            	
-                            	
-                            	
-                            	<div id="reply-click<%=cm.getSeq()%>"><img src="freeboard_resources/images/modify.png" width="20px" height="20px" onclick="updateOpenReply(this,<%=cm.getSeq()%>,'<%=cm.getEmail() %>')" style="cursor: pointer;"></div>
-                            	
-                            	</td>
-                            	<td style="word-break:break-all"><div id="replycomment-click<%=cm.getSeq()%>">
-                            	<img src="freeboard_resources/images/reply.png" width="20px" height="20px" onclick="recommentOpenReply(this,<%=cm.getSeq()%>)" style="cursor: pointer;"></div></td>
-                            	<td style="word-break:break-all"><img src="freeboard_resources/images/report.png" width="20px" height="20px" onclick="cmreportBtn(<%=cm.getSeq()%>,<%=cm.getEmail() %>)" style="cursor: pointer;"></td>
-                           </tr>
-                           <tr>
-                           <td colspan="8" style="text-align:left; word-break:break-all; font-size:20px"  id="reply<%=cm.getSeq()%>"><%=cm.getContent() %></tr>                     	
-                        	<%
-                        }
-                        }
-                        %> 
-                        </tbody>
-           	</table>
-	       	</div>
-	        </div>
-        <input type="hidden" id="b_code" name="b_code" value="" /> 
-       
-        </div>
-    </form>
-</div>
+                            	 --%>
+									<div id="reply-click<%=cm.getSeq()%>">
+										<img src="freeboard_resources/images/modify.png" width="20px" height="20px" onclick="updateOpenReply(this,<%=cm.getSeq()%>,'<%=cm.getEmail()%>')" style="cursor: pointer;">
+									</div>
 
-<div class="container">
-    <!-- <form id="commentwriteinfo" action='writedowncomment.do' name="commentform"> -->
-    <form id="commentwriteinfo" name="commentform">
-    
-         <div>
-            <div>
-                <span><strong>댓글 입력</strong></span> <span id="cCnt"></span>
-            </div>
-            <div>
-                <table class="table">                    
-                    <tr>
-                        <td style="word-break:break-all">
-                            <textarea style="width: 1100px" maxLength="300" rows="3" cols="30" class="reply_content" id="comment" name="content" placeholder="댓글을 입력하세요"></textarea>
-                             
-                            
-                            <!-- <textarea style="width: 1100px" rows="5" cols="85" id="comment" class="reply_content" name="content" placeholder="댓글을 입력하세요" onKeyUp="javascript:fnChkByte(this,'80')"></textarea> -->
-                            <div>	
-                            <input type="hidden" name="seq" value="${dto.seq}">
-							<input type="hidden" name="board_code" value="${dto.board_code}">
-							<input type="hidden" name="board_seq" value="${dto.seq}">
-							<input type="hidden" name="parent_comm" value="0">
-							<input type="hidden" name="email" value="${login.email}" readonly> 
-							<input type="hidden" name="likecount" value="0">
-							<input type="hidden" name="reportcount" value="0">
-							<input type="hidden" name="regdate" value="0">
-							<input type="hidden" name="del" value="0">
-							<input type="button" class="btn pull-right btn-success" id="_btnlist" style=" float:right;background-color:#585e7d; border: 1px solid #585e7d" onclick="nullcheckcm()" value="등록">
-							</div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <input type="hidden" id="b_code" name="b_code" value="" />        
-    </form>
-</div>
-<div class="container">
-<table>
-<tr><td><br><br></td>
-</tr>
-</table>
-</div>
+									</td>
+									
+									
+									<td style="word-break: break-all"><div
+											id="replycomment-click<%=cm.getSeq()%>">
+											<img src="freeboard_resources/images/reply.png" width="20px"
+												height="20px"
+												onclick="recommentOpenReply(this,<%=cm.getSeq()%>)"
+												style="cursor: pointer;">
+										</div></td>
+									<td style="word-break: break-all"><img
+										src="freeboard_resources/images/report.png" width="20px"
+										height="20px"
+										onclick="cmreportBtn(<%=cm.getSeq()%>,<%=cm.getEmail()%>)"
+										style="cursor: pointer;"></td>
+								</tr>
+								<tr>
+									<td colspan="8"
+										style="text-align: left; word-break: break-all; font-size: 20px"
+										id="reply<%=cm.getSeq()%>"><%=cm.getContent()%>
+								</tr>
+								<%
+									}
+									}
+								%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<input type="hidden" id="b_code" name="b_code" value="" />
 
-<!--::footer part start::-->    
-<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
-<!-- footer part end-->
+			</div>
+		</form>
+	</div>
+
+	<div class="container">
+		<!-- <form id="commentwriteinfo" action='writedowncomment.do' name="commentform"> -->
+		<form id="commentwriteinfo" name="commentform">
+
+			<div>
+				<div>
+					<span><strong>댓글 입력</strong></span> <span id="cCnt"></span>
+				</div>
+				<div>
+					<table class="table">
+						<tr>
+							<td style="word-break: break-all"><textarea
+									style="width: 1100px" maxLength="300" rows="3" cols="30"
+									class="reply_content" id="comment" name="content"
+									placeholder="댓글을 입력하세요"></textarea> <!-- <textarea style="width: 1100px" rows="5" cols="85" id="comment" class="reply_content" name="content" placeholder="댓글을 입력하세요" onKeyUp="javascript:fnChkByte(this,'80')"></textarea> -->
+								<div>
+									<input type="hidden" name="seq" value="${dto.seq}"> <input
+										type="hidden" name="board_code" value="${dto.board_code}">
+									<input type="hidden" name="board_seq" value="${dto.seq}">
+									<input type="hidden" name="parent_comm" value="0"> <input
+										type="hidden" name="email" value="${login.email}" readonly>
+									<input type="hidden" name="likecount" value="0"> <input
+										type="hidden" name="reportcount" value="0"> <input
+										type="hidden" name="regdate" value="0"> <input
+										type="hidden" name="del" value="0"> <input
+										type="button" class="btn pull-right btn-success" id="_btnlist"
+										style="float: right; background-color: #585e7d; border: 1px solid #585e7d"
+										onclick="nullcheckcm()" value="등록">
+								</div></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<input type="hidden" id="b_code" name="b_code" value="" />
+		</form>
+	</div>
+	<div class="container">
+		<table>
+			<tr>
+				<td><br> <br></td>
+			</tr>
+		</table>
+	</div>
+
+	<!--::footer part start::-->
+	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false" />
+	<!-- footer part end-->
 
 
-<input type="hidden" class="hdboardcode" value="${dto.board_code}">
-<input type="hidden" class="hdboardseq" value="${dto.seq}">
-<input type="hidden" class="hdemail" value="${login.email}">
-<input type="hidden" class="hdref" value="${cmdto.ref}">
-<input type="hidden" class="hdstep" value="${cmdto.step}">
-<input type="hidden" class="hddepth" value="${cmdto.depth}">
+	<input type="hidden" class="hdboardcode" value="${dto.board_code}">
+	<input type="hidden" class="hdboardseq" value="${dto.seq}">
+	<input type="hidden" class="hdemail" value="${login.email}">
+	<input type="hidden" class="hdref" value="${cmdto.ref}">
+	<input type="hidden" class="hdstep" value="${cmdto.step}">
+	<input type="hidden" class="hddepth" value="${cmdto.depth}">
 
-<script>
+	<script>
 var btn;
 var btnlocation;
 var mydiv;

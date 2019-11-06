@@ -29,10 +29,17 @@ font-size: 30px;
 }
 
 .profilephoto{
-	width: 100px; height: 100px;
+	width: 80px; height: 80px;
    	object-fit: cover;
-    border-radius: 50%;}
-
+    border-radius: 50%;
+    margin-right: 50px; 
+    float:center;
+    }
+    
+.grade-icon{
+	width:23px;
+	height:23px;
+}
 .th1{	width:150px;}
 .th2{	width:800px;}    /* style="word-break:break-all" */
 .th3{	width:400px;}
@@ -78,12 +85,16 @@ button {
 	font-family: NanumSquareRound;
 }
 #_writebtn{
+	margin:20px 0;
 	border-radius: 8px;
 	width:155px;
 	height:50px;
 	color:white;
 	font-family:NanumSquareRound;
 	font-size: 30px;
+	float: right;
+	z-index:1;
+	display:inline-block;
 	
 }
 input{
@@ -116,7 +127,7 @@ input{
    border-bottom: 1px solid #f4f4f4;
     padding-top: 70px;
     padding-bottom: 50px;
-    margin-bottom: 70px;
+
 }
 #mainTitle-petmeeting{
    font-size: 13px;
@@ -136,9 +147,18 @@ input{
    
 #reportBtn{
 	position: relative;
-	top:-10px;
+	top:-5px;
+	height: 23px;
+	width:23px;
+	transform:translateX(-20px);
 }
 
-
-
-
+#_frmFormSearch>.container .right-side{
+	display:-webkit-inline-box;
+	float:right;
+}
+#soltingForm>.sort-container{
+	float:left;
+}
+.container .searchbar{
+}
