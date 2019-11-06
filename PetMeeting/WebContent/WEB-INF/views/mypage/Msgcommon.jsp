@@ -26,8 +26,8 @@
 
 	<div class="input-area">
 		<font id="recipient"><b>받는사람</b>&nbsp;</font>${msg.nickname} <font></font>
-		<input type="hidden" name="nickname" >
-	
+		<input type="hidden" name="nickname" value="${msg.nickname}">
+		<input type="hidden" name="to_email" value="${msg.to_email }">
 		<br><br>
 		<textarea id="_content" name="content" ></textarea>
 	</div>

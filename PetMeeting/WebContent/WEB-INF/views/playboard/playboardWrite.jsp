@@ -185,6 +185,21 @@
 
 <script src="${pageContext.request.contextPath}/playboard_resources/datepicker/datepicker.js"></script>
 <script type="text/javascript">
+$(document).on("keyup", "input[name='price']", function () {
+    var $this = $(this);
+    var num = $this.val().replace(/[^0-9]/g,"");
+ 
+    var parts = num.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    $this.val(parts.join("."));
+    
+    if(num > 100000){
+    	alert("모임비용은 10만원 이하로 설정해 주세요!");
+    	$("input[name='price']").val("");
+    	$("input[name='price']").focus();
+    }
+});
+
 $(function () {
 	var today = new Date();
 	var tomorrow = new Date();
@@ -349,6 +364,10 @@ $(function () {
 			alert("모임 예상비용을 입력해주세요! 예상비용이 없는 경우 0을 입력하시면 됩니다.");
 			$("input[name='price']").focus();
 			return false;
+		}else{
+			 var price = $("input[name='price']").val();
+			 var num = price.replace(/[^0-9]/g,"");
+			 $("input[name='price']").val(num);
 		}
 		
 		if($.trim($("input[name='people']").val()) == ""){
@@ -366,6 +385,7 @@ $(function () {
 			alert("대표 사진을 첨부해주세요!");
 			return false;
 		}
+		
 		
 		$("#boardWriteFrm").attr("action", "makePlayAf.do").submit();
 	});

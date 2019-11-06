@@ -28,24 +28,25 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
-import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
-import com.petmeeting.joy.playboard.Util.DateUtil;
-import com.petmeeting.joy.playboard.model.MyProfileDto;
-import com.petmeeting.joy.playboard.model.PlayMemDto;
-import com.petmeeting.joy.playboard.model.PlayboardDateBean;
+import com.petmeeting.joy.freeboard.model.CommentDto;
+import com.petmeeting.joy.freeboard.model.FbParam;
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
+import com.petmeeting.joy.freeboard.service.FreeboardService;
 import com.petmeeting.joy.funding.model.DayBean;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.funding.util.FUpUtil;
-import com.petmeeting.joy.login.model.MemberDto;
-import com.petmeeting.joy.mypage.util.MypageDateUtil;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
+import com.petmeeting.joy.mypage.util.MypageDateUtil;
+import com.petmeeting.joy.playboard.Util.DateUtil;
 import com.petmeeting.joy.playboard.model.MyProfileDto;
 import com.petmeeting.joy.playboard.model.PlayMemDto;
+import com.petmeeting.joy.playboard.model.PlayboardDateBean;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardHashTagDto;
 import com.petmeeting.joy.playboard.model.PlayboardQnADto;
@@ -71,15 +72,20 @@ public class AdminCotroller {
 	@Autowired
 	OrderService orderService;
 	
+	@Autowired
+	FreeboardService freeboardService;
+	
 	
 	@RequestMapping(value = "adminMain.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminMain(Model model, QnaParam param) {
 
 		/*PetMeeting*/
 		int todayPlayCount = adminService.getTodayPlay();			// 오늘 올라온 소모임 게시글 수
+		int todayFreeCount = adminService.getTodayFree();			// 오늘 올라온 자유게시판 게시글 수
 		int todayEndFundCount = adminService.getTodayEndFunding();		// 오늘 마감된 펀딩 수
 		
 		model.addAttribute("todayPlayCount", todayPlayCount);
+		model.addAttribute("todayFreeCount", todayFreeCount);
 		model.addAttribute("todayEndFundCount", todayEndFundCount);
 		
 		List<AdminMemberDto> reportlist = adminService.getReportTop5();
@@ -523,7 +529,7 @@ public class AdminCotroller {
 	/*funding 관리자*/
 	@RequestMapping(value = "adminFundingList.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminFundingList(Model model, fundingBean fbean) {
-		System.out.println("펀딩 리스트에 들어온 admin: " + fbean.toString());
+		//System.out.println("펀딩 리스트에 들어온 admin: " + fbean.toString());
 		
 		int totalfundingCount = adminService.getFundingCount(fbean);
 		int sn = fbean.getPageNumber();
@@ -561,7 +567,7 @@ public class AdminCotroller {
 		
 		for(int i=0; i<Sseq.length; i++) {
 			seq[i] = Integer.parseInt(Sseq[i]);
-			System.out.println("들어온 seq : " + seq[i] );
+			//System.out.println("들어온 seq : " + seq[i] );
 
 			adminService.deletefunding(seq[i]);
 			}
@@ -610,7 +616,7 @@ public class AdminCotroller {
 	/*수정*/
 	@RequestMapping(value = "fundUpdate.do",method = {RequestMethod.GET,RequestMethod.POST})
 	public String fundUpdate(int seq, Model model) {
-		System.out.println("들어옴: " + seq);
+		//System.out.println("들어옴: " + seq);
 		FundingDto dto = adminService.fundingDetail(seq);
 		model.addAttribute("dto", dto);
 		return "admin/fundingboard/fundingUpdate";
@@ -638,12 +644,12 @@ public class AdminCotroller {
 					e.printStackTrace();
 				}
 			
-		System.out.println("수정Af에 들어온 dto: " + dto.toString());
-		System.out.println("수정Af에 들어온 bean: " +bean.toString());
+		//System.out.println("수정Af에 들어온 dto: " + dto.toString());
+		//System.out.println("수정Af에 들어온 bean: " +bean.toString());
 		
 		boolean b = adminService.fundUpdate(dto,bean);
 		if(b) {
-			System.out.println("업데이트 성공");
+			//System.out.println("업데이트 성공");
 			
 			
 			List<FundMemberDto> memList = adminService.whofundingMem(dto.getSeq());
@@ -787,6 +793,40 @@ public class AdminCotroller {
 		return "redirect:/noticeList.do";
 	}
 	
+	/*공지게시판 회원에게 보여줄 리스트*/
+	@RequestMapping(value = "noticeboard.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeboard(fundingBean bean, Model model) {
+
+		int totalCount = adminService.noticeListcount(bean);
+		int sn = bean.getPageNumber();
+		
+		int start = sn * bean.getRecordCountPerPage() + 1;
+		bean.setStart(start);
+		int end = (sn + 1) * bean.getRecordCountPerPage();
+		if( end > totalCount ) {
+			end  = totalCount;
+		}
+		bean.setEnd(end);
+		List<NoticeBoardDto> list = adminService.getnoticeList(bean);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("f_keyword", bean.getF_keyword());
+		model.addAttribute("f_categorys", bean.getF_categorys());
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", bean.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalCount);
+		
+		return "notice/noticeboardList";
+	}
+	
+	@RequestMapping(value = "noticeboardDetail.do",method = {RequestMethod.GET,RequestMethod.POST})
+	public String noticeboardDetail(int seq, Model model) {
+		adminService.noticeReadCount(seq);
+		NoticeBoardDto dto = adminService.noticeDetail(seq);
+		model.addAttribute("dto", dto);
+		return "notice/noticeboardDetail";
+	}
 	
 	/*회원탈퇴 통계 */
 	@RequestMapping(value = "adminMemleavegraph.do",method = {RequestMethod.GET,RequestMethod.POST})
@@ -841,5 +881,72 @@ public class AdminCotroller {
 		
 		return "admin/memberleave/memleavegraph";
 	}
+
 	
+	// 관리자페이지 자유게시판 리스트 불러오기
+		@RequestMapping(value="adminFreeboardList.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String admin(FbParam param, Model model) {
+			System.out.println("----------------페이지 : " + param.getPageNumber());
+			
+			//페이징
+			int sn = param.getPageNumber();		// 0 1 2 
+			int start = sn * param.getRecordCountPerPage() + 1;	// 1  11 
+			int end = (sn + 1) * param.getRecordCountPerPage();	// 10 20
+			
+			param.setStart(start);
+			param.setEnd(end);				
+					
+			List<FreeboardDto> list = freeboardService.getfbadminList(param);
+			//List<FreeboardDto> list = adminService.getfbadminList(param);
+			
+			int totalRecordCount = freeboardService.getfbadminCount(param);
+			//int totalRecordCount = adminService.getfbadminCount(param);
+			
+			System.out.println("리스트 사이즈 : " + list.size());
+			System.out.println("총 글의 갯수 : " + totalRecordCount);
+			
+			
+			//paging
+			model.addAttribute("pageNumber", sn);
+			model.addAttribute("pageCountPerScreen", 10);
+			model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+			model.addAttribute("totalRecordCount", totalRecordCount);
+			//param
+			model.addAttribute("board_code", param.getBoard_code());
+			model.addAttribute("s_category", param.getS_category());
+			model.addAttribute("s_keyword", param.getS_keyword());
+			model.addAttribute("category", param.getCategory());
+			model.addAttribute("sorting", param.getSorting());
+
+			model.addAttribute("list", list);
+			
+			return "admin/freeboard/freeboardList";
+		}
+		
+		
+		
+		// 자유게시판 관리자 글삭제
+		@RequestMapping(value= "adminFreeboardDelete.do", method= {RequestMethod.GET, RequestMethod.POST})
+		public String adminFreeboardDelete(HttpServletRequest req) {
+			System.out.println("관리자삭제옴");
+			String[] dels = req.getParameterValues("deleteboard");
+			for (int i = 0; i < dels.length; i++) {
+				this.adminService.Freeboardadmindelete(Integer.parseInt(dels[i]));}
+			return "redirect:adminFreeboardList.do";
+		}
+		
+		
+		@RequestMapping(value="adminFreeboardDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String adminFreeboardDetail(Model model, int seq, HttpServletRequest req) throws Exception {
+			
+			FreeboardDto fb = adminService.getfreeboardadmindetail(seq);
+			model.addAttribute("dto", fb);
+				
+			List<CommentDto> cmlist = adminService.getfreeboardadmincmlist(seq);
+			model.addAttribute("cmlist", cmlist);
+			
+			
+			return "admin/freeboard/freeboardDetail";
+		}
+		
 }

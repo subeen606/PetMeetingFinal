@@ -12,15 +12,17 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
-import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
+import com.petmeeting.joy.freeboard.model.CommentDto;
+import com.petmeeting.joy.freeboard.model.FbParam;
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
-import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -287,6 +289,11 @@ public class AdminDaoImpl implements AdminDao {
 	public int getTodayPlay() {
 		return sqlSession.selectOne(namespace + "getTodayPlay");
 	}
+	
+	@Override
+	public int getTodayFree() {
+		return sqlSession.selectOne(namespace + "getTodayFree");
+	}
 
 	@Override
 	public int getTodayEndFunding() {
@@ -302,5 +309,47 @@ public class AdminDaoImpl implements AdminDao {
 	public void noticeUpdate(NoticeBoardDto dto) {
 		sqlSession.update(namespace + "noticeUpdate", dto);
 	}
+
+	@Override
+	public void noticeReadCount(int seq) {
+		sqlSession.update(namespace + "noticeReadCount", seq);
+	}
+
+	@Override
+	public int getfbadminCount(FbParam param) {
+		return sqlSession.selectOne("freeboard.getfbadminCount", param);
+	}
+
+	@Override
+	public List<FreeboardDto> getfbadminList(FbParam param) {
+		return sqlSession.selectList("freeboard.getfbadminList", param);
+	}
+
+	@Override
+	public List<CommentDto> getfreeboardcmList(int seq) {
+		return sqlSession.selectList("freeboard.getcmList", seq);
+	}
+
+	@Override
+	public void Freeboardadmindelete(int seq) {
+		sqlSession.delete("freeboard.Freeboardadmindelete", seq);
+	}
+
+	@Override
+	public FreeboardDto getfreeboardadmindetail(int seq) {
+		return sqlSession.selectOne("freeboard.getdetail", seq);
+	}
+
+	@Override
+	public List<CommentDto> getfreeboardadmincmList(int seq) {
+		return sqlSession.selectList("freeboard.getcmList", seq);
+	}
+
+	@Override
+	public List<ReportDto> getadminreport(ReportDto reportdto) {
+		return sqlSession.selectList("freeboard.getadminreport", reportdto);
+	}
+
+	
 
 }

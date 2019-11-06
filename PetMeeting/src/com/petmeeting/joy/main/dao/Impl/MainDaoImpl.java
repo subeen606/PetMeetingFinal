@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.petmeeting.joy.admin.model.EventboardDto;
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.main.dao.MainDao;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 
@@ -21,6 +22,11 @@ public class MainDaoImpl implements MainDao {
 	@Override
 	public List<PlayboardDto> getTodayPlayboards() {
 		return sqlSession.selectList(namespace+"getTodayPlayboards");
+	}
+
+	@Override
+	public List<FreeboardDto> getTodayFreeboards() {
+		return sqlSession.selectList(namespace+"getTodayFreeboards");
 	}
 
 	@Override

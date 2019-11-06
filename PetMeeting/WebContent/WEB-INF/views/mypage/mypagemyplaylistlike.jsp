@@ -82,7 +82,7 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-4">
-                      <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
+                       <img src="/PetMeeting/playboardUpload/${attend.filename }" alt="" class="mysize">
               <!--     <img src="${attend.filename }" alt=""> -->  
                   </div>
                   <div class="col-md-4">
@@ -109,6 +109,8 @@
                 </div>
               </div>
             </section>
+            
+            
 
 			<hr>
           </div>
@@ -121,7 +123,12 @@
  <div id="js-btn-wrap" class="btn-wrap"><a href="javascript:;" class="moreBtn" style="color:#23527c">LOAD MORE</a> </div>
 
 </div>
-
+<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
 
 				</div>
 			</div>

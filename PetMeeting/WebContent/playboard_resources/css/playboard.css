@@ -11,16 +11,33 @@ div{
 }
 
 .mainTitle{
-	background-color: #fff1b9;
+	border-bottom: 1px solid #f4f4f4;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
 }
-
+#mainTitle-petmeeting{
+	font-size: 13px;
+	display: block;
+	padding-bottom: 15px;
+}
+#mainTitle-boardname{
+	font-size: 37px;
+	display: block;
+	padding-bottom: 20px;
+	font-weight: bold;
+}
+#mainTitle-info{
+	font-size: 15px;
+	display: block;
+}
 .playboardContainer{
 	width: 100%;
 	/* padding-left: 7%;
 	padding-right: 7%;  */
 	/* border: 2px solid lime; */
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 250px;
 }
 .playCategoryDiv{
 	text-align: left;
@@ -139,6 +156,8 @@ input{
 	cursor: pointer;
 	margin-top: 5px;
 	display: inline-block;
+	overflow: hidden;
+	height: 35px;
 }
 
 .playDate{

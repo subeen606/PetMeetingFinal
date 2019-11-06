@@ -1,3 +1,4 @@
+<%@page import="com.petmeeting.joy.freeboard.model.FreeboardDto"%>
 <%@page import="com.petmeeting.joy.playboard.model.PlayboardDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -19,6 +20,7 @@
 <%
 	List<PlayboardDto> joinlist = (List<PlayboardDto>) request.getAttribute("myattendList");
 	List<PlayboardDto> makelist = (List<PlayboardDto>) request.getAttribute("mymakeList");
+	List<FreeboardDto> freelist = (List<FreeboardDto>) request.getAttribute("flwerFreeList");
 	String jsonData = (String)request.getAttribute("jsonData");
 	System.out.println("jsonData 체크 : " + jsonData);
 %>
@@ -195,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								</div>
 							</div>
 							<div class="left-box">
-									 <label for="flwer-play-activity">나의 구독하는 사람 최신 소모임</label>
+									 <label for="flwer-play-activity">팔로잉 최신 소모임</label>
 									 <div class="flwer-activity">
 											<table id="flwer-play-activity">
 												<col width="15%"><col width="55%"><col width="25%">
@@ -220,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												                   		<img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
 												                   	</c:if>
 												                   	<c:if test="${not empty play.myprofile_img  }">
-												                   		<img src="${play.myprofile_img }" class="list-profileimg">
+												                   		<img src="upload/${play.myprofile_img }" class="list-profileimg">
 												                   	</c:if>
 																<br>
 																${play.nickname }
@@ -237,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												</table>
 									</div>
 									
-									 <label for="flwer-free-activity">나의 구독하는 사람 최신 게시글</label>
+									 <label for="flwer-free-activity">팔로잉 최신 게시글</label>
 									 <div class="flwer-activity">
 											<table id="flwer-free-activity">
 											<!-- 팔로워 프로필 사진, 닉네임  / [보드코드] 타이틀, 소모임의 경우   /레지데이트  -->
@@ -257,15 +259,20 @@ document.addEventListener('DOMContentLoaded', function() {
 													<jsp:setProperty property="date1" name="dateUtil" value="${free.regdate }"/>
 													<tr>
 													<td>
-														<img src="${free.myprofile_img }" class="list-profileimg">
+														<c:if test="${empty free.myprofile_img || free.myprofile_img eq ''}">
+												             <img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
+												        </c:if>
+												        <c:if test="${not empty free.myprofile_img  }">
+															<img src="upload/${free.myprofile_img }" class="list-profileimg">
+														</c:if>
 														<br>
 														${free.nickname }
 													</td>
 													
 													<td align="left">
-														${free.sort }
+														[<font id="boardcode${i.index }" seq="${free.seq }" code="${free.board_code }"></font>&nbsp; - &nbsp;${free.category }]
 														<br>
-														${free.category }&nbsp;${free.title }
+														<font class="gofreeDetail" seq="${free.seq }">${free.title }</font>
 													</td>
 													
 													<td><jsp:getProperty property="dateString1" name="dateUtil"/></td>
@@ -310,17 +317,38 @@ $(document).ready(function(){
 	<%
 	for(int i = 0; i< makelist.size();i++){
 	%>
-		$(".ffe7c1").text("모집");
+		$(".c2d7e1").text("모집");
 	<%
 	}
 	%>
 	<%
 	for(int i = 0; i< joinlist.size();i++){
 	%>
-		$(".ff9c3d").text("참여");
+		$(".8893cc").text("참여");
 	<%
 	}
 	%>
+	
+	<%
+	for(int i = 0; i< freelist.size();i++){
+	%>
+		var code = $("#boardcode<%=i%>").attr("code");
+	
+		if(code == 'DOG'){
+			$("#boardcode<%=i%>").text("강아지");
+		}
+		else if(code =='CAT'){
+			$("#boardcode<%=i%>").text("고양이");
+		}
+		else{
+			$("#boardcode<%=i%>").text("기타 소동물");
+		}
+	<%
+	}
+	%>
+		
+	
+	
 	
 	var frmdata = $("#frm").serialize();
 	$(".plistcontent").load("mypagehomePointHistoryList.do?frmdata=" +frmdata);
@@ -335,6 +363,11 @@ $(document).ready(function(){
 		else{			
 			location.href="detailPlay.do?seq="+seq;
 		}
+	});
+	
+	$(".gofreeDetail").on("click", function(){
+		var seq = $(this).attr("seq");	
+		location.href="freeboard_boarddetail.do?seq="+seq;
 	});
 });
 

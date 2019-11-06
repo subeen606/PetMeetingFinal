@@ -35,13 +35,14 @@
 	
 	  <div class="mySlides fade">
 	    <div class="numbertext">2 / 3</div>
-	    <img src="${pageContext.request.contextPath}/common/img/slide(2).jpg">
-	   
+	    <a href="fundingDetail.do?board_seq=1&seq=1&email=${login.email}&board_code=FUND">
+	    <img src="${pageContext.request.contextPath}/common/img/slide(2).png">
+	    </a>	   
 	  </div>
 	
 	  <div class="mySlides fade">
 	    <div class="numbertext">3 / 3</div>
-	     <img src="${pageContext.request.contextPath}/common/img/slide(3).jpg">
+	     <a href="eventDetail.do?seq=5"><img src="${pageContext.request.contextPath}/common/img/slide(3).png"></a>
 	   
 	  </div>
 	
@@ -104,11 +105,11 @@
    	 	<div class="newBoard">
    	 		<div class="boardTitle">자유게시판 최신글</div>
    	 	
-		    <c:if test="${empty todayPlayboard }">오늘 올라온 소모임 없음</c:if>
-		    <c:if test="${not empty todayPlayboard }">
-		    	<c:forEach items="${todayPlayboard }" var="pList">
-		    		<a class="playboardAnchor" seq="${pList.seq }">
-		    			<font class="newicon">NEW</font>&nbsp;${pList.title }
+		    <c:if test="${empty todayFreeboard }">오늘 올라온 자유게시판 글 없음</c:if>
+		    <c:if test="${not empty todayFreeboard }">
+		    	<c:forEach items="${todayFreeboard }" var="fList">
+		    		<a class="freeboardAnchor" seq="${fList.seq }">
+		    			<font class="newicon">NEW</font>&nbsp;${fList.title }
 		    		</a>
 		    	</c:forEach>
 		    
@@ -140,6 +141,15 @@ $(document).on('click', '.playboardAnchor', function(){
 		location.href="login.do";
 	}else{
 		location.href="detailPlay.do?seq="+$(this).attr("seq");
+	}
+});
+
+$(document).on('click', '.freeboardAnchor', function(){
+	if("${login.email }" == ""){
+		alert("로그인을 하셔야 글을 보실 수 있습니다.");
+		location.href="login.do";
+	}else{
+		location.href="freeboard_boarddetail.do?seq="+$(this).attr("seq");
 	}
 });
 

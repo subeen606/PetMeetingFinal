@@ -90,9 +90,11 @@
     	<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
     <!-- footer part end-->
 <script type="text/javascript">
-
+$("select[name='sortingType']").val("${searchBean.sortingType }").attr("selected", "selected");
 
 $(document).on('click', '.titleAnchor', function(){
+	
+	
 	if("${login.email }" == ""){
 		alert("로그인을 하셔야 글을 보실 수 있습니다.");
 		location.href="login.do";

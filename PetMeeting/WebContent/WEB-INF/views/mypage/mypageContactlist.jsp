@@ -39,10 +39,10 @@
 					<c:forEach items="${myfollowinglist }" var="following" varStatus="i">
 						<tr>
 							<c:if test="${following.myprofile_img == null}">						
-								<td><img src="./mypage_resources/mypage_s/images/unknown.png" class="flw-img"></td>
+								<td><img src="./mypage_resources/mypage_s/images/user.png" class="flw-img"></td>
 							</c:if>
 							<c:if test="${following.myprofile_img != null}">		
-								<td><img src="${following.myprofile_img }" class="flw-img"></td>
+								<td><img src="upload/${following.myprofile_img }" class="flw-img"></td>
 							</c:if>
 							<td align="left" style="padding:15px">
 								<b>${following.nickname}</b>

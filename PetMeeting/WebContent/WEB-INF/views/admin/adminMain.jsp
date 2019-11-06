@@ -84,11 +84,11 @@ ul li {
         			<div>
         				<div class="circle playboard">
         					<img alt="" src="${pageContext.request.contextPath }/admin_resources/images/group.png" style="padding-top: 20px">
-        					<p style="color: white">추가 된 소모임<br><a href="adminPlayboardList.do" style="color: white;">${todayPlayCount } 건</a></p>
+        					<p style="color: white">추가된 소모임<br><a href="adminPlayboardList.do" style="color: white;">${todayPlayCount } 건</a></p>
         				</div>
         				<div class="circle freeboard">
         					<img alt="" src="${pageContext.request.contextPath }/admin_resources/images/notepad.png" style="padding-top: 20px">
-        					<p style="color: white">추가된 게시글<br><a href="" style="color: white;"> 건</a></p>
+        					<p style="color: white">추가된 게시글<br><a href="" style="color: white;"> ${todayFreeCount } 건</a></p>
         				</div>
         				<div class="circle fundingboard">
         					<img alt="" src="${pageContext.request.contextPath }/admin_resources/images/sponsored.png" style="padding-top: 20px">
@@ -130,6 +130,7 @@ ul li {
         			</div>
         			<div>
         				<div class="circle">
+        				
         					<img alt="" src="${pageContext.request.contextPath }/admin_resources/images/credit-card.png" style="padding-top: 20px">
         					<p style="color: white">오늘의 주문<br><a href="adorderlist.do" style="color: white;">${todayOrderCount } 건</a></p>
         				</div>
@@ -174,23 +175,7 @@ ul li {
         				</ul>
        				</div>
         		</div>
-        		<%-- 
-        		<div class="section left-bottom-bottom">
-        			<div class="sub-title" style="text-align: left;">
-        				클레임현황
-        			</div>
-        			<div>
-        				<div class="cancel">
-        					<img alt="" src="${pageContext.request.contextPath }/admin_resources/images/delivery-truck.png" style="padding-top: 20px">
-        					<p style="color: white">주문취소<br>${deliveryIngCount } 건</p>
-        				</div>
-        				<div class="refund">
-        				</div>
-        				<div class="change">
-        				</div>
-       				</div>
-        		</div>
-        		 --%>
+
 			</div>
 			
 		</div>

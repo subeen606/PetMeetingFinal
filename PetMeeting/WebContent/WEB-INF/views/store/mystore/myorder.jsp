@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PetMeeting Store</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -464,6 +464,8 @@ $(".s-btn").on("click", function () {
 			data : {"ordernumber" : on},
 			success : function() {
 				alert("주문이 취소됐습니다.");
+				
+				location.reload();
 			},
 			error : function() {
 				alert("err");

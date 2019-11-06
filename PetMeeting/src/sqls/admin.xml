@@ -589,12 +589,22 @@
 		WHERE SEQ=#{seq}
 	</update>
 
-
-      
+	<!-- 공지 ReadCount -->
+      <update id="noticeReadCount" parameterType="java.lang.Integer">
+      UPDATE PM_NOTICEBOARD
+      SET READCOUNT = READCOUNT+1
+      WHERE SEQ=#{seq}
+      </update>
       
       <!-- 오늘 올라온 소모임 수 -->
 	<select id="getTodayPlay" resultType="java.lang.Integer">
 		SELECT NVL(COUNT(*), 0) FROM PM_PLAYBOARD
+		WHERE SUBSTR(REGDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
+	</select>
+	
+      <!-- 오늘 올라온 자유 게시판 수 -->
+	<select id="getTodayFree" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0) FROM PM_FREEBOARD
 		WHERE SUBSTR(REGDATE, 1, 9) = SUBSTR(SYSDATE, 1, 9)
 	</select>
 	

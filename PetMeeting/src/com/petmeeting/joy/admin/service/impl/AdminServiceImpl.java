@@ -1,7 +1,6 @@
 package com.petmeeting.joy.admin.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,13 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
-import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
+import com.petmeeting.joy.freeboard.model.CommentDto;
+import com.petmeeting.joy.freeboard.model.FbParam;
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.DayBean;
 import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
@@ -24,7 +26,6 @@ import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
 import com.petmeeting.joy.playboard.Util.DateUtil;
-import com.petmeeting.joy.playboard.Util.PlayboardUtil;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
 
@@ -77,9 +78,9 @@ public class AdminServiceImpl implements AdminService {
 	/* 관리자에의한 소모임 글 삭제(DB에서 삭제) */
 	@Override
 	public void deletePlayboard(int seq) {
-		adminDao.deletePlayboard(seq);
-		adminDao.deletePlayMem(seq);
 		adminDao.deletePlayboardQnA(seq);
+		adminDao.deletePlayMem(seq);
+		adminDao.deletePlayboard(seq);		
 	}
 	
 	/* 게시판 신고 내역 뽑기 */
@@ -412,6 +413,11 @@ public class AdminServiceImpl implements AdminService {
 	public int getTodayPlay() {
 		return adminDao.getTodayPlay();
 	}
+	
+	@Override
+	public int getTodayFree() {
+		return adminDao.getTodayFree();
+	}
 
 	@Override
 	public int getTodayEndFunding() {
@@ -426,6 +432,49 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void noticeUpdate(NoticeBoardDto dto) {
 		adminDao.noticeUpdate(dto);
+	}
+
+	@Override
+	public void noticeReadCount(int seq) {
+		adminDao.noticeReadCount(seq);
+	}
+	
+
+	@Override
+	public int getfbadminCount(FbParam param) {
+		return adminDao.getfbadminCount(param);
+	}
+
+	@Override
+	public List<FreeboardDto> getfbadminList(FbParam param) {
+		return adminDao.getfbadminList(param);
+	}
+
+	
+	@Override
+	public List<CommentDto> getfreeboardcmlist(int seq) {
+		// TODO Auto-generated method stub
+		return adminDao.getfreeboardcmList(seq);
+	}
+
+	@Override
+	public void Freeboardadmindelete(int seq) {
+		adminDao.Freeboardadmindelete(seq);	
+	}
+
+	@Override
+	public FreeboardDto getfreeboardadmindetail(int seq) {
+		return adminDao.getfreeboardadmindetail(seq);
+	}
+
+	@Override
+	public List<CommentDto> getfreeboardadmincmlist(int seq) {
+		return adminDao.getfreeboardadmincmList(seq);
+	}
+
+	@Override
+	public List<ReportDto> getadminreport(ReportDto reportdto) {
+		return adminDao.getadminreport(reportdto);
 	}
 	
 }

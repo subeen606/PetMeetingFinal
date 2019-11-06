@@ -45,15 +45,15 @@ button {
 	background-color: transparent;
 	display: inline-block;
 	padding: 8px 20px;
-	color: #8893cc!important;
-	border: 2px solid  #8893cc;
+	color: #585e7d!important;
+	border: 2px solid  #585e7d;
 	transition: all 0.5s;
 	cursor:pointer;
 }
 .primary-button a:hover,
 button:hover {
 	color: #fff!important;
-	background-color: #8893cc;
+	background-color: #585e7d;
 }
 
 .playicon{
@@ -61,8 +61,9 @@ button:hover {
 	height:30px;
 }
 .mysize{
-	width:auto;
-	max-height:250px;
+	width:375px;
+	height:255px;
+	object-fit: cover;
 }
 .col-md-6{
 	width:500px!important;
@@ -157,4 +158,8 @@ select{
 background-color:#e6e6e6;
 color:black;
 opacity:0.6;
+}
+.empty-playlist{
+	width: 95%;
+    text-align: center;
 }

@@ -45,14 +45,14 @@ button {
     background-color: transparent;
 	display: inline-block;
 	padding: 8px 20px;
-	color:  #ff9c3d;
-	border: 2px solid  #ff9c3d;
+	color:  #585e7d;
+	border: 2px solid  #585e7d;
 	transition: all 0.5s;
 }
 .primary-button a:hover,
 button:hover {
 	color: #fff;
-	background-color: #ff9c3d;
+	background-color: #585e7d;
 }
 
 .playicon{
@@ -60,8 +60,8 @@ button:hover {
 	height:30px;
 }
 .mysize{
-	width:500px;
-	height:auto;
+	width:auto;
+	max-height:250px;
 }
 .col-md-6{
 	width:500px!important;

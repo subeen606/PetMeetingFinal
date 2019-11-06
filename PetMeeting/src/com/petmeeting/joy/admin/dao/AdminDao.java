@@ -7,18 +7,19 @@ import com.petmeeting.joy.admin.model.BoardReportDto;
 import com.petmeeting.joy.admin.model.EventboardDto;
 import com.petmeeting.joy.admin.model.FundMemberDto;
 import com.petmeeting.joy.admin.model.MemberSearchBean;
-import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.Memberleaveparam;
+import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
+import com.petmeeting.joy.freeboard.model.CommentDto;
+import com.petmeeting.joy.freeboard.model.FbParam;
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
 import com.petmeeting.joy.funding.model.FMsgDto;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
 import com.petmeeting.joy.funding.model.fundingBean;
 import com.petmeeting.joy.mypage.model.MypageMemberleave;
-import com.petmeeting.joy.playboard.model.MsgDto;
 import com.petmeeting.joy.playboard.model.PlayboardDto;
 import com.petmeeting.joy.playboard.model.PlayboardSearchBean;
-import com.sun.org.apache.bcel.internal.generic.LUSHR;
 
 public interface AdminDao {
 	
@@ -103,10 +104,21 @@ public interface AdminDao {
 	public NoticeBoardDto noticeDetail(int seq);
 	public void noticeDelete(int seq);
 	public void noticeUpdate(NoticeBoardDto dto);
+	public void noticeReadCount(int seq);
 
 	/* main */
 	public int getTodayPlay();
+	public int getTodayFree();
 	public int getTodayEndFunding();
 	
 	public List<AdminMemberDto> getReportTop5();
+
+	public int getfbadminCount(FbParam param);
+	public List<FreeboardDto> getfbadminList(FbParam param);
+	public List<CommentDto> getfreeboardcmList(int seq);
+
+	public void Freeboardadmindelete(int seq);
+	public FreeboardDto getfreeboardadmindetail(int seq);
+	public List<CommentDto> getfreeboardadmincmList(int seq);
+	public List<ReportDto> getadminreport(ReportDto reportdto);
 }

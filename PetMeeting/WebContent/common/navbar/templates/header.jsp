@@ -29,9 +29,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/style.css">
     <!-- 우리가 추가한 css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css?after">
-    
+   
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/common/navbar/css/custom.css">
+   
 </head>
 <body>
 
@@ -59,8 +59,9 @@
 				        		 <div class="myDropDown">
 									<ul>
 										<li><a href="mypagehome.do">마이페이지</a></li>	
-										<li><a href="myrevmsg.do?recordCountPerPage=10">나의 쪽지함</a></li>									
-										<li><a href="logout.do">로그아웃</a></li>										
+										<li><a href="myrevmsg.do?recordCountPerPage=10">나의 쪽지함</a></li>			
+										<c:if test="${login.auth eq 8 }"><li><a href="adminMain.do">관리자 모드</a></li></c:if>						
+										<li><a href="logout.do">로그아웃&nbsp;<img src="${pageContext.request.contextPath}/common/img/logout.png" width="15px" /></a></li>										
 									</ul>
 								</div>			        		
 				        	</c:if>
@@ -113,14 +114,17 @@
                                     <li class="nav-item active">
                                         <a class="nav-link active" href="main.do">Home</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="noticeboard.do" class="nav-link">공지</a>
+                                    </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                          	자유게시판
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="">강아지</a>
-                                            <a class="dropdown-item" href="">고양이</a>
-                                             <a class="dropdown-item" href="">기타 소동물</a>
+                                             <a class="dropdown-item" href="freeboard_listview.do?board_code=DOG">강아지</a>
+                                            <a class="dropdown-item" href="freeboard_listview.do?board_code=CAT">고양이</a>
+                                             <a class="dropdown-item" href="freeboard_listview.do?board_code=ETC">기타 소동물</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">
@@ -142,9 +146,7 @@
     </header>
     <!-- Header part end-->
     
-    
-    
-    
+   
     
     <!-- jquery plugins here-->
     <!-- jquery -->
@@ -168,20 +170,22 @@
 
     
     
-    <script type="text/javascript">
-    $(function () {
-		$("#loginInfo").click(function () {
-			if($(".myDropDown").css("display") == "block" ){
-				$(".myDropDown").css("display", "none");
-			}else if($(".myDropDown").css("display") == "none" ){
-				$(".myDropDown").css("display", "block");
-			}
-		});
-		$(window).scroll(function(event){ 
+    
+    
+<script type="text/javascript">
+   $(function () {
+	$("#loginInfo").click(function () {
+		if($(".myDropDown").css("display") == "block" ){
 			$(".myDropDown").css("display", "none");
-		});	
+		}else if($(".myDropDown").css("display") == "none" ){
+			$(".myDropDown").css("display", "block");
+		}
 	});
-    </script>
+	$(window).scroll(function(event){ 
+		$(".myDropDown").css("display", "none");
+	});	
+});
+</script>
     
 
 <script type="text/javascript">

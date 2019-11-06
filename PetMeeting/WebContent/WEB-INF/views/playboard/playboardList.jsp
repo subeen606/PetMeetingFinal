@@ -24,26 +24,15 @@
     	<jsp:include page="/common/navbar/templates/header.jsp" flush="false"/>
     </header>
     <!-- Header part end-->
-    <c:if test="${login eq null}">
-	<script type="text/javascript">
-		alert("세션이 종료되었습니다. 다시 로그인 하세요");
-		location.href="login.do";
-	</script>
-	
-	</c:if>
-    <div class="mainTitle">
-        <div class="container">
-            <div class="row align-content-center">
-                <div class="col-lg-7 col-xl-6">
-                    <div class="banner_text">
-                        <h5>PetMeeting</h5>
-                        <h1>소모임</h1>
-                        <h5>소모임설명설명설명</h5>                        
-                    </div>    
-                </div>
-            </div>
-        </div>
- 	 </div>
+    
+    <!-- 게시판 소개 부분 -->
+  	<div class="container">
+   		<div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="${pageContext.request.contextPath}/playboard_resources/img/happiness.png" width="60px;">&nbsp;소모임</span>
+        <span id="mainTitle-info">펫미팅에서 반려동물에 대한 정보를 공유할 수 있는 친구, 나의 반려동물의 친구를 만나보세요!</span>                                                 
+       </div>
+	 </div>
        
     
     <!-- 소모임 목록 -->
@@ -216,12 +205,12 @@ $(function () {
 	
 	$("#makePlayBtn").click(function () {
 
-		if(${login.auth } != 3){
+		if("${login.auth }" == "1"){
 			var check = confirm("본인인증이 완료되어야 모임을 주죄하실 수 있습니다.\n본인인증을 하시겠습니까?");
 			if(check == true){
 				location.href="mypagePhoneCheck.do";
 			}
-		}else if(${login.auth } == 3){
+		}else{
 			location.href="makePlay.do";
 		}
 

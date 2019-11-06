@@ -37,6 +37,7 @@ h1, h2, h3, h4, h5, h6{
 	margin-top: 30px;
 }
 
+
 .primary-button a,
 button {
 	font-size: 14px;
@@ -45,14 +46,14 @@ button {
     background-color: transparent;
 	display: inline-block;
 	padding: 8px 20px;
-	color:  #ff9c3d!important;
-	border: 2px solid  #ff9c3d;
+	color:  #585e7d;
+	border: 2px solid  #585e7d;
 	transition: all 0.5s;
 }
 .primary-button a:hover,
 button:hover {
-	color: #fff!important;
-	background-color: #ff9c3d;
+	color: #fff;
+	background-color: #585e7d;
 }
 
 .playicon{
