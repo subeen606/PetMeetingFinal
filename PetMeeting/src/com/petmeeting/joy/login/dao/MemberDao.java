@@ -45,7 +45,8 @@ public interface MemberDao {
 	public MemberDto checkNickname(String nickname);
 	//public boolean snsAddMember(KakaoParam param); // sns 가입
 	
-	
+	// 비밀번호 변경
+	public boolean passwordUpdate(MemberDto dto);
 	
 	
 }

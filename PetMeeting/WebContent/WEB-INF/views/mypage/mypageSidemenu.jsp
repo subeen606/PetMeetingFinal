@@ -48,7 +48,7 @@
 			class="mysidebar_myprofileimg">
 		
 		<img alt=""
-			src="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/images/petprofile.png"
+			src="${pageContext.request.contextPath}/mypage_resources/common/sidemenu/images/petprofile.jpg"
 			class="mypetprofileimg">
 	
 		<!-- 들어온 프로필, 펫프로필 이미지 EL변수-->											

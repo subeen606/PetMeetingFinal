@@ -9,7 +9,6 @@ $(function() {
 	var address = $("input[name=address]", document.accountform);
 	var address_detail = $("input[name=address_detail]", document.accountform);
 	var phone = $("input[name=phone]", document.accountform);
-	/*var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;*/
 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	
 	
@@ -45,16 +44,14 @@ $(function() {
 	// ---------------------- tab키 제어 (id저장 체크박스로 포커스 이동방지)
 	phone.on({
 		keydown: function (e) {
-						
+					
 			if (e.keyCode == 9){
-				
 				if( $("#account-btn").prop("disabled") == true || phone.val() == '' ){
 					return false;
 				}
 				else{	
 					return true;
 				}
-				
 			}
 			else{
 				if($(this).val().length < 12){
@@ -139,9 +136,8 @@ $(function() {
 					
 					return false;
 				}	
-			}	
+			}
 		}
-		
 	});
 
 
@@ -366,42 +362,6 @@ $(function() {
 	
 	/* 닉네임 입력 event */
 	account_nickname.on({
-		blur:function(event){
-			/*
-			var check = /[^가-힣a-zA-Z0-9\-_]/gi;
-			
-			if( $(this).val() == ''){
-				//alert("닉네임은 필수 입력사항입니다");
-				$(this).addClass("inputcheck");
-				$(this).attr("placeholder","nickname은 필수 입력 사항입니다");
-				$(this).focus();
-				return false;
-			}
-			if ( check.test( $(this).val()) ){
-				if( $(this).val().length > 8 ) {
-					alert("닉네임은 8자 이내로 사용가능합니다.");
-					$(this).val($(this).val().substring(0, 8));
-					$(this).focus();
-				    return false;
-				 }
-				 else{
-					 alert("닉네임은 한,영,숫자, 특수문자 -,_만 입력가능 합니다.");
-					 $(this).val( $(this).val().replace(/[^가-힣a-zA-Z0-9\-_]/gi,'') );
-					 $(this).focus();
-				     return false;
-				 }
-			 }
-			if ( !check.test( $(this).val()) ){
-				if( $(this).val().length > 8 ) {
-					alert("닉네임은 8자 이내로 사용가능합니다.");
-					$(this).val($(this).val().substring(0, 8));
-					$(this).focus();
-				    return false;
-				 }
-			}
-			return true;
-			*/
-		},
 		keydown: function(event){
 			if(event.keyCode == 32){
 				alert("닉네임은 한,영,숫자, 특수문자 -,_만 입력가능 합니다.");
@@ -584,6 +544,8 @@ $(function() {
 			return true; 
 		},
 		keydown: function(event){
+			
+			
 			if( $(this).val().length >  20) {	// 글자수 제한			
 				alert("이름은 20자 이내로 사용가능합니다.");
 				$(this).val($(this).val().substring(0, 20));
@@ -800,7 +762,7 @@ $(function() {
 						success : function( msg ) {
 							alert("포인트지급 여부 msg = " + msg);
 							alert(JSON.stringify(msg));					
-							alert("로그인중...");							
+							alert("로그인중...");					
 							location.href = "main.do";
 						},fail : function(error) {
 							alert("loginPointCheck error");

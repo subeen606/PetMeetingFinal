@@ -71,19 +71,22 @@
 					
 					
 					
-					<!-- id저장 -->
-					<input type="checkbox" id="idSaveCheck">아이디저장
+					
 					
 					
 					<!-- 아이디,패스워드 찾기 -->
 					<div class="lg_links" align="center">
-					<span class="lg_link_find">
-					<a href="#" class="lg_find_text" data-clk="log_off.searchid">
-					아이디</a>·
-					<a href="#" class="lg_find_text" data-clk="log_off.searchpass">
-					비밀번호 찾기</a>
-					</span>
+						<!-- id저장 -->
+						<div class="lg_link_idsave">
+						<input type="checkbox" id="idSaveCheck"><span class="idsave_text">ID저장</span>
+						</div>
+						
+						<div class="lg_link_find">
+						<a href="javascript:emailfind()" class="lg_find_text">계정</a>·
+						<a href="javascript:emailfind()" class="lg_find_text">비밀번호 찾기</a>
+						</div>
 					</div>
+					
 					
 					<button type="button" class="submit-btn" id="login-btn">로그인</button>
 					
@@ -164,10 +167,18 @@ function sample6_execDaumPostcode() {
 
 // 휴대폰번호 하이픈 자동추가, 제어
 function inputPhoneNumber(obj) {
+	var regexp = /[^0-9\-]/gi;
+	var num = obj.value;
+	
+	if( regexp.test( num ) ){
+		alert("숫자만 입력 가능합니다");
+		obj.value = obj.value.replace(regexp, '');
+		return false;
+	}
 	
     var number = obj.value.replace(/[^0-9]/g, "");
     var phone = "";
-
+    
     if(number.length < 4) {
         return number;
     } else if(number.length < 7) {
@@ -191,25 +202,17 @@ function inputPhoneNumber(obj) {
 }
 
 
-/* 
-
-
-// 회원가입 버튼 활성/비활성
-if(account_email.val() != '' && account_pwd.val() != ''	&& account_nickname.val() != ''
- 			&& account_name.val() != '' && address.val() != ''
- 					&& phone.val() != '' ){
-	alert("공란없음");
-	$("#account-btn").prop("disabled", false);
-	$("#account-btn").css("background-color","#ff9c3d");
+// 이메일찾기
+function emailfind() {
+	
+	alert("emailfind클릭");
+	
+	var url = "emailfind.do";
+	var option = "scrollbars=no, left=200,top=200, width=650, height=530";
+	var name = "내 계정 찾기";
+	window.open(url, name, option);
+	
 }
-
-
-
-
- */
-
- 
-
 
 
 </script>
