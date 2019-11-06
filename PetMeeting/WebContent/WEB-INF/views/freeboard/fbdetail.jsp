@@ -33,24 +33,6 @@
 %>
 
 
-<div class="container">
-    		<div class="fbtitle" align="left" style="margin-top: 2%; margin-left: 2%;">
-    		
-    		<c:if test="${dto.board_code eq 'DOG'}">
-    		<input type="button" value="강아지 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	</c:if>
-	    	
-	    	<c:if test="${dto.board_code eq 'CAT'}">
-    		<input type="button" value="고양이 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	</c:if>
-	    	
-	    	
-	    	<c:if test="${dto.board_code eq 'ETC'}">
-    		<input type="button" value="기타 동물 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	</c:if>
-	    	</div>
-	    	
-</div>
 <br><br>
 
 
@@ -65,25 +47,32 @@
  <span><strong>${dto.category}</strong></span> <span id="cCnt"></span><br>
  	<h1>${dto.title}</h1>
  		
-		<span style="font-size:25px"><c:if test= "${dto.myprofile_img eq null}">
-			<img src="./profileimg/picture2.jpg" style="width:30px; height:30px;" >
+		<span style="font-size:20px">
+		
+		
+		
+			<c:if test= "${dto.myprofile_img eq null}">
+			<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" style="width:30px; height:30px;" >
 			</c:if>
 			<c:if test= "${not empty dto.myprofile_img}">
-			<img src="./profileimg/${dto.myprofile_img}" style="width:30px; height:30px;" >
+			<img src="${pageContext.request.contextPath}/upload/${dto.myprofile_img}" style="width:30px; height:30px;" >
 			</c:if>
-			<img src="freeboard_resources/gradeimg/${dto.filename}" style="width:30px; height:30px;" >&nbsp;&nbsp;${dto.nickname}
+			<img src="freeboard_resources/gradeimg/${dto.filename}" style="width:25px; height:25px;" >&nbsp;&nbsp;${dto.nickname}
 			</span>
+				<span style="float:right"><img width="30px" id="reportBtn" height="30px" src="freeboard_resources/images/report.png" style="cursor: pointer;" onclick="reportBtn()"></span>
 				<span style="float:right; margin-right: 3px">조회수: ${dto.readcount}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				<span style="float:right;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				<span style="float:right">좋아요: <div class="likeke" id="ttest">${dto.likecount}</div></span>
-				<span style="float:right">작성일: <%=transFormat2.format(to2)%>&nbsp;&nbsp;&nbsp;&nbsp;</span><br><br>
-					<span>${dto.content}</span>
-				
+				<span style="float:right">작성일: <%=transFormat2.format(to2)%>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<br><br><br>
+					<span style="min-height:100px;">${dto.content}</span>
+				<br>
 
 </div>
 
 
 <div class="container">
+<br>
 	<div  style="text-align:center">
 		<c:if test="${not empty login }">
 			<c:if test="${like == false }">
@@ -95,8 +84,7 @@
 				<img class="heartImg" width="30px" height="30px" src="freeboard_resources/images/like.png" style="cursor: pointer;" onclick="liketest()">
 		</c:if>
 			</c:if>
-		<img class="" width="50px" height="50px" src="freeboard_resources/images/report.png" style="cursor: pointer;" onclick="reportBtn()">
-<br>
+			
 		<input type="button" id="_btnlist" value="글목록" style="background-color:#585e7d;float: right; margin-left:2%; border: 1px solid #585e7d;" onclick="location.href='freeboard_listview.do?board_code=${dto.board_code}'">
 			
 		<c:if test="${dto.email eq login.email}">
@@ -162,8 +150,10 @@
                                                  	String from = cm.getRegdate();
                                                  	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                                  	Date to = transFormat.parse(from);  
-                                                 	
                                                  	String email = cm.getEmail();
+                                                 	String loginemail = user.getEmail();
+                                                 	
+                                                 	
                          %>
                          <%if(cmlist.size() == '0'){%>
                         	 <tr><td>작성된 댓글이 없습니다.</td></tr>
@@ -176,21 +166,43 @@
 							%>		<img src='freeboard_resources/images/reply.png' width="20px" height="20px" />
 							<%}%>	
 							
+							
+							
+							
+							
                                 <%if(cm.getMyprofile_img() == null) {%>
-                                <img src="./profileimg/picture2.jpg" width="70px" class="profilephoto" height="70px" style="position:; margin-right: 50px; float:center;">
+                                <img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="50px" class="profilephoto" height="50px" style="position:; margin-right: 50px; float:center;">
                                 <%}else{ %>
-                                <img src="./profileimg/<%=cm.getMyprofile_img() %>" class="profilephoto" width="70px" height="70px" style="position:; margin-right: 50px; float:center;">
+                                <img src="${pageContext.request.contextPath}/upload/<%=cm.getMyprofile_img() %>" class="profilephoto" width="50px" height="50px" style="position:; margin-right: 50px; float:center;">
                                 <%} %>
                                 </td>
-                               	<td style="word-break:break-all"><img src="./gradeimg/<%=cm.getFilename() %>" style="width:30px; height:30px;" >&nbsp;&nbsp;&nbsp;<%=cm.getNickname() %></td>
+                               	<td style="word-break:break-all"><img src="freeboard_resources/gradeimg/<%=cm.getFilename() %>" style="width:30px; height:30px;" >&nbsp;&nbsp;&nbsp;<%=cm.getNickname() %></td>
                                 <td style="word-break:break-all"><%=transFormat.format(to) %></td>
                                 <td style="word-break:break-all"><div class='cmlike' id='cmlikecount' display='inline' ><%=cm.getLikecount() %></div>&nbsp;&nbsp;&nbsp;<img src="freeboard_resources/images/like.png" width="20px" height="20px" onclick="commentlikecheck(this,<%=cm.getSeq()%>)" style="cursor: pointer;"></td>
                                 <td style="word-break:break-all"><img src=freeboard_resources/images/delete.png width="20px" height="20px" onclick="cmdeletebtn('<%=cm.getEmail() %>',<%=cm.getSeq()%>,${dto.seq},<%=cm.getRef() %>,<%=cm.getStep() %>)" style="cursor: pointer;"></td>
                             	<td style="word-break:break-all" >
-                            	<div id="reply-click<%=cm.getSeq()%>"><img src="freeboard_resources/images/modify.png" width="20px" height="20px" onclick="updateOpenReply(this,<%=cm.getSeq()%>,'<%=cm.getEmail() %>')" style="cursor: pointer;">
-                            	</div>
+                            	
+                            	<%if(cm.getEmail() != null){ %>
+                            	<%=cm.getEmail() %>
+                            	<%=user.getEmail() %>
+                            	<%} %>
+                            	
+                            	<%if(user.getEmail() != null){ %>
+                            	<%=user.getEmail() %>
+                            	<%} %> 
+                            	
+                            	<%if(user.getEmail() != null){ %>
+                            	<%=user.getEmail() %>
+                            	<%} %> 
+                            	
+                            	
+                            	
+                            	
+                            	<div id="reply-click<%=cm.getSeq()%>"><img src="freeboard_resources/images/modify.png" width="20px" height="20px" onclick="updateOpenReply(this,<%=cm.getSeq()%>,'<%=cm.getEmail() %>')" style="cursor: pointer;"></div>
+                            	
                             	</td>
-                            	<td style="word-break:break-all"><div id="replycomment-click<%=cm.getSeq()%>"><img src="freeboard_resources/images/reply.png" width="20px" height="20px" onclick="recommentOpenReply(this,<%=cm.getSeq()%>)" style="cursor: pointer;"></div></td>
+                            	<td style="word-break:break-all"><div id="replycomment-click<%=cm.getSeq()%>">
+                            	<img src="freeboard_resources/images/reply.png" width="20px" height="20px" onclick="recommentOpenReply(this,<%=cm.getSeq()%>)" style="cursor: pointer;"></div></td>
                             	<td style="word-break:break-all"><img src="freeboard_resources/images/report.png" width="20px" height="20px" onclick="cmreportBtn(<%=cm.getSeq()%>,<%=cm.getEmail() %>)" style="cursor: pointer;"></td>
                            </tr>
                            <tr>
@@ -235,7 +247,7 @@
 							<input type="hidden" name="reportcount" value="0">
 							<input type="hidden" name="regdate" value="0">
 							<input type="hidden" name="del" value="0">
-							<input type="button" class="btn pull-right btn-success" style=" float:right; background-color:#585e7d; border: 1px solid #585e7d" onclick="nullcheckcm()" value="등록">
+							<input type="button" class="btn pull-right btn-success" id="_btnlist" style=" float:right;background-color:#585e7d; border: 1px solid #585e7d" onclick="nullcheckcm()" value="등록">
 							</div>
                         </td>
                     </tr>
@@ -245,7 +257,12 @@
         <input type="hidden" id="b_code" name="b_code" value="" />        
     </form>
 </div>
-
+<div class="container">
+<table>
+<tr><td><br><br></td>
+</tr>
+</table>
+</div>
 
 <!--::footer part start::-->    
 <jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
@@ -465,10 +482,6 @@ $(document).on('click', '.writerecommentReply', function(){
 
 function liketest(){
 	
-	if("${dto.email }" == "${login.email }"){
-		alert("본인이 작성한글 좋아요 할 수 없습니다");
-		return false;
-	}
 
 	var aaa = $("form[name=testForm]").serialize();
 	$.ajax({
@@ -670,7 +683,7 @@ function reportBtn(){
 				 if(data == "OK"){
 					var option = "width = 500, height = 500, top = 100, left = 200, location = no, resizeable = no";
 					window.open("freeboard_boardReport.do?seq="+${dto.seq}, "report", option);
-					alert("신고완료");
+					
 				 }
 					else if(data == "NO"){
 					alert("신고는 한번만가능합니다");  

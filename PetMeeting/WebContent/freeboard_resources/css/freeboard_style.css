@@ -8,6 +8,15 @@ font-family:NanumSquareRound;
 font-size: 15px;
 
 }
+#__btnSearch{
+border-radius: 8px;
+width:80px;
+height:30px;
+color:white;
+font-family:NanumSquareRound;
+font-size: 15px;
+	
+}
 
 #boardtitle{
 border-radius: 8px;
@@ -43,8 +52,8 @@ font-size: 30px;
 
 .fb1{	width:100px;}
 .fb2{	width:100px; style="word-break:break-all"}
-.fb3{	width:800px;}
-.fb4{	width:150px;}
+.fb3{	width:750px;}
+.fb4{	width:200px;}
 .fb5{	width:130px;}
 .fb6{	width:100px;}
 .fb7{	width:100px;}
@@ -56,7 +65,7 @@ select {
 	border: 0px;
 	border-radius: 10px;
 	padding-left: 3px;
-	font-family: 'Open Sans', sans-serif;
+	font-family:NanumSquareRound;
 	background-color: #EAEAEA;
 	height:30px;
 	
@@ -66,7 +75,7 @@ button {
 	border-radius: 8px;
 	width:65px;
 	color:white;
-	font-family: 'Open Sans', sans-serif;
+	font-family: NanumSquareRound;
 }
 #_writebtn{
 	border-radius: 8px;
@@ -82,5 +91,54 @@ input{
 	border: 0px solid;
 	border-bottom: 1px solid grey;
 	width: 250px;
-	font-family: 'Open Sans', sans-serif;
+	font-family:NanumSquareRound;
 }
+#contentheight{
+	min-height : 1000px;
+	
+}
+#_writebtn{
+    width: 200px;
+    height: 45px;
+    border-radius: 3em;
+    background-color: #e0d9d2;
+    outline: none;
+    color: #715c54;
+    font-weight: 600;
+    border: none;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+
+
+.mainTitle{
+   border-bottom: 1px solid #f4f4f4;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    margin-bottom: 70px;
+}
+#mainTitle-petmeeting{
+   font-size: 13px;
+   display: block;
+   padding-bottom: 15px;
+}
+#mainTitle-boardname{
+   font-size: 37px;
+   display: block;
+   padding-bottom: 20px;
+   font-weight: bold;
+}
+#mainTitle-info{
+   font-size: 15px;
+   display: block;
+}
+   
+#reportBtn{
+	position: relative;
+	top:-10px;
+}
+
+
+
+

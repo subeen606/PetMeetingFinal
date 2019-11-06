@@ -39,38 +39,43 @@ if(keyword == null) keyword = "";
 %>
 
 <div class="container">
-    		<div class="fbtitle" align="left" style="margin-top: 2%; margin-left: 2%;">
-    		
-    		<c:if test="${board_code eq 'DOG'}">
-    		<input type="button" value="강아지 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	<!-- <img src="https://yt3.ggpht.com/a/AGF-l7_11bjFTJQPQdl3JJkBrAJtXJLYmMZVlrhAzA=s900-c-k-c0xffffffff-no-rj-mo" style="width:100px; height:100px; float: center; margin-top: 2%; margin-left: 2%;" > -->
-	    	</c:if>
-	    	
-	    	<c:if test="${board_code eq 'CAT'}">
-    		<input type="button" value="고양이 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	<!-- <img src="http://mblogthumb4.phinf.naver.net/20120709_39/hicatdog_1341820256722m5xnh_JPEG/ExoticShorthair21.jpg?type=w2" style="width:100px; height:100px; float: center; margin-top: 2%; margin-left: 2%;" > -->
-	    	</c:if>
-	    	
-	    	
-	    	<c:if test="${board_code eq 'ETC'}">
-    		<input type="button" value="기타 동물 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	<!-- <img src="http://plan-b.or.kr/files/attach/images/311/053/013/8f7656166e37a44f89b9cd15bbfe1778.jpg" style="width:100px; height:100px; float: center; margin-top: 2%; margin-left: 2%;" > -->
-	    	</c:if>
-	    	
-	    	<input type="button" value="관리자 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;" onclick="location.href='freeboard_admin.do'"">
-	    	
-	    	
-	    	
-	    	
-    	<c:if test="${not empty login }">
-	    	<!-- <div align="right" style="margin-top: 2%; margin-left: 2%;"> -->
-	    		<input type="button" value="글쓰기" id="_writebtn" style="background-color:#585e7d; border: 1px solid #585e7d; float: right; margin-top: 2%; margin-left: 2%;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
-	    	<!-- </div> -->
+<c:if test="${board_code eq 'DOG'}">
+         <div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="freeboard_resources/images/freeboardimg.png" width="60px">&nbsp;강아지 게시판</span>
+        <span id="mainTitle-info">강아지를 키우는 다른사람과 소통해보세요</span>
+        <c:if test="${not empty login }">
+	    		<input type="button" value="글쓰기" id="_writebtn" style="float: right; margin-top: 2%; margin-left: 2%;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
+    	</c:if>                                                 
+       </div>
+</c:if>
+
+
+<c:if test="${board_code eq 'CAT'}">
+         <div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="freeboard_resources/images/freeboardimg.png" width="60px">&nbsp;고양이 게시판</span>
+        <span id="mainTitle-info">고양이를 키우는 다른사람과 소통해보세요</span>                                                 
+       <c:if test="${not empty login }">
+	    		<input type="button" value="글쓰기" id="_writebtn" style="float: right; margin-top: 2%; margin-left: 2%;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
     	</c:if>
-    		</div>
-    	<br><br><br>
-    	<!-- 작업중 -->
-    	</div>
+       </div>
+</c:if>
+
+
+<c:if test="${board_code eq 'ETC'}">
+         <div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="freeboard_resources/images/freeboardimg.png" width="60px">&nbsp;기타동물 게시판</span>
+        <span id="mainTitle-info">파충류/포유류 등 기타 동물을 키우는 다른사람과 소통해보세요</span>                                                 
+       <c:if test="${not empty login }">
+	    		<input type="button" value="글쓰기" id="_writebtn" style="float: right; margin-top: 2%; margin-left: 2%;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
+    	</c:if>
+       </div>
+</c:if>
+
+
+
     	<br>
     <form id="soltingForm" name="soltingForm" method="post">
     	<div class="container">
@@ -112,7 +117,7 @@ if(keyword == null) keyword = "";
     </form>
     <!-- 검색 -->
 
-<form id="_frmFormSearch" name="frmForm1" class="_frmFormSearch" method="get" action="fblistview.do">
+<form id="_frmFormSearch" name="frmForm1" class="_frmFormSearch" method="get" action="freeboard_listview.do">
 <div align="right" class="container">
 	<input type="hidden" class="sorting" name="sorting" id="frm_sorting" value="">
 	<input type="hidden" class="category" name="category" id="frm_category" value="">
@@ -126,7 +131,7 @@ if(keyword == null) keyword = "";
 		<option value="nickname">닉네임</option>
 	</select>
 	<input type="text" id="_s_keyword" name="s_keyword">
-	<button type="button" id="_btnSearch" style="background-color:#585e7d; border: 1px solid #585e7d">검색</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" id="_btnlist" style="background-color:#585e7d; border: 1px solid #585e7d" onclick="search()">검색</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
 </div>
@@ -210,18 +215,25 @@ if(keyword == null) keyword = "";
 		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />	
 	</jsp:include>
 </div>
-<br>
+<div class="container">
+<table>
+<tr><td><br><br></td>
+</tr>
+</table>
+</div>
+</div>
+
 
 <!--::footer part start::-->    
 <jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
 <!-- footer part end-->
 
 
-<!-- 검색 -->
+<!-- 
 <div class="box_border" style="margin-top: 5px; margin-bottom: 10px">
 
 </div>
-
+ -->
 
 
     
@@ -241,7 +253,7 @@ function goPage( pageNumber ) {
 	
 }
 
-$("#_btnSearch").click(function () {
+function search(){
 	
 	var form = document.frmForm1;
 	var content = $(".s_keyword").val();
@@ -271,7 +283,7 @@ $("#_btnSearch").click(function () {
 	$("#frm_sorting").val(sort);
 	$("#frm_category").val(category);
 	$("#_frmFormSearch").attr("action", "freeboard_listview.do").submit();	
-});
+}
 
 
 //검색을 유지하기 위한 처리

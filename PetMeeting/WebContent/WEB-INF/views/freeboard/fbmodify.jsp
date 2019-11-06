@@ -8,11 +8,20 @@
 <head>
 <meta charset="UTF-8">
 <title>PetMeeting-자유게시판</title>
-	<link href="freeboard_resources/css/bootstrap.css" rel="stylesheet">
+
+<link rel="stylesheet" href="freeboard_resources/css/bootstrap.css">
+<link rel="stylesheet" href="freeboard_resources/css/freeboard_style.css">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+
+
+
+
+	<!-- <link href="freeboard_resources/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" href="freeboard_resources/css/freeboard_style.css">
   	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  
   	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script> -->
 </head>
 <body>
 
@@ -105,6 +114,7 @@ MemberDto user = (MemberDto)request.getSession().getAttribute("login");
 <jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
 <!-- footer part end-->
    
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
    
 <script type="text/javascript">
 
