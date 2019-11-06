@@ -78,9 +78,9 @@ public class AdminServiceImpl implements AdminService {
 	/* 관리자에의한 소모임 글 삭제(DB에서 삭제) */
 	@Override
 	public void deletePlayboard(int seq) {
-		adminDao.deletePlayboard(seq);
-		adminDao.deletePlayMem(seq);
 		adminDao.deletePlayboardQnA(seq);
+		adminDao.deletePlayMem(seq);
+		adminDao.deletePlayboard(seq);		
 	}
 	
 	/* 게시판 신고 내역 뽑기 */

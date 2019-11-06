@@ -39,7 +39,7 @@
 				<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="50px" height="50px" style="vertical-align: middle">
 			</c:if>
 			<c:if test="${not empty profile.myprofile_img }">
-				<img id="profilePic" src="${pageContext.request.contextPath}/playboard_resources/img/brandon.jpg">
+				<img id="profilePic" src="${pageContext.request.contextPath}/upload/${profile.myprofile_img }">
 			</c:if>
 			${detail.email }(${detail.nickname })
 			</td>
@@ -92,7 +92,7 @@
 			   						
 			   						<c:if test="${not empty partMem.memProfile.myprofile_img }">
 			   							<div class="memberProfileCell">
-			   							<img class="partMemProfilePic" src="${pageContext.request.contextPath}/playboard_resources/img/bakar.jpg">&nbsp;&nbsp;		   							
+			   							<img class="partMemProfilePic" src="${pageContext.request.contextPath}/upload/${partMem.memProfile.myprofile_img }">&nbsp;&nbsp;		   							
 			   							${partMem.email }(${partMem.nickname })
 			   							</div>
 			   						</c:if>	   						   				
