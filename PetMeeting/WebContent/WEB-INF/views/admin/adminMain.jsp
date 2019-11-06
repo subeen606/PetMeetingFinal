@@ -84,7 +84,7 @@ ul li {
         			<div>
         				<div class="circle playboard">
         					<img alt="" src="${pageContext.request.contextPath }/admin_resources/images/group.png" style="padding-top: 20px">
-        					<p style="color: white">추가 된 소모임<br><a href="adminPlayboardList.do" style="color: white;">${todayPlayCount } 건</a></p>
+        					<p style="color: white">추가된 소모임<br><a href="adminPlayboardList.do" style="color: white;">${todayPlayCount } 건</a></p>
         				</div>
         				<div class="circle freeboard">
         					<img alt="" src="${pageContext.request.contextPath }/admin_resources/images/notepad.png" style="padding-top: 20px">

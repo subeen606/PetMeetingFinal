@@ -275,23 +275,7 @@ $("#check_module").click(function () {
 	}
 
 	else if(a==true && b==true){
-			if( $("#funding").val() == '0' ){
-				var queryString = $("#frm").serialize();
-				
-				$.ajax({
-						data : queryString,
-						type: "POST",
-						url: "fundingpayAf.do",
-						success: function(data) {
-									//alert("success");
-									alert("후원해주셔서 감사합니다");
-									self.close();
-									opener.document.location.reload();
-								},error: function() {
-								alert("error");
-								}
-						});
-				 }
+
 			if( $("#funding").val() == '0' ){
 	            var queryString = $("#frm").serialize();
 	            

@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												             <img src="${pageContext.request.contextPath}/mypage_resources/mypage_s/images/user.png"  class="list-profileimg">
 												        </c:if>
 												        <c:if test="${not empty free.myprofile_img  }">
-															<img src="${free.myprofile_img }" class="list-profileimg">
+															<img src="upload/${free.myprofile_img }" class="list-profileimg">
 														</c:if>
 														<br>
 														${free.nickname }
