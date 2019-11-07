@@ -16,7 +16,7 @@ div.section {
     display: block;
 	width: 45%;
 /*     height: 350px; */
-    height: 250px;
+    height: 320px;
     float: left;
     margin: 20px 20px;
     padding: 10px;
