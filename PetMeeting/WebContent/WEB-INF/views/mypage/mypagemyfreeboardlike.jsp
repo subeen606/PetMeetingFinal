@@ -87,7 +87,7 @@
           		  <td>${attend.title}</td>
           		  <td><c:if test="${'DOG' eq attend.board_code}">강아지</c:if>
           		      <c:if test="${'CAT' eq attend.board_code}">고양이</c:if>
-          		      <c:if test="${'OTHERS' eq attend.board_code}">기타</c:if>
+          		      <c:if test="${'ETC' eq attend.board_code}">기타</c:if>
           		  </td>
           		  <td>${attend.category}</td>
           		  <td>${attend.email}</td>
@@ -106,6 +106,16 @@
                    
                  
                    </div>
+                   
+                   
+                   	<!--::footer part start::-->
+				<br>
+			<footer>
+			<jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
+			</footer> 
+			<!-- footer part end-->
+			
+                   
            
                  </div> 
           

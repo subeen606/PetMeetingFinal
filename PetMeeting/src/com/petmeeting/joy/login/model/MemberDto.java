@@ -23,7 +23,9 @@ public class MemberDto implements Serializable {
 	private int use_point;
 	
 	public MemberDto() {
+		
 	}
+	
 
 	public MemberDto(String email, String pwd, String nickname, String name, String postcode, String address,
 			String address_detail, String address_refer, String phone, int totalpoint, int point, int s_point,
@@ -46,6 +48,15 @@ public class MemberDto implements Serializable {
 		this.savepoint = savepoint;
 		this.use_point = use_point;
 	}
+	
+	
+
+	public MemberDto(String email, String pwd) {
+		super();
+		this.email = email;
+		this.pwd = pwd;
+	}
+
 
 	public String getEmail() {
 		return email;

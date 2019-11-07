@@ -123,6 +123,13 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne(ns + "checkNickname", nickname);
 	}
 	
+	// 비밀번호 변경
+	@Override
+	public boolean passwordUpdate(MemberDto dto) {
+		int n = sqlSession.update(ns + "passwordUpdate", dto);
+		return n>0?true:false;
+	}
+	
 	
 	
 	

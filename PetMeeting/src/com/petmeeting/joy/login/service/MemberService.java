@@ -49,4 +49,8 @@ public interface MemberService {
 	
 	public void kakaoLogout(String access_Token);
 	
+	// 비밀번호 변경
+	public boolean passwordUpdate(MemberDto dto);
+	
+	
 }

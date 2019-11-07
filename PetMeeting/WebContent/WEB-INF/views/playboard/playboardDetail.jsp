@@ -78,12 +78,12 @@
 					<span class="smallTxt">모임 주최자</span>
 				</div>			
 					<!-- 프로필 사진이 없는 경우 -->
-					<c:if test="${empty profile || empty profile.myprofile_img }">
+					<c:if test="${empty profile.myprofile_img }">
 						<img src="${pageContext.request.contextPath}/playboard_resources/img/user.png" width="50px" height="50px">&nbsp;&nbsp;
 					</c:if>
 					
 					<!-- 프로필 사진이 있는 경우 -->
-					<c:if test="${not empty profile || not empty profile.myprofile_img }">
+					<c:if test="${not empty profile.myprofile_img }">
 						<img id="profilePic" src="${pageContext.request.contextPath}/upload/${profile.myprofile_img }">&nbsp;&nbsp;
 					</c:if>
 					<a class="dropdown" email="${detail.email }" nickname="${detail.nickname }">
@@ -378,7 +378,10 @@
 <script src="${pageContext.request.contextPath}/common/navbar/js/memberDropdown.js"></script>
 <script type="text/javascript">
 $(function () {	
-		
+	
+	if(${detail.fullCheck } == true || ${detail.deadlineCheck } == true){
+		$("#partBtn").css("background-color", "#d2d2d2");
+	}
 	/* 글 수정 */
 	$("#updateBtn").click(function () {
 		location.href = "updatePlay.do?seq="+${detail.seq };
@@ -402,9 +405,6 @@ $(function () {
 			}
 		}				
 	});
-	if(${detail.deadlineCheck } == true){
-		$("#partBtn").css("background-color", "#b3b1b1");
-	}
 	
 	/* 모임 참가 취소 */
 	$("#cancelBtn").click(function () {

@@ -10,6 +10,9 @@
 <meta charset="UTF-8">
 <title>PetMeeting</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/report.css">
+	
 </head>
 <body>
 
@@ -28,7 +31,7 @@
 	<input type="hidden" name="comment_seq" value="${cmreportform.comment_seq }">
 	
 	<div class="row">
-		<img src="./images/report.png" width="30px" height="30px" style="transform: translate(5px, 10px);">&nbsp;&nbsp;<h3>신고하기</h3>
+		<img src="freeboard_resources/images/report.png" width="30px" height="30px" style="transform: translate(5px, 10px);">&nbsp;&nbsp;<h3>신고하기</h3>
 	</div>
 	<div class="line"></div>	
 	

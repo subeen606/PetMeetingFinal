@@ -137,13 +137,13 @@ $(document).ready(function(){
 	if( $("input[name=myage]").val() == 0){
 		$("input[name=myage]").val('');
 	}
-	 
+	
 	var comintro = $('textarea').val();
 	comintro = comintro.split('<br/>').join("\r\n");
 	$('textarea').val(comintro);
 	
 	$(".input_title").prepend("<img src='./mypage_resources/mypage_s/images/point.png' class='input-icon'>");
-	//$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
+	$('input[type="checkbox"]').bind('click',function() { $('input[type="checkbox"]').not(this).prop("checked", false); });
 	
 
 	
@@ -161,6 +161,7 @@ $(document).ready(function(){
 	    	$("#male").prop("checked",true);
 	    	$("#gender").val('1');
 	    }else{
+	    	$("#male").prop("checked",false);
 	    	$("#gender").val('0');
 	    }
 	});
@@ -169,7 +170,17 @@ $(document).ready(function(){
 	    	$("#female").prop("checked",true);
 	    	$("#gender").val('0');
 	    }else{
+	    	$("#female").prop("checked",false);
 	    	$("#gender").val('1');
+	    }
+	});
+	
+
+	$("#_petsex1").change(function(){
+	    if( $("#_petsex1").is(":checked") ){
+	    	$("#_petsex0").prop("checked",false);
+	    }else{
+	    	$("#_petsex0").prop("checked",true);
 	    }
 	});
 	
@@ -284,7 +295,7 @@ function updateSubBtnUse() {
 	$("#nickChange_btn").removeClass("displayis");
 	$("#nickChk_btn").addClass("displayis");
 	
-	$("#myProfile_updateSubBtn").css("background-color", "#ff9c3d");
+	$("#myProfile_updateSubBtn").css("background-color", "#585e7d");
 	$("#myProfile_updateSubBtn").prop("disabled",false);// 수정완료 버튼 활성화	
 };
 
@@ -340,6 +351,7 @@ $('input[name=nickname]').on('keyup', function(event) {
 	var nameval = $(this).val();
 	if( regexp.test( nameval ) ){
 		alert("한,영,숫자, 특수문자 -,_만 입력가능 합니다");
+		
 		$(this).val(nameval.replace(regexp, ''));
 	}
 	
