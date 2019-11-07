@@ -3,6 +3,7 @@ package com.petmeeting.joy.login.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,7 @@ import com.petmeeting.joy.mypage.model.MyProfileDto;
 import com.petmeeting.joy.mypage.model.MyProfileParam;
 import com.petmeeting.joy.mypage.model.MypageMsgDto;
 import com.petmeeting.joy.mypage.model.MypageMsgParam;
+import com.petmeeting.joy.mypage.service.mypageService;
 
 @Controller
 public class loginController {
@@ -273,48 +275,101 @@ public class loginController {
 		return pointcheck;
 		
 	}
+	
+	// 회원가입 이메일 인증
+    @ResponseBody
+    @RequestMapping (value="emailAuth.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public boolean emailAuth(String inputEmail, HttpServletRequest req) {
+    	System.out.println("emailAuth.do ---------------------");
+    	
+    	boolean isS;
+    	
+    	if(inputEmail == null) {
+    		System.out.println("유저가 입력한 이메일 null");
+    		isS = false;
+    		return isS;
+    	}
+    	else {
+    		System.out.println("유저가 입력한 이메일 = " + inputEmail);
+    	
+    	
+	    	int rannum = new Random().nextInt(100000) + 10000; // 10000 ~ 99999
+	        String authCode = String.valueOf(rannum);
+	        System.out.println("발급된 인증키 = " + authCode);
+	       
+	        req.getSession().setAttribute("authCode", authCode);
+	        
+	        String subject = "[Petmeeting] 인증 코드 발급 안내 입니다.";	// 메일 제목   
+	        String text = "인증 번호 : " + authCode;	// 메일 내용   
+	       	
+	        boolean sendCheck = com.petmeeting.joy.util.SendEmail.sendMail(subject, text.toString(), inputEmail);
+	        
+	        if(sendCheck) {
+	        	System.out.println("메일발신 성공");
+	        	isS = true;
+	        }else {
+	        	System.out.println("메일발신 실패");
+	        	isS = false;
+	    	}
+	        return isS;
+    	}
+    	
+    }
+    
+    //이메일인증코드 비교
+    @ResponseBody
+    @RequestMapping (value="emailAuthCodeCheck.do", method= {RequestMethod.GET, RequestMethod.POST})
+    public boolean emailAuthCodeCheck(String authCodeUSer, HttpServletRequest req) {
+    	System.out.println("emailAuth.do ---------------------");
+    	System.out.println("authCodeUSer = " + authCodeUSer);
+    	
+        String authCode = (String)req.getSession().getAttribute("authCode");
+        System.out.println("authCode = " + authCode);
+        
+        
+        if(!authCode.equals(authCodeUSer)) {
+            System.out.println("인증번호 일치하지 않습니다.");
+            
+            req.setAttribute("msg", "인증번호가 일치하지 않습니다");
+            return false;
+        }else {
+        	 System.out.println("인증번호 일치");
+        	return true;
+        }       
+    }
+    
+    //이메일인증코드 비교
+    @ResponseBody
+    @RequestMapping (value="passwordUpdate.do", method= {RequestMethod.GET, RequestMethod.POST})
+    public String passwordUpdate(String email, String password, HttpServletRequest req) {
+    	System.out.println("passwordUpdate.do ---------------------");
+    	System.out.println("email = " + email + ", password = "+ password);
 
-	// 카카오 로그인 api에서 로그인 버튼클릭시 회원가입창 이동 없이 바로 회원가입(사용x)
-	/*
-	@ResponseBody
-	@RequestMapping (value="snsAccount.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String snsAccount(KakaoParam param,  Model model) {
-		System.out.println("snsAccount.do--email : " + param.toString());
+    	MemberDto memdto = memService.getUser(email);
+    	System.out.println("memdto = "+memdto);
+    	
+    	MemberDto dto = new MemberDto(memdto.getEmail(), password);
+    	System.out.println("유저, 바꿀 비번 = "+dto.getEmail()+", " + dto.getPwd());
+    	
+    	boolean is = memService.passwordUpdate(dto);
+    	
+    	if(!is){
+    		System.out.println("비밀번호 변경실패");
+    	}else {
+    		System.out.println("비밀번호 변경완료");    		
+    	} 
+    	return "";
+        
+    }
+ 
+    
+	//TODO
+	@RequestMapping (value="emailfind.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String emailfind() {
+		System.out.println("emailfind.do ----------------------");
 		
-		boolean isS = memService.snsAddMember(param);
-		
-		String str="";
-		
-		if(isS) {
-			System.out.println("회원가입 완료!");			
-			str = "환영합니다!";
-		}else if(!isS){
-			System.out.println("회원가입 실패..");
-			str = "회원가입실패...";
-		}
-		
-		return str;
+		return "login/loginInfoFind";
 	}
 	
-	
-	@RequestMapping(value="kakaologinAf.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String kakaologin(KakaoParam param, Model model, HttpServletRequest req) {
-		
-		MemberDto user = memService.kakaologinCheck(param);
-				
-		if(user == null) {
-			System.out.println("카카오)로그인 실패");
-			req.getSession().removeAttribute("login");
-			
-			return "login/login";
-		}
-		
-		System.out.println("카카오)로그인 성공");
-		req.getSession().setAttribute("login", user);
-		System.out.println("카카오)세션생성");
-		
-		return "main";
-	}
-	*/
 }
 		

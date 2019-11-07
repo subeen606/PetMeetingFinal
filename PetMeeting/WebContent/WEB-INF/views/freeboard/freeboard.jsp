@@ -37,96 +37,101 @@
 if(keyword == null) keyword = "";
 
 %>
-
 <div class="container">
-    		<div class="fbtitle" align="left" style="margin-top: 2%; margin-left: 2%;">
-    		
-    		<c:if test="${board_code eq 'DOG'}">
-    		<input type="button" value="강아지 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	<!-- <img src="https://yt3.ggpht.com/a/AGF-l7_11bjFTJQPQdl3JJkBrAJtXJLYmMZVlrhAzA=s900-c-k-c0xffffffff-no-rj-mo" style="width:100px; height:100px; float: center; margin-top: 2%; margin-left: 2%;" > -->
-	    	</c:if>
-	    	
-	    	<c:if test="${board_code eq 'CAT'}">
-    		<input type="button" value="고양이 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	<!-- <img src="http://mblogthumb4.phinf.naver.net/20120709_39/hicatdog_1341820256722m5xnh_JPEG/ExoticShorthair21.jpg?type=w2" style="width:100px; height:100px; float: center; margin-top: 2%; margin-left: 2%;" > -->
-	    	</c:if>
-	    	
-	    	
-	    	<c:if test="${board_code eq 'ETC'}">
-    		<input type="button" value="기타 동물 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    	<!-- <img src="http://plan-b.or.kr/files/attach/images/311/053/013/8f7656166e37a44f89b9cd15bbfe1778.jpg" style="width:100px; height:100px; float: center; margin-top: 2%; margin-left: 2%;" > -->
-	    	</c:if>
-	    	
-	    	<input type="button" value="관리자 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;" onclick="location.href='freeboard_admin.do'"">
-	    	
-	    	
-	    	
-	    	
-    	<c:if test="${not empty login }">
-	    	<!-- <div align="right" style="margin-top: 2%; margin-left: 2%;"> -->
-	    		<input type="button" value="글쓰기" id="_writebtn" style="background-color:#585e7d; border: 1px solid #585e7d; float: right; margin-top: 2%; margin-left: 2%;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
-	    	<!-- </div> -->
-    	</c:if>
-    		</div>
-    	<br><br><br>
-    	<!-- 작업중 -->
-    	</div>
-    	<br>
+<c:if test="${board_code eq 'DOG'}">
+         <div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="freeboard_resources/images/freeboardimg.png" width="60px">&nbsp;강아지 게시판</span>
+        <span id="mainTitle-info">강아지를 키우는 다른사람과 소통해보세요</span>
+        <c:if test="${not empty login }">
+             <input type="button" value="글쓰기" id="_writebtn" style="float: right; margin-top: 6%; margin-right: 13px;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
+       </c:if>                                                 
+       </div>
+</c:if>
+
+
+<c:if test="${board_code eq 'CAT'}">
+         <div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="freeboard_resources/images/freeboardimg.png" width="60px">&nbsp;고양이 게시판</span>
+        <span id="mainTitle-info">고양이를 키우는 다른사람과 소통해보세요</span>                                                 
+       <c:if test="${not empty login }">
+             <input type="button" value="글쓰기" id="_writebtn" style="float: right; margin-top: 6%; margin-right: 13px;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
+       </c:if>
+       </div>
+</c:if>
+
+
+<c:if test="${board_code eq 'ETC'}">
+         <div class="mainTitle">                                     
+        <span id="mainTitle-petmeeting">PetMeeting</span>
+        <span id="mainTitle-boardname"><img src="freeboard_resources/images/freeboardimg.png" width="60px">&nbsp;기타동물 게시판</span>
+        <span id="mainTitle-info">파충류/포유류 등 기타 동물을 키우는 다른사람과 소통해보세요</span>                                                 
+       <c:if test="${not empty login }">
+             <input type="button" value="글쓰기" id="_writebtn" style="float: right; margin-top: 6%; margin-right: 13px;" onclick="location.href='freeboard_boardwrite.do?board_code=${board_code}'">
+       </c:if>
+       </div>
+</c:if>
+
+
+
+       <br><br><br>
     <form id="soltingForm" name="soltingForm" method="post">
-    	<div class="container">
-	        <div id="freeboardList" style="float:left">
-	        	
-					<select name="choicesorting" id="sorting_" onchange="_sorting(this.value)">
-							<option  value=""<c:if test="${empty sorting }">selected='selected'</c:if>>정렬</option>
-							<option  value="old"<c:if test="${sorting eq 'old' }">selected='selected'</c:if> >오래된 작성순</option>
-							<option  value="like"<c:if test="${sorting eq 'like' }">selected='selected'</c:if>>좋아요순</option>
-							<option  value="read"<c:if test="${sorting eq 'read' }">selected='selected'</c:if>>조회수 많은 순</option>
-						</select>
-						<select id="" name="category" id="category_" onchange="_category(this.value)">
-							<option value="" <c:if test="${empty category }">selected='selected'</c:if>>분류</option>
-							<option value="free"<c:if test="${category=='free' }">selected='selected'</c:if>>잡담</option>
-							<option value="search" <c:if test="${category=='search'}">selected='selected'</c:if>>찾아요</option>
-							<option value="infor"<c:if test="${category=='infor'}">selected='selected'</c:if>>정보</option>
-							<option value="qna"<c:if test="${category=='qna'}">selected='selected'</c:if>>질문</option>
-							<option value="boast"<c:if test="${category=='boast'}">selected='selected'</c:if>>자랑</option>
-						</select>
-							<input type="hidden" id="category_"
-							<c:if test="${category=='free' }">value="free"</c:if>
-							<c:if test="${category=='search' }">value="search"</c:if>
-							<c:if test="${category=='infor' }">value="infor"</c:if>
-							<c:if test="${category=='qna' }">value="qna"</c:if>
-							<c:if test="${category=='boast' }">value="boast"</c:if>
-																				>
-							<input type="hidden" id="sorting_"
-							<c:if test="${sorting=='old' }">value="old"</c:if>
-							<c:if test="${sorting=='like' }">value="like"</c:if>
-							<c:if test="${sorting=='read' }">value="read"</c:if>
-																				>
-							
-				
-				
-				
-	        <input type="hidden" id="b_code" name="b_code" value="" /> 
-	        </div>
-    	</div>
+    <br>
+       <div class="container">
+           <div id="freeboardList" style="float:left">
+              
+               <select name="choicesorting" id="sorting_" onchange="_sorting(this.value)">
+                     <option  value=""<c:if test="${empty sorting }">selected='selected'</c:if>>정렬</option>
+                     <option  value="old"<c:if test="${sorting eq 'old' }">selected='selected'</c:if> >오래된 작성순</option>
+                     <option  value="like"<c:if test="${sorting eq 'like' }">selected='selected'</c:if>>좋아요순</option>
+                     <option  value="read"<c:if test="${sorting eq 'read' }">selected='selected'</c:if>>조회수 많은 순</option>
+                  </select>
+                  <select id="" name="category" id="category_" onchange="_category(this.value)">
+                     <option value="" <c:if test="${empty category }">selected='selected'</c:if>>분류</option>
+                     <option value="free"<c:if test="${category=='free' }">selected='selected'</c:if>>잡담</option>
+                     <option value="search" <c:if test="${category=='search'}">selected='selected'</c:if>>찾아요</option>
+                     <option value="infor"<c:if test="${category=='infor'}">selected='selected'</c:if>>정보</option>
+                     <option value="qna"<c:if test="${category=='qna'}">selected='selected'</c:if>>질문</option>
+                     <option value="boast"<c:if test="${category=='boast'}">selected='selected'</c:if>>자랑</option>
+                  </select>
+                     <input type="hidden" id="category_"
+                     <c:if test="${category=='free' }">value="free"</c:if>
+                     <c:if test="${category=='search' }">value="search"</c:if>
+                     <c:if test="${category=='infor' }">value="infor"</c:if>
+                     <c:if test="${category=='qna' }">value="qna"</c:if>
+                     <c:if test="${category=='boast' }">value="boast"</c:if>
+                                                            >
+                     <input type="hidden" id="sorting_"
+                     <c:if test="${sorting=='old' }">value="old"</c:if>
+                     <c:if test="${sorting=='like' }">value="like"</c:if>
+                     <c:if test="${sorting=='read' }">value="read"</c:if>
+                                                            >
+                     
+            
+            
+            
+           <input type="hidden" id="b_code" name="b_code" value="" /> 
+           </div>
+       </div>
     </form>
     <!-- 검색 -->
 
-<form id="_frmFormSearch" name="frmForm1" class="_frmFormSearch" method="get" action="fblistview.do">
+<form id="_frmFormSearch" name="frmForm1" class="_frmFormSearch" method="get" action="freeboard_listview.do">
 <div align="right" class="container">
-	<input type="hidden" class="sorting" name="sorting" id="frm_sorting" value="">
-	<input type="hidden" class="category" name="category" id="frm_category" value="">
-	<input type="hidden" class="board_code" name="board_code" id="frm_board_code" value='${board_code }'>
-	<!-- 검색 -->
-	<select id="_s_category" name="s_category">
-		<option value="">선택</option>
-		<option value="title">제목</option>
-		<option value="content">내용</option>
-		<!-- <option value="email">이메일</option> -->
-		<option value="nickname">닉네임</option>
-	</select>
-	<input type="text" id="_s_keyword" name="s_keyword">
-	<button type="button" id="_btnSearch" style="background-color:#585e7d; border: 1px solid #585e7d">검색</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="hidden" class="sorting" name="sorting" id="frm_sorting" value="">
+   <input type="hidden" class="category" name="category" id="frm_category" value="">
+   <input type="hidden" class="board_code" name="board_code" id="frm_board_code" value='${board_code }'>
+   <!-- 검색 -->
+   <select id="_s_category" name="s_category">
+      <option value="">선택</option>
+      <option value="title">제목</option>
+      <option value="content">내용</option>
+      <!-- <option value="email">이메일</option> -->
+      <option value="nickname">닉네임</option>
+   </select>
+   <input type="text" id="_s_keyword" name="s_keyword">
+   <button type="button" id="_btnlist" style="background-color:#585e7d; border: 1px solid #585e7d" onclick="search()">검색</button>
 
 
 </div>
@@ -138,10 +143,8 @@ if(keyword == null) keyword = "";
 
 </form>
 
-
-
 <div class="container">
-    <form id="freeboardListForm" name="freeboardListForm" method="post">
+    <form id="freeboardListForm" nsame="freeboardListForm" method="post">
         <div id="freeboardList">
         	<br>
         	<div>
@@ -210,18 +213,25 @@ if(keyword == null) keyword = "";
 		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />	
 	</jsp:include>
 </div>
-<br>
+<div class="container">
+<table>
+<tr><td><br><br></td>
+</tr>
+</table>
+</div>
+</div>
+
 
 <!--::footer part start::-->    
 <jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
 <!-- footer part end-->
 
 
-<!-- 검색 -->
+<!-- 
 <div class="box_border" style="margin-top: 5px; margin-bottom: 10px">
 
 </div>
-
+ -->
 
 
     
@@ -241,7 +251,7 @@ function goPage( pageNumber ) {
 	
 }
 
-$("#_btnSearch").click(function () {
+function search(){
 	
 	var form = document.frmForm1;
 	var content = $(".s_keyword").val();
@@ -271,7 +281,7 @@ $("#_btnSearch").click(function () {
 	$("#frm_sorting").val(sort);
 	$("#frm_category").val(category);
 	$("#_frmFormSearch").attr("action", "freeboard_listview.do").submit();	
-});
+}
 
 
 //검색을 유지하기 위한 처리

@@ -156,7 +156,10 @@ public class MemberServiceImpl implements MemberService {
 		return memDao.checkNickname(nickname);
 	}
 	
-	
-	
+	// 비밀번호변경
+	@Override
+	public boolean passwordUpdate(MemberDto dto) {	
+		return memDao.passwordUpdate(dto);
+	}
 	
 }

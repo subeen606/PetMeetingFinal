@@ -161,7 +161,7 @@ $(".eventAnchor").click(function () {
 $(document).ready(function () {
 	 Notification.requestPermission(function (status) {
 	   // This allows to use Notification.permission with Chrome/Safari
-	   //alert("status"+status);
+	  // alert("status"+status);
 	   if (Notification.permission !== status) {
 	     Notification.permission = status;
 	   }
