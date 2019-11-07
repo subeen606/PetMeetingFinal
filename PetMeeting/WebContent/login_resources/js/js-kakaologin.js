@@ -28,7 +28,7 @@ function loginWithKakao() {
 					console.log(JSON.stringify(res.properties.profile_image));
 					console.log(JSON.stringify(res.properties.nickname));
 					console.log( authObj.access_token );
-					alert( "카카오에서 넘어온 사용자토큰 authObj.access_token = " + authObj.access_token );
+					
 					// 카카오에서 받은 유저정보를 accountform 의 value로 설정
 					var email = $('input[name=email]', document.accountform);				
 					var nickname = $('input[name=nickname]', document.accountform);							
@@ -40,8 +40,8 @@ function loginWithKakao() {
 					nickname.val( res.properties.nickname );
 					accessToken.val( authObj.access_token );
 					
-					alert( " 카카오에서 받은 id = " + res.id );
-					alert( " hidden input에 넣은 토큰 = " + accessToken.val() );
+					//alert( " 카카오에서 받은 id = " + res.id );
+					//alert( " hidden input에 넣은 토큰 = " + accessToken.val() );
 					
 					// 카카오 프로필파일이 없을경우
 					if(res.properties.profile_image == null){
@@ -90,13 +90,13 @@ function loginWithKakao() {
 									dataType : 'json',
 									success : function( pointcheck ) {
 										if(pointcheck == true) {
-											alert("main으로 이동합니다.");
+											//alert("main으로 이동합니다.");
 										}else if(pointcheck == false) {
-											alert("오늘의 출석 포인트 지급 완료! main으로 이동합니다.");
+											//alert("오늘의 출석 포인트 지급 완료! main으로 이동합니다.");
 										}
 										$("#login-form").attr("method","POST").attr("action","main.do").submit();
 									},fail : function(error) {
-										alert("loginPointCheck error");
+										console.log("loginPointCheck error");
 									}
 								});
 							}
@@ -120,8 +120,8 @@ function loginWithKakao() {
 					})
 				},
 				fail : function(error) {
-					alert("snsLoginCheck err");
-					alert(JSON.stringify(error));
+					console.log("snsLoginCheck err");
+					console.log(JSON.stringify(error));
 				}					
 			});//request 끝
 		},

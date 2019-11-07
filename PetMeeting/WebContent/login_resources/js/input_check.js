@@ -203,7 +203,7 @@ $(function() {
 			},
 			error: function (error) {
 	            alert(JSON.stringify(error));
-	            alert("이메일 체크 실패...");
+	            //alert("이메일 체크 실패...");
 			}
 		});	
 	}
@@ -484,7 +484,7 @@ $(function() {
 				success : function( data ) {
 					if(data == "ok"){
 						console.log("nickname = " + nickname);
-						alert("사용가능한 닉네임입니다.");
+						//alert("사용가능한 닉네임입니다.");
 						
 						$("#nicknameCheck-Btn").text("사용가능");
 						$("#nicknameCheck-Btn").prop("disabled",true);
@@ -509,7 +509,7 @@ $(function() {
 				},
 				error: function (error) {
 		            alert(JSON.stringify(error));
-		            alert("닉네임 체크 실패...");
+		            //alert("닉네임 체크 실패...");
 				}
 			});	
 			
@@ -651,9 +651,9 @@ $(function() {
 							dataType : 'json',
 							success : function( pointcheck ) {
 								if(pointcheck == true) {
-									alert("main으로 이동합니다.");
+									//alert("main으로 이동합니다.");
 								}else if(pointcheck == false) {
-									alert("오늘의 출석 포인트 지급 완료! main으로 이동합니다.");
+									//alert("오늘의 출석 포인트 지급 완료! main으로 이동합니다.");
 								}
 								$("#login-form").attr("method","POST").attr("action","main.do").submit();
 							},fail : function(error) {
@@ -735,7 +735,7 @@ $(function() {
 			alert("핸드폰번호를 입력해주세요");
 			phone.focus();
 		}else {
-			alert("회원가입클릭");
+			//alert("회원가입클릭");
 			var accountString = $("#account-form").serialize() ;
 			
 			$.ajax({
@@ -751,7 +751,7 @@ $(function() {
 					if (str == "Account") { //일반유저회원가입 
 						console.log("일반유저회원가입완료");
 					}				
-					alert("회원가입완료! 홈페이지 메인으로 이동합니다.");
+					alert("회원가입이 완료되었습니다. 로그인 후 메인으로 이동합니다.");
 					
 					//포인트지급관련
 					$.ajax({
@@ -760,18 +760,17 @@ $(function() {
 						data : accountString,
 						dataType : 'json',
 						success : function( msg ) {
-							alert("포인트지급 여부 msg = " + msg);
-							alert(JSON.stringify(msg));					
-							alert("로그인중...");					
+							console.log("포인트지급 여부 msg = " + msg);	
+							console.logconsole.log("로그인중...");					
 							location.href = "main.do";
 						},fail : function(error) {
-							alert("loginPointCheck error");
+							console.log("loginPointCheck error");
 						}
 					});	
 					
 					
 				},fail : function(error) {
-					alert(JSON.stringify(error));
+					console.log(JSON.stringify(error));
 				}
 			});
 			

@@ -354,7 +354,7 @@
 		
 		
 		function close_modal() {
-			alert("dd");
+			//alert("dd");
 			$("#mypfModal").hide();
 			
 			
@@ -378,12 +378,12 @@
 				 async: false,
 				 data:{"email":e},
 				  success:function(data){
-					  alert("성공");
+					 // alert("성공");
 					//  alert(data);
 					  
 				 $(".modalcontent_a").html(data);
 				  },error:function(){
-					  alert("실패");
+					//  alert("실패");
 				  }
 			})
 			  
@@ -392,7 +392,7 @@
 		
 		//프로필 보기를 눌렀을 때
 		function viewprofile(e) {
-			alert(e);			
+			//alert(e);			
 			    var url =  "mypagefollowprofile.do?email="+e;
 				var option = "scrollbars=no, left=400,top=200, width=420, height=420 ";
 				var name = "프로필";
@@ -486,7 +486,7 @@
 
 			//구독 취소 버튼
 			function followDel(e) {
-				alert(e + "삭제");
+			//	alert(e + "삭제");
 
 				if (confirm("팔로우를 취소하시겠습니까?")) {
 					location.href = "mypagefolloingdel.do?folloingid=" + e;
