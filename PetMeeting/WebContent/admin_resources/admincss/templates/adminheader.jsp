@@ -58,7 +58,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-table"></i>자유 게시판</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fas fa-edit"></i><a href="forms-basic.html">자유게시판 관리</a></li>
+                            <li><i class="fas fa-edit"></i><a href="adminFreeboardList.do">자유게시판 관리</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">

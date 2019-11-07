@@ -25,14 +25,11 @@ public class FreeboardServiceImpl implements FreeboardService {
 
 	@Override
 	public void fbwritedown(FreeboardDto fb) {
-		System.out.println("fb서비스 fbwritedown 왔다감");
-		System.out.println(fb.toString());
 		fbDao.fbwritedown(fb);	
 	}
 
 	@Override
 	public List<FreeboardDto> getfbList(FbParam param) {
-		System.out.println("fb서비스 fblist.do 왔다감");
 		return fbDao.getfbList(param);
 	}
 
@@ -43,7 +40,6 @@ public class FreeboardServiceImpl implements FreeboardService {
 
 	@Override
 	public void fbupdate(FreeboardDto fb) {
-		System.out.println("fb서비스 fbwritupdate 왔다감");
 		fbDao.fbupdate(fb);
 	}
 
@@ -62,82 +58,68 @@ public class FreeboardServiceImpl implements FreeboardService {
 	
 	@Override
 	public List<FreeboardDto> soltingfree(FbParam param) {
-		System.out.println("fb서비스 soltingfree 왔다감");
 		return fbDao.soltingfree(param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingmiss(FbParam param) {
-		System.out.println("fb서비스 getfbsoltingmiss 왔다감");
 		return fbDao.soltingmiss(param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltinginfor(FbParam param) {
-		System.out.println("fb서비스 getfbsoltinginfor 왔다감");
 		return fbDao.soltinginfor(param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingqna(FbParam param) {
-		System.out.println("fb서비스 getfbsoltinqna 왔다감");
 		return fbDao.soltingqna(param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingboast(FbParam param) {
-		System.out.println("fb서비스 getfbsoltinqna 왔다감");
 		return fbDao.soltingboast(param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingdate(FbParam param) {
-		System.out.println("fb서비스 getfbsoltingdate 왔다감");
 		return fbDao.soltingdate(param);
 	}
 
 	
 	@Override
 	public List<FreeboardDto> solting_date(FbParam param) {
-		System.out.println("fb서비스 getfbsoltingdate 왔다감");
 		return fbDao.solting_date(param);
 	}
 	
 	@Override
 	public List<FreeboardDto> soltinglike(FbParam param) {
-		System.out.println("fb서비스 getfbsoltingdate 왔다감");
 		return fbDao.soltinglike(param);
 	}
 
 	@Override
 	public List<FreeboardDto> solting_like(FbParam param) {
-		System.out.println("fb서비스 getfbsoltingdate 왔다감");
 		return fbDao.solting_like(param);
 	}
 	
 	
 	@Override
 	public List<FreeboardDto> soltingread(FbParam param) {
-		System.out.println("fb서비스 getfbsoltingdate 왔다감");
 		return fbDao.soltingread(param);
 	}
 
 	@Override
 	public List<FreeboardDto> solting_read(FbParam param) {
-		System.out.println("fb서비스 getfbsoltingdate 왔다감");
 		return fbDao.solting_read(param);
 	}
 	
 	@Override
 	public void writedowncomment(CommentDto cmdto) {
-		System.out.println("fb서비스 writedowncomment  왔다감");
-		System.out.println(cmdto.toString());
 		fbDao.writedowncomment(cmdto);	
 	}
 
 	@Override
 	public List<CommentDto> getcmlist(int seq) {
-		System.out.println("fb서비스 getcmlist.do 왔다감");
 		return fbDao.getcmList(seq);
 	}
 
@@ -168,7 +150,6 @@ public class FreeboardServiceImpl implements FreeboardService {
 
 	@Override
 	public boolean dolikecheck(BoardlikeDto likedto) {
-		System.out.println("fb서비스 dolikedto  왔다감");
 		boolean like = fbDao.dolikecheck(likedto);
 		return like;
 	}
@@ -221,7 +202,6 @@ public class FreeboardServiceImpl implements FreeboardService {
 
 	@Override
 	public void cmupdate(CommentDto cmdto) {
-		System.out.println("fb서비스 cmupdate 왔다감");
 		fbDao.cmupdate(cmdto);
 		}
 
@@ -243,31 +223,23 @@ public class FreeboardServiceImpl implements FreeboardService {
 
 	@Override
 	public boolean doreportcheck(ReportDto reportdto) {
-		System.out.println("fb서비스 dolikedto  왔다감");
 		boolean report = fbDao.doreportcheck(reportdto);
-		System.out.println("오는가ㅏㅏㅏㅏ");
 		return report;
 	}
 
 	@Override
 	public void reportwritedown(ReportDto reportDto) {
-		System.out.println("fb서비스 reportwritedown 왔다감");
-		System.out.println(reportDto.toString());
 		fbDao.reportwritedown(reportDto);	
 	}
 
 	@Override
 	public boolean docmreportcheck(CmreportDto cmreportdto) {
-		System.out.println("오는가ㅏㅏㅏㅏ");
 		boolean cmreport = fbDao.docmreportcheck(cmreportdto);
-		System.out.println("오는가ㅏㅏㅏㅏ");
 		return cmreport;
 	}
 
 	@Override
 	public void cmreportwritedown(CmreportDto cmreportDto) {
-		System.out.println("fb서비스 cmreportwritedown 왔다감");
-		System.out.println(cmreportDto.toString());
 		fbDao.cmreportwritedown(cmreportDto);	
 	}
 
@@ -283,13 +255,11 @@ public class FreeboardServiceImpl implements FreeboardService {
 
 	@Override
 	public List<FreeboardDto> getfbadminList(FbParam param) {
-		System.out.println("fb서비스 fbadminlist.do 왔다감");
 		return fbDao.getfbadminList(param);
 	}
 
 	@Override
 	public void Freeboardadmindelete(int seq) {
-		System.out.println(seq);
 		fbDao.Freeboardadmindelete(seq);
 	}
 
@@ -298,10 +268,6 @@ public class FreeboardServiceImpl implements FreeboardService {
 		return fbDao.getfbadminCount(param);	
 	}
 
-	/*
-	 * @Override public List<ReportDto>ReportDto getadminreport(ReportDto reportdto)
-	 * { return fbDao.getadminreport(reportdto); }
-	 */
 
 	@Override
 	public List<ReportDto> getadminreport(ReportDto reportdto) {
@@ -311,6 +277,11 @@ public class FreeboardServiceImpl implements FreeboardService {
 	@Override
 	public boolean admincmdelete(CommentDto cmdto) {
 		return fbDao.admincmdelete(cmdto);
+	}
+
+	@Override
+	public void reportcountup(int seq) {
+		fbDao.reportcountup(seq);	
 	}
 
 

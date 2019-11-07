@@ -759,14 +759,6 @@ WHERE EMAIL = #{email}
 </delete>
 
 
-<!-- 
-<update id="Freeboardadmindelete" parameterType="java.lang.Integer" >
-	UPDATE PM_FREEBOARD SET
-	DEL = 1
-	WHERE SEQ=#{seq}
-</update> -->
-
-
 <select id="getadminreport" parameterType="com.petmeeting.joy.freeboard.model.ReportDto" resultType="com.petmeeting.joy.freeboard.model.ReportDto">
 SELECT *
 FROM PM_BOARD_REPORT
@@ -778,6 +770,13 @@ WHERE BOARD_SEQ = #{seq} AND BOARD_CODE = #{board_code}
 	<if test="step == 0"> WHERE REF=#{ref}</if>
 	<if test="step != 0"> WHERE SEQ=#{seq}</if>
 </delete> 
+
+<update id="reportcountup" parameterType="com.petmeeting.joy.freeboard.model.FreeboardDto" >
+	UPDATE PM_FREEBOARD
+    SET REPORTCOUNT = REPORTCOUNT + 1
+    WHERE SEQ = #{seq}
+</update>
+
 
 
 

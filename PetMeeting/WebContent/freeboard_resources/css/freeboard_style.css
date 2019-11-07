@@ -1,12 +1,18 @@
 
-#_btnlist{
-border-radius: 8px;
-width:80px;
-height:30px;
-color:white;
-font-family:NanumSquareRound;
+._btnlist{
+border-radius: 14px;
+width: 130px;
+height: 35px;
+color: white;
+font-family: NanumSquareRound;
 font-size: 15px;
-
+float: right;
+margin-right:15px;
+background-color: #585e7d;
+border: 1px solid #585e7d;
+}
+._btnlist.cancel{
+	margin-right:40px;
 }
 #__btnSearch{
 border-radius: 8px;
@@ -28,6 +34,11 @@ font-size: 30px;
 
 }
 
+.freeprofile{
+	width:50px;
+	height:50px;
+	border-radius:50%;
+}
 .profilephoto{
 	width: 80px; height: 80px;
    	object-fit: cover;
@@ -40,19 +51,24 @@ font-size: 30px;
 	width:23px;
 	height:23px;
 }
-.th1{	width:150px;}
-.th2{	width:800px;}    /* style="word-break:break-all" */
-.th3{	width:400px;}
+.th0{	width:65px; padding-top: 0px; padding-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-left:10px;}
+.th1{	width:110px; padding-top: 12px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;}
+.th2{	width:750px;}    /* style="word-break:break-all" */
+.th3{	width:300px;}
 .th4{	width:120px;}
 .th5{	width:90px;}
 .th6{	width:90px;}
 .th7{	width:90px;}
 .th8{	width:90px;}
 .th9{	width:90px;}
+
+
+
 .tt1{ width: 100px;}
 .tt2{ width: 100px;}
 .tt3{ width: 300px;}
 .tt4{ width: 100px;}
+
 .qqq{fontsize:x-large;}
 .cmlike{display:inline}
 .likeke{display:inline}

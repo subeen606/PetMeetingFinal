@@ -114,6 +114,8 @@ public interface FreeboardDao {
 
 	public boolean admincmdelete(CommentDto cmdto);
 
+	public void reportcountup(int seq);
+
 
 	
 	

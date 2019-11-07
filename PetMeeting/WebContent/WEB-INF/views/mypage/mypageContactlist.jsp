@@ -141,7 +141,7 @@ $(document).ready(function(){
 					$("#pop-up-window-contact").load("getcontact.do?selection="+selection+"&keyword="+keyword+"&flw="+flw);
 				},
 				error : function() {
-					alert("실패의 참맛");
+					
 				}
 			}); 
 	});
@@ -179,7 +179,7 @@ $(document).ready(function(){
 	
 			},
 			error : function() {
-				alert("실패의 참맛");
+				
 			}
 		}); 
 		

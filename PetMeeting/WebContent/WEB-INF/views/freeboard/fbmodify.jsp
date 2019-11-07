@@ -12,16 +12,8 @@
 <link rel="stylesheet" href="freeboard_resources/css/bootstrap.css">
 <link rel="stylesheet" href="freeboard_resources/css/freeboard_style.css">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script type="text/javascript" src="freeboard_resources/ckeditor/ckeditor.js"></script>
 
-
-
-
-	<!-- <link href="freeboard_resources/css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" href="freeboard_resources/css/freeboard_style.css">
-  	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  
-  	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script> -->
 </head>
 <body>
 
@@ -37,21 +29,6 @@ FreeboardDto dto = (FreeboardDto)request.getAttribute("dto");
 MemberDto user = (MemberDto)request.getSession().getAttribute("login");
 %>
 <!-- 설명 설명 들어가는 부분 -->
-<div class="container">
-    <div class="fbtitle" align="left" style="margin-top: 2%; margin-left: 2%;">
-    	<c:if test="${dto.board_code eq 'DOG'}">
-    		<input type="button" value="강아지 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    </c:if>
-	    
-	    <c:if test="${dto.board_code eq 'CAT'}">
-    		<input type="button" value="고양이 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    </c:if>
-	    		
-	    <c:if test="${dto.board_code eq 'ETC'}">
-    		<input type="button" value="기타 동물 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-	    </c:if>
-	 </div>
-</div>
 
 <br><br>
 <form name="frmForm" id="_frmForm" method="post" action="freeboard_boardupdate.do">
@@ -86,7 +63,7 @@ MemberDto user = (MemberDto)request.getSession().getAttribute("login");
             			</tr>
             			<tr>
             				<td colspan="2">
-            					<textarea type="text" name="content" placeholder="내용" id="summernote"  rows="10" cols="50" >${dto.content}</textarea>			
+            					<textarea type="text" name="content" placeholder="내용" id="p_content"  rows="10" cols="50" >${dto.content}</textarea>			
             				</td>
             			</tr>
             			<tr>
@@ -102,8 +79,8 @@ MemberDto user = (MemberDto)request.getSession().getAttribute("login");
 
 <div class="container">
 
-<input type="button"  id="_btnlist" style="float: right; margin-right: 5%; background-color:#585e7d; border: 1px solid #585e7d;" value="수정취소" onclick="location.href='fblistview.do?board_code=${board_code}'">
-<input type="submit"  id="_btnlist" style="float: right; margin-right: 5%; background-color:#585e7d; border: 1px solid #585e7d;" value="수정완료">
+<input type="button" class="_btnlist cancel" value="수정취소" onclick="location.href='fblistview.do?board_code=${board_code}'">
+<input type="submit" class="_btnlist ok" value="수정완료">
 
 </div>
 
@@ -116,16 +93,11 @@ MemberDto user = (MemberDto)request.getSession().getAttribute("login");
    
  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
    
-<script type="text/javascript">
 
- $('#summernote').summernote({
-         height: 400,                 // set editor height
-         minHeight: null,             // set minimum height of editor
-         maxHeight: null,             // set maximum height of editor
-         focus: true                  // set focus to editable area after initializing summernote
- });
-	
-   
+<script type="text/javascript">
+ CKEDITOR.replace('p_content'
+                , {height: 500                                                  
+                 });
 </script>
 </body>
 </html>

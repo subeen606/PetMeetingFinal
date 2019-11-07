@@ -883,6 +883,9 @@ public class AdminCotroller {
 	}
 
 	
+	
+	
+	
 	// 관리자페이지 자유게시판 리스트 불러오기
 		@RequestMapping(value="adminFreeboardList.do", method = {RequestMethod.GET, RequestMethod.POST})
 		public String admin(FbParam param, Model model) {
@@ -920,7 +923,7 @@ public class AdminCotroller {
 
 			model.addAttribute("list", list);
 			
-			return "admin/freeboard/freeboardList";
+			return "admin/freeboard/freeboardadminList";
 		}
 		
 		
@@ -928,7 +931,6 @@ public class AdminCotroller {
 		// 자유게시판 관리자 글삭제
 		@RequestMapping(value= "adminFreeboardDelete.do", method= {RequestMethod.GET, RequestMethod.POST})
 		public String adminFreeboardDelete(HttpServletRequest req) {
-			System.out.println("관리자삭제옴");
 			String[] dels = req.getParameterValues("deleteboard");
 			for (int i = 0; i < dels.length; i++) {
 				this.adminService.Freeboardadmindelete(Integer.parseInt(dels[i]));}
@@ -946,7 +948,11 @@ public class AdminCotroller {
 			model.addAttribute("cmlist", cmlist);
 			
 			
-			return "admin/freeboard/freeboardDetail";
+			return "admin/freeboard/fbadmindetail";
 		}
 		
+		
+	
+		
+
 }

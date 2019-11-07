@@ -181,7 +181,7 @@ $(document).ready(function(){
 			$(".unreadMsg").text(data);
 		},
 		error:function(request,status,error){
-	        alert("code:"+request.status + "message:"+request.responseText+"error:"+error);
+	       
 		}
 	});
 	

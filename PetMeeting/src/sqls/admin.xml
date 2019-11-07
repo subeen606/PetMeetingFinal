@@ -693,4 +693,248 @@
       </select>
 
 
+<!-- 관리자 자유게시판 숫자카운팅-->
+<select id="getfbadminCount" parameterType="com.petmeeting.joy.freeboard.model.FbParam" 
+	resultType="java.lang.Integer">
+
+	SELECT NVL(COUNT(*), 0) AS CNT
+	FROM (SELECT * FROM (SELECT 					a.board_code,
+													a.seq,
+													a.email,
+													a.category,
+													a.title,
+													a.content,
+													a.readcount,
+													a.likecount,
+													a.reportcount,
+													a.regdate,
+													a.del,
+													b.nickname
+													FROM PM_FREEBOARD a 
+													INNER JOIN PM_MEMBER b 
+													ON a.EMAIL = b.EMAIL
+													)
+	
+	
+	 ) 
+	<if test="category != null and category != ''">
+			 	<if test="category == 'free'">
+			 		WHERE CATEGORY LIKE '잡담'
+			 	</if>
+			 	<if test="category == 'search'">
+			 		WHERE CATEGORY LIKE '찾아요'
+			 	</if>
+			 	<if test="category == 'infor'">
+			 		WHERE CATEGORY LIKE '정보'
+			 	</if>
+			 	<if test="category == 'qna'">
+			 		WHERE CATEGORY LIKE '질문'
+			 	</if>
+			 	<if test="category == 'boast'">
+			 		WHERE CATEGORY LIKE '자랑'
+			 	</if>
+		 	 </if> 
+		 	  <if test="category == null or category == ''">	
+					 WHERE 1=1		
+			</if>
+	<if test="s_category != null and s_category != ''
+	  	and s_keyword != null and s_keyword != ''">		  	
+	  	<if test="s_category == 'title'">
+	  		AND TITLE LIKE '%'||#{s_keyword}||'%'
+	  	</if>
+	  	<if test="s_category == 'content'">
+	  		AND CONTENT LIKE '%'||#{s_keyword}||'%'
+	  	</if>
+	  	<if test="s_category == 'email'">
+	  		AND email LIKE '%'||#{s_keyword}||'%'
+	  	</if>
+	  	<if test="s_category == 'nickname'">
+	  		AND nickname LIKE '%'||#{s_keyword}||'%'
+	  	</if>
+	 </if>
+			 <if test="board_code == 'DOG'">
+		  		AND BOARD_CODE = 'DOG'
+		  	 </if>
+			 <if test="board_code == 'CAT'">
+		  		AND BOARD_CODE = 'CAT'
+		  	 </if>
+		  	 <if test="board_code == 'ETC'">
+		  		AND BOARD_CODE = 'ETC'
+		  	 </if>
+</select>
+
+
+<!-- 자유게시판 관리자 글 불러오기 -->
+<select id="getfbadminList" parameterType="com.petmeeting.joy.freeboard.model.FbParam" resultType="com.petmeeting.joy.freeboard.model.FreeboardDto">
+	
+	SELECT F.BOARD_CODE,
+		   F.SEQ,	   
+		   F.EMAIL,	   
+		   F.CATEGORY,
+		   F.REGDATE,
+		   F.TITLE,
+		   F.CONTENT,
+		   F.READCOUNT,
+		   F.LIKECOUNT,
+		   F.REPORTCOUNT,	   
+		   F.DEL,
+		   F.NICKNAME,
+		   <!-- F.MYPROFILE_IMG,  -->
+		   F.GRADE_NAME,
+		   F.FILENAME,
+		   F.COUNTREPLY,
+		   F.RNUM
+	  
+	 FROM (SELECT ROW_NUMBER()OVER(ORDER BY
+			
+			<if test="sorting != null and sorting != ''">
+			 	<if test="sorting == 'old'">
+			 		a.REGDATE ASC
+			 	</if>
+			 	<if test="sorting == 'like'">
+			 		a.LIKECOUNT DESC
+			 	</if>
+			 	<if test="sorting == 'read'">
+			 		a.READCOUNT DESC
+			 	</if>
+		 	 </if> 
+		 	 <if test="sorting == null or sorting == ''">	
+					 a.REGDATE DESC		
+			</if>
+		
+				 ) AS RNUM,
+				  	  a.REGDATE,
+				  	  a.BOARD_CODE,
+				  	  a.SEQ,
+				  	  a.EMAIL,
+				  	  a.CATEGORY,
+				  	  a.TITLE,
+				  	  a.CONTENT,
+				  	  a.READCOUNT,
+				  	  a.LIKECOUNT,
+				  	  a.REPORTCOUNT,
+				  	  a.DEL,				  	  
+				  	  b.NICKNAME,
+				  	
+				  	  (SELECT d.GRADE_NAME FROM PM_GRADE d WHERE b.TOTALPOINT BETWEEN d.MIN_POINT AND d.MAX_POINT) AS GRADE_NAME,
+				      (SELECT d.FILENAME FROM PM_GRADE d WHERE b.TOTALPOINT BETWEEN d.MIN_POINT AND d.MAX_POINT) AS FILENAME, 
+				  	  NVL((SELECT COUNT(e.BOARD_SEQ) 
+				  	  	   FROM PM_COMMENT e 
+				  	  	   WHERE e.DEL = 0 
+					  	  		AND a.SEQ = e.BOARD_SEQ 
+					  	   GROUP BY a.SEQ), 0) AS COUNTREPLY
+		  	  
+		    FROM PM_FREEBOARD a 
+		    	INNER JOIN PM_MEMBER b 
+					ON a.EMAIL = b.EMAIL 
+				
+		    WHERE 1=1  
+			
+			 <if test="board_code != null and board_code != ''">
+				 <if test="board_code == 'DOG'">
+			  		AND BOARD_CODE = 'DOG'
+			  	 </if>
+				 <if test="board_code == 'CAT'">
+			  		AND BOARD_CODE = 'CAT'
+			  	 </if>
+			  	 <if test="board_code == 'ETC'">
+			  		AND BOARD_CODE = 'ETC'
+			  	 </if>
+		  	 </if>
+	    	 
+		  	<if test="category != null and category != ''">
+			 	<if test="category == 'free'">
+			 		AND a.CATEGORY LIKE '잡담'
+			 	</if>
+			 	<if test="category == 'search'">
+			 		AND a.CATEGORY LIKE '찾아요'
+			 	</if>
+			 	<if test="category == 'infor'">
+			 		AND a.CATEGORY LIKE '정보'
+			 	</if>
+			 	<if test="category == 'qna'">
+			 		AND a.CATEGORY LIKE '질문'
+			 	</if>
+			 	<if test="category == 'boast'">
+			 		AND a.CATEGORY LIKE '자랑'
+			 	</if>
+		 	 </if> 
+			
+		 <if test="s_category != null and s_category != '' and s_keyword != null and s_keyword != ''">		  	
+		  	 <if test="s_category == 'title'">
+		  		AND a.TITLE LIKE '%'||#{s_keyword}||'%'
+		  	 </if>
+		  	 <if test="s_category == 'content'">
+		  		AND a.CONTENT LIKE '%'||#{s_keyword}||'%'
+		   	 </if>
+		  	 <if test="s_category == 'email'">
+		  		AND a.EMAIL LIKE '%'||#{s_keyword}||'%'
+		  	 </if>
+		  	 <if test="s_category == 'nickname'">
+		  		AND b.NICKNAME LIKE '%'||#{s_keyword}||'%'
+		  	 </if>
+			
+			
+			 
+		  	 	
+		  </if>
+		  ) F
+	WHERE F.RNUM BETWEEN ${start} AND ${end}
+	
+	
+</select> 
+
+
+<!-- 자유게시판 관리자 코멘트 불러오기 -->
+<select id="getcmList"
+parameterType="java.lang.Integer"
+resultType="com.petmeeting.joy.freeboard.model.CommentDto">
+	SELECT	F.SEQ,
+ 	    F.BOARD_CODE,
+        F.BOARD_SEQ,
+        F.REF,
+        F.STEP,
+        F.DEPTH,
+	    F.EMAIL,
+	    F.NICKNAME,
+	    F.CONTENT,
+	    F.LIKECOUNT,
+	    F.REPORTCOUNT,
+	    F.REGDATE,
+	    F.DEL,
+	    F.MYPROFILE_IMG,
+	    F.GRADE_NAME,
+	    F.FILENAME
+FROM(SELECT a.SEQ,
+	 	    a.BOARD_CODE,
+	        a.BOARD_SEQ,
+	        a.REF,
+	        a.STEP,
+	        a.DEPTH,
+		    a.EMAIL,
+		    b.NICKNAME,
+		    a.CONTENT,
+		    a.LIKECOUNT,
+		    a.REPORTCOUNT,
+		    a.REGDATE,
+		    a.DEL,
+		    c.MYPROFILE_IMG,
+		    (SELECT d.GRADE_NAME FROM PM_GRADE d WHERE b.TOTALPOINT BETWEEN d.MIN_POINT AND d.MAX_POINT) AS GRADE_NAME,
+		    (SELECT d.FILENAME FROM PM_GRADE d WHERE b.TOTALPOINT BETWEEN d.MIN_POINT AND d.MAX_POINT) AS FILENAME
+	FROM PM_COMMENT a 
+		INNER JOIN PM_MEMBER b
+			ON a.EMAIL = b.EMAIL
+		LEFT OUTER JOIN PM_MYPROFILE c
+			ON a.EMAIL = c.EMAIL )F 
+WHERE F.BOARD_SEQ = #{board_seq}
+ORDER BY REF ASC, STEP ASC			
+	
+</select> 
+<!-- 자유게시판 관리자 글삭제 -->
+<delete id="Freeboardadmindelete" parameterType="java.lang.Integer">
+	DELETE FROM PM_FREEBOARD
+	WHERE SEQ=#{seq} 
+</delete>
+
+
 </mapper>
