@@ -191,14 +191,15 @@
 <script type="text/javascript">
 
 $(document).ready(function () {
-		  Notification.requestPermission(function (status) {
+
+	Notification.requestPermission(function (status) {
 		    // This allows to use Notification.permission with Chrome/Safari
-		    //alert("status"+status);
+		    // alert(Notification.permission);
 		    if (Notification.permission !== status) {
 		      Notification.permission = status;
 		    }
 		  });
-	
+	 
 	$.ajax({
 		 type:"POST",
 		 url:"mypagemsgpush.do",
