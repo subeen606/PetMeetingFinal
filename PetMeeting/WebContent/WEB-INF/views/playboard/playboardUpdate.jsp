@@ -299,7 +299,7 @@ $(function () {
 		 
 		/* #과 ,제외한 특수문자 입력 제어 */
 		if(regExp.test(hashs)){
-			alert("태그 작성시 특수문자는 사용하실 수 없습니다");
+			alert("태그 작성시 특수문자는 사용하실 수 없습니다.");
 			var length = hashs.length;
 			$("input[name='hashtag']").val(hashs.substring(0, length-1));
 			$("input[name='hashtag']").focus();
@@ -307,7 +307,7 @@ $(function () {
 		
 		/* 첫 번째 글자가 #이 아닐 경우 제어 */
 		if(hashs.indexOf("#") != 0){
-			alert("태그 앞에는 '#'을 붙여주세요");
+			alert("태그 앞에는 '#'을 붙여주세요.");
 			$("input[name='hashtag']").val("");
 			$("input[name='hashtag']").focus();
 		}
@@ -316,7 +316,7 @@ $(function () {
 		/* 콤마로 구분해주지 않았을 때 제어 */
 		if(count > 1){
 			if(hashs.indexOf(",") < 0 || !((count - comma) <= 1)){	
-				alert("태그는 공백없이 ','으로만 구분해주세요\n예시:#반려동물커뮤니티,#펫미팅");
+				alert("태그는 공백없이 ','으로만 구분해주세요.\n예시:#반려동물커뮤니티,#펫미팅");
 				var index = hashs.lastIndexOf("#");
 				$("input[name='hashtag']").val(hashs.substring(0, index));
 				$("input[name='hashtag']").focus();
@@ -333,7 +333,7 @@ $(function () {
 		
 		/* 스페이스바 제어 */
 		if(e.keyCode == 32){
-			alert("태그는 공백없이 ','으로만 구분해주세요 \n예시:#반려동물커뮤니티,#펫미팅");
+			alert("태그는 공백없이 ','으로만 구분해주세요. \n예시:#반려동물커뮤니티,#펫미팅");
 			$("input[name='hashtag']").val(hashs.replace(" ", ","));
 			$("input[name='hashtag']").focus();
 		}
@@ -352,7 +352,7 @@ $(function () {
 	
 	$("input[name='title']").keyup(function () {
 		if($.trim($("input[name='title']").val()).length > 20){
-			alert("제목은 20자 이하로 작성해 주세요");
+			alert("제목은 20자 이하로 작성해 주세요.");
 			$("input[name='title']").focus();
 		}
 	});
@@ -370,7 +370,7 @@ $(function () {
 			$("input[name='title']").focus();
 			return false;
 		}else if($("input[name='title']").val().length < 5){
-			alert("제목은 띄어쓰기 제외 5글자 이상으로 입력해 주세요");
+			alert("제목은 띄어쓰기 제외 5글자 이상으로 입력해 주세요.");
 			$("input[name='title']").focus();
 			return false;
 		}

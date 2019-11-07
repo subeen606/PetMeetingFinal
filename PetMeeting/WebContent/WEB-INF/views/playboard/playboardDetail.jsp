@@ -471,7 +471,7 @@ $(function () {
 						var option = "width = 550, height = 500, top = 100, left = 300, location = no, resizeable = no";
 						window.open("boardReport.do?seq=${detail.seq }", "report", option);
 					}else if(data.trim() == "no"){
-						alert("신고는 한 번만 가능합니다");
+						alert("신고는 한 번만 가능합니다!");
 					}
 				},
 				error: function () {
@@ -574,7 +574,7 @@ $(function () {
 	$("#reportMember").click(function () {
 		//alert($("#memberProfileFrm input[name='nickname']").val());
 		if($("#memberProfileFrm input[name='bad_email']").val() == $("#memberProfileFrm input[name='email']").val()){
-			alert("자기 자신은 신고할 수 없습니다");
+			alert("자기 자신은 신고할 수 없습니다!");
 			return false;
 		}else{
 		//	var formdata = $("#memberProfileFrm").serialize();

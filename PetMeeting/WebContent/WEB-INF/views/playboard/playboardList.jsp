@@ -182,7 +182,7 @@ $(function () {
 	
 	$("#searchBtn").click(function () {
 		if($("select[name='searchCategory']").val() == "선택"){
-			alert("검색 항목을 선택해주세요");
+			alert("검색 항목을 선택해주세요!");
 			return false;
 		}
 		$("select[name='sortingType']").val("선택").attr("selected", "selected");
