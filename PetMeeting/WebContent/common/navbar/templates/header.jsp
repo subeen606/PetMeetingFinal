@@ -191,14 +191,18 @@
 <script type="text/javascript">
 
 $(document).ready(function () {
-		  Notification.requestPermission(function (status) {
+
+	Notification.requestPermission(function (status) {
 		    // This allows to use Notification.permission with Chrome/Safari
-		    //alert("status"+status);
-		    if (Notification.permission !== status) {
+
+		    // alert(Notification.permission);
+
+		  //  alert("status"+status);
+		    if (Notification.permission != status) {
 		      Notification.permission = status;
 		    }
 		  });
-	
+	 
 	$.ajax({
 		 type:"POST",
 		 url:"mypagemsgpush.do",
@@ -241,6 +245,7 @@ $(document).ready(function () {
 					Notification.requestPermission().then(function(result) {
 										
 				      if(result=='denied'){
+				    	 
 				      alert(email+"님으로 부터 쪽지가 왔습니다");	
 				  }else{
 						var notification = new Notification(email+"님으로 부터 쪽지가 왔습니다",options);
