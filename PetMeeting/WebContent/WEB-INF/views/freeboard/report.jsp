@@ -9,6 +9,10 @@
 <meta charset="UTF-8">
 <title>PetMeeting</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link rel="icon" href="${pageContext.request.contextPath}/common/navbar/img/petmeetingicon.png">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/playboard_resources/css/report.css">
+
+
 </head>
 <body>
 
@@ -23,7 +27,7 @@
 
 <div class="container">
 
-<form id="reportFrm">
+<form id="reportFrm" action="freeboard_reportAf.do">
 
 	<input type="hidden" name="seq" value="0">
 	<input type="hidden" name="board_code" value="${reportform.board_code}">
@@ -31,7 +35,7 @@
 	<input type="hidden" name="email" value="${reportform.email }">
 	<input type="hidden" name="nickname" value="${reportform.nickname}">
 	<div class="row">
-		<img src="./images/report.png" width="30px" height="30px" style="transform: translate(5px, 10px);">&nbsp;&nbsp;<h3>신고하기</h3>
+		<img src="freeboard_resources/images/report.png" width="30px" height="30px" style="transform: translate(5px, 10px);">&nbsp;&nbsp;<h3>신고하기</h3>
 	</div>
 	<div class="line"></div>	
 	
@@ -115,21 +119,16 @@ $(function () {
 			return false;
 		}
 		
-		var check = confirm("신고는 한번만 가능합니다 정말 신고하시겠습니까?");
-		if(check){
-			
 			if($("input[name='board_seq']").val() == null || $("input[name='board_seq']").val() == ""){
 				$("input[name='board_seq']").val("0");
 			}
 			
 			$("#reportFrm").attr("action", "freeboard_reportAf.do");
-			$("#reportFrm").submit();
+			//$("#reportFrm").submit();
 			
 			self.close();				
 		
-		}else{
-			self.close();	
-		}
+		
 	});
 });
 

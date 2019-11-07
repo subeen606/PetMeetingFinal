@@ -29,6 +29,13 @@ CREATE TABLE PM_GRADE(
 
 SELECT * FROM PM_MEMBER;
 
+INSERT INTO PM_MEMBER
+VALUES('butter@petmeeting.com', '111', '이버터', '버터링', '06164', '서울 강남구 봉은사로 524', 'SM아티움', '(삼성동)', '01011111111', 0,0,0,0,3)
+
+UPDATE PM_MEMBER
+SET AUTH=3
+WHERE EMAIL='miki@petmeeting.com'
+
 /* PLAYBOARD */
 DROP TABLE PM_PLAYBOARD
 CASCADE CONSTRAINTS;

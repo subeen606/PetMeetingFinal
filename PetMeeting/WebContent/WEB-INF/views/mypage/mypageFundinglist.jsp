@@ -51,9 +51,8 @@
             <section class="left-image">
               <div class="container-fluid">
                 <div class="row">
-                  <div class="col-md-4">
-                      <img src="./mypage_resources/mypage_s/images/main1.jpg" alt="" class="mysize">
-              <!--     <img src="${fund.thumbnail }" alt=""> -->  
+                  <div class="col-md-4">   
+           			 <img src="fundingFileupload/${fund.thumbnail }" class="mysize">  
                   </div>
                   <div class="col-md-4">
                     <div class="right-content">

@@ -60,7 +60,7 @@
               <div class="container-fluid">
                 	<div class="row">
                 		<div class="empty-playlist">
-					  	<font>참여한 활동이 없습니다.</font>
+					  	<font class="nothing">참여한 활동이 없습니다.</font>
                 		</div>
                 	</div>
                </div>
@@ -121,7 +121,7 @@
               <div class="container-fluid">
                 	<div class="row">
                 		<div class="empty-playlist">
-					  	<font>모집한 활동이 없습니다.</font>
+					  	<font class="nothing">모집한 활동이 없습니다.</font>
                 		</div>
                 	</div>
                </div>

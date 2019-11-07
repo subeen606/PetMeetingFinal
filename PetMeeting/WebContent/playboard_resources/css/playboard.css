@@ -156,6 +156,8 @@ input{
 	cursor: pointer;
 	margin-top: 5px;
 	display: inline-block;
+	overflow: hidden;
+	height: 35px;
 }
 
 .playDate{

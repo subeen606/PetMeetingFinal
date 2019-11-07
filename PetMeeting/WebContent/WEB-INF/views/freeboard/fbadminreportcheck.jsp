@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>PetMeeting</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/admin_resources/css/reportReason.css?after">
 </head>
 <body>
 
@@ -25,28 +26,52 @@
 	List<ReportDto> list = (List<ReportDto>)request.getAttribute("reportform");
 %>
 
-<div class="container">
-
-<form id="reportFrm">
 
 
-<%	for(int i = 0; i < list.size(); i++) { 
-  ReportDto fb = list.get(i); 
-if(list.isEmpty()){ %>
- <span>신고 기록이 없습니다.</span>
-
-<%} %>
-  <span>신고자 : <%=fb.getNickname() %></span>
-  <span>신고사유 : <%=fb.getReason()%></span>
-  <span>신고사유2 : <%=fb.getReasonTxt() %></span>
-	<br>
-
-<% } %>
-
-
-
-</form>
+<div class="mainTitle">
+<img src="${pageContext.request.contextPath}/playboard_resources/img/siren.png" width="30px" height="30px" style="vertical-align: sub">신고내역
 </div>
+
+<div class="reasonWrap">
+
+
+
+<form id="boardReportDeleteFrm">
+	<input type="hidden" name="seq">
+	<input type="hidden" name="board_seq" value="${board_seq }">
+	<input type="hidden" name="board_code" value="${board_code }">
+</form>
+
+		<%	for(int i = 0; i < list.size(); i++) { 
+  			ReportDto fb = list.get(i); %>
+  			
+  			
+		<table class="reasonTable">
+		
+		
+		
+		
+		
+		
+				<th>신고자</th>
+				<td><%=fb.getEmail() %></td>
+			</tr>
+			<tr>
+				<th>신고 사유</th>
+				<td>
+					<%=fb.getReason() %>
+				</td>
+			</tr>
+		</table>
+
+		<%} %>
+
+
+</div>
+
+
+
+
 
 
 

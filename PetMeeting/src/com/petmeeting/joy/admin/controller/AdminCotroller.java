@@ -32,6 +32,10 @@ import com.petmeeting.joy.admin.model.Memberleaveparam;
 import com.petmeeting.joy.admin.model.NoticeBoardDto;
 import com.petmeeting.joy.admin.model.ReportDto;
 import com.petmeeting.joy.admin.service.AdminService;
+import com.petmeeting.joy.freeboard.model.CommentDto;
+import com.petmeeting.joy.freeboard.model.FbParam;
+import com.petmeeting.joy.freeboard.model.FreeboardDto;
+import com.petmeeting.joy.freeboard.service.FreeboardService;
 import com.petmeeting.joy.funding.model.DayBean;
 import com.petmeeting.joy.funding.model.FundingDto;
 import com.petmeeting.joy.funding.model.FundingStaDto;
@@ -67,6 +71,9 @@ public class AdminCotroller {
 	
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	FreeboardService freeboardService;
 	
 	
 	@RequestMapping(value = "adminMain.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -874,5 +881,72 @@ public class AdminCotroller {
 		
 		return "admin/memberleave/memleavegraph";
 	}
+
 	
+	// 관리자페이지 자유게시판 리스트 불러오기
+		@RequestMapping(value="adminFreeboardList.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String admin(FbParam param, Model model) {
+			System.out.println("----------------페이지 : " + param.getPageNumber());
+			
+			//페이징
+			int sn = param.getPageNumber();		// 0 1 2 
+			int start = sn * param.getRecordCountPerPage() + 1;	// 1  11 
+			int end = (sn + 1) * param.getRecordCountPerPage();	// 10 20
+			
+			param.setStart(start);
+			param.setEnd(end);				
+					
+			List<FreeboardDto> list = freeboardService.getfbadminList(param);
+			//List<FreeboardDto> list = adminService.getfbadminList(param);
+			
+			int totalRecordCount = freeboardService.getfbadminCount(param);
+			//int totalRecordCount = adminService.getfbadminCount(param);
+			
+			System.out.println("리스트 사이즈 : " + list.size());
+			System.out.println("총 글의 갯수 : " + totalRecordCount);
+			
+			
+			//paging
+			model.addAttribute("pageNumber", sn);
+			model.addAttribute("pageCountPerScreen", 10);
+			model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+			model.addAttribute("totalRecordCount", totalRecordCount);
+			//param
+			model.addAttribute("board_code", param.getBoard_code());
+			model.addAttribute("s_category", param.getS_category());
+			model.addAttribute("s_keyword", param.getS_keyword());
+			model.addAttribute("category", param.getCategory());
+			model.addAttribute("sorting", param.getSorting());
+
+			model.addAttribute("list", list);
+			
+			return "admin/freeboard/freeboardList";
+		}
+		
+		
+		
+		// 자유게시판 관리자 글삭제
+		@RequestMapping(value= "adminFreeboardDelete.do", method= {RequestMethod.GET, RequestMethod.POST})
+		public String adminFreeboardDelete(HttpServletRequest req) {
+			System.out.println("관리자삭제옴");
+			String[] dels = req.getParameterValues("deleteboard");
+			for (int i = 0; i < dels.length; i++) {
+				this.adminService.Freeboardadmindelete(Integer.parseInt(dels[i]));}
+			return "redirect:adminFreeboardList.do";
+		}
+		
+		
+		@RequestMapping(value="adminFreeboardDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String adminFreeboardDetail(Model model, int seq, HttpServletRequest req) throws Exception {
+			
+			FreeboardDto fb = adminService.getfreeboardadmindetail(seq);
+			model.addAttribute("dto", fb);
+				
+			List<CommentDto> cmlist = adminService.getfreeboardadmincmlist(seq);
+			model.addAttribute("cmlist", cmlist);
+			
+			
+			return "admin/freeboard/freeboardDetail";
+		}
+		
 }

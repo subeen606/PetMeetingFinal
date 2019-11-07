@@ -28,6 +28,11 @@
 
 </head>
 <body>
+
+<%
+String jsonData = (String)request.getAttribute("jsonData");
+%>
+
 <div id="right-panel" class="right-panel">
 <!--::header part start::-->
 	<jsp:include page="/admin_resources/admincss/templates/adminheader.jsp" flush="false"/>
@@ -37,7 +42,7 @@
 	<div class="content">
 		<div class="container">
 			<div class="mainTitle">반려동물 행사 안내 게시판</div>
-			
+						
 			<div id='calendar'></div>
 									
 		</div>
@@ -69,8 +74,14 @@
 			editable : false,
 			contentHeight: 730,
 			eventLimit: 3,
-			locale : 'ko',
-			events: ${jsonData },
+			locale : 'ko',			
+			 <%
+			if(!jsonData.equals("")){	
+			%>
+			events : <%=jsonData%>,
+			<%
+			 }
+			 %>				
 			displayEventTime:false,
 			eventClick: function(info) {
 				var seq = info.event.id;
