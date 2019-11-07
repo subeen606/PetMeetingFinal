@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.petmeeting.joy.login.model.MemberDto;
 import com.petmeeting.joy.store.model.AnswerDto;
 import com.petmeeting.joy.store.model.OrderInfoDto;
 import com.petmeeting.joy.store.model.OrderParam;
@@ -486,17 +487,42 @@ public class StoreAdminController {
 		System.out.println("------------------------------------ adcancelpay RefundDto : " + refund.toString());
 		System.out.println("------------------------------------ adcancelpay amount : " + amount);
 		
+		OrderInfoDto oi = orderService.getOrderDetail(refund.getOrdernumber());
+		int pay_amount = oi.getTotalprice() - oi.getUse_point();	// 결제금액
+		System.out.println("------------------------------------ adcancelpay 결제금액 : " + pay_amount);
+		
+		int refund_amount = 0;	// 환불될 금액
+		int refund_point = 0;	// 환불될 포인트
+		
+		if(amount > pay_amount) {
+			refund_amount = pay_amount;
+			refund_point = amount - pay_amount;
+		}else {
+			refund_amount = amount;
+		}
+		
+		refund_point = (int) (refund_point - amount * 0.05);
+		
+		System.out.println("------------------------------------ adcancelpay 최종 환불금액 : " + refund_amount);
+		System.out.println("------------------------------------ adcancelpay 최종 환불포인트 : " + refund_point);
+		
 		JSONObject json = new JSONObject();
 		
 		json.put("merchant_uid", refund.getOrdernumber());
 		json.put("reason", refund.getReason());
-		json.put("amount", amount);
+		json.put("amount", refund_amount);
 		
 		URLConn conn = new URLConn("http://192.168.0.7", 9050);
 		String result = conn.urlPost(json);
 		
 		if(result.equals("refund complete")) {
 			orderService.updateRefundComplete(refund.getRefund_seq());
+			
+			MemberDto mem = new MemberDto();
+			mem.setEmail(oi.getEmail());
+			mem.setSavepoint(refund_point);
+			orderService.savePoint(mem);
+			
 			System.out.println("환불완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 		
