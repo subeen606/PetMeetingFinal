@@ -60,8 +60,9 @@ button:hover {
 	height:30px;
 }
 .mysize{
-	width:auto;
-	max-height:250px;
+	width:375px;
+	height:255px;
+	object-fit: cover;
 }
 .col-md-6{
 	width:500px!important;
