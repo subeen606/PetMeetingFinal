@@ -21,7 +21,7 @@
 			<div style="margin: 40px 0;">
 				<h4>상품 상세정보</h4>			
 			</div>
-			<table>
+			<table style="margin: auto">
 				<colgroup>
 					<col width="300"><col width="100"><col width="300">
 				</colgroup>
