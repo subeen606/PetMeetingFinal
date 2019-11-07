@@ -205,7 +205,7 @@ function inputPhoneNumber(obj) {
 // 이메일찾기
 function emailfind() {
 	
-	alert("emailfind클릭");
+	//alert("emailfind클릭");
 	
 	var url = "emailfind.do";
 	var option = "scrollbars=no, left=200,top=200, width=650, height=530";
