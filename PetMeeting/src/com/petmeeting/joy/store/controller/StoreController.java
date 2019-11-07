@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,7 @@ import com.petmeeting.joy.store.service.ProductService;
 import com.petmeeting.joy.store.service.QnaService;
 import com.petmeeting.joy.store.service.ReviewService;
 import com.petmeeting.joy.util.FileUtility;
+import com.petmeeting.joy.util.URLConn;
 
 @Controller
 public class StoreController {
@@ -548,24 +550,43 @@ public class StoreController {
 		param.setStatus(0);
 		
 		// 주문 취소 버튼을 누르면 주문번호가 들어옴
-		String on = req.getParameter("ordernumber");	
+		String on = req.getParameter("ordernumber");
 		
 		if(on != null) {
-			orderService.orderCancel(oiDto);				// 주문을 취소상태로 변경
-			int point = orderService.getOrderPoint(oiDto);	// 취소한 상품들의 적립금을 가져온다
-			int usePoint = orderService.getUse_Point(oiDto);	// 주문 시 사용한 적립금 가져옴
+			
+			OrderInfoDto oi = orderService.getOrderDetail(on);
+			int refund_amount = oi.getTotalprice() - oi.getUse_point() + 2500;	// 결제금액
+			System.out.println("------------------------------------ 취소 금액 : " + refund_amount);
 
-			mem.setEmail(email);
-			mem.setSavepoint(point);
-			mem.setUse_point(usePoint);
+			int refund_point = oi.getUse_point();	// 환불될 포인트
 			
-			orderService.cancelPoint(mem);					// 가져온 적립금을 빼줌 사용한 적립금이 있다면 사용한 적립금은 돌려줌
-
-			MemberDto mem_ = (MemberDto) req.getSession().getAttribute("login");
-			mem_ = memService.loginCheck(mem_);		// 세션 갱신
+			refund_point = (int) (refund_point - refund_amount * 0.05);
+			System.out.println("------------------------------------ 환불포인트 : " + refund_point);
 			
-			req.getSession().setAttribute("login", mem_);
+			JSONObject json = new JSONObject();
 			
+			json.put("merchant_uid", on);
+			json.put("reason", "주문 취소입니다");
+			json.put("amount", refund_amount);
+			
+			URLConn conn = new URLConn("http://192.168.0.7", 9050);
+			String result = conn.urlPost(json);
+			
+			if(result.equals("refund complete")) {
+				System.out.println("환불완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				
+				orderService.orderCancel(oiDto);				// 주문을 취소상태로 변경
+				
+				MemberDto member = new MemberDto();
+				member.setEmail(oi.getEmail());
+				member.setSavepoint(refund_point);
+				orderService.savePoint(member);
+				
+				MemberDto mem_ = (MemberDto) req.getSession().getAttribute("login");
+				mem_ = memService.loginCheck(mem_);		// 세션 갱신
+				
+				req.getSession().setAttribute("login", mem_);
+			}
 		}
 		
 		
