@@ -188,7 +188,7 @@ div.review-writerscore-star-orange{
 					<div class="delivery-info">
 						<div class="delivery-img">
 							<img alt="" src="${pageContext.request.contextPath}/store_resources/images/delivery-ing.png">
-<!-- 							<p>배송중</p> -->
+							<p>배송중</p>
 						</div>
 						<div class="delivery-count">
 							${dcount }

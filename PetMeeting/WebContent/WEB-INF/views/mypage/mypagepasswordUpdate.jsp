@@ -139,14 +139,14 @@ $("#passupdate").click(function () {
 		   async: false,
 		   data:{"pwd":$("#pass2").val()},
 		   success:function(data){
-			   alert("성공~");
+			  // alert("성공~");
 			   if(data=='ok'){
 				   $(".step2").hide();
 				   $(".step3").show();
 				   $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active"); 
 			   }
 		   },error:function(){
-			   alert("실패!!");
+			//   alert("실패!!");
 		   }
 	   });
 	   
