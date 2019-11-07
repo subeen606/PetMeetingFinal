@@ -48,7 +48,7 @@
 								<td><img src="./mypage_resources/mypage_s/images/unknown.png" class="flw-img"></td>
 							</c:if>
 							<c:if test="${following.myprofile_img != null}">		
-								<td><img src="${following.myprofile_img }" class="flw-img"></td>
+								<td><img src="upload/${following.myprofile_img }" class="flw-img"></td>
 							</c:if>
 							<td align="left" style="padding:15px">
 								<b>${following.nickname}</b>
@@ -75,7 +75,7 @@
 								<td><img src="./mypage_resources/mypage_s/images/unknown.png" class="flw-img"></td>
 							</c:if>
 							<c:if test="${follower.myprofile_img != null}">		
-								<td><img src="${follower.myprofile_img }" class="flw-img"></td>
+								<td><img src="upload/${follower.myprofile_img }" class="flw-img"></td>
 							</c:if>
 							<td align="left" style="padding:15px">
 								<b>${follower.nickname}</b>

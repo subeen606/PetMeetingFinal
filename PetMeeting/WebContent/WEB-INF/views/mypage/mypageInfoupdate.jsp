@@ -171,7 +171,7 @@ function update() {
 				  
 					 
 				 },error:function(){
-					 alert("실패!");
+					// alert("실패!");
 				 }
 			}); 
 			
@@ -327,7 +327,7 @@ $("#checkpwd").click(function(){
 			 }
 			 
 		 },error:function(){
-			 alert("실패!");
+			// alert("실패!");
 		 }
 	}); 
 	

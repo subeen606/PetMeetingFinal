@@ -241,7 +241,7 @@ $('#myProfile_insertBtn').on("click",function(){
 			
 		},
 		error: function (error) {
-            alert(JSON.stringify(error));          
+            //alert(JSON.stringify(error));          
             $("#myProfile_insertBtn").prop("disabled", false);
             alert("프로필 등록 실패...");
 		}	
@@ -267,11 +267,11 @@ $('#myProfile_updateSubBtn').on("click",function(){
         cache: false,
 		async: false,
 		success : function(str) {			
-			alert("프로필 수정 완료!");
+			//alert("프로필 수정 완료!");
 			location.href="myprofile.do";
 		},
 		error: function (error) {
-            alert(JSON.stringify(error));
+            //alert(JSON.stringify(error));
             alert("프로필 수정 실패...");
 		}
 	});
@@ -338,7 +338,7 @@ $("#nickChk_btn").on("click",function(){
 		},
 		error: function (error) {
             alert(JSON.stringify(error));
-            alert("닉네임 체크 실패...");
+            //alert("닉네임 체크 실패...");
 		}
 	});
 });

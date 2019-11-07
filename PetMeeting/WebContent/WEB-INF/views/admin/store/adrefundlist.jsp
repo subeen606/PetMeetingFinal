@@ -312,7 +312,11 @@ $(".status-refund").click(function () {
 			alert("error");
 		}
 	   }).done(function(result) {
-		   alert(result);
+		//   alert(result);
+		if(result.trim() == 'refund complete') {
+			alert("환불이 성공적으로 완료되었습니다.");
+			location.reload();
+		}
 	   });
 	}
 });

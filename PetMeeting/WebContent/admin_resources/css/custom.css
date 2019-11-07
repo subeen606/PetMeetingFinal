@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+input[type=text] {
+	border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    /* margin-right: 10px; */
+}
+
 /* search */
 .search-wrap {
 	text-align: right;

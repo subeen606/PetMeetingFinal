@@ -24,7 +24,7 @@ Mypagememandpet profile=(Mypagememandpet)request.getAttribute("proflie");
          <%
       }else{
     	  %>
-            <img alt="" src="<%=profile.getMyprofile_img()%>">	  
+            <img alt="" src="upload/<%=profile.getMyprofile_img()%>">	  
     	  <%
       }
       %>

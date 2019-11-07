@@ -619,18 +619,6 @@ function pay() {
 		var delivery = 2500;
 		if (type == 'one') {
 		//	alert("if type = one")
-
-		
-			jQuery.ajax({
-				url : "productorderAf.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-				type : 'POST',
-				data : formData,
-				async : false,
-			}).done(function(data) {
-		        $("#_orderInfoform").attr("action", "ordercomplete.do").submit();
-		        alert(msg);
-			});
-		<%-- 
 			IMP.request_pay({
 				pg : 'KG inicis',
 				pay_method : 'card',
@@ -674,45 +662,12 @@ function pay() {
 					alert(msg);
 				}
 			});
-		 --%>
 		
 			 
 // 				 $("#_orderInfoform").attr("action", "ordercomplete.do").submit();
 				 
 			}else if(type == "null"){
 
-				var orderdetail = $("#_orderInfoform").serialize();
-				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-				jQuery.ajax({
-					url : "cartorderdelete.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-					type : 'POST',
-					data : orderdetail,
-					async : false
-				}).done(function(data) {
-					for (var i = 0; i < tot.length; i++) {
-	// 					alert(tot.length);
-						var formD = $("#multiorder-form"+i).serialize();
-					
-	//					alert(formD);
-						
-						$.ajax({
-							url : "cartorderAf.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-							type : 'POST',
-							data : formD,
-							async : false,
-							success: function () {
-								alert("suc");
-							},
-							error: function () {
-								alert("err")
-							}
-						});
-						
-					}
-
-					location.href= "ordercomplete.do?ordernumber="+ orderNo +"&use_point=" + useP;
-				});
-				<%-- 
 				IMP.request_pay({
 					pg : 'KG inicis',
 					pay_method : 'card',
@@ -750,7 +705,7 @@ function pay() {
 										data : formD,
 										async : false,
 										success: function () {
-											alert("suc");
+										//	alert("suc");
 										},
 										error: function () {
 											alert("err")
@@ -780,7 +735,6 @@ function pay() {
 					}
 				});
 				
-				 --%>
 			}
 		}
 	}

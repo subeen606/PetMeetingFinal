@@ -412,13 +412,13 @@ $('#petProfile_updateSubBtn').on("click",function(){
         cache: false,
       async: false,
       success : function(str) {         
-         alert("펫 프로필 수정 완료!");
+         //alert("펫 프로필 수정 완료!");
          location.href="mypetprofile.do";
          
       },
       error: function (error) {
             alert(JSON.stringify(error)); 
-            alert("펫 프로필 수정 실패...");
+            //alert("펫 프로필 수정 실패...");
       }
    });
 });

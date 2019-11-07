@@ -552,7 +552,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
     					 location.href="main.do";
     					 
     				 },error:function(){
-    					 alert("실패~~_~_~_");
+    					 //alert("실패~~_~_~_");
     				 }
     				 
     			}) 
@@ -641,7 +641,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 			 }
 			 
 		 },error:function(){
-			 alert("실패!");
+			// alert("실패!");
 		 }
 	}); 
 	
