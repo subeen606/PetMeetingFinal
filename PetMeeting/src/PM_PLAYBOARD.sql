@@ -505,17 +505,4 @@ SELECT R.SEQ, R.BAD_EMAIL, R.EMAIL, R.REASON, M.NICKNAME
 		
 		
 		SELECT * FROM PM_PRODUCT
-		
-		
-		
-		
-		
-		
-		
-		CREATE TABLE NOTICE(
-			WRITER VARCHAR2(50),
-			TITLE VARCHAR2(200),
-			CONTENT VARCHAR2(2000)
-		);
-		
-		select * from notice
+
