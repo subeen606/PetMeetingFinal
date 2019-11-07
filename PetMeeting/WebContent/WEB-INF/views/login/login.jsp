@@ -8,7 +8,6 @@
 <title>로그인</title>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<!-- 유정추가 로그인모달창 CSS Files -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/login_resources/css/loginmodal.css">
 
 </head>
@@ -94,7 +93,7 @@
 						<a id="custom-login-btn" href="javascript:loginWithKakao()">
 						<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" id="kakaologbtn"/>
 						</a>
-						<a href="http://developers.kakao.com/logout">카카오 로그아웃(임시)</a>
+						<!-- <a href="http://developers.kakao.com/logout">카카오 로그아웃(임시)</a> -->
 					</div>
 					
 
@@ -204,14 +203,10 @@ function inputPhoneNumber(obj) {
 
 // 이메일찾기
 function emailfind() {
-	
-	//alert("emailfind클릭");
-	
 	var url = "emailfind.do";
 	var option = "scrollbars=no, left=200,top=200, width=650, height=530";
 	var name = "내 계정 찾기";
-	window.open(url, name, option);
-	
+	window.open(url, name, option);	
 }
 
 
