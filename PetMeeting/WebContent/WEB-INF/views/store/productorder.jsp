@@ -643,10 +643,10 @@ function pay() {
 						//	alert(rsp.status);
 						//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 						if (rsp.status == 'paid') {
-							var msg = '결제가 완료되었습니다.';
-					        msg += '결제 금액 : ' + rsp.paid_amount;
-					        msg += '주문번호 : ' + rsp.merchant_uid;
-					        msg += '카드 승인번호 : ' + rsp.apply_num;
+							var msg = '결제가 완료되었습니다. \n';
+					        msg += '결제 금액 : ' + rsp.paid_amount + '\n';
+					        msg += '주문번호 : ' + rsp.merchant_uid + '\n';
+					        msg += '카드 승인번호 : ' + rsp.apply_num + '\n';
 						
 					        $("#_orderInfoform").attr("action", "ordercomplete.do").submit();
 					        alert(msg);
@@ -713,10 +713,10 @@ function pay() {
 									});
 								}
 			
-								var msg = '결제가 완료되었습니다.';
-						        msg += '결제 금액 : ' + rsp.paid_amount;
-						        msg += '주문번호 : ' + rsp.merchant_uid;
-						        msg += '카드 승인번호 : ' + rsp.apply_num;
+								var msg = '결제가 완료되었습니다. \n';
+						        msg += '결제 금액 : ' + rsp.paid_amount + '\n';
+						        msg += '주문번호 : ' + rsp.merchant_uid + '\n';
+						        msg += '카드 승인번호 : ' + rsp.apply_num + '\n';
 							
 								alert(msg);
 								

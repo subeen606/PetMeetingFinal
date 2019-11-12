@@ -82,7 +82,7 @@
 						</div>
 						
 						<div class="lg_link_find">
-						<a href="javascript:emailfind()" class="lg_find_text">계정</a>·
+						<!-- <a href="javascript:emailfind()" class="lg_find_text">계정</a>· -->
 						<a href="javascript:emailfind()" class="lg_find_text">비밀번호 찾기</a>
 						</div>
 					</div>

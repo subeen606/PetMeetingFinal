@@ -171,7 +171,8 @@ $(document).on('click', '.titleAnchor', function(){
 					str += "</div>";
 				});
 				
-				$(".row").last().append(str);
+				$(".playboardContainer").find(".row").last().append(str);
+				
 				if(parseInt($("input[name='endRow']").val()) == ${hashCount }){
 					$("#loadmore").hide();
 				}

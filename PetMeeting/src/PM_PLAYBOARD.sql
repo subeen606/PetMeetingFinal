@@ -500,9 +500,23 @@ SELECT R.SEQ, R.BAD_EMAIL, R.EMAIL, R.REASON, M.NICKNAME
 		
 		SELECT * FROM PM_FREEBOARD
 		
-		
-		
-		
+		SELECT * FROM PM_MEMBER
 		
 		SELECT * FROM PM_PRODUCT
 
+		
+		alter table PM_MYPROFILE modify (MYPROFILE_IMG VARCHAR2(500));
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

@@ -43,7 +43,10 @@
 			
 			<tr>
 				<th>기존 행사 썸네일</th>
-				<td><img src="${pageContext.request.contextPath}/eventboardUpload/${detail.filename }" width="300px;"></td>
+				<td>
+				<input type="hidden" name="filename" value="${detail.filename }">
+				<img src="${pageContext.request.contextPath}/eventboardUpload/${detail.filename }" width="300px;">
+				</td>
 			</tr>
 			
 			<tr>

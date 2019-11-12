@@ -161,7 +161,7 @@
 	    			태그
 	    		</div>
 	    		<div class="writeInput">
-	    			<input type="text" name="hashtag" placeholder="#태그를 입력해보세요!">
+	    			<input type="text" autocomplete="off" name="hashtag" placeholder="#태그를 입력해보세요!">
 	    			<input type="hidden" name="hash1">
 	    			<input type="hidden" name="hash2">
 	    			<input type="hidden" name="hash3">

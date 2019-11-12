@@ -473,8 +473,8 @@ public class AdminCotroller {
 	public String adminEventUpdateAf(EventboardDto eventDto, PlayboardDateBean datebean,
 			   @RequestParam(value = "fileload", required = false)MultipartFile fileload, HttpServletRequest req) {
 		
-		System.out.println(eventDto.toString());
-		System.out.println(datebean.toString());		
+		System.out.println("adminEventUpdateAf.do : " + eventDto.toString());
+		System.out.println("adminEventUpdateAf.do : " + datebean.toString());		
 
 		// Date형식으로 변환
 		Date sdate = DateUtil.toDate(datebean.getPyear(), datebean.getPmonth(), datebean.getPday());
@@ -517,7 +517,7 @@ public class AdminCotroller {
 		}
 		System.out.println("filename : " + filename);
 			
-	//	System.out.println("update할 pdto : " + eventDto.toString());
+		System.out.println("update할 pdto : " + eventDto.toString());
 		adminService.eventUpdate(eventDto);
 		return "redirect:/adminEventBoard.do";
 	}
