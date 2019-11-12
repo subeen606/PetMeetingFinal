@@ -114,30 +114,32 @@ $(function () {
 		lang: 'ko-KR', // 언어 세팅
 		callbacks: {
 			onImageUpload: function(files, editor) {
-				sendFile(files[0], editor);
+				sendFile(files, editor);
 			}
 		}
 	});
 	
-	function sendFile(file, editor) {
-		data = new FormData();
-		data.append("file", file);
-	//	alert(data);
-		$.ajax({
-		    data: data,
-		    type: "POST",
-		    url: "editorimgupload.do",
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    success: function(filename) {
-		    	alert("upload/" + filename);
-		        $("#summernote").summernote('editor.insertImage', "upload/" + filename);
-		    },
-		    error: function () {
-				alert("error");
-			}
-		});
+	function sendFile(files, editor) {
+		for (var i = 0; i < files.length; i++) {
+			data = new FormData();
+			data.append("file", files[i]);
+		//	alert(data);
+			$.ajax({
+			    data: data,
+			    type: "POST",
+			    url: "editorimgupload.do",
+			    cache: false,
+			    contentType: false,
+			    processData: false,
+			    success: function(filename) {
+			    //	alert("upload/" + filename);
+			        $("#summernote").summernote('editor.insertImage', "upload/" + filename);
+			    },
+			    error: function () {
+					alert("error");
+				}
+			});
+		}
 	}
 	
 	$("input[name=productcode]").blur(function () {

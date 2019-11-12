@@ -54,68 +54,65 @@
 %>
 
 <div style="float: left; width: 96%; text-align: center;">
-	<!-- << -->
-	<a href="#none" title="처음페이지" onclick="goPage('0')">
-		<img alt="" src="image/arrow_first.gif" style="width: 9px; height: 9px">
+	<!-- << (첫 페이지) -->
+	<a href="#none" title="처음 페이지" onclick="goPage('0')">
+		<img alt="" src="playboard_resources/img/firstPage.png" style="width: 15px; height: 15px; vertical-align: middle;">
 	</a>
 	
-	<!-- < 11~20 의 1~10 이동 -->
+	
+	<!-- < (이전페이지) -->
 	<%
-	if(screenStartPageIndex > 1){
-		%>
-		<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1 %>')">
-			<img alt="" src="image/arrow_back.gif" style="width: 9px; height: 9px">
+	if(screenStartPageIndex > 1){%>
+		<a href="#none" title="이전 페이지" onclick="goPage('<%=screenStartPageIndex-1 %>')">
+			<img alt="" src="playboard_resources/img/prevPage.png" style="width: 15px; height: 15px; vertical-align: middle;">
 		</a>
-		<%
+	<%
 	}
 	%>
 	
-	<!-- [1] 2 [3] -->
+	<!-- [1][2] 3  -->
 	<%
-	for(int i = screenStartPageIndex; i < screenEndPageIndex; i++){
-		if(i == pageNumber){	// 현재 페이지
-			%>
-			<span style="font-size: 9pt; color: #000000; font-weight: bold;">
+	for(int i=screenStartPageIndex; i<screenEndPageIndex; i++){
+		//현재페이지
+		if(i == pageNumber){%>	
+			<span style="font-size: 15pt; color: black; font-weight: bold;">
 				<%=i+1 %>
 			</span>
-			<%
-		}else{		// 그외의 페이지들
-			%>
-			<a href="#none" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)"	
-				style="font-size: 7.5pt; color: #000000; font-weight: normal;">
-				[<%=i+1 %>]
-			</a>	
-			<%	
+		
+		<%	
+		}else{%>
+			<a href="#none" title="<%=i+1 %>페이지" onclick="goPage('<%=i %>')" style="font-size: 12pt; color: gray; font-weight: bold;">
+				<%=i+1 %>
+			</a>
+		<%	
 		}
 	}
 	%>
-
-	<!-- > 1~10 의 11~20 이동 -->
+	
+	
+	<!-- > -->
 	<%
-	if(screenEndPageIndex < totalPageCount){	//  [11][12][13] >
-		%>
-		<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>)">
-			<img alt="" src="image/arrow_next.gif" style="width: 9px; height: 9px">
+	if(screenEndPageIndex < totalPageCount){%>
+		<a href="#none" title="다음 페이지" onclick="goPage(<%=screenEndPageIndex %>)">
+			<img alt="" src="playboard_resources/img/nextPage.png" style="width: 15px; height: 15px; vertical-align: middle;">
 		</a>
-		<%	
-	}	
+	
+	<%		
+	}
+	%>
+	
+	
+	<!-- >> -->
+	<%
 	int end_page = 0;
 	if(totalPageCount > 0){
-		end_page = totalPageCount - 1;	
+		end_page = totalPageCount-1;
 	}
-	
-	//		[1][2][3]
-	//		[11][12][13]
-	//		총페이지 -> 120		
-	
 	%>
-	<!-- >> -->
-	<a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>)">
-		<img alt="" src="" style="width: 9px; height: 9px">
+	
+	<a href="#none" title="마지막 페이지" onclick="goPage(<%=end_page %>)">
+		<img alt="" src="playboard_resources/img/lastPage.png" style="width: 15px; height: 15px; vertical-align: middle;">
 	</a>
 	
-
 </div>
-
-
 

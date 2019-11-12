@@ -159,7 +159,7 @@ $(document).ready(function() {
 				location.href="mysendmsg.do";
 			},
 			error:function(request,status,error){
-		        alert("code:"+request.status + "message:"+request.responseText+"error:"+error);
+		     
 		     
 			}
 
@@ -249,7 +249,7 @@ function goPage(pageNumber){
 					location.href="mysendmsg.do?recordCountPerPage=${sparam.recordCountPerPage}";
 				},
 				error : function() {
-					alert("실패의 참맛");
+			
 				}
 			});
 		}

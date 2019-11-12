@@ -25,31 +25,21 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public void fbwritedown(FreeboardDto fb) {
-		System.out.println("fb dao writedown 왔다감");
-		System.out.println(fb.toString());
 		sqlSession.insert("freeboard.fbwritedown", fb);
 	}
 
 	@Override
 	public List<FreeboardDto> getfbList(FbParam param) {
-		System.out.println("fb다오 listv 왔다감");
-		System.out.println("-----------------" + param.getBoard_code());
-		
 		return sqlSession.selectList("freeboard.getfbList", param);
 	}
 
 	@Override
 	public FreeboardDto getdetail(int seq) {
-		System.out.println("fb다오 getdetail 왔다감");
-		System.out.println("여긴왜????????????");
-		
 		return sqlSession.selectOne("freeboard.getdetail", seq);
 	}
 
 	@Override
 	public void fbupdate(FreeboardDto fb) {
-		System.out.println("fb다오 fbupdate 왔다감");
-		System.out.println(fb.toString());
 		sqlSession.update("freeboard.fbupdate", fb);
 	}
 
@@ -67,79 +57,66 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public List<FreeboardDto> soltingfree(FbParam param) {
-		System.out.println("fb다오 soltingdate 왔다감");
 		return sqlSession.selectList("freeboard.soltingfree", param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingmiss(FbParam param) {
-		System.out.println("fb다오 soltingmiss 왔다감");
 		return sqlSession.selectList("freeboard.soltingmiss", param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltinginfor(FbParam param) {
-		System.out.println("fb다오 soltinginfor 왔다감");
 		return sqlSession.selectList("freeboard.soltinginfor", param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingqna(FbParam param) {
-		System.out.println("fb다오 soltinginfor 왔다감");
 		return sqlSession.selectList("freeboard.soltingqna", param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingboast(FbParam param) {
-		System.out.println("fb다오 soltinginfor 왔다감");
 		return sqlSession.selectList("freeboard.soltingboast", param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingdate(FbParam param) {
-		System.out.println("fb다오 soltingdate 왔다감");
 		return sqlSession.selectList("freeboard.soltingdate", param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltinglike(FbParam param) {
-		System.out.println("fb다오 soltinglike 왔다감");
 		return sqlSession.selectList("freeboard.soltinglike", param);
 	}
 
 	@Override
 	public List<FreeboardDto> solting_date(FbParam param) {
-		System.out.println("fb다오 soltingdate 왔다감");
 		return sqlSession.selectList("freeboard.solting_date", param);
 	}
 
 	@Override
 	public List<FreeboardDto> solting_like(FbParam param) {
-		System.out.println("fb다오 soltinglike 왔다감");
 		return sqlSession.selectList("freeboard.solting_like", param);
 	}
 
 	@Override
 	public List<FreeboardDto> soltingread(FbParam param) {
-		System.out.println("fb다오 soltinglike 왔다감");
 		return sqlSession.selectList("freeboard.soltingread", param);
 	}
 	
 	@Override
 	public List<FreeboardDto> solting_read(FbParam param) {
-		System.out.println("fb다오 soltinglike 왔다감");
 		return sqlSession.selectList("freeboard.solting_read", param);
 	}
 	
 	@Override
 	public void writedowncomment(CommentDto cmdto) {
-		System.out.println("fb dao writedown 왔다감");
 		sqlSession.insert("freeboard.writedowncomment", cmdto);
 	}
 
 	@Override
 	public List<CommentDto> getcmList(int seq) {
-		System.out.println("fb다오 getcmlistv 왔다감");
 		return sqlSession.selectList("freeboard.getcmList", seq);
 	}
 
@@ -171,10 +148,7 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public boolean dolikecheck(BoardlikeDto likedto) {
-		System.out.println("fbdao doliekcheck 왓다감");
 		int n = sqlSession.selectOne("freeboard.dolikecheck", likedto);
-		System.out.println(n);
-		//System.out.println(likedto.toString());
 		return n>0?true:false;
 	}
 
@@ -195,9 +169,7 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public boolean docmlikecheck(CommentlikeDto cmlikedto) {
-		System.out.println("fbdao docmliekcheck 왓다감");
 		int nn = sqlSession.selectOne("freeboard.docmlikecheck", cmlikedto);
-		System.out.println(nn);
 		return nn>0?true:false;
 		}
 
@@ -228,7 +200,6 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public void cmupdate(CommentDto cmdto) {
-		System.out.println("fb다오 cmupdate 왔다감");
 		sqlSession.update("freeboard.cmupdate", cmdto);
 	}
 
@@ -261,7 +232,6 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public void reportwritedown(ReportDto reportDto) {
-		System.out.println("fb dao reportwritedown 왔다감");
 		sqlSession.insert("freeboard.reportwritedown", reportDto);
 	}
 
@@ -273,7 +243,6 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public void cmreportwritedown(CmreportDto cmreportDto) {
-		System.out.println("fb dao cmreportwritedown 왔다감");
 		sqlSession.insert("freeboard.cmreportwritedown", cmreportDto);
 	}
 
@@ -296,7 +265,6 @@ public class FreeboardDaoImpl implements FreeboardDao{
 
 	@Override
 	public void Freeboardadmindelete(int seq) {
-		System.out.println("다오 관리자삭제"+seq);
 		sqlSession.delete("Freeboardadmindelete", seq);
 	}
 
@@ -314,6 +282,13 @@ public class FreeboardDaoImpl implements FreeboardDao{
 	public boolean admincmdelete(CommentDto cmdto) {
 		int n = sqlSession.update("freeboard.admincmdelete", cmdto);
 		return n>0? true:false;
+	}
+
+	@Override
+	public void reportcountup(int seq) {
+		System.out.println("시퀀스값 확인");
+		System.out.println(seq);
+		sqlSession.update("freeboard.reportcountup", seq);
 	}
 
 	

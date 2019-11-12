@@ -227,7 +227,7 @@ $(document).ready(function(){
 				});
 			},
 			error : function() {
-				alert("실패의 참맛");
+	
 			}
 		});
 	});
@@ -290,7 +290,7 @@ $(document).ready(function(){
 					
 				},
 				error : function() {
-					alert("실패의 참맛");
+				
 				}
 			});
 		}
@@ -331,7 +331,6 @@ $(document).ready(function(){
 	$("#_important").on("click",function(){
 		if(count == 0){
 			$(this).val('중요');
-			alert($(this).val());
 			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
@@ -340,7 +339,6 @@ $(document).ready(function(){
 		}
 		else if(count == 1){
 			$(this).val('안중요');
-			alert($(this).val());
 			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
@@ -353,7 +351,6 @@ $(document).ready(function(){
 	$("#_readcheck").on("change",function(){
 		if(count == 0){
 			$(this).val('읽지않음');
-			alert($(this).val());
 			$("#_pageNumber").val(0);
 			$("#_recordCountPerPage").val("${sparam.recordCountPerPage}");
 			$("#_selection").val("${sparam.selection}");
@@ -363,7 +360,6 @@ $(document).ready(function(){
 		}
 		else if(count == 1){
 			$(this).val('모두');
-			alert($(this).val());
 			$("#_pageNumber").val(0);
 			$("#_important").val("${sparam.important}");
 			$("#_readcheck").val("${sparam.readcheck}");
@@ -421,7 +417,7 @@ function goPage(pageNumber){
 					location.href="myrevmsg.do?recordCountPerPage=${sparam.recordCountPerPage}";
 				},
 				error : function() {
-					alert("실패의 참맛");
+					
 				}
 			});
 		}

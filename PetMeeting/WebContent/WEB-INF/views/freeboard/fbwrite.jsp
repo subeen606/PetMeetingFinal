@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="freeboard_resources/css/bootstrap.css">
 <link rel="stylesheet" href="freeboard_resources/css/freeboard_style.css">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script type="text/javascript" src="freeboard_resources/ckeditor/ckeditor.js"></script>
 
 </head>
 <body>
@@ -23,23 +23,7 @@
 <input type="hidden" class="hdemail" value="${login.email}">
 <%	MemberDto user = (MemberDto)request.getSession().getAttribute("login");%>
 <%FreeboardDto fb = (FreeboardDto)request.getAttribute("dto"); %>
-<div class="container">
-  	<div class="fbtitle" align="left" style="margin-top: 2%; margin-left: 2%;">
-  		
-  	<c:if test="${board_code eq 'DOG'}">
-  		<input type="button" value="강아지 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-   	</c:if>
-   	
-   	<c:if test="${board_code eq 'CAT'}">
-  		<input type="button" value="고양이 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-   	</c:if>
-	
-   	<c:if test="${board_code eq 'ETC'}">
-  		<input type="button" value="기타 동물 게시판" id="boardtitle" style="background-color:#585e7d; border: 1px solid #585e7d; float: left; margin-top: 2%; margin-left: 2%;">
-   	</c:if>
-   	</div>
-	    	
-</div>
+
 
 <form method="post" name="fbwriteinfo" id="_fbwriteFrm" action="freeboard_boardwritedown.do">
 	<input type="hidden" name="email" value="<%=user.getEmail() %>">
@@ -71,27 +55,23 @@
             			</tr>
             			<tr>
             				<td colspan="2"><br>
-            					<textarea type="text" name="content" class="content" placeholder="내용" id="summernote"  rows="10" cols="50" ></textarea>		
+            					<textarea type="text" name="content" class="content" placeholder="내용" id="p_content"  rows="10" cols="50" ></textarea>		
             					
             				</td>
-            			</tr>
-            			<tr>
-            				
-            			
             			</tr>
             	</table>
 	       	</div>
 	        </div>
         <input type="hidden" id="b_code" name="b_code" value="" />  
         </div>
-    
+   <br>
 </div>  
 
 
 <div class="container" >
-<input type="button" id="_btnlist" style="float: right; margin-right: 5%; background-color:#585e7d; border: 1px solid #585e7d;" value="취소" onclick="location.href='fblistview.do'">
-<input type="button" id="_btnlist" style="float: right; margin-right: 5%; background-color:#585e7d; border: 1px solid #585e7d;;" value="글쓰기완료" onclick="writefb()">
-
+<input type="button" class="_btnlist cancel" value="취소" onclick="location.href='freeboard_listview.do'">
+<input type="button" class="_btnlist ok" value="글쓰기완료" onclick="writefb()">
+<br><br><br><br>	
 <!-- email -->
 <input type="hidden" class="hdemail" value="${login.email}">
 
@@ -101,22 +81,7 @@
 <!--::footer part start::-->    
 <jsp:include page="/common/navbar/templates/footer.jsp" flush="false"/>   
 <!-- footer part end--> 
-   
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
- 
- 
-<script type="text/javascript">
-$('#summernote').summernote({
-       placeholder: '내용을 입력해주세요',
-       tabsize: 2,
-       height: 400,
-       minHeight: null,             // set minimum height of editor
-          maxHeight: null,             // set maximum height of editor
-          focus: true                  // set focus to editable area after initializing summernote
-  
-     });
-</script>
 
 <script>
 function notnull(){
@@ -140,7 +105,20 @@ function writefb(){
 }
 
 
+
+
+
+
 </script>
+
+
+<script type="text/javascript">
+ CKEDITOR.replace('p_content'
+                , {height: 500                                                  
+                 });
+</script>
+
+
    
 </body>
 </html>

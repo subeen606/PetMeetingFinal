@@ -47,7 +47,7 @@ $("#emailAuthSend_btn").on("click",function(){
 			async: false,
 			success : function( data ) {
 				if(data == "ok"){
-					alert("일치하는 유저 정보가 없습니다.");					
+					alert("가입되지 않은 계정입니다.");					
 					$("#frm2_email").focus();
 				}
 				if(data == "notok"){					
@@ -71,8 +71,8 @@ $("#emailAuthSend_btn").on("click",function(){
 				}
 			},
 			error: function (error) {
-	            alert(JSON.stringify(error));
-	            alert("이메일 체크 실패...");
+				console.log(JSON.stringify(error));
+	            console.log("이메일 체크 실패...");
 			}
 		});	
 	}
@@ -93,7 +93,7 @@ $("#emailAuthCheck_btn").on("click",function(){
 				return false;
 			}
 			if(chk == true){
-				alert("이메일 인증 완료!");				
+				//alert("이메일 인증 완료!");				
 				$("#emailAutNum").prop("disabled",true);
 				$("#emailAuthCheck_btn").prop("disabled",true);
 				$("#frm2_pwd").prop("disabled",false);
@@ -209,7 +209,7 @@ $(".nextBtn").on({
 				self.close();
 			},
 			fail : function(error) {
-				alert("emailAuth error");
+				console.log("emailAuth error");
 			}
 		});
 	}

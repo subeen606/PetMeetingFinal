@@ -191,14 +191,18 @@
 <script type="text/javascript">
 
 $(document).ready(function () {
-		  Notification.requestPermission(function (status) {
+
+	Notification.requestPermission(function (status) {
 		    // This allows to use Notification.permission with Chrome/Safari
+
+		    // alert(Notification.permission);
+
 		  //  alert("status"+status);
-		    if (Notification.permission !== status) {
+		    if (Notification.permission != status) {
 		      Notification.permission = status;
 		    }
 		  });
-	
+	 
 	$.ajax({
 		 type:"POST",
 		 url:"mypagemsgpush.do",
@@ -210,7 +214,7 @@ $(document).ready(function () {
 				$(".nowmymsg").val(count);				
 			}			
 		  },error:function(){
-			  alert("실패!");
+			//  alert("실패!");
 		  }
 	   });
        
@@ -257,7 +261,7 @@ $(document).ready(function () {
 				}				 
 				 
 			  },error:function(){
-				  alert("실패!");
+				 // alert("실패!");
 			  }
 		   });
 	}	
