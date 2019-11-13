@@ -94,10 +94,6 @@ function notnull(){
 function writefb(){
 	var form = document.fbwriteinfo;
 	
- 	if(!form.title.value || !form.content.value){
-		alert("모든 항목을 입력해주세요");
-		return false;
-	} 
 	
 	$("#_fbwriteFrm").submit();
 	

@@ -94,9 +94,9 @@
 </div>
 
 <div class="radioDiv">
-	<input type="radio" name="List" id="List1" value="_update" <c:if test="${ing_end == '_update' }">checked</c:if>><label for="List1">전체 후원</label>
-	<input type="radio" name="List" id="List2" value="_ing" <c:if test="${ing_end == '_ing' }">checked</c:if>><label for="List2">진행중인 후원</label>
-	<input type="radio" name="List" id="List3" value="_end" <c:if test="${ing_end == '_end' }">checked</c:if>><label for="List3">마감된 후원</label>
+	<input type="radio" name="List" id="List1" value="_update" <c:if test="${ing_end == '_update' }">checked</c:if>><label for="List1" class="labelC">전체 후원</label>
+	<input type="radio" name="List" id="List2" value="_ing" <c:if test="${ing_end == '_ing' }">checked</c:if>><label for="List2" class="labelC">진행중인 후원</label>
+	<input type="radio" name="List" id="List3" value="_end" <c:if test="${ing_end == '_end' }">checked</c:if>><label for="List3" class="labelC">마감된 후원</label>
 </div>
 ※모든 후원은 자정에 마감됩니다.
 

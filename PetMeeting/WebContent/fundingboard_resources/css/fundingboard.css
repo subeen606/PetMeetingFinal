@@ -17,7 +17,7 @@ input[type=radio]{
  display: none;	
  margin: 10px;
 }
-label{
+.labelC {
 	margin:  0 0 -1px;
 	padding:  8px;
 	font-weight: bold;
@@ -28,11 +28,11 @@ label{
 	border-radius: 0.3rem;
 	cursor:pointer;
 }
-label:hover{
+.labelC:hover{
 	color: #212121;
 	cursor:pointer;
 }
-input:checked + label{
+input:checked + .labelC{
 	color: #212121;
     background-color: #c2d7e1;
 	

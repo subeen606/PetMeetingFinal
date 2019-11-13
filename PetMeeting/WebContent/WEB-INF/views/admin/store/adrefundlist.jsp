@@ -324,7 +324,6 @@ $(".status-refund").click(function () {
 // 교환 완료
  $(".status-change").click(function () {
 	var seq = $(this).attr("refund_seq");
-	alert("seq : " + seq)
 	
 	$.ajax({
 		url : "adproductchange.do",
